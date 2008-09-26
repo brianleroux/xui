@@ -10,7 +10,15 @@
 <script type="text/javascript" language="javascript">
 // <![CDATA[
 
-describe("selector:id", {
+describe("xui base",{
+
+  'should return string of device':function() {
+    //value_of(xui.device).should_be('android');
+  }
+  
+});
+
+describe("selector id", {
   
   'before': function(){
     x = $("item_1");
@@ -22,7 +30,7 @@ describe("selector:id", {
 	
 });
 
-describe("selector:class", {
+describe("selector class", {
   
   'before': function(){
     x = $$("item");
@@ -30,9 +38,28 @@ describe("selector:class", {
 	
 	'should return array with three items': function(){
 	  value_of(x.length).should_be(3);
-	}
-	
+  },
+  
 });
+
+
+describe( 'xui.xhr', {
+	// this is open for debate.
+	// xui.xhr.get( 'url', options );
+	// xui.xhr.post( 'url', { success:function(){}, timeout:3});
+});
+
+describe( 'xui.events', {
+	// guestures, etc
+	// x$('#foo').click( function() { });
+	// x$('#foo').swipe( function() { });
+});
+
+
+describe( 'xui.fx', {
+	//	x$('#foo').click( function() { })
+});
+
 
 // ]]>
 </script>
