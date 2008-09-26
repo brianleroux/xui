@@ -31,28 +31,27 @@ describe( 'xui base', {
 	'should say this device':function() {
 		value_of(xui.device).should_be('android');
 	}
-})
+});
 
 
+describe( 'xui.xhr', {
+	// this is open for debate.
+	// xui.xhr.get( 'url', options );
+	// xui.xhr.post( 'url', { success:function(){}, timeout:3});
+});
 
-/*
-x$('#foo').addClass = 'foo'
-x$('#foo').removeClass = 'foo'
-x$('#foo').xy() // returns {x:1,y:2}
+
+describe( 'xui.events', {
+	// guestures, etc
+	// x$('#foo').click( function() { });
+	// x$('#foo').swipe( function() { });
+});
 
 
-// jquery style events are nicer
-x$('#foo').click( function() {
-	// much nicer
-})
+describe( 'xui.fx', {
+	//	x$('#foo').click( function() { })
+});
 
-// this is open for debate.
-xui.xhr.get( 'url', options );
-xui.xhr.post( 'url', { success:function(){}, timeout:3});
-
-// totally
-And FX we can get into later
-*/
 
 
 /*
