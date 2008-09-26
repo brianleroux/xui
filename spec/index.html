@@ -2,10 +2,58 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-<title>JSSpec results</title>
+<title>xui spec results</title>
 <link rel="stylesheet" type="text/css" href="JSSpec.css" />
 <script type="text/javascript" src="JSSpec.js"></script>
 <script type="text/javascript">// <![CDATA[
+
+
+describe( 'xui base', {
+	
+	'before': function() {},
+	
+	'should say version': function() {
+		value_of(xui.version).should_be('0.0.1');
+	},
+	
+	'should output log':function() {
+		value_of(xui.log('holla if you loggah')).should_be(true);
+	},
+	
+	'should say this is not an iphone':function() {
+		value_of(xui.iphone).should_be(false);
+	},
+	
+	'should say this is not android':function() {
+		value_of(xui.android).should_be(false);
+	},
+	
+	'should say this device':function() {
+		value_of(xui.device).should_be('android');
+	}
+})
+
+
+
+/*
+x$('#foo').addClass = 'foo'
+x$('#foo').removeClass = 'foo'
+x$('#foo').xy() // returns {x:1,y:2}
+
+
+// jquery style events are nicer
+x$('#foo').click( function() {
+	// much nicer
+})
+
+// this is open for debate.
+xui.xhr.get( 'url', options );
+xui.xhr.post( 'url', { success:function(){}, timeout:3});
+
+// totally
+And FX we can get into later
+*/
+
 
 /*
 REFERENCE:
