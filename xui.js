@@ -9,7 +9,7 @@
       }
       this.elements.push(element);
     }
-    return this;
+    return this.elements[0];
   }
   _$.prototype = {
 	reClassNameCache: {},

@@ -21,11 +21,15 @@ describe("xui base",{
 describe("selector id", {
   
   'before': function(){
-    x = $("item_1");
+    x = x$('#item_1');
   },
+  
+  'should return array with three items': function(){
+	  value_of(x.length).should_be(1);
+	},
 	
 	'should return element': function(){
-	  value_of(x.outerHTML).should_match('<li class="item" id="item_1">this is item one</li>');
+	  value_of(x.innerHTML).should_match('this is item one');
 	},
 	
 });
@@ -33,7 +37,7 @@ describe("selector id", {
 describe("selector class", {
   
   'before': function(){
-    x = $$("item");
+    x = x$(".item");
   },
 	
 	'should return array with three items': function(){
