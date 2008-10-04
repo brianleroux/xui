@@ -5,7 +5,6 @@
 		for (var i=0; i<els.length; i++) {
 			var element = els[i];
 			if (typeof element == 'string') {
-				//element = document.getElementById(element);
 				var element = document.querySelectorAll(element);
 				for (var x=0;x<element.length;x++) {				
 					this.elements.push(element[x]);	
@@ -101,13 +100,43 @@
 	    
 	    return this;
 	},
-	/*
-	animate:function( options ) {
-		options.reverse_merge! {transform:defaultvalue, duration:defaulvalue, func:defaultval}	
+	animate: function( options, duration ) {
+		var that = this;
+		var duration = duration || 1;
+		
+		this.each(function(el){
+			that.setStyle('-webkit-transition','all '+duration+'s ease-in');
+
+			for (var prop in options) {
+				var by = options[prop].by;
+				var dist = by + parseInt(getStyle(el,prop));
+				that.setStyle(prop,dist + 'px');
+			}	
+		});
 	},
-	*/
+	canimate: function( options, duration ) {
+		var that = this;
+		var duration = duration || 1;
+		
+		this.each(function(el){
+			that.setStyle('-webkit-transition','all '+duration+'s ease-in');
+			
+			for (var prop in options) {
+				
+				var from = options[prop].from || getStyle(el,prop);
+				that.setStyle(prop,from);
+				var to = options[prop].to;
+				that.setStyle(prop,to);
+				
+			}			
+				
+		});
+	},
+
+	
+	
 	swipe: function(dir) {
-		dir = (dir != null) ? dir : 'right'; 
+		var dir = dir || 'right'; 
 		var that = this;
 		width = document.getElementsByTagName('body')[0].clientWidth;
 		this.each(function(el){
@@ -191,3 +220,19 @@
     return new _$(arguments);
   }
 })();
+
+
+
+function getStyle(oElm, strCssRule){
+	var strValue = "";
+	if(document.defaultView && document.defaultView.getComputedStyle){
+		strValue = document.defaultView.getComputedStyle(oElm, "").getPropertyValue(strCssRule);
+	}
+	else if(oElm.currentStyle){
+		strCssRule = strCssRule.replace(/\-(\w)/g, function (strMatch, p1){
+			return p1.toUpperCase();
+		});
+		strValue = oElm.currentStyle[strCssRule];
+	}
+	return strValue;
+}
