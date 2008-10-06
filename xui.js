@@ -104,14 +104,52 @@
 		var that = this;
 		var duration = duration || 1;
 		
+		var isset = function(prop) {
+	    	return (typeof prop !== 'undefined');
+	    };
+		
+		this.each(function(el){
+			//that.setStyle('-webkit-transition','all '+duration+'s ease-in');		
+			var start;
+			var end;
+			var run = [];
+			
+			for (var prop in options) {
+				
+				if ( !isset(options[prop]['to']) && !isset(options[prop]['by']) ) {
+					return false; // note return; nothing to animate to
+				}
+		
+				start = ( isset(options[prop]['from']) ) ? options[prop]['from'] : getStyle(el,prop);	
+				
+				if ( isset(options[prop]['to']) ) {
+					end = options[prop]['to'];
+				} else if ( options[prop]['by'] ) {
+					end = start + options[prop]['by'] * 1;
+				}
+				
+				run[prop] = {};
+				run[prop].start = start;
+				run[prop].end = end;
+				
+				el.run = run;
+				that.setStyle(prop,start + 'px');
+				
+				//var by = options[prop]['by'];
+				//var dist = by + parseInt(getStyle(el,prop));
+				//that.setStyle(prop,dist + 'px');
+			}	
+			
+		});
+		
 		this.each(function(el){
 			that.setStyle('-webkit-transition','all '+duration+'s ease-in');
-
-			for (var prop in options) {
-				var by = options[prop].by;
-				var dist = by + parseInt(getStyle(el,prop));
-				that.setStyle(prop,dist + 'px');
-			}	
+			for(var i in el.run) {
+				console.log(i);
+				//that.setStyle(i,el.run[i].start + 'px');
+				
+				that.setStyle(i,el.run[i].end + 'px');		
+			}
 		});
 	},
 	canimate: function( options, duration ) {
@@ -120,21 +158,14 @@
 		
 		this.each(function(el){
 			that.setStyle('-webkit-transition','all '+duration+'s ease-in');
-			
 			for (var prop in options) {
-				
 				var from = options[prop].from || getStyle(el,prop);
 				that.setStyle(prop,from);
 				var to = options[prop].to;
-				that.setStyle(prop,to);
-				
-			}			
-				
+				that.setStyle(prop,to);			
+			}							
 		});
 	},
-
-	
-	
 	swipe: function(dir) {
 		var dir = dir || 'right'; 
 		var that = this;

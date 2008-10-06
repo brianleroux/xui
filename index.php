@@ -12,6 +12,11 @@
       x$('#anim1').click(function() {
         x$('.box').animate({left: { by: 100 }});
       });
+      
+      x$('#anim3').click(function() {
+        x$('.box').animate({top: { from: 10, to: 200 },left: {from:200, to: 300 }});
+      });
+      
       x$('#anim4').click(function() {
         x$('.box').canimate({ backgroundColor: { to: '#ffdd00' }, color:{ to:'#fff'} });
       });
@@ -44,7 +49,7 @@
       <br />
       <button id="anim1">Right by 100</button>
       <button id="anim2">To 200,300</button>
-      <button id="anim3">From 10,300 to 200,300</button>
+      <button id="anim3">From 10,200 to 200,300</button>
       <button id="anim4">Background Color</button>
       
   </body>
