@@ -20,6 +20,10 @@
       x$('#anim4').click(function() {
         x$('.box').canimate({ backgroundColor: { to: '#ffdd00' }, color:{ to:'#fff'} });
       });
+      
+      x$('li').click(function(){
+        x$('ul').html('<li class="selected">New 1</li>','top');
+      });
     });
 
     </script>
@@ -52,5 +56,9 @@
       <button id="anim3">From 10,200 to 200,300</button>
       <button id="anim4">Background Color</button>
       
+      <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+      </ul>
   </body>
 </html>

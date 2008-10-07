@@ -198,8 +198,32 @@
  	    return this;
  	},
 	wrap:function(html,tag) {
+		attributes = {};
+		var re = /<([A-Z][A-Z0-9]*)(.*)[^>]*>(.*?)<\/\1>/i;
+		if(re.test(html)) {
+			result = re.exec(html);
+			tag = result[1];
+			if (result[2] != "") {
+				attrList = result[2].split(' ');
+				for(var i=0;i<attrList.length;i++){
+					if (attrList[i] != "") {
+						var node = attrList[i].split('=');
+						attributes[node[0]];
+						attributes[node[0]] = node[1].replace(/(["']?)/g,'');
+					}
+				}
+			}
+			
+			html = result[3]; 
+		}
 		var element = document.createElement(tag);
 		element.innerHTML = html;
+		for (var i in attributes) {
+			var a = document.createAttribute(i);
+			a.nodeValue = attributes[i];
+			element.setAttributeNode(a);
+		}
+		
 		return element;
 	},
 	html:function(html,loc) {
