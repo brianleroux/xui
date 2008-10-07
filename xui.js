@@ -203,6 +203,7 @@
 		if(re.test(html)) {
 			result = re.exec(html);
 			tag = result[1];
+			// if the node has any attributes, convert to object
 			if (result[2] != "") {
 				attrList = result[2].split(' ');
 				for(var i=0;i<attrList.length;i++){
