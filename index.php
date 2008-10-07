@@ -21,8 +21,22 @@
         x$('.box').canimate({ backgroundColor: { to: '#ffdd00' }, color:{ to:'#fff'} });
       });
       
-      x$('li').click(function(){
-        x$('ul').html('<li class="selected">New 1</li>','top');
+      x$('li.top').click(function(){
+        x$('ul').html('New Top Element (String or Element)','top');
+      });
+      
+      x$('li.bottom').click(function(){
+        x$('ul').html('<li class="selected">New Bottom Element (String or Element)</li>','bottom');
+      });
+      
+      
+      x$('li.inner').click(function(){
+        x$(this).html('New Inner Element');
+      });
+      
+      
+      x$('li.outer').click(function(){
+        x$(this).html('<li class="selected">New Outer Element (String or Element)</li>','outer');
       });
     });
 
@@ -56,9 +70,20 @@
       <button id="anim3">From 10,200 to 200,300</button>
       <button id="anim4">Background Color</button>
       
+      <h2>Dom Related</h2>
       <ul>
-        <li>Item 1</li>
-        <li>Item 2</li>
+        <li class='top'>Click to add new item to top.</li>
+        <li class='bottom'>Click to add new item to bottom.</li>
+        <li class='inner'>Click to add new item to Inner.</li>
+        <li class='outer'>Click to add new item to Outer.</li>
       </ul>
+      <p><b>Some Notes about HTML</b> x$('element').html(mixed (string/element), [location (string | top | bottom | <b>inner</b> | outer)]);</p>
+      <ul>
+        <li>The Default Location is InnerHTML</li>
+        <li>If you pass in an element, an element is inserted.</li>
+        <li>If you pass in a string to any place other then the inner location, we wrap it in the same tag as the siblings</li>
+        <li>If you pass in a string that LOOKS like markup, we will convert it to that element and preserve its attributes</li>
+      </ul>
+    
   </body>
 </html>
