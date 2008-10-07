@@ -22,11 +22,11 @@
       });
       
       x$('li.top').click(function(){
-        x$('ul').html('New Top Element (String or Element)','top');
+        x$('ul#l1').html('New Top Element (String or Element)','top');
       });
       
       x$('li.bottom').click(function(){
-        x$('ul').html('<li class="selected">New Bottom Element (String or Element)</li>','bottom');
+        x$('ul#l1').html('<li class="selected">New Bottom Element (String or Element)</li>','bottom');
       });
       
       
@@ -55,6 +55,15 @@
         border:1px solid #ccc;
         background-color:#efefef;
       }
+      
+      pre {
+        border: 1px dashed #bbb;
+        font-size: 75%;
+        padding: 5px;
+        color: #808080;
+        background: #F1F1FF;
+        overflow: auto;
+      }
     </style>
   
   </head>
@@ -71,7 +80,7 @@
       <button id="anim4">Background Color</button>
       
       <h2>Dom Related</h2>
-      <ul>
+      <ul id="l1">
         <li class='top'>Click to add new item to top.</li>
         <li class='bottom'>Click to add new item to bottom.</li>
         <li class='inner'>Click to add new item to Inner.</li>
