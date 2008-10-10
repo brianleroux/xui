@@ -6,19 +6,19 @@
     <title>XUI Demos</title>
     <script type="text/javascript" src="xui.js"></script>
     <script type="text/javascript">
-    
+	
     
     x$(window).load(function() {
       x$('#anim1').click(function() {
-        x$('.box').animate({left: { by: 100 }});
+        x$('.box').tween({ left:'400px', backgroundColor:'blue', duration:3 }).tween({ top:'1000px' });
       });
       
       x$('#anim3').click(function() {
-        x$('.box').animate({top: { from: 10, to: 200 },left: {from:200, to: 300 }});
+      //  x$('.box').tween({top: { from: 10, to: 200 },left: {from:200, to: 300 }});
       });
       
       x$('#anim4').click(function() {
-        x$('.box').canimate({ backgroundColor: { to: '#ffdd00' }, color:{ to:'#fff'} });
+      	x$('.box').tween({ backgroundColor:'#000000' });
       });
       
       x$('li.top').click(function(){
@@ -74,7 +74,7 @@
         <div class="box">1</div>
       </div>
       <br />
-      <button id="anim1">Right by 100</button>
+      <button id="anim1">Left by 100 and top 200</button>
       <button id="anim2">To 200,300</button>
       <button id="anim3">From 10,200 to 200,300</button>
       <button id="anim4">Background Color</button>

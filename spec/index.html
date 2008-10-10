@@ -41,9 +41,26 @@ describe("selector class", {
   },
 	
 	'should return array with three items': function(){
-	  value_of(x.length).should_be(3);
+	  value_of(x.elements.length).should_be(3);
   },
   
+});
+
+describe("animate test", {
+	/*
+	'the arguments should be array':function(){
+		x$('item_1').tween([]);
+	}
+	
+	
+	'the arguments should an object':function(){
+		x$('item_1').tween({});
+	}
+	*/
+	'the arguments should an object':function(){
+		x$('item_1').tween({});
+	}
+	
 });
 
 

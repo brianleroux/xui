@@ -88,7 +88,7 @@
 	position: function () {
 		this.each(function(el){
 			var topValue= 0,leftValue= 0;
-		    obj = el;
+		    var obj = el;
 			while(obj) {
 				leftValue += obj.offsetLeft;
 				topValue += obj.offsetTop;
@@ -100,72 +100,47 @@
 	    
 	    return this;
 	},
-	animate: function( options, duration ) {
+	
+	// TODO
+	// callback function (before/after)
+	// reset -webkit-transition property
+	// absolutize/offset
+	// var isSet 	 = function( prop ) { return ( typeof prop !== 'undefined' )};
+	tween: function( options ) {
+		
+		var easing   = options.easing 	== undefined ? 'ease-in' 							: options.easing;
+		var before	 = options.before 	== undefined ? function(){alert('called before')}   : options.before; 	
+		var after	 = options.after 	== undefined ? function(){alert('called after')}	: options.after; 	
+		var duration = options.duration == undefined ? .5									: options.duration;
+		
+		options.easing   = undefined;
+		options.before   = undefined;
+		options.after    = undefined;
+		options.duration = undefined;
+		
+		// callback
+		before.apply(before.arguments);
+		
 		var that = this;
-		var duration = duration || 1;
 		
-		var isset = function(prop) {
-	    	return (typeof prop !== 'undefined');
-	    };
+		// this sets duration and easing equation on a style property change
+		this.setStyle( '-webkit-transition', 'all ' + duration + 's ' + easing );
 		
-		this.each(function(el){
-			//that.setStyle('-webkit-transition','all '+duration+'s ease-in');		
-			var start;
-			var end;
-			var run = [];
-			
-			for (var prop in options) {
-				
-				if ( !isset(options[prop]['to']) && !isset(options[prop]['by']) ) {
-					return false; // note return; nothing to animate to
-				}
-		
-				start = ( isset(options[prop]['from']) ) ? options[prop]['from'] : getStyle(el,prop);	
-				
-				if ( isset(options[prop]['to']) ) {
-					end = options[prop]['to'];
-				} else if ( options[prop]['by'] ) {
-					end = start + options[prop]['by'] * 1;
-				}
-				
-				run[prop] = {};
-				run[prop].start = start;
-				run[prop].end = end;
-				
-				el.run = run;
-				that.setStyle(prop,start + 'px');
-				
-				//var by = options[prop]['by'];
-				//var dist = by + parseInt(getStyle(el,prop));
-				//that.setStyle(prop,dist + 'px');
+		// sets the starting point and ending point for each css property tween
+		this.each( function(el) {	
+			for( var prop in options ) {
+				that.setStyle( prop, options[prop] )
 			}	
+		});
+		
+		var killSwitch = setTimeout(duration*1000,function(){ that.setStyle( '-webkit-transition', 'none'); })
+		var doAfter = setTimeout(duration*1000, after);
 			
-		});
-		
-		this.each(function(el){
-			that.setStyle('-webkit-transition','all '+duration+'s ease-in');
-			for(var i in el.run) {
-				console.log(i);
-				//that.setStyle(i,el.run[i].start + 'px');
-				
-				that.setStyle(i,el.run[i].end + 'px');		
-			}
-		});
+		return this || that; // haha
 	},
-	canimate: function( options, duration ) {
-		var that = this;
-		var duration = duration || 1;
-		
-		this.each(function(el){
-			that.setStyle('-webkit-transition','all '+duration+'s ease-in');
-			for (var prop in options) {
-				var from = options[prop].from || getStyle(el,prop);
-				that.setStyle(prop,from);
-				var to = options[prop].to;
-				that.setStyle(prop,to);			
-			}							
-		});
-	},
+	
+	/*
+
 	swipe: function(dir) {
 		var dir = dir || 'right'; 
 		var that = this;
@@ -181,6 +156,7 @@
 		});
 		return this;
 	},
+	*/
 	clean: function(){
         var ns = /\S/;
  	    this.each(function(el){
@@ -198,7 +174,7 @@
  	    return this;
  	},
 	wrap:function(html,tag) {
-		attributes = {};
+		var attributes = {};
 		var re = /<([A-Z][A-Z0-9]*)(.*)[^>]*>(.*?)<\/\1>/i;
 		if(re.test(html)) {
 			result = re.exec(html);
@@ -230,7 +206,7 @@
 	html:function(html,loc) {
 		var that = this;
 		this.clean();
-		loc = (loc != null) ? loc : 'inner'; 
+		var loc = (loc != null) ? loc : 'inner'; 
 		this.each(function(el) {
 			switch(loc) {
 				case "inner": el.innerHTML = html; break;
