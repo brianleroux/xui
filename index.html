@@ -38,6 +38,19 @@
       x$('li.outer').click(function(){
         x$(this).html('<li class="selected">New Outer Element (String or Element)</li>','outer');
       });
+      
+      var alert = function(){ alert("Hello"); }
+      
+      x$('#attach1').click(function() {
+        x$(this).subscribe(alert);
+      });
+      
+      x$('#fire1').click(function() {
+        x$(this).fire(alert);
+      });
+      
+      
+      
     });
 
     </script>
@@ -94,5 +107,7 @@
         <li>If you pass in a string that LOOKS like markup, we will convert it to that element and preserve its attributes</li>
       </ul>
     
+      <button id='attach1'>Attach 1</button>
+      <button id='fire1'>Fire 1</button>
   </body>
 </html>

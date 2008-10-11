@@ -43,7 +43,7 @@
       	});
       	return this;
     },
-	hasClass:function(el,className) {
+	hasClass: function(el,className) {
 		var re = this.getClassRegEx(className);
 	    return re.test(el.className);
 	},
@@ -61,7 +61,8 @@
       	});
 		return this;
 	},
-	// aliases 
+	// Event System
+	eventfunctions : [],
 	click: function(fn) { return this.on('click',fn); },
 	dblclick: function(fn) { return this.on('dblclick',fn); },
 	load: function(fn) { return this.on('load',fn); },
@@ -76,6 +77,26 @@
 		});
 		return this;
     },
+	subscribe: function(fn) {
+		this.eventfunctions.push(fn);
+	},
+	unsubscribe: function(fn) {
+		this.eventfunctions = this.eventfunctions.filter (
+			function(el) {
+				if ( el !== fn ) {
+					return el;
+				}
+			}
+		);
+	},
+	fire: function(o, thisObj) {
+		var scope = thisObj || window;
+		this.eventfunctions.forEach(
+			function(el) {
+				el.call(scope, o);
+			}
+		);
+	},
     css: function(o) {
 		var that = this;
 		this.each(function(el) {
