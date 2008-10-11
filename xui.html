@@ -1,0 +1,243 @@
+<html>
+<style type="text/css">
+body {
+	margin:0;
+	padding:0;
+}
+#container {
+	width:350px;
+	border-left:1px solid #333;
+	border-right:1px solid #333;
+}
+
+
+/** micro components **/
+.titlebar {
+	/* aesthetic */
+	width:330px;
+	background:#eaeaea;
+	padding:10px;
+	/* layout */
+	position:fixed;
+	left:1px;
+	top:0px;
+	z-index:10;
+	opacity:50;
+}
+
+.footerbar {
+	/* aesthetic */
+	width:330px;
+	background:#eaeaea;
+	padding:10px;
+	/* layout */
+	position:fixed;
+	left:1px;
+	bottom:0px;
+	z-index:10;
+	opacity:50;
+}
+
+</style>
+<script type="text/css">
+
+xui.app = function( title, fn ) {
+	alert(fn.args[0])
+};
+
+xui.app( "Testing Application", function(x$) {
+	
+	x$.header({ text:'hi', left:'', right:x$.button('settings') });
+	x$.footer();
+	
+	x$.list([ {title:'page one', url:'/pageone'}, {title:'page two', url:'/pagetwo'} ]);
+	// x$('stage').load('/');
+});
+</script>
+<body>
+
+<div id="stage">
+
+	
+	
+	
+	
+	
+	
+	
+	
+
+	We have another cool new CSS feature to talk about: animation specified in CSS. There is a lot of ground to cover here, so we’ll start with the basics first.
+
+	The simplest kind of animation that we’ve added support for is called a transition. Normally when the value of a CSS property changes, the rendered result is instantly updated, with the element in question changing immediately from the old property value to the new property value. Transitions describe how to instead execute an animation from the old state to the new state over time.
+
+	Transitions are specified using the following properties:
+
+	transition-property - What property should animate, e.g., opacity.
+	transition-duration - How long the transition should last.
+	transition-timing-function - The timing function for the transition (e.g., linear vs. ease-in vs. a custom cubic bezier function).
+	transition - A shorthand for all three properties.
+
+	Here is a simple example:
+
+	div {
+	  opacity: 1;
+	  -webkit-transition: opacity 1s linear;
+	}
+
+	div:hover {
+	  opacity: 0;
+	}
+
+	This div will fade out when hovered over. In browsers that do not support this animation, there will be graceful degradation, as the div will simply fade out immediately.
+
+	Each of these properties supports a comma separated list of values, like CSS3 multiple backgrounds, which allows different transitions for individual properties to be described in a single style rule. Each value in the list corresponds to the value at that same position in the other properties.
+
+	For example:
+
+	div {
+	  -webkit-transition-property: opacity, left;
+	  -webkit-transition-duration: 2s, 4s;
+	}
+
+	In the above style rule, opacity will animate over 2 seconds, but left will animate over 4 seconds.
+
+	Some very complex properties can actually be animated. Take, for example, the new -webkit-transform property. Here’s an example of a simple spin effect using -webkit-transform and -webkit-transition.
+
+	<div style="-webkit-transition: -webkit-transform 3s ease-in"
+	  onclick="this.style.webkitTransform='rotate(360deg)'">
+	This div will do a spin when clicked!
+	</div>
+
+	This div will do a spin the first time it is clicked!
+
+	Borders can also be animated. The following box has a simple border animation where the border will both grow in thickness and change color when the box is hovered.
+	This div will acquire a slightly thicker blue border when hovered.
+
+	Note with the hovering examples that the animation will reverse itself when the mouse moves out of the div. Any time the property changes value, the animation will simply start again with the current position as the from value and the new value as the destination. The transition properties of the source state are used to figure out how to animate to the new target state.
+
+	The key points to understand about transitions are:
+	(1) They are implicit animations. Scripts and stylesheets can be written as normal, and the animations will simply happen implicitly as the properties change values.
+	(2) They degrade gracefully. Browsers that do not support transitions simply won’t animate, but otherwise all code and style rules can remain the same.
+
+	Here are more detailed descriptions of the properties. All of these properties can take multiple comma-separated values.
+
+	transition-property
+	Values: none | all | <property>
+	Initial Value: all
+	Description: Specifies what property triggers an animation. A value of none means there is no transition. A value of all means that every animatable property triggers an animation. Otherwise an animation will only trigger when the exact specified property changes value.
+
+	transition-duration
+	Values: <time>
+	Inital Value: 0
+	Description: Specifies how long the transition should take. The default is 0.
+
+	transition-timing-function
+	Values: default | linear | ease-in | ease-out | ease-in-out | cubic-bezier(x1, y1, x2, y2)
+	Initial Value: default
+	Description: The transition-timing-function property describes how the animation will proceed over time. Keywords can be used for common functions or the control points for a cubic bezier function can be given for complete control of the transition function. To specify a cubic bezier function, you give an X and Y values for 2 of the control points of the curve. Point P0 is implicitly set to (0,0) and P3 is implicitly set to (1,1). These 4 points are used to compute a cubic bezier curve.
+
+	The timing function keywords have the following definitions:
+	linear - The linear function just returns as its output the input that it received.
+	default - The default function is equivalent to cubic-bezier(0.25, 0.1, 0.25, 1.0).
+	ease-in - The ease-in function is equivalent to cubic-bezier(0.42, 0, 1.0, 1.0).
+	ease-out - The ease-out function is equivalent to cubic-bezier(0, 0, 0.58, 1.0).
+	ease-in-out - The ease-in-out function is equivalent to cubic-bezier(0.42, 0, 0.58, 1.0)
+	cubic-bezier - Specifies a cubic-bezier curve whose P0 and P3 points are (0,0) and (1,1) respectively. The four values specify points P1 and P2 of the curve as (x1, y1, x2, y2).
+
+	In future posts I’ll go into transitions in more detail and also talk about another feature we’re adding: explicit animations. We are also preparing a more detailed proposal (full of intimidating spec language) that covers our thoughts on transforms, animation and other advanced visual effects.
+
+	You can follow any responses to this entry through the RSS 2.0 feed. Both comments and pings are currently closed.
+	37 Responses to “CSS Animation”
+
+	   1. ChrisJay Says:
+	      October 31st, 2007 at 2:22 am
+
+	      Truly, truly awesome. Together with client-side storage and transformations, you are advancing the web in ways not seen for years - well done.
+	      Does this constitute a “native SDK” for the iPhone? :)
+	      One more point - here’s hoping that your explicit animations will be in the functional programming style, so that e.g. div1 width can depend in real-time on div2 height.
+	   2. theallan Says:
+	      October 31st, 2007 at 2:23 am
+
+	      Very interesting - and excellent work guys! The animations are very smooth indeed, unlike a lot of javascript animations. Declarative animation in CSS is quite a unique idea I believe, and I’m wondering where you see this in relationship to declarative animation in SVG (which I don’t believe Webkit supports yet)? Will progress in this area of SVG be halted now that you have these CSS attributes, or do you see them as completely separate threads?
+	   3. Antoine Quint Says:
+	      October 31st, 2007 at 2:40 am
+
+	      I have the same question as Theallan regarding future work on declarative SVG animation. It would be a real shame in my opinion to see this in lieu of the generic, multi-purpose declarative animation support in SVG, which is already well supported in Opera for a few versions now. I understand it must be much easier in terms of development cost to extend CSS to support these features, but I’m still hopeful for more SVG animation goodies in WebKit.
+	   4. Pingback from Webkit introduce more new features - CSS3 . Info:
+	      October 31st, 2007 at 2:52 am
+
+	      [...] Animation, which uses the -webkit-transition family of properties, allows you to set timings for fades, rotation, expansion, collapses, and more. They work in the same way as many current JavaScript libraries. [...]
+	   5. maciej Says:
+	      October 31st, 2007 at 3:58 am
+
+	      Antoine, we’re not against SVG animations, and that feature will likely come eventually. For HTML, however, it makes more sense for animations to be in the presentational layer, CSS. On another note, there’s also no reason you can’t apply CSS animations to SVG.
+	   6. cheeaun Says:
+	      October 31st, 2007 at 5:15 am
+
+	      Wow, this is cool. Few questions though:
+	      1. ‘transition-property’ only accepts one property? So, to apply animation specifically to two properties, two ‘transition-property’s are needed? The ‘all’ value seems a little too much :D
+	      2. No time intervals? I mean, periodic animations?
+	   7. braun Says:
+	      October 31st, 2007 at 5:28 am
+
+	      Great, it looks cool to me as well :).
+	      My question is if it is possible to specify different transitions for different pseudoclasses (”events”)? Eg. is possible to specify one transition for the hover and the other for the active state? Currently it’s hard to spot from the CSS rules when the transition is going to fire.
+	   8. Pingback from CSS Animation « outaTiME:
+	      October 31st, 2007 at 6:05 am
+
+	      [...] Surfin’ Safari.) Posted by outaTiME Filed in CSS, Development, [...]
+	   9. asdasdwr Says:
+	      October 31st, 2007 at 7:49 am
+
+	      Tricky question: how do you animate change of display property? or creation/removal of generated content?
+	      In my stylesheets these are two most common declarative “effects”.
+	  10. xenon Says:
+	      October 31st, 2007 at 9:45 am
+
+	      @cheeaun, all of the transition CSS “properties supports a comma separated list of values, like CSS3 multiple backgrounds, which allows different transitions for individual properties to be described in a single style rule.”
+	  11. hyatt Says:
+	      October 31st, 2007 at 10:07 am
+
+	      This is independent of SVG animation, which is still being worked on. Basically we feel that in order to add simple animations to a Web site, one shouldn’t have to convert the entire Web site to a compound document with SVG+XHTML just to animate something. SVG+XHTML also doesn’t degrade in older browsers (or in Internet Explorer).
+	  12. hyatt Says:
+	      October 31st, 2007 at 10:17 am
+
+	      braun, the transition properties set on the old state determines what happens when you change to a new state. This means that you can change the transition properties if you want a new animation. So for example you could have
+
+	      div {
+	      transition: all 5s ease-in;
+	      opacity:1.0
+	      }
+
+	      and
+
+	      div:hover {
+	      transition: all 10s ease-out;
+	      opacity 0
+	      }
+
+	      In the above example when you hovered over the div, you’d get a 5 second fade-out. If you move the mouse off the object however you get a 10 second fade-in.
+	  13. hyatt Says:
+	      October 31st, 2007 at 10:32 am
+
+	      cheeaun, transitions are for basic implicit animations. We will also be introducing explicit animations (using actual “animation” CSS properties). I’m going to blog about that more once there’s an actual prototype to play with checked in to the tree.
+	  14. Pingback from warpedvisions.org » Blog Archive » Declarative CSS, the death of Scriptaculous?:
+	      October 31st, 2007 at 10:55 am
+
+	      [...] 31st, 2007 in Links Examples of declarative CSS transitions and animations, which are available in recent versions of Safari. Many of the Scriptaculous features are more [...]
+	  15. caesarsgrunt Says:
+	      October 31st, 2007 at 3:13 pm
+
+	      Great!
+	      But… are these properties a part of any (present or future) spec? Otherwise, whilst I certainly like them, it seems a bit sort of browser-wars-ish implementing proprietary features like this…
+	      But good work anyway!
+	  16. hyatt Says:
+	      October 31st, 2007 at 3:36 pm
+		
+
+</div>		
+		
+		
+</body>	
+</html>
