@@ -12,7 +12,7 @@
 			} else {
 				this.elements.push(element);
 			}
-		}	
+		}
 		return this;
 	}
   _$.prototype = {
@@ -79,22 +79,19 @@
     },
 	subscribe: function(fn) {
 		this.eventfunctions.push(fn);
+		
 	},
 	unsubscribe: function(fn) {
 		this.eventfunctions = this.eventfunctions.filter (
 			function(el) {
-				if ( el !== fn ) {
-					return el;
-				}
+				if ( el !== fn ) { return el; }
 			}
 		);
 	},
-	fire: function(o, thisObj) {
+	fire: function(options, thisObj) {
 		var scope = thisObj || window;
 		this.eventfunctions.forEach(
-			function(el) {
-				el.call(scope, o);
-			}
+			function(el) { el.call(scope, options); }
 		);
 	},
     css: function(o) {

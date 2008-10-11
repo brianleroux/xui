@@ -39,14 +39,15 @@
         x$(this).html('<li class="selected">New Outer Element (String or Element)</li>','outer');
       });
       
-      var alert = function(){ alert("Hello"); }
-      
+      var a = function(data){ alert("Hello " + data); }
+      var con = function(data) {console.log("hello " + data); }
       x$('#attach1').click(function() {
-        x$(this).subscribe(alert);
+        x$(this).subscribe(a);
+        x$(this).subscribe(con);
       });
       
       x$('#fire1').click(function() {
-        x$(this).fire(alert);
+        x$(this).fire('hello');
       });
       
       
