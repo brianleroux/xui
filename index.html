@@ -39,6 +39,9 @@
         x$(this).html('<li class="selected">New Outer Element (String or Element)</li>','outer');
       });
       
+      
+
+      
       var a = function(data){ alert("Hello " + data); }
       var con = function(data) {console.log("hello " + data); }
       x$('#attach1').click(function() {
@@ -48,6 +51,19 @@
       
       x$('#fire1').click(function() {
         x$(this).fire('hello');
+      });
+      
+      
+      x$('#ajax').click(function() {
+        var map = {'one':'LI.inner','two':'DIV','three':'#three'};
+        num = 10;
+        
+        cb = function(x) { 
+          //num += parseInt(x);
+          return " HELLO " + num ; 
+          }
+        
+        x$(this).xhrjson('test.json',map, cb);
       });
       
       
@@ -92,6 +108,13 @@
       <button id="anim2">To 200,300</button>
       <button id="anim3">From 10,200 to 200,300</button>
       <button id="anim4">Background Color</button>
+      
+      <br /><br />
+      <button id="ajax">JSON Ajax Template</button>
+      
+      <div id="one">Change Me on JSON UPDATE</div>
+      <div id="two">Change Me on JSON UPDATE</div>
+      <div id="three">Change Me on JSON UPDATE</div>
       
       <h2>Dom Related</h2>
       <ul id="l1">

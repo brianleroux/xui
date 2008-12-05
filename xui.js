@@ -256,11 +256,14 @@
       	}
 	  	return this;
 	},
-	xhrjson:function(url,map) {
+	xhrjson:function(url,map,cb) {
 		var that = this;
+		
+		if (typeof(cb) != 'function') {cb = function(x) {return x; }}
+		
 		callback = function() { 
 			var o = eval('(' + this.responseText + ')');
-			for (var prop in o) { x$(map[prop]).html(o[prop]); }
+			for (var prop in o) { x$(map[prop]).html( cb(o[prop]) ); }
 		}
 		this.xhr(url,callback);
 		return this;
