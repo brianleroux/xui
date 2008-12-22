@@ -44,13 +44,16 @@
       
       var a = function(data){ alert("Hello " + data); }
       var con = function(data) {console.log("hello " + data); }
+      
+      
       x$('#attach1').click(function() {
         x$(this).subscribe(a);
         x$(this).subscribe(con);
       });
       
       x$('#fire1').click(function() {
-        x$(this).fire('hello');
+        x$(this).fire('test');
+        x$(this).fire('Bob');        
       });
       
       
@@ -66,9 +69,65 @@
         x$(this).xhrjson('test.json',map, cb);
       });
       
-      
-      
     });
+    
+    
+/*
+    Event = function(type) {
+      this.type = type;
+      this.handlers = {};
+      this.guid = 0;
+    }
+    
+    Event.prototype.subscribe = function(method, context, guid) {
+      if (method == null) return;
+
+      var func = method;
+      if (typeof context == "object" && method instanceof Function) {
+        func = nitobi.lang.close(context, method);
+      }
+      
+      guid = guid || func.observer_guid || method.observer_guid || this.guid++;
+      func.observer_guid = guid;
+      method.observer_guid = guid;
+      this.handlers[guid] = func;
+      return guid;
+    }
+
+    Event.prototype.unSubscribe = function(guid) {
+      if (guid instanceof Function)
+        guid = guid.observer_guid;
+      this.handlers[guid] = null;
+      delete this.handlers[guid];
+    }
+
+    Event.prototype.notify = function(evtArgs) {
+        
+      if (arguments.length == 0) {
+        arguments = new Array();
+      } else if (typeof(arguments[0].event) != "undefined" && arguments[0].event == null) {
+          arguments[0].event = this;
+      }
+      
+      var fail = false;
+      for (var item in this.handlers) {
+        var handler = this.handlers[item];
+        if (handler instanceof Function) {
+          var rv = (handler.apply(this, arguments)==false);
+          fail = fail || rv;
+        }
+      }
+      return !fail;
+
+    }
+
+    Event.prototype.dispose = function() {
+      for (var handler in this.handlers) {
+        this.handlers[handler] = null;
+      }
+      this.handlers = {};
+    }
+*/
 
     </script>
     <style type="text/css" media="screen">
