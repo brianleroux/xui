@@ -209,6 +209,18 @@
 		
 		return element;
 	},
+	
+	// Helper for finding a tag
+	// TODO, Add different cases.
+	getTag:function(el) {
+		if (el.firstChild == null) {
+			switch(el.tagName) {
+				case 'UL': return 'LI'; break;
+			}
+		}
+		return el.firstChild.tagName;
+	},
+	
 	html:function(html,loc) {
 		var that = this;
 		this.clean();
@@ -217,15 +229,15 @@
 			switch(loc) {
 				case "inner": el.innerHTML = html; break;
 				case "outer":
-					if (typeof html == 'string') html = this.wrap(html,el.firstChild.tagName);
+					if (typeof html == 'string') html = this.wrap(html,this.getTag(el));
 					el.parentNode.replaceChild(html,el);
 				break;
 				case "top": 
-					if (typeof html == 'string') html = this.wrap(html,el.firstChild.tagName);
+					if (typeof html == 'string') html = this.wrap(html,this.getTag(el));
 					el.insertBefore(html,el.firstChild);
 				break;
 				case "bottom":
-					if (typeof html == 'string') html = this.wrap(html,el.firstChild.tagName);
+					if (typeof html == 'string') html = this.wrap(html,this.getTag(el));
 					el.insertBefore(html,null);
 				break;
 			}
