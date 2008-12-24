@@ -9,17 +9,20 @@
 	
     
     x$(window).load(function() {
+      
+      // Animation Related
+      
       x$('#anim1').click(function() {
-        x$('.box').tween({ left:'400px', backgroundColor:'blue', duration:3 }).tween({ top:'1000px' });
+        x$('.box').tween({ left:'400px', backgroundColor:'blue', duration:1.3, after:function() { this.tween({ top:'100px', duration:1});} });
       });
-      
-      x$('#anim3').click(function() {
-      //  x$('.box').tween({top: { from: 10, to: 200 },left: {from:200, to: 300 }});
-      });
-      
+            
       x$('#anim4').click(function() {
       	x$('.box').tween({ backgroundColor:'#000000' });
       });
+      
+      
+      
+      // DOM Related 
       
       x$('li.top').click(function(){
         x$('ul#l1').html('New Top Element (String or Element)','top');
@@ -29,11 +32,9 @@
         x$('ul#l1').html('<li class="selected">New Bottom Element (String or Element)</li>','bottom');
       });
       
-      
       x$('li.inner').click(function(){
         x$(this).html('New Inner Element');
       });
-      
       
       x$('li.outer').click(function(){
         x$(this).html('<li class="selected">New Outer Element (String or Element)</li>','outer');
@@ -41,6 +42,7 @@
       
       
 
+      // Event related - Testing (Depercated)
       
       var a = function(data){ alert("Hello " + data); }
       var con = function(data) {console.log("hello " + data); }
@@ -57,16 +59,17 @@
       });
       
       
+      // XHR Related
+      
       x$('#ajax').click(function() {
-        var map = {'one':'LI.inner','two':'DIV','three':'#three'};
-        num = 10;
+        var map = {'one':'#one','two':'#two','three':'#three'};
         
         cb = function(x) { 
-          //num += parseInt(x);
-          return " HELLO " + num ; 
-          }
+          return " HELLO " + x; 
+        }
         
-        x$(this).xhrjson('test.json',map, cb);
+        var o = {'map':map,'callback':cb};
+        x$(this).xhrjson('test.json',o);
       });
       
     });
@@ -163,17 +166,15 @@
         <div class="box">1</div>
       </div>
       <br />
-      <button id="anim1">Left by 100 and top 200</button>
-      <button id="anim2">To 200,300</button>
-      <button id="anim3">From 10,200 to 200,300</button>
+      <button id="anim1">Move left, then Down (series)</button>
       <button id="anim4">Background Color</button>
       
       <br /><br />
       <button id="ajax">JSON Ajax Template</button>
       
-      <div id="one">Change Me on JSON UPDATE</div>
-      <div id="two">Change Me on JSON UPDATE</div>
-      <div id="three">Change Me on JSON UPDATE</div>
+      <div id="one">Change Me on JSON UPDATE 1</div>
+      <div id="two">Change Me on JSON UPDATE 2</div>
+      <div id="three">Change Me on JSON UPDATE 3</div>
       
       <h2>Dom Related</h2>
       <ul id="l1">

@@ -127,21 +127,25 @@
 	// absolutize/offset
 	// var isSet 	 = function( prop ) { return ( typeof prop !== 'undefined' )};
 	tween: function( options ) {
+
+		var that = this;
+				
+
+		var opt_after = options.after;
 		
-		var easing   = options.easing 	== undefined ? 'ease-in' 	: options.easing;
-		var before	 = options.before 	== undefined ? function(){}  : options.before; 	
-		var after	 = options.after 	== undefined ? function(){}	: options.after; 	
-		var duration = options.duration == undefined ? .5	: options.duration;
+		var easing   	= options.easing 	== undefined ? 'ease-in' : options.easing;
+		var before	 	= options.before 	== undefined ? function(){} : options.before; 	
+		var after	 		= opt_after 			== undefined ? function(){}	: function() {  opt_after.apply(that); }; 	
+		var duration 	= options.duration == undefined ? .5	: options.duration;
 		
 		options.easing   = undefined;
 		options.before   = undefined;
 		options.after    = undefined;
 		options.duration = undefined;
 		
-		// callback
 		before.apply(before.arguments);
 		
-		var that = this;
+
 
 		// this sets duration and easing equation on a style property change
 		this.setStyle( '-webkit-transition', 'all ' + duration + 's ' + easing );
@@ -159,24 +163,6 @@
 		return this || that; // haha
 	},
 	
-	/*
-
-	swipe: function(dir) {
-		var dir = dir || 'right'; 
-		var that = this;
-		width = document.getElementsByTagName('body')[0].clientWidth;
-		this.each(function(el){
-			that.position();
-			if (dir == 'right') dist = width - el.leftPos; else dist = el.leftPos - width;
-			that.css({
-				'-webkit-transform':'translate('+ dist +'px,0)',
-	        	'-webkit-transition-duration':'.5s',
-	        	'-webkit-transition-timing-function':'ease-in'
-			});				
-		});
-		return this;
-	},
-	*/
 	clean: function(){
         var ns = /\S/;
  	    this.each(function(el){
@@ -195,7 +181,7 @@
  	},
 	wrap:function(html,tag) {
 		var attributes = {};
-		var re = /<([A-Z][A-Z0-9]*)(.*)[^>]*>(.*?)<\/\1>/i;
+		var re = /^<([A-Z][A-Z0-9]*)(.*)[^>]*>(.*?)<\/\1>/i;
 		if(re.test(html)) {
 			result = re.exec(html);
 			tag = result[1];
@@ -246,31 +232,40 @@
         });
 		return this;
 	},
-	xhr:function(url,callback) {	
+	
+	// Generic XHR Request
+	xhr:function(url,options) {	
 		var that = this;
+		if (options == undefined) var options = {};
 		if (typeof url == 'string') {
 			var req = new XMLHttpRequest();
-			var method = 'get';
-			var async = false;
+			var method = options.method || 'get';
+			var async = options.async || false ;
 			req.open(method,url,async);
-			req.onload = (callback != null) ? callback : function() { that.html(this.responseText); }
+			req.onload = (options.callback != null) ? options.callback : function() { that.html(this.responseText); }
 			req.send(null);
-      	}
-	  	return this;
+    }
+	  return this;
 	},
-	xhrjson:function(url,map,cb) {
+	
+	// Options is the same as XHR with map:object and new callback:function
+	xhrjson:function(url,options) {
+		if (options == undefined) return this;
 		var that = this;
+						
+		var cb = options.callback;
+		if (typeof (cb) != 'function') { var cb = function(x) {return x; }}
 		
-		if (typeof(cb) != 'function') {cb = function(x) {return x; }}
-		
-		callback = function() { 
+		var callback = function() { 
 			var o = eval('(' + this.responseText + ')');
-			for (var prop in o) { x$(map[prop]).html( cb(o[prop]) ); }
+			for (var prop in o) { x$(options.map[prop]).html( cb(o[prop]) ); }
 		}
-		this.xhr(url,callback);
+		options.callback = callback;
+		this.xhr(url,options);
 		return this;
 	}
-  };
+  
+	};
   var xui = window.x$ = function() {
     return new _$(arguments);
   }
