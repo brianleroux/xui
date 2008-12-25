@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
   "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
@@ -19,9 +19,7 @@
       x$('#anim4').click(function() {
       	x$('.box').tween({ backgroundColor:'#000000' });
       });
-      
-      
-      
+            
       // DOM Related       
       
       x$('li.top').click(function(){
@@ -72,8 +70,13 @@
         x$(this).xhrjson('test.json',o);
       });
       
+      x$('#test_123').click(function() {
+        x$('#onex').xhrForm();
+      });
+
+
     });
-    
+        
     
 /*
     Event = function(type) {
@@ -190,6 +193,15 @@
         <li>If you pass in a string to any place other then the inner location, we wrap it in the same tag as the siblings</li>
         <li>If you pass in a string that LOOKS like markup, we will convert it to that element and preserve its attributes</li>
       </ul>
+    
+      <h2>Form Testing</h2>
+      <div>
+      <form action="#" method="get" onsubmit="return false" id="onex">
+        <input type="text" name="test" value="123" />
+        <input type="text" name="test2" value="1232" /><br />
+        <button id="test_123">Form Submit</button>
+      </form>
+     </div>
     
       <button id='attach1'>Attach 1</button>
       <button id='fire1'>Fire 1</button>
