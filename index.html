@@ -56,7 +56,17 @@
         x$(this).fire('Bob');        
       });
       
+      var h = function(e) { 
+  			for (var i = 0; i < arguments.length; i++) {
+  		 	  console.log(arguments[i]);
+  	 	  }
+      }
+
+      var obj = { name: 'A nice demo' };
       
+      x$(document.body).click( function() { x$(this).bind(h,obj,1,2,3) } );
+      
+    
       // XHR Related
       
       x$('#ajax').click(function() {
@@ -196,7 +206,7 @@
     
       <h2>Form Testing</h2>
       <div>
-      <form action="#" method="get" onsubmit="return false" id="onex">
+      <form action="#" method="post" onsubmit="return false" id="onex">
         <input type="text" name="test" value="123" />
         <input type="text" name="test2" value="1232" /><br />
         <button id="test_123">Form Submit</button>

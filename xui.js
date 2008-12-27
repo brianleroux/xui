@@ -69,7 +69,7 @@
 		},
 		
 		// Event System
-		eventfunctions : [],
+		eventfunctions: [],
 		click: function(fn) { return this.on('click',fn); },
 		dblclick: function(fn) { return this.on('dblclick',fn); },
 		load: function(fn) { return this.on('load',fn); },
@@ -84,6 +84,18 @@
 			});
 			return this;
 	  },
+
+
+		// same as Prototype BindasEventListener
+		bind: function(fn,context) {
+			var args = [];
+			for (var i = 2; i < arguments.length; i++) {
+		 	  args[i - 2] = arguments[i];
+	 	  }
+			fn.apply(context,args);		
+			return this;
+	 },
+
 	
 		subscribe: function(fn) {
 			this.eventfunctions.push(fn);
@@ -102,7 +114,7 @@
 				function(el) { el.call(scope, options); }
 			);
 		},
-	
+		
 	  css: function(o) {
 			var that = this;
 			this.each(function(el) {
@@ -126,7 +138,7 @@
 				el.topPos = topValue; 
 			});
 	    
-		    return this;
+		  return this;
 		},
 	
 		// TODO
@@ -169,24 +181,25 @@
 	
 		// Removes empty nodes from the DOM Tree - From EXTJS
 		clean: function(){
-	        var ns = /\S/;
-	 	    this.each(function(el){
+	  	var ns = /\S/;
+	 		this.each(function(el) {
 				var d = el, n = d.firstChild, ni = -1;
-				while(n){
-	 	        var nx = n.nextSibling;
-	 	        if (n.nodeType == 3 && !ns.test(n.nodeValue)){
-	 	            d.removeChild(n);
-	 	        } else {
-	 	            n.nodeIndex = ++ni;
-	 	        }
-	 	        n = nx;
+				while(n) {
+		 	  	var nx = n.nextSibling;
+		 	    if (n.nodeType == 3 && !ns.test(n.nodeValue)) {
+		 	    	d.removeChild(n);
+		 	    } else {
+		 	    	n.nodeIndex = ++ni;
 		 	    }
+		 	    n = nx;
+			 	}
 			});
-	 	    return this;
+	 	  return this;
 	 	},
 	
 		// Wraps the HTML in a TAG, Tag is optional
 		// If the html starts with a Tag, it will wrap the context in that tag.
+		// NOT Chainable
 		wrap:function(html,tag) {
 			var attributes = {};
 			var re = /^<([A-Z][A-Z0-9]*)(.*)[^>]*>(.*?)<\/\1>/i;
@@ -238,7 +251,7 @@
 						el.insertBefore(html,null);
 					break;
 				}
-	        });
+	      });
 			return this;
 		},
 	
@@ -253,8 +266,10 @@
 				var method = options.method || 'get';
 				var async = options.async || false ;
 				req.open(method,url,async);
+				var params = options.data || null;
+				
 				req.onload = (options.callback != null) ? options.callback : function() { that.html(this.responseText); }
-				req.send(null);
+				req.send(params);
 	    }
 		  return this;
 		},
@@ -283,13 +298,16 @@
 				if (e.tagName == "FORM") {
 					var options = {};
 					options.method = e.method;
+					options.data = "one=two";
 					
 					that.xhr(e.action,options);
 				}
 			});
+			return this;
 		},
 
 		// Helper for finding a tag for inserting into the DOM, we are looking for simular tags
+		// NOT Chainable
 		getTag: function(el) {
 			if (el.firstChild == null) {
 				switch(el.tagName) {
@@ -300,6 +318,7 @@
 		},
 		
 		// Helper to return the elements from the xui stack
+		// NOT Chainable
 		get: function() {
 			return (this.elements.length == 1) ? this.elements[0] : this.elements;
 		}
