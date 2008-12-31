@@ -9,6 +9,9 @@
 				for (var x=0;x<element.length;x++) {				
 					this.elements.push(element[x]);	
 				}
+				if (element.length == 0) {
+					console.log("No Element Found for Selector - " + els[0]);
+				}
 			} else {
 				this.elements.push(element);
 			}
