@@ -24,85 +24,116 @@
 		return this;
 	}
   _$.prototype = {
-		reClassNameCache: {},
-  
-		each: function(fn) {
-	  	for ( var i = 0, len = this.elements.length; i<len; ++i ) {
-	    	fn.call(this,this.elements[i]);
-	    }
-	    return this;
-	  },
 
-		setStyle: function(prop, val) {
-	  	this.each(function(el) {
-	    	el.style[prop] = val;
-	    });
-	    return this;
-	  },
-	
+	reClassNameCache: {},
+	each: function(fn) {
+      	for ( var i = 0, len = this.elements.length; i<len; ++i ) {
+        	fn.call(this,this.elements[i]);
+      	}
+      	return this;
+    },
+
+    setStyle: function(prop, val) {
+      	this.each(function(el) {
+        	el.style[prop] = val;
+      	});
+      return this;
+    },
+
 		// EXP - Not Chainable
 		getStyle: function(oElm, strCssRule) {
 			var strValue = "";
 			if(document.defaultView && document.defaultView.getComputedStyle){
 				strValue = document.defaultView.getComputedStyle(oElm, "").getPropertyValue(strCssRule);
+		},
+		
+	getClassRegEx: function(className) {
+        var re = this.reClassNameCache[className];
+        if (!re) {
+            re = new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)');
+            this.reClassNameCache[className] = re;
+        }
+        return re;
+    },
+    addClass: function(className) {
+    	this.each(function(el) {
+        	el.className += ' '+className;
+      	});
+      	return this;
+    },
+	hasClass: function(el,className) {
+		var re = this.getClassRegEx(className);
+	    return re.test(el.className);
+	},
+	removeClass:function(className) {
+		var re = this.getClassRegEx(className);
+		this.each(function(el) {
+        	el.className = el.className.replace(re, ' ');
+      	});
+		return this;
+	},
+	toggleClass:function(className) {
+		var that = this;
+		this.each(function(el) {
+			(this.hasClass(el,className)==true)? this.removeClass(className) : this.addClass(className);
+      	});
+		return this;
+	},
+	// Event System
+	eventfunctions : [],
+	click: function(fn) { return this.on('click',fn); },
+	dblclick: function(fn) { return this.on('dblclick',fn); },
+	load: function(fn) { return this.on('load',fn); },
+    on: function(type, fn) {
+		var listen = function(el) {
+			if (window.addEventListener) {
+				el.addEventListener(type, fn, false);
+			}
+		};
+		this.each(function(el) {
+			listen(el);
+		});
+		return this;
+    },
+	subscribe: function(fn) {
+		this.eventfunctions.push(fn);
+	},
+	unsubscribe: function(fn) {
+		this.eventfunctions = this.eventfunctions.filter (
+			function(el) {
+				if ( el !== fn ) {
+					return el;
+				}
+			}
+		);
+	},
+	fire: function(o, thisObj) {
+		var scope = thisObj || window;
+		this.eventfunctions.forEach(
+			function(el) {
+				el.call(scope, o);
+			}
+		);
+	},
+
+	stop: function(e) {
+		if(window.event && window.event.returnValue) 
+			window.event.returnValue = false;
+
+		if(e && e.preventDefault)
+			e.preventDefault();
+	},
+
+    css: function(o) {
+		var that = this;
+		this.each(function(el) {
+			for (var prop in o) {
+				that.setStyle(prop, o[prop]);
 			}
 			return strValue;
 		},
 	
-		// Not Chainable
-		getClassRegEx: function(className) {
-	  	var re = this.reClassNameCache[className];
-	    if (!re) {
-	    	re = new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)');
-	      this.reClassNameCache[className] = re;
-	    }
-	    return re;
-	  },
-  
-		addClass: function(className) {
-	  	this.each(function(el) {
-	    	el.className += ' '+className;
-	    });
-	    return this;
-	  },
 
-		hasClass: function(el,className) {
-			var re = this.getClassRegEx(className);
-		    return re.test(el.className);
-		},
-	
-		removeClass:function(className) {
-			var re = this.getClassRegEx(className);
-			this.each(function(el) {
-	        	el.className = el.className.replace(re, ' ');
-	      	});
-			return this;
-		},
-
-		toggleClass:function(className) {
-			var that = this;
-			this.each(function(el) {
-				(this.hasClass(el,className)==true)? this.removeClass(className) : this.addClass(className);
-	    });
-			return this;
-		},
-		
-		// Event System
-		eventfunctions: [],
-		click: function(fn) { return this.on('click',fn); },
-		dblclick: function(fn) { return this.on('dblclick',fn); },
-		load: function(fn) { return this.on('load',fn); },
-	  on: function(type, fn) {
-			var listen = function(el) {
-				if (window.addEventListener) {
-					el.addEventListener(type, fn, false);
-				}
-			};
-			this.each(function(el) {
-				listen(el);
-			});
-			return this;
-	  },
 
 
 		// same as Prototype BindasEventListener
@@ -115,24 +146,6 @@
 			return this;
 	 },
 
-	
-		subscribe: function(fn) {
-			this.eventfunctions.push(fn);
-		
-		},
-		unsubscribe: function(fn) {
-			this.eventfunctions = this.eventfunctions.filter (
-				function(el) {
-					if ( el !== fn ) { return el; }
-				}
-			);
-		},
-		fire: function(options, thisObj) {
-			var scope = thisObj || window;
-			this.eventfunctions.forEach(
-				function(el) { el.call(scope, options); }
-			);
-		},
 		
 	  css: function(o) {
 			var that = this;
@@ -222,9 +235,10 @@
 			var killSwitch = setTimeout(function(){ that.setStyle('-webkit-transition','none');},duration*1000)
 			var doAfter = setTimeout(after,duration*1000);
 
+		
+		return this || that; // haha
+	},
 
-			return this || that; // haha
-		},
 	
 		// Removes empty nodes from the DOM Tree - From EXTJS
 		clean: function(){
@@ -375,6 +389,4 @@
 	    return new _$(arguments);
 	  }
 })();
-
-
 
