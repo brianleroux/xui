@@ -160,6 +160,7 @@
 		  return this;
 		},
 	
+
 		animationStack: [],
 		
 		// TODO
@@ -220,6 +221,7 @@
 		
 			var killSwitch = setTimeout(function(){ that.setStyle('-webkit-transition','none');},duration*1000)
 			var doAfter = setTimeout(after,duration*1000);
+
 
 			return this || that; // haha
 		},
