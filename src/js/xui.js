@@ -97,6 +97,15 @@
 			}
 		);
 	},
+
+	stop: function(e) {
+		if(window.event && window.event.returnValue) 
+			window.event.returnValue = false;
+
+		if(e && e.preventDefault)
+			e.preventDefault();
+	},
+
     css: function(o) {
 		var that = this;
 		this.each(function(el) {
@@ -130,34 +139,34 @@
 	// var isSet 	 = function( prop ) { return ( typeof prop !== 'undefined' )};
 	tween: function( options ) {
 		
-		var easing   = options.easing 	== undefined ? 'ease-in' 							: options.easing;
-		var before	 = options.before 	== undefined ? function(){alert('called before')}   : options.before; 	
-		var after	 = options.after 	== undefined ? function(){alert('called after')}	: options.after; 	
-		var duration = options.duration == undefined ? .5									: options.duration;
+		var that = this;
 		
+	
+		var easing   	= options.easing   == undefined ? 'ease-in'    : options.easing;
+		var before	 	= options.before   == undefined ? function(){} : options.before; 	
+		var after	 	= options.after    == undefined ? function(){} : function() { options.after.apply(that); }; 	
+		var duration 	= options.duration == undefined ? .5	       : options.duration;
+	
 		options.easing   = undefined;
 		options.before   = undefined;
 		options.after    = undefined;
 		options.duration = undefined;
-		
-		// callback
+	
 		before.apply(before.arguments);
-		
-		var that = this;
-		
+
 		// this sets duration and easing equation on a style property change
 		this.setStyle( '-webkit-transition', 'all ' + duration + 's ' + easing );
-		
+	
 		// sets the starting point and ending point for each css property tween
-		this.each( function(el) {	
+		this.each( function(el) {
 			for( var prop in options ) {
 				that.setStyle( prop, options[prop] )
 			}	
 		});
+	
+		var killSwitch = setTimeout(function(){ that.setStyle('-webkit-transition','none');},duration*1000)
+		var doAfter = setTimeout(after,duration*1000);
 		
-		var killSwitch = setTimeout(duration*1000,function(){ that.setStyle( '-webkit-transition', 'none'); })
-		// var doAfter = setTimeout(duration*1000, after);
-			
 		return this || that; // haha
 	},
 	
