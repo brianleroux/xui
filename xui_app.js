@@ -1,9 +1,21 @@
- 
+/*
+
+	XUI-App is designed to provide a much higher level view of Mobile Web Development, using XUI as a solid platform to do so.
+	
+	Broken down into the following areas.
+	Design Elements (Buttons, Lists, Headers and Pages)
+	Complex Animation 
+
+*/
+
 x$.app = function(title,fn) {
-  var that = this;
-  this.title = title;
+ 	var that = this;
+ 	this.title = title;
 	this.uuid = 0;
-  fn();
+	
+	window.onload = function() {
+ 		fn();
+	}	
 }
 
 x$.guid = function() {

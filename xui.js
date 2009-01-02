@@ -144,12 +144,32 @@
 		  return this;
 		},
 	
+		animationStack: [],
+		
 		// TODO
 		// reset -webkit-transition property (Maybe move to the callafter stack?)
 		// absolutize/offset
 		// var isSet 	 = function( prop ) { return ( typeof prop !== 'undefined' )};
 		tween: function( options ) {
+			this.animationStack.push(options);
+			this.start();
+			return this;
+		},
 
+		start:function() {
+
+			var t = 0;
+			for (var i = 0; i< this.animationStack.length;i++) {
+				var options = this.animationStack[i];
+				var duration 	= options.duration == undefined ? .5	: options.duration;
+				setTimeout(function(s,o){s.anim(o);},t*1000*duration,this,options);
+				t += options.duration;
+			}
+			
+			return this;
+		},
+		
+		anim: function(options) {	
 			var that = this;
 			
 			var opt_after = options.after;
@@ -178,7 +198,7 @@
 		
 			var killSwitch = setTimeout(function(){ that.setStyle('-webkit-transition','none');},duration*1000)
 			var doAfter = setTimeout(after,duration*1000);
-			
+
 			return this || that; // haha
 		},
 	

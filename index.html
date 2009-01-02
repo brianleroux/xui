@@ -12,8 +12,13 @@
       
       // Animation Related
       
+      // x$('#anim1').click(function() {
+      //   x$('.box').tween({ left:'400px', backgroundColor:'blue', duration:1.3, after:function() { this.tween({ top:'100px', duration:1});} });
+      // });
+      //       
+            
       x$('#anim1').click(function() {
-        x$('.box').tween({ left:'400px', backgroundColor:'blue', duration:1.3, after:function() { this.tween({ top:'100px', duration:1});} });
+        x$('.box').tween({ left:'400px', backgroundColor:'blue', duration:1.3, after:function() { this.tween({ top:'0px', duration:3});  }}).tween({ top:'100px', duration:1});
       });
             
       x$('#anim4').click(function() {
@@ -58,7 +63,7 @@
       
       var h = function(e) { 
   			for (var i = 0; i < arguments.length; i++) {
-  		 	  console.log(arguments[i]);
+//  		 	  console.log(arguments[i]);
   	 	  }
       }
 
