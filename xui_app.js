@@ -5,6 +5,7 @@
 	Broken down into the following areas.
 	Design Elements (Buttons, Lists, Headers and Pages)
 	Complex Animation 
+	Solve common Mobile (iPhone) idioms
 
 */
 

@@ -6,16 +6,21 @@
 			var element = els[i];
 			if (typeof element == 'string') {
 				var element = document.querySelectorAll(element);
-				for (var x=0;x<element.length;x++) {				
-					this.elements.push(element[x]);	
-				}
+				
 				if (element.length == 0) {
 					console.log("No Element Found for Selector - " + els[0]);
 				}
+
+				for (var x=0;x<element.length;x++) {
+					//console.log(element[x]);				
+					this.elements.push(element[x]);	
+				}
+
 			} else {
 				this.elements.push(element);
 			}
 		}
+		
 		return this;
 	}
   _$.prototype = {
@@ -34,6 +39,17 @@
 	    });
 	    return this;
 	  },
+	
+		// EXP - Not Chainable
+		getStyle: function(oElm, strCssRule) {
+			var strValue = "";
+			if(document.defaultView && document.defaultView.getComputedStyle){
+				strValue = document.defaultView.getComputedStyle(oElm, "").getPropertyValue(strCssRule);
+			}
+			return strValue;
+		},
+	
+		// Not Chainable
 		getClassRegEx: function(className) {
 	  	var re = this.reClassNameCache[className];
 	    if (!re) {
@@ -151,13 +167,19 @@
 		// absolutize/offset
 		// var isSet 	 = function( prop ) { return ( typeof prop !== 'undefined' )};
 		tween: function( options ) {
-			this.animationStack.push(options);
+			if (options instanceof Array) {
+				for(var i=0;i<options.length;i++) {
+					this.animationStack.push(options[i]);					
+				}
+			} else if (options instanceof Object) {
+				this.animationStack.push(options);
+			} 
+			
 			this.start();
 			return this;
 		},
 
 		start:function() {
-
 			var t = 0;
 			for (var i = 0; i< this.animationStack.length;i++) {
 				var options = this.animationStack[i];
@@ -353,16 +375,4 @@
 })();
 
 
-function getStyle(oElm, strCssRule){
-	var strValue = "";
-	if(document.defaultView && document.defaultView.getComputedStyle){
-		strValue = document.defaultView.getComputedStyle(oElm, "").getPropertyValue(strCssRule);
-	}
-	else if(oElm.currentStyle){
-		strCssRule = strCssRule.replace(/\-(\w)/g, function (strMatch, p1){
-			return p1.toUpperCase();
-		});
-		strValue = oElm.currentStyle[strCssRule];
-	}
-	return strValue;
-}
+

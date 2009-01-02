@@ -5,24 +5,25 @@
 <script >
 
     
-x$.app( "Testing Application", function() {
-
-  var head = x$.header({ text:'Main Menu', right:x$.button('settings') });
-  
-  x$.page({id:'p0',content:'This is page 1 - Click to load Page 2',header:head,
-     action:{event:'click',load:'p1'}
-      });
-  x$.page({id:'p1',url:'data.html',header:head});
-  x$.page({id:'p2',content:'2data.html',header:head});    
-  
-  x$.load();
-
-  //x$.list([ {title:'page one', url:'/pageone'}, {title:'page two', url:'/pagetwo'} ]);
-
-});
+// x$.app( "Testing Application", function() {
+// 
+//   var head = x$.header({ text:'Main Menu', right:x$.button('settings') });
+//   
+//   x$.page({id:'p0',content:'This is page 1 - Click to load Page 2',header:head,
+//      action:{event:'click',load:'p1'}
+//       });
+//   x$.page({id:'p1',url:'data.html',header:head});
+//   x$.page({id:'p2',content:'2data.html',header:head});    
+//   
+//   x$.load();
+// 
+//   //x$.list([ {title:'page one', url:'/pageone'}, {title:'page two', url:'/pagetwo'} ]);
+// 
+// });
 
 
 </script>
 <body class="xui">
+  <div id="test">TEST</div>
 </body>	
 </html>
