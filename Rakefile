@@ -1,23 +1,40 @@
 require 'erb'
 
+LIBPATH = File.expand_path(File.dirname(__FILE__)) + File::SEPARATOR
+
+
 task :default do
   write
+  min
 end 
+
 
 # - helpers
 
-LIBPATH = File.expand_path(File.dirname(__FILE__)) + File::SEPARATOR
-
 # writes out an uncompiled version of xui
 def write
-  path = "#{ LIBPATH }src#{ File::SEPARATOR }js#{ File::SEPARATOR }xui.js"
-  template = ERB.new(open(path).read)
-  puts template.result
+  puts 'writing the full source into lib/xui.js'
+  path  = "#{ LIBPATH }src#{ File::SEPARATOR }js#{ File::SEPARATOR }xui.js"
+  final = "#{ LIBPATH }lib#{ File::SEPARATOR }xui.js"
+  html  = ERB.new(open(path).read).result
+  open(final,'w'){|f| f.puts( html )} 
 end
 
-# used in precompiled xui.js
-def import(fname)
-  path = "#{ LIBPATH }src#{ File::SEPARATOR }js#{ File::SEPARATOR }lib#{ File::SEPARATOR }#{ fname }.js"
-  erb = File.open(path) { |fp| ERB.new(fp.read) }
-  erb.run
+def min
+  puts 'minifying js'
+end 
+
+def import(lib)
+	s = ""
+	File.open(lib) { |f| s << "\n#{f.read}\n\n" }
+	s
+end
+
+def build_sub_libraries
+  libs = %w(dom event style fx xhr)
+  s = ""
+  libs.each do |lib|
+    s << import("#{ LIBPATH }src#{ File::SEPARATOR }js#{ File::SEPARATOR }lib#{ File::SEPARATOR }#{ lib }.js")
+  end
+  s
 end

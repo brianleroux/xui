@@ -22,11 +22,8 @@
         return this;
     }
 
-
-	<% libs = %w(dom event style fx xhr) %>
-	<% libs.each do |lib| %>
-		<%= import lib %>
-	<% end %>	
+	
+	<%= build_sub_libraries %>
 	
 
   	// each iterator for walking the element stack
