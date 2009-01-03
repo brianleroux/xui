@@ -1,26 +1,38 @@
 (function() {
 	// private method creates the element stack
-    var _$ = function(els) {
+    var _$ = function(els) 
+	{
         this.elements = [];
-        for (var i=0; i<els.length; i++) {
+		
+		var size = els.length;
+		
+        for(var i = 0; i < size; i++ ) 
+		{
             var element = els[i];
-            if (typeof element == 'string') {
+
+            if( typeof element == 'string' ) 
+			{
                 var element = document.querySelectorAll(element);
-               
-                if (element.length == 0) {
+               	var len = element.length;
+
+                if (element.length == 0) 
+				{
                     console.log("No Element Found for Selector - " + els[0]);
                 }
-
-                for (var x=0;x<element.length;x++) {          
+					
+                for(var x = 0; x < len; x++ ) 
+				{          
                     this.elements.push(element[x]);   
                 }
 
-            } else {
+            } 
+			else 
+			{
                 this.elements.push(element);
             }
         }       
         return this;
-    }
+    };
 
 	
 	<%= build_sub_libraries %>
