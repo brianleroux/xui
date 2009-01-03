@@ -39,13 +39,6 @@
       	});
       return this;
     },
-
-		// EXP - Not Chainable
-		getStyle: function(oElm, strCssRule) {
-			var strValue = "";
-			if(document.defaultView && document.defaultView.getComputedStyle){
-				strValue = document.defaultView.getComputedStyle(oElm, "").getPropertyValue(strCssRule);
-		},
 		
 	getClassRegEx: function(className) {
         var re = this.reClassNameCache[className];
@@ -123,17 +116,6 @@
 		if(e && e.preventDefault)
 			e.preventDefault();
 	},
-
-    css: function(o) {
-		var that = this;
-		this.each(function(el) {
-			for (var prop in o) {
-				that.setStyle(prop, o[prop]);
-			}
-			return strValue;
-		},
-	
-
 
 
 		// same as Prototype BindasEventListener
