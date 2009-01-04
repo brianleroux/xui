@@ -2,24 +2,40 @@
 	//  ----- Remoting methods  -----
 	//
 	var XHR = {	
-	
-	    // Generic XHR Request
-	    // url - String (URL)
-	    // options - Object
+       /**
+       	* xhr
+       	*	
+       	* syntax:
+		*
+       	* xhr('path/to/file.html', {});
+       	* 
+	   	* arguments:
+		*
+       	* url:string the url for request
+       	* options:object
+		* - method:string get|put|delete|post
+		* - async:boolen
+		* - data:string url encoded string of parameters to send
+		*
+       	* example:
+		* 
+       	*/
 	    xhr:function(url,options) {   
 	        var that = this;
 	        if (options == undefined) var options = {};
-	        if (typeof url == 'string') {
-	            var req = new XMLHttpRequest();
+	    
+	    	if (typeof url == 'string') 
+			{
+	            var req    = new XMLHttpRequest();
 	            var method = options.method || 'get';
-	            var async = options.async || false ;
-	            req.open(method,url,async);
+	            var async  = options.async || false ;            
 	            var params = options.data || null;
-           
+	
+           		req.open(method,url,async);
 	            req.onload = (options.callback != null) ? options.callback : function() { that.html(this.responseText); }
 	            req.send(params);
-	    }
-	      return this;
+	    	}
+	      	return this;
 	    },
 
 	    // Options is the same as XHR with map:object and new callback:function
