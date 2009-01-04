@@ -34,9 +34,23 @@
         return this;
     };
 
-	
 	<%= build_sub_libraries %>
 	
+	var libs = <%= "[#{ libs_to_build.map {|x| x.upcase }.join(',') }]" %>;
+	var size = libs.length;
+	
+	for( var i = 0; i < size; i++ )
+	{
+		_$.merge( libs[i] );
+	}
+	
+	_$.prototype.merge = function( libObj ) 
+	{
+		for(var x in libObj)
+		{
+			_$[x] = libObj[x];
+		}
+	}
 
   	// each iterator for walking the element stack
 	_$.prototype = {
