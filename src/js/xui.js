@@ -34,38 +34,43 @@
         return this;
     };
 
-	<%= build_sub_libraries %>
 	
-	var libs = <%= "[#{ libs_to_build.map {|x| x.upcase }.join(',') }]" %>;
-	var size = libs.length;
-	
-	for( var i = 0; i < size; i++ )
-	{
-		_$.merge( libs[i] );
-	}
-	
-	_$.prototype.merge = function( libObj ) 
-	{
-		for(var x in libObj)
-		{
-			_$[x] = libObj[x];
-		}
-	}
-
-  	// each iterator for walking the element stack
 	_$.prototype = {
+		
+		// each iterator for walking the element stack
     	each: function(fn) {
         	for ( var i = 0, len = this.elements.length; i<len; ++i ) {
             	fn.call(this,this.elements[i]);
           	}
           	return this;
     	},
+
+		// merges sub lib objects
+		merge: function( libObj ) 
+		{
+			for(var x in libObj)
+			{
+				this[x] = libObj[x];
+			}
+		}
 	};
 	
-      
+
 	// adds the xui system as x$ to the current window
-	var xui = window.x$ = function() {
-		return new _$(arguments);
+	var xui = window.x$ = function() 
+	{
+		<%= build_sub_libraries %>
+	
+		var libs = <%= "[#{ libs_to_build.map {|x| x.upcase }.join(',') }]" %>;
+		var size = libs.length;
+		var that = new _$(arguments);
+		
+		for( var i = 0; i < size; i++ )
+		{
+			that.merge( libs[i] );
+		}
+	
+		return that;
 	}
 
 })();
