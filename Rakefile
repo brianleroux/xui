@@ -51,4 +51,7 @@ end
 # TODO add yahoo min
 def min
   puts 'minifying js'
+  min_file = "#{ LIBPATH }lib#{ File::SEPARATOR }xui-min.js"
+  doc_file = "#{ LIBPATH }lib#{ File::SEPARATOR }xui.js"
+  sh "java -jar #{LIBPATH}/util/yuicompressor-2.3.6.jar --nomunge --charset UTF-8 -o #{min_file} #{doc_file}"
 end 
