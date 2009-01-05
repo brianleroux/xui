@@ -16,6 +16,10 @@ a {
 	color:#fff;
 }
 
+div#stage {
+	margin:0 auto 0 auto;
+}
+
 div#stage div#header,
 div#stage div#footer {
 	text-align:center;
@@ -70,10 +74,4 @@ div#stage ul.nav li:last-child a {
 	-webkit-border-bottom-left-radius: 10px;
 	-webkit-border-bottom-right-radius: 10px;
 }
-
-
-
-
-
-
 
