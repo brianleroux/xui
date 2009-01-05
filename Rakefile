@@ -2,15 +2,19 @@ require 'erb'
 
 LIBPATH = File.expand_path(File.dirname(__FILE__)) + File::SEPARATOR
 
-=begin
-- the individual libs need to be merged into the xui obj
-- minfication
-- docs
-- autotesting
-=end
+
+
+desc 'writes lib/xui.js and lib/xui-min.js from src then launches tests'
 task :default do
   write
   min
+  spec
+end 
+
+desc 'launches example app'
+task :example do
+  write unless File.exist? "#{ LIBPATH }#{ File::SEPARATOR }lib#{ File::SEPARATOR }xui.js"
+  sh "open -a Safari #{ LIBPATH }/example/index.html"
 end 
 
 
@@ -22,6 +26,7 @@ def write
   path  = "#{ LIBPATH }src#{ File::SEPARATOR }js#{ File::SEPARATOR }xui.js"
   final = "#{ LIBPATH }lib#{ File::SEPARATOR }xui.js"
   html  = ERB.new(open(path).read).result
+  FileUtils.mkdir_p "#{ LIBPATH }lib"
   open(final,'w'){|f| f.puts( html )} 
 end
 
@@ -42,11 +47,22 @@ end
 # helper for build_sub_libaries
 def import(lib)
 	s = ""
-	File.open(lib) { |f| s << "\n#{f.read}\n\n" }
-	s
+	r = ""
+  open(lib) { |f| s << "\n#{f.read}\n\n" }
+	s.each_line {|l| r << "		#{l}"}
+	r
 end
 
-# TODO add yahoo min
+# creates lib/xui-min.js (tho not obfuscates)
 def min
   puts 'minifying js'
+  min_file = "#{ LIBPATH }lib#{ File::SEPARATOR }xui-min.js"
+  doc_file = "#{ LIBPATH }lib#{ File::SEPARATOR }xui.js"
+  sh "java -jar #{LIBPATH}/util/yuicompressor-2.3.6.jar --nomunge --charset UTF-8 -o #{min_file} #{doc_file}"
+end 
+
+# opens up the specs
+def spec
+  puts 'running automated test suite'
+  sh "open -a Safari file://#{ LIBPATH }/spec/index.html"
 end 
