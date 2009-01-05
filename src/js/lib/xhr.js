@@ -1,6 +1,10 @@
-//
-//  ----- Remoting methods  -----
-//
+/**
+*
+* Xhr
+*	
+* Remoting methods and ultilites.  
+* 
+*/
 var XHR = {	
 	/**
 	* xhr
