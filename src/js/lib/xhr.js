@@ -25,20 +25,19 @@ var Xhr = {
 	* 
 	*/
     xhr:function(url,options) {   
-        var that = this;
+         
         if (options == undefined) var options = {};
-    
-    	if (typeof url == 'string') 
-		{
-            var req    = new XMLHttpRequest();
-            var method = options.method || 'get';
-            var async  = options.async || false ;            
-            var params = options.data || null;
 
-          		req.open(method,url,async);
-            req.onload = (options.callback != null) ? options.callback : function() { that.html(this.responseText); }
-            req.send(params);
-    	}
+    	var that   = this;
+    	var req    = new XMLHttpRequest();
+        var method = options.method || 'get';
+        var async  = options.async || false ;            
+        var params = options.data || null;
+        
+        req.open(method,url,async);
+        req.onload = (options.callback != null) ? options.callback : function() { that.html(this.responseText); }
+        req.send(params);
+    	
       	return this;
     },
 

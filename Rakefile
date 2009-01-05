@@ -14,7 +14,7 @@ end
 desc 'launches example app'
 task :example do
   write unless File.exist? "#{ LIBPATH }#{ File::SEPARATOR }lib#{ File::SEPARATOR }xui.js"
-  sh "open -a Safari #{ LIBPATH }/example/index.html"
+  sh "open -a WebKit #{ LIBPATH }/example/index.html"
 end 
 
 
@@ -64,5 +64,6 @@ end
 # opens up the specs
 def spec
   puts 'running automated test suite'
-  sh "open -a Safari file://#{ LIBPATH }/spec/index.html"
+  sh "open -a WebKit file://#{ LIBPATH }/spec/index.html"
+  sh "open -a '/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone Simulator.app' file://#{ LIBPATH }/spec/index.html"
 end 
