@@ -2,15 +2,10 @@ require 'erb'
 
 LIBPATH = File.expand_path(File.dirname(__FILE__)) + File::SEPARATOR
 
-=begin
-- the individual libs need to be merged into the xui obj
-- minfication
-- docs
-- autotesting
-=end
 task :default do
   write
   min
+  test
 end 
 
 
@@ -54,4 +49,9 @@ def min
   min_file = "#{ LIBPATH }lib#{ File::SEPARATOR }xui-min.js"
   doc_file = "#{ LIBPATH }lib#{ File::SEPARATOR }xui.js"
   sh "java -jar #{LIBPATH}/util/yuicompressor-2.3.6.jar --nomunge --charset UTF-8 -o #{min_file} #{doc_file}"
+end 
+
+def test
+  puts 'running automated test suite'
+  sh "open file://#{ LIBPATH }/spec/index.html"
 end 

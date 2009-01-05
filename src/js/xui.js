@@ -37,6 +37,10 @@
 	
 	_$.prototype = {
 		
+		first: function() {
+			return this.elements[0];
+		},
+		
 		// each iterator for walking the element stack
     	each: function(fn) {
         	for ( var i = 0, len = this.elements.length; i<len; ++i ) {

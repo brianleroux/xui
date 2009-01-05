@@ -4,11 +4,12 @@
 	<title>String Parser</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<link type="text/css" rel="stylesheet" href="JSSpec.css" />
-	<script type="text/javascript" src="../xui.js"></script>
+	<script type="text/javascript" src="../lib/xui.js"></script>
 	<script type="text/javascript" src="JSSpec.js"></script>
 </head>
 <script type="text/javascript" language="javascript">
 // <![CDATA[
+
 
 describe("xui base",{
 
@@ -21,15 +22,15 @@ describe("xui base",{
 describe("selector id", {
   
   'before': function(){
-    x = x$('#item_1');
+		x = x$('#item_1');
   },
   
-  'should return array with three items': function(){
-	  value_of(x.length).should_be(1);
+  'should return the first element': function(){
+	  value_of(x.first()).should_be(x$('#item_1').first());
 	},
 	
-	'should return element': function(){
-	  value_of(x.innerHTML).should_match('this is item one');
+	'should return first element test': function(){
+	  value_of(x.first().innerHTML).should_match('this is item one');
 	},
 	
 });
