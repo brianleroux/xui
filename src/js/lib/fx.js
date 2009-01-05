@@ -5,7 +5,7 @@
 * Animations mostly but we're not excluding any ideas.
 * 
 */
-var FX = {
+var Fx = {
 
 	// TODO should this be private __animationStack?
 	animationStack: [],

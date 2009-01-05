@@ -61,7 +61,7 @@
 	{
 		<%= build_sub_libraries %>
 	
-		var libs = <%= "[#{ libs_to_build.map {|x| x.upcase }.join(',') }]" %>;
+		var libs = <%= "[#{ libs_to_build.map {|x| x.capitalize }.join(',') }]" %>;
 		var size = libs.length;
 		var that = new _$(arguments);
 		

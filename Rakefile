@@ -42,8 +42,10 @@ end
 # helper for build_sub_libaries
 def import(lib)
 	s = ""
-	File.open(lib) { |f| s << "\n#{f.read}\n\n" }
-	s
+	r = ""
+  open(lib) { |f| s << "\n#{f.read}\n\n" }
+	s.each_line {|l| r << "		#{l}"}
+	r
 end
 
 # TODO add yahoo min

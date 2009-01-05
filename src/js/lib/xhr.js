@@ -5,7 +5,7 @@
 * Remoting methods and ultilites.  
 * 
 */
-var XHR = {	
+var Xhr = {	
 	/**
 	* xhr
 	*	

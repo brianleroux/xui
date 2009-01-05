@@ -5,7 +5,7 @@
 * A good old fashioned event handling system.
 * 
 */
-var EVENT = {
+var Event = {
 
 	eventfunctions : [],
 	click: function(fn) { return this.on('click',fn); },

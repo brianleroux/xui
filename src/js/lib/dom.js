@@ -5,7 +5,7 @@
 * Manipulating the document object model (DOM).
 * 
 */
-var DOM = {
+var Dom = {
 	
 	/**
 	*

@@ -5,7 +5,7 @@
 * Anything related to how things look. Usually, this is CSS.
 * 
 */
-var STYLE = {
+var Style = {
 	
 	// TODO should this be private? __classNameCache
 	reClassNameCache: {},
