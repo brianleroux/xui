@@ -32,8 +32,9 @@ syntax:
 
 `x$(window).clean();`
 
-arguments:
 example:
+
+x$(window).clean();
 
 
 
@@ -124,6 +125,8 @@ arguments:
 
 example:
 
+`x$('#box5').css({ backgroundColor:'blue', width:'100px', border:'2px solid red' });`
+
 
 
 
@@ -185,6 +188,8 @@ TODO
 - more tests
 - a more comprehensive exmaple application
 - dynamic TODO lists (no shit)
+- create docindex.html from markdown
+- inspect and generate example from markdown
 
 LICENSE
 ---

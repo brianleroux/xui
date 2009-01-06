@@ -23,9 +23,9 @@ var Style = {
 	* 
 	*/
 	setStyle: function(prop, val) {
-	      this.each(function(el) {
-	        el.style[prop] = val;
-	      });
+      this.each(function(el) {
+        el.style[prop] = val;
+      });
 	  return this;
 	},
 
@@ -40,12 +40,12 @@ var Style = {
 	* 
 	*/
 	getStyle: function(prop,callback) {
-	      this.each(function(el) {
-					var strValue = document.defaultView.getComputedStyle(el, "").getPropertyValue(prop);
-					console.log(strValue);
-					callback(strValue);
-	      });
-	  return this;
+      	this.each(function(el) {
+			var strValue = document.defaultView.getComputedStyle(el, "").getPropertyValue(prop);
+			console.log(strValue);
+			callback(strValue);
+      	});
+	  	return this;
 	},
 
 	/**
@@ -96,6 +96,8 @@ var Style = {
 	*
 	* example:
 	* 
+	* `x$('#box5').css({ backgroundColor:'blue', width:'100px', border:'2px solid red' });`
+	*  
 	*/
 	css: function(o) {
 		var that = this;

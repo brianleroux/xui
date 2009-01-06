@@ -18,9 +18,10 @@ var Dom = {
 	*
 	* `x$(window).clean();`
 	*
-	* arguments:
 	* example:
-	* 
+	*
+	*	x$(window).clean();
+	*		
 	*/
     clean: function(){
       	var ns = /\S/;
