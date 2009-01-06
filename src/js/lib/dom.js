@@ -12,7 +12,7 @@ var Dom = {
 	*
 	* ### clean
 	*
-	* Removes empty nodes from the DOM.
+	* Removes empty nodes from the DOM. This is used internally as a helper, but it is also public.
 	*	
 	* syntax:
 	*
@@ -39,6 +39,46 @@ var Dom = {
         });
        return this;
      },
+
+
+		/**
+		*
+		* ### html
+		*
+		* Adds elements or changes the content of an element on a page.
+		*	
+		* syntax:
+		*
+		* `x$(window).html("String Fragment" [,"top" | "bottom" | "inner" | "outer" ]);`
+		*
+		* arguments:
+		* example:
+		* 
+		*/
+    html:function(html,loc) {
+        var that = this;
+        this.clean();
+        var loc = (loc != null) ? loc : 'inner';
+        this.each(function(el) {
+            switch(loc) {
+                case "inner": el.innerHTML = html; break;
+                case "outer":
+                    if (typeof html == 'string') html = this.wrap(html,this.getTag(el));
+                    el.parentNode.replaceChild(html,el);
+                break;
+                case "top":
+                    if (typeof html == 'string') html = this.wrap(html,this.getTag(el));
+                    el.insertBefore(html,el.firstChild);
+                break;
+                case "bottom":
+                    if (typeof html == 'string') html = this.wrap(html,this.getTag(el));
+                    el.insertBefore(html,null);
+                break;
+            }
+      });
+        return this;
+    },
+
 
     // Wraps the HTML in a TAG, Tag is optional
     // If the html starts with a Tag, it will wrap the context in that tag.
@@ -77,31 +117,7 @@ var Dom = {
         return element;
     },
 
-    html:function(html,loc) {
-        var that = this;
-        this.clean();
-        var loc = (loc != null) ? loc : 'inner';
-        this.each(function(el) {
-            switch(loc) {
-                case "inner": el.innerHTML = html; break;
-                case "outer":
-                    if (typeof html == 'string') html = this.wrap(html,this.getTag(el));
-                    el.parentNode.replaceChild(html,el);
-                break;
-                case "top":
-                    if (typeof html == 'string') html = this.wrap(html,this.getTag(el));
-                    el.insertBefore(html,el.firstChild);
-                break;
-                case "bottom":
-                    if (typeof html == 'string') html = this.wrap(html,this.getTag(el));
-                    el.insertBefore(html,null);
-                break;
-            }
-      });
-        return this;
-    },
-
-	// Helper for finding a tag for inserting into the DOM, we are looking for simular tags
+		// Helper for finding a tag for inserting into the DOM, we are looking for simular tags
     // NOT Chainable
     getTag: function(el) {
         if (el.firstChild == null) {
@@ -111,7 +127,6 @@ var Dom = {
 								case 'TR': return 'TD'; break;
             }
         }
-				console.log(el.firstChild.tagName);
         return el.firstChild.tagName;
     }
 };
