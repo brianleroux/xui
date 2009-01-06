@@ -6,7 +6,7 @@
 *	---
 *
 *	To build xui from source: run rake in the shell of your choice from the root of the project directory. (requires ruby)
-*	There are other tasks for code minfication, running the specs and generating docs.
+*	There are other tasks for code minification, running the specs and generating docs.
 *
 *	Check out /example for...guess what: a fucking example! Right on.
 *	

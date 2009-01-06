@@ -33,19 +33,18 @@ end
 desc 'bulds documentation from inline comments'
 task :doc do
   write 
-  file     = "#{ LIBPATH }#{ File::SEPARATOR }lib#{ File::SEPARATOR }xui.js"
-  sauce    = File.open(file).read
-  comments = sauce.to_s.scan(/\/(?:\*(?:.)*?\*\/|\/[^\n]*)/m)
-  readme   = ""
-  path     = "#{ LIBPATH }#{ File::SEPARATOR }README.md" 
-  comments.each do |comment|
-    # test if this is a multiline or inline comment (ignore inline for now / future use to populate TODO list)
-    single_comments_removed = comment.gsub(/\/\/.*/m, '')
-    comments_removed = single_comments_removed.gsub(/(\*|\/\*)/m, '')
-    whitespace_removed = comments_removed.gsub(/^\s|\//, '')
-    readme += BlueCloth.new(whitespace_removed)
-  end 
-  open(path, 'w'){|f| f.puts(readme) }
+  file = "#{ LIBPATH }#{ File::SEPARATOR }lib#{ File::SEPARATOR }xui.js"
+  sauce = File.open(file).read
+  # fetches all
+  comments = sauce.scan(/\/(?:\*(?:.)*?\*\/|\/[^\n]*)/m)
+  # removes single line
+  comments = comments.reject{|c| c =~ /\/\/.*/m }
+  # removes comment debris (method chaining gone wrong)
+  comments = comments.map{|r| r.gsub(/^\s|\*\/|\*/, '').gsub('/','').split("\n").map {|l| l.strip }.join("\n") }
+  # build a readme
+  readme = comments.map{|x| BlueCloth.new(x)}.join("\n\n")
+  # write it out
+  open("#{ LIBPATH }#{ File::SEPARATOR }README.md", 'w'){|f| f.puts(readme) }
 end 
 
 
