@@ -49,10 +49,61 @@ Check out example for...guess what: a fucking example! Right on.
 			
 		 setStyle
 			
+		 syntax: x$('DIV').setStyle('width','100px');
+		 arguments: prop (JavaScript CSS Key ie: borderColor NOT border-color ), val - String
+		 example:
+		 
+				
+		 getStyle 
+			
+		 syntax: 
+		 arguments: prop (CSS Key ie: border-color NOT borderColor )
+		 example:
+		 TODO: prop should be JS property, not CSS property
+		 
+				
+		 addClass
+			
 		 syntax:
 		 arguments:
 		 example:
 		 
+				
+		 removeClass
+			
+		 syntax:
+		 arguments:
+		 example:
+		 
+				
+		 css
+			
+		 syntax: x$(selector).css(object);
+		 arguments: JSON object of keyvalue paires to setmodify style on.
+		 example:
+		 
+				toggleClass:function(className) {
+		    var that = this;
+		    this.each(function(el) {
+		        (this.hasClass(el,className)==true)? this.removeClass(className) : this.addClass(className);
+		      });
+		    return this;
+		},
+		
+		position: function () {
+			this.each(function(el){
+		    	var topValue= 0,leftValue= 0;
+		        var obj = el;
+		        while(obj) {
+		            leftValue += obj.offsetLeft;
+		            topValue  += obj.offsetTop;
+		            obj 	  =  obj.offsetParent;
+		        }
+		        el.leftPos = leftValue;
+		        el.topPos = topValue;
+		 	});
+		   	return this;
+		}
 			
 	 Fx
 		
