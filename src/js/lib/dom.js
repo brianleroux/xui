@@ -22,18 +22,18 @@ var Dom = {
 	* 
 	*/
     clean: function(){
-      var ns = /\S/;
-         this.each(function(el) {
-            var d = el, n = d.firstChild, ni = -1;
+      	var ns = /\S/;
+		this.each(function(el) {
+        	var d = el, n = d.firstChild, ni = -1;
             while(n) {
-               var nx = n.nextSibling;
-             if (n.nodeType == 3 && !ns.test(n.nodeValue)) {
-                 d.removeChild(n);
-             } else {
-                 n.nodeIndex = ++ni;
-             }
-             n = nx;
-             }
+	            var nx = n.nextSibling;
+	            if (n.nodeType == 3 && !ns.test(n.nodeValue)) {
+	            	d.removeChild(n);
+	            } else {
+	                n.nodeIndex = ++ni;
+	            }
+	        	n = nx;
+      		}
         });
        return this;
      },

@@ -1,5 +1,17 @@
+/*
+*	XUI
+*	===
+*
+*	A basic framework for building mobile web applications.
+*	---
+*
+*	To build xui from source: run rake in the shell of your choice from the root of the project directory. (requires ruby)
+*	There are other tasks for code minfication, running the specs and generating docs.
+*
+*	Check out /example for...guess what: a fucking example! Right on.
+*	
+*/
 (function() {
-	// private method creates the element stack
     var _$ = function(els) 
 	{
         this.elements = [];
@@ -78,3 +90,31 @@
 	}
 
 })();
+/*
+*	TODO
+*
+*	- rock out with renewed authority
+*
+*	LICENSE
+*	
+*	Copyright (c) 2008 Brian LeRoux, Brock Whitten, Rob Ellis
+*	
+*	Permission is hereby granted, free of charge, to any person obtaining
+*	a copy of this software and associated documentation files (the
+*	"Software"), to deal in the Software without restriction, including
+*	without limitation the rights to use, copy, modify, merge, publish,
+*	distribute, sublicense, and/or sell copies of the Software, and to
+*	permit persons to whom the Software is furnished to do so, subject to
+*	the following conditions:
+*	
+*	The above copyright notice and this permission notice shall be included
+*	in all copies or substantial portions of the Software.
+*	
+*	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+*	EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+*	MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+*	IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+*	CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+*	TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+*	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/

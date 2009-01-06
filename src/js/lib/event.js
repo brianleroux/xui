@@ -21,6 +21,9 @@ var Event = {
 	* x$('button').on( 'click', function(){ alert('hey that tickles!') });
 	*
 	* arguments:
+	* - type:string the event to subscribe to click|load|etc
+	* - fn:function a callback function to execute when the event is fired
+	*
 	* example:
 	* 
 	*/

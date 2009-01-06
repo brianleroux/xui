@@ -1,9 +1,15 @@
 require 'erb'
+require 'BlueCloth'
+require 'util/narcissus.rb'
+
+
 
 LIBPATH = File.expand_path(File.dirname(__FILE__)) + File::SEPARATOR
 
 
-
+#
+# builds and tests
+#
 desc 'writes lib/xui.js and lib/xui-min.js from src then launches tests'
 task :default do
   write
@@ -11,10 +17,35 @@ task :default do
   spec
 end 
 
+#
+# TODO open in MobileSafari, Fennec and MobileOpera
+#
 desc 'launches example app'
 task :example do
   write unless File.exist? "#{ LIBPATH }#{ File::SEPARATOR }lib#{ File::SEPARATOR }xui.js"
   sh "open -a WebKit #{ LIBPATH }/example/index.html"
+end 
+
+#
+# docs are inline to the code (as markdown)
+#
+# tree = parse(sauce, file)
+desc 'bulds documentation from inline comments'
+task :doc do
+  write 
+  file     = "#{ LIBPATH }#{ File::SEPARATOR }lib#{ File::SEPARATOR }xui.js"
+  sauce    = File.open(file).read
+  comments = sauce.to_s.scan(/\/(?:\*(?:.)*?\*\/|\/[^\n]*)/m)
+  readme   = ""
+  path     = "#{ LIBPATH }#{ File::SEPARATOR }README.md" 
+  comments.each do |comment|
+    # test if this is a multiline or inline comment (ignore inline for now / future use to populate TODO list)
+    single_comments_removed = comment.gsub(/\/\/.*/m, '')
+    comments_removed = single_comments_removed.gsub(/(\*|\/\*)/m, '')
+    whitespace_removed = comments_removed.gsub(/^\s|\//, '')
+    readme += BlueCloth.new(whitespace_removed)
+  end 
+  open(path, 'w'){|f| f.puts(readme) }
 end 
 
 
