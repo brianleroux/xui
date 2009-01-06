@@ -1,6 +1,7 @@
 /**
 *
 * Event
+* ---
 *	
 * A good old fashioned event handling system.
 * 
@@ -14,11 +15,11 @@ var Event = {
 
 	/**
 	*
-	* on
+	* ### on ###
 	*	
 	* syntax:
 	*
-	* x$('button').on( 'click', function(){ alert('hey that tickles!') });
+	* <code>x$('button').on( 'click', function(){ alert('hey that tickles!') });</code>
 	*
 	* arguments:
 	* - type:string the event to subscribe to click|load|etc

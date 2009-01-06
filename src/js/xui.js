@@ -5,11 +5,15 @@
 *	A basic framework for building mobile web applications.
 *	---
 *
-*	To build xui from source: run rake in the shell of your choice from the root of the project directory. (requires ruby)
+*	To build xui from source: run <strong>rake</strong> in the shell of your choice from the root of the project directory. (requires ruby)
 *	There are other tasks for code minification, running the specs and generating docs.
 *
-*	Check out /example for...guess what: a fucking example! Right on.
+*	Check out the <em>example directory</em> for a comprehensive <strong>example application</strong>.
+*
+*	API Documentation
+*	===
 *	
+*	Welcome the XUI documentation. This is generated from inline documentation in the xui javascript source.
 */
 (function() {
     var _$ = function(els) 
@@ -36,18 +40,17 @@
 	};
 	
 	_$.prototype = {
-		
+				
 		first: function() {
 			return this.elements[0];
 		},
 		
-		// each iterator for walking the element stack
-    each: function(fn) {
-    	for ( var i = 0, len = this.elements.length; i<len; ++i ) {
-				fn.call(this,this.elements[i]);
-			}
-			return this;
-    },
+	    each: function(fn) {
+	    	for ( var i = 0, len = this.elements.length; i<len; ++i ) {
+					fn.call(this,this.elements[i]);
+				}
+				return this;
+	    },
 
 		// merges sub lib objects
 		merge: function( libObj ) {
@@ -78,6 +81,10 @@
 *	TODO
 *
 *	- rock out with renewed authority
+*	- better docs we promise
+*	- more tests
+*	- a more comprehensive exmaple application
+*	- dynamic TODO lists (no shit)
 *
 *	LICENSE
 *	

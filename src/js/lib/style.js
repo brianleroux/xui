@@ -1,6 +1,7 @@
 /**
 *
 * Style
+* ---
 *	
 * Anything related to how things look. Usually, this is CSS.
 * 
@@ -12,10 +13,15 @@ var Style = {
 
 	/**
 	*
-	* setStyle
+	* ### setStyle ###
 	*	
-	* syntax: x$('DIV').setStyle('width','100px');
-	* arguments: prop (JavaScript CSS Key ie: borderColor NOT border-color ), val - String
+	* syntax: 
+	*
+	* <code> x$('DIV').setStyle('width','100px');</code>
+	*
+	* arguments: 
+	* - prop (JavaScript CSS Key ie: borderColor NOT border-color ), val - String
+	*
 	* example:
 	* 
 	*/
@@ -28,7 +34,7 @@ var Style = {
 
 	/**
 	*
-	* getStyle 
+	* ### getStyle ### 
 	*	
 	* syntax: 
 	* arguments: prop (CSS Key ie: border-color NOT borderColor )
@@ -57,7 +63,7 @@ var Style = {
 
 	/**
 	*
-	* addClass
+	* ### addClass ###
 	*	
 	* syntax:
 	* arguments:
@@ -78,7 +84,7 @@ var Style = {
 	},
 	/**
 	*
-	* removeClass
+	* ### removeClass ###
 	*	
 	* syntax:
 	* arguments:
@@ -95,7 +101,7 @@ var Style = {
 	
 	/**
 	*
-	* css
+	* ### css ###
 	*	
 	* syntax: x$(selector).css(object);
 	* arguments: JSON object of key/value paires to set/modify style on.

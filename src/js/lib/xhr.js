@@ -1,25 +1,26 @@
 /**
 *
 * Xhr
+* ---
 *	
 * Remoting methods and ultilites.  
 * 
 */
 var Xhr = {	
 	/**
-	* xhr
+	* ### xhr ###
 	*	
 	* syntax:
 	*
-	* xhr('path/to/file.html', {});
+	* <code>xhr('path/to/file.html', {});</code>
 	* 
 	* arguments:
 	*
-	* url:string the url for request
-	* options:object
-	* - method:string get|put|delete|post
-	* - async:boolen
-	* - data:string url encoded string of parameters to send
+	* - url:string the url for request
+	* - options:object
+	* -- method:string get|put|delete|post
+	* -- async:boolen
+	* -- data:string url encoded string of parameters to send
 	*
 	* example:
 	* 

@@ -1,6 +1,7 @@
 /**
 *
 * Dom
+* ---
 *	
 * Manipulating the document object model (DOM).
 * 
@@ -9,13 +10,13 @@ var Dom = {
 	
 	/**
 	*
-	* clean
+	* ### clean ###
 	*
 	* Removes empty nodes from the DOM.
 	*	
 	* syntax:
 	*
-	* x$(window).clean();
+	* <code>x$(window).clean();</code>
 	*
 	* arguments:
 	* example:

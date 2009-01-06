@@ -1,8 +1,5 @@
 require 'erb'
 require 'BlueCloth'
-require 'util/narcissus.rb'
-
-
 
 LIBPATH = File.expand_path(File.dirname(__FILE__)) + File::SEPARATOR
 
@@ -10,7 +7,7 @@ LIBPATH = File.expand_path(File.dirname(__FILE__)) + File::SEPARATOR
 #
 # builds and tests
 #
-desc 'writes lib/xui.js and lib/xui-min.js from src then launches tests'
+desc 'writes lib/xui.js and lib/xui-min.js from src then launches specs'
 task :default do
   write
   min
@@ -20,7 +17,7 @@ end
 #
 # TODO open in MobileSafari, Fennec and MobileOpera
 #
-desc 'launches example app'
+desc 'launches the semi official but seriously example app example'
 task :example do
   write unless File.exist? "#{ LIBPATH }#{ File::SEPARATOR }lib#{ File::SEPARATOR }xui.js"
   sh "open -a WebKit #{ LIBPATH }/example/index.html"
@@ -29,15 +26,14 @@ end
 #
 # docs are inline to the code (as markdown)
 #
-# tree = parse(sauce, file)
-desc 'bulds documentation from inline comments'
+desc 'bulds documentation from inline comments into README.md'
 task :doc do
   write 
   file = "#{ LIBPATH }#{ File::SEPARATOR }lib#{ File::SEPARATOR }xui.js"
   sauce = File.open(file).read
   # fetches all
   comments = sauce.scan(/\/(?:\*(?:.)*?\*\/|\/[^\n]*)/m)
-  # removes single line
+  # removes single line comments (TODO extract TODOs)
   comments = comments.reject{|c| c =~ /\/\/.*/m }
   # removes comment debris (method chaining gone wrong)
   comments = comments.map{|r| r.gsub(/^\s|\*\/|\*/, '').gsub('/','').split("\n").map {|l| l.strip }.join("\n") }

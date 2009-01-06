@@ -5,15 +5,20 @@ XUI
 A basic framework for building mobile web applications.
 ---
 
-To build xui from source: run rake in the shell of your choice from the root of the project directory. (requires ruby)
+To build xui from source: run <strong>rake<strong> in the shell of your choice from the root of the project directory. (requires ruby)
 There are other tasks for code minification, running the specs and generating docs.
 
-Check out example for...guess what: a fucking example! Right on.
+Check out the <em>example directory<em> for a comprehensive <strong>example application<strong>.
 
+API Documentation
+===
+
+Welcome the XUI documentation. This is generated from inline documentation in the xui javascript source.
 
 
 
 Dom
+---
 
 Manipulating the document object model (DOM).
 
@@ -21,13 +26,13 @@ Manipulating the document object model (DOM).
 
 
 
-clean
+### clean ###
 
 Removes empty nodes from the DOM.
 
 syntax:
 
-x$(window).clean();
+<code>x$(window).clean();<code>
 
 arguments:
 example:
@@ -37,6 +42,7 @@ example:
 
 
 Event
+---
 
 A good old fashioned event handling system.
 
@@ -44,11 +50,11 @@ A good old fashioned event handling system.
 
 
 
-on
+### on ###
 
 syntax:
 
-x$('button').on( 'click', function(){ alert('hey that tickles!') });
+<code>x$('button').on( 'click', function(){ alert('hey that tickles!') });<code>
 
 arguments:
 - type:string the event to subscribe to click|load|etc
@@ -61,6 +67,7 @@ example:
 
 
 Style
+---
 
 Anything related to how things look. Usually, this is CSS.
 
@@ -68,17 +75,22 @@ Anything related to how things look. Usually, this is CSS.
 
 
 
-setStyle
+### setStyle ###
 
-syntax: x$('DIV').setStyle('width','100px');
-arguments: prop (JavaScript CSS Key ie: borderColor NOT border-color ), val - String
+syntax:
+
+<code> x$('DIV').setStyle('width','100px');<code>
+
+arguments:
+- prop (JavaScript CSS Key ie: borderColor NOT border-color ), val - String
+
 example:
 
 
 
 
 
-getStyle
+### getStyle ###
 
 syntax:
 arguments: prop (CSS Key ie: border-color NOT borderColor )
@@ -89,7 +101,7 @@ TODO: prop should be JS property, not CSS property
 
 
 
-addClass
+### addClass ###
 
 syntax:
 arguments:
@@ -99,7 +111,7 @@ example:
 
 
 
-removeClass
+### removeClass ###
 
 syntax:
 arguments:
@@ -109,7 +121,7 @@ example:
 
 
 
-css
+### css ###
 
 syntax: x$(selector).css(object);
 arguments: JSON object of keyvalue paires to setmodify style on.
@@ -145,6 +157,7 @@ return this;
 
 
 Fx
+---
 
 Animations mostly but we're not excluding any ideas.
 
@@ -152,16 +165,16 @@ Animations mostly but we're not excluding any ideas.
 
 
 
-tween
+### tween ###
 
 syntax:
-
+<code>
 x$('#box').tween({ left:100px, backgroundColor:'blue' });
 
 x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:100px }]);
 
 x$('#box').tween({ left:100px}).tween({ left:100px });
-
+<code>
 arguments:
 example:
 
@@ -170,25 +183,26 @@ example:
 
 
 Xhr
+---
 
 Remoting methods and ultilites.
 
 
 
 
-xhr
+### xhr ###
 
 syntax:
 
-xhr('pathtofile.html', {});
+<code>xhr('pathtofile.html', {});<code>
 
 arguments:
 
-url:string the url for request
-options:object
-- method:string get|put|delete|post
-- async:boolen
-- data:string url encoded string of parameters to send
+- url:string the url for request
+- options:object
+-- method:string get|put|delete|post
+-- async:boolen
+-- data:string url encoded string of parameters to send
 
 example:
 
@@ -198,6 +212,10 @@ example:
 TODO
 
 - rock out with renewed authority
+- better docs we promise
+- more tests
+- a more comprehensive exmaple application
+- dynamic TODO lists (no shit)
 
 LICENSE
 
