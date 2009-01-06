@@ -70,11 +70,11 @@ Anything related to how things look. Usually, this is CSS.
 
 
 
-### setStyle ###
+### setStyle
 
 syntax:
 
-<code> x$('DIV').setStyle('width','100px');<code>
+`x$('DIV').setStyle('width','100px');`
 
 arguments:
 - prop (JavaScript CSS Key ie: borderColor NOT border-color ), val - String
@@ -84,7 +84,7 @@ example:
 
 
 
-### getStyle ###
+### getStyle
 
 syntax:
 arguments: prop (CSS Key ie: border-color NOT borderColor )
@@ -94,7 +94,7 @@ TODO: prop should be JS property, not CSS property
 
 
 
-### addClass ###
+### addClass
 
 syntax:
 arguments:
@@ -103,7 +103,7 @@ example:
 
 
 
-### removeClass ###
+### removeClass
 
 syntax:
 arguments:
@@ -112,36 +112,18 @@ example:
 
 
 
-### css ###
+### css
 
-syntax: x$(selector).css(object);
-arguments: JSON object of keyvalue paires to setmodify style on.
+syntax:
+
+`x$(selector).css(object);`
+
+arguments:
+
+- JSON object of keyvalue paires to setmodify style on.
+
 example:
 
-
-
-toggleClass:function(className) {
-var that = this;
-this.each(function(el) {
-(this.hasClass(el,className)==true)? this.removeClass(className) : this.addClass(className);
-});
-return this;
-},
-
-position: function () {
-this.each(function(el){
-var topValue= 0,leftValue= 0;
-var obj = el;
-while(obj) {
-leftValue += obj.offsetLeft;
-topValue  += obj.offsetTop;
-obj 	  =  obj.offsetParent;
-}
-el.leftPos = leftValue;
-el.topPos = topValue;
-});
-return this;
-}
 
 
 

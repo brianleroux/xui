@@ -7,17 +7,14 @@
 * 
 */
 var Style = {
-	
-	// TODO should this be private? __classNameCache
-	reClassNameCache: {},
 
 	/**
 	*
-	* ### setStyle ###
+	* ### setStyle
 	*	
 	* syntax: 
 	*
-	* <code> x$('DIV').setStyle('width','100px');</code>
+	* `x$('DIV').setStyle('width','100px');`
 	*
 	* arguments: 
 	* - prop (JavaScript CSS Key ie: borderColor NOT border-color ), val - String
@@ -34,7 +31,7 @@ var Style = {
 
 	/**
 	*
-	* ### getStyle ### 
+	* ### getStyle
 	*	
 	* syntax: 
 	* arguments: prop (CSS Key ie: border-color NOT borderColor )
@@ -50,20 +47,10 @@ var Style = {
 	      });
 	  return this;
 	},
-	
-	// Private
-	getClassRegEx: function(className) {
-	    var re = this.reClassNameCache[className];
-	    if (!re) {
-	        re = new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)');
-	        this.reClassNameCache[className] = re;
-	    }
-	    return re;
-	},
 
 	/**
 	*
-	* ### addClass ###
+	* ### addClass
 	*	
 	* syntax:
 	* arguments:
@@ -77,14 +64,10 @@ var Style = {
 		});
 		return this;
 	},
-
-	hasClass: function(el,className) {
-	    var re = this.getClassRegEx(className);
-	    return re.test(el.className);
-	},
+	
 	/**
 	*
-	* ### removeClass ###
+	* ### removeClass
 	*	
 	* syntax:
 	* arguments:
@@ -101,10 +84,16 @@ var Style = {
 	
 	/**
 	*
-	* ### css ###
+	* ### css
 	*	
-	* syntax: x$(selector).css(object);
-	* arguments: JSON object of key/value paires to set/modify style on.
+	* syntax: 
+	*
+	* `x$(selector).css(object);`
+	*
+	* arguments: 
+	*
+	* - JSON object of key/value paires to set/modify style on.
+	*
 	* example:
 	* 
 	*/
@@ -116,30 +105,47 @@ var Style = {
 			}
 		});
 		return this || that;
-	}
-
- /*
-	toggleClass:function(className) {
-	    var that = this;
-	    this.each(function(el) {
-	        (this.hasClass(el,className)==true)? this.removeClass(className) : this.addClass(className);
-	      });
-	    return this;
 	},
 	
-	position: function () {
-		this.each(function(el){
-	    	var topValue= 0,leftValue= 0;
-	        var obj = el;
-	        while(obj) {
-	            leftValue += obj.offsetLeft;
-	            topValue  += obj.offsetTop;
-	            obj 	  =  obj.offsetParent;
-	        }
-	        el.leftPos = leftValue;
-	        el.topPos = topValue;
-	 	});
-	   	return this;
+	// -- private methods -- //
+	
+	reClassNameCache: {},
+
+	getClassRegEx: function(className) {
+	    var re = this.reClassNameCache[className];
+	    if (!re) {
+	        re = new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)');
+	        this.reClassNameCache[className] = re;
+	    }
+	    return re;
+	},
+	
+	hasClass: function(el,className) {
+	    var re = this.getClassRegEx(className);
+	    return re.test(el.className);
 	}
-	*/
+	
+	//toggleClass:function(className) {
+	//    var that = this;
+	//    this.each(function(el) {
+	//        (this.hasClass(el,className)==true)? this.removeClass(className) : this.addClass(className);
+	//      });
+	//    return this;
+	//},
+	//
+	//position: function () {
+	//	this.each(function(el){
+	//    	var topValue= 0,leftValue= 0;
+	//        var obj = el;
+	//        while(obj) {
+	//            leftValue += obj.offsetLeft;
+	//            topValue  += obj.offsetTop;
+	//            obj 	  =  obj.offsetParent;
+	//        }
+	//        el.leftPos = leftValue;
+	//        el.topPos = topValue;
+	// 	});
+	//   	return this;
+	//}
+
 };
