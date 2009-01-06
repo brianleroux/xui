@@ -18,10 +18,12 @@ var Xhr = {
 	*
 	* - url:string the url for request
 	* - options:object
-	* -- method:string get|put|delete|post
-	* -- async:boolen
+	* -- method:string get|put|delete|post default get
+	* -- async:boolen default false
 	* -- data:string url encoded string of parameters to send
+	* -- callback:function to call on 200 status
 	*
+	* - Returns responseText back 
 	* example:
 	* 
 	*/
@@ -42,6 +44,24 @@ var Xhr = {
       	return this;
     },
 
+		/**
+		* ### xhrjson 
+		*	
+		* syntax:
+		*
+		* `xhr('path/to/file.html', {});`
+		* 
+		* arguments:
+		*
+		* - url:string the url for request
+		* - options:object
+		* -- method:string get|put|delete|post default get
+		* -- async:boolen default false
+		* -- data:string url encoded string of parameters to send
+		* -- map:object {'dom selector':'json key'}
+		* -- callback:function - this function is applied to each json value
+		* 
+		*/
     // Options is the same as XHR with map:object and new callback:function
     xhrjson:function(url,options) {
         if (options == undefined) return this;
