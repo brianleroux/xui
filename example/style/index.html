@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Style Examples</title>
+    <script src="../../lib/xui-min.js" type="text/javascript"></script>
+    <style type="text/css" media="screen">
+
+
+
+      .box {
+        position:absolute;
+        width:50px;
+        height:50px;
+      }
+      
+      #box1 {
+        top:0px;
+        left:70px;
+        background-color:red;
+      }
+      
+      #box2 {
+        top:0px;
+        left:0px;
+        background-color:blue;
+      }
+      
+      #box3,#box4,#box5 {
+        border:1px solid #000;
+      }
+
+      .wrap {
+        position:relative;
+        height:60px;
+      }
+
+      .red {
+        background-color:red;
+      }
+      
+
+      pre {
+         display: block;
+         margin: .5em 0;
+         white-space: pre;
+         line-height: 1.4;
+         border: 1px solid #ccc;
+         background: #efefef;
+         padding: 5px;
+         font-size: 12px;
+         font-family:; monaco, monospace;
+         margin-top: 0;
+      }
+
+
+    </style>
+    <script type="text/javascript" charset="utf-8">
+      x$(window).load(function(){
+        
+        x$('#button1').click(function(){
+          x$('#box1').getStyle('background-color',function(value){
+            x$('#box2').setStyle('backgroundColor',value);
+          });
+        });  
+        
+        x$('#button2').click(function(){
+          x$('#box3').addClass('red');
+        });
+
+        x$('#button3').click(function(){
+          x$('#box4').removeClass('red');
+        });
+
+        x$('#button4').click(function(){
+          x$('#box5').css({backgroundColor:'blue',width:'100px',border:'2px solid red'});  
+        });
+        
+                
+      });
+      
+    </script>
+  </head>
+  <body>
+    
+    <h1>Using getStyle</h1>
+    <p>Clicking the button will use getStyle method to get the background color of the blue element and pass it to the setStyle method, which will set the red element's background to the same color.</p>
+    <div class="wrap">
+      <div id="box1" class="box"></div>
+      <div id="box2" class="box"></div>
+    </div>
+
+    <button id="button1">Run</button>
+    <pre>
+        x$('#box1').<b>getStyle</b>('background-color',function(value){
+          x$('#box2').setStyle('backgroundColor',value);
+        });
+    </pre>
+    
+    <h1>Using addClass</h1>
+    <p>Clicking the button will add the red class to the empty white box. addClass checks to see if the class has already been applied and will not add duplicate classes to an element.</p>
+    
+    <div class="wrap">
+      <div id="box3" class="box"></div>
+    </div>
+    <button id="button2">Run</button>
+
+    <pre>
+      x$('#box3').<b>addClass</b>('red');
+    </pre>
+    
+    <h1>Using removeClass</h1>
+    <p>Clicking the button will remove the red class from the red box.</p>
+    
+    <div class="wrap">
+      <div id="box4" class="box red"></div>
+    </div>
+    <button id="button3">Run</button>
+
+    <pre>
+      x$('#box4').<b>removeClass</b>('red');
+    </pre>
+    
+    
+    <h1>Using css</h1>
+    <p>css is a nice shortcut to setStyle. It takes a JSON object of key/value pairs to set/change on an existing element. Click the button below to change the box properties.</p>
+    
+    <div class="wrap">
+      <div id="box5" class="box"></div>
+    </div>
+    <button id="button4">Run</button>
+
+    <pre>
+      x$('#box5').<b>css</b>({backgroundColor:'blue',width:'100px',border:'2px solid red'});  
+    </pre>
+
+
+    
+  </body>
+</html>

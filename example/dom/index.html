@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>DOM Examples</title>
+    <script src="../../lib/xui-min.js" type="text/javascript"></script>
+    <style type="text/css" media="screen">
+    
+
+    pre {
+       display: block;
+       margin: .5em 0;
+       white-space: pre;
+       line-height: 1.4;
+       border: 1px solid #ccc;
+       background: #efefef;
+       padding: 5px;
+       font-size: 12px;
+       font-family:; monaco, monospace;
+       margin-top: 0;
+    }
+
+
+    </style>
+    <script type="text/javascript" charset="utf-8">
+      x$(window).load(function(){
+        
+        x$('#button1').click(function(){
+          x$('#div1').html("New Content From JavaScript Land");
+        });  
+                
+        x$('#button2').click(function(){
+          x$('#list1').html("New Content Added to Top",'top');
+        });
+           
+        x$('#button3').click(function(){
+          x$('#list1').html("New Content Added to Bottom",'bottom');
+        });   
+        
+        x$('#button4').click(function(){
+          x$('#p1').html("New Content Added to Top",'top');
+        });
+        
+        x$('#button5').click(function(){
+          x$('#p1').html("New Content Added to Bottom",'bottom');
+        });
+        
+        x$('#button6').click(function(){
+          x$('#para2').html("<div id='para2' >New Content and DIV Container Added to Outer</div>",'outer');
+        });
+
+        x$('#button7').click(function(){
+          x$('#para2').html("<p id='para2' >New Content and P Container Added to Outer</p>",'outer');
+        });
+
+                       
+      });
+      
+    </script>
+  </head>
+  <body>
+    
+    <h1>Using html</h1>
+    <p>Click on the text below to change the innerHTML of the element.</p>
+    <div class="wrap">
+      <div id="div1">Blah blah blah</div>
+    </div>
+    <button id="button1">Click me to change the Div's Content</button>
+    
+    <pre>
+      x$('#button1').click(function(){
+        x$('#div1').html("New Content From JavaScript Land");
+      });
+    </pre>
+    
+    <h1>Using html - top and bottom lists</h1>
+    <p>HTML has a second [optional] parameter, location (top, bottom, outer or default inner). #list1 is an empty unordered list. When you use top,bottom and outer, x$().html() inspects the string you pass in and does what you want.</p>
+
+    <div class="wrap">
+      <ul id="list1">
+      </ul>
+    </div>
+    <button id="button2">Click me to Add an item to the Top of the list.</button>
+    <button id="button3">Click me to Add an item to the Bottom of the list.</button>
+
+    <pre>
+      x$('#button2').click(function(){
+        x$('#list1').html("New Content Added to Top",'top');
+      });
+         
+      x$('#button3').click(function(){
+        x$('#list1').html("New Content Added to Bottom",'bottom');
+      });        
+    });
+    </pre>
+
+    <h1>Using html - top and bottom paragraphs </h1>
+    <p>This example is identical to the one above, except instead of a list, we are using paragraphs. When ever we need to create a node, x$().html will look to see what the parent Nodes First Sibling is and create that node. In this case, it is a paragraph.</p>
+    <div id="p1" class="wrap">
+      <p id="para1">Random paragraph</p>
+    </div>
+    <button id="button4">Click me to Add an item to the Top of the list.</button>
+    <button id="button5">Click me to Add an item to the Bottom of the list.</button>
+    <pre>
+      x$('#button4').click(function(){
+        x$('#p1').html("New Content Added to Top",'top');
+      });
+      
+      x$('#button5').click(function(){
+        x$('#p1').html("New Content Added to Bottom",'bottom');
+      });
+    </pre>
+    
+    <h1>Using html - outer with fragments </h1>
+    <div class="wrap">
+      <p id="para2">Random paragraph</p>
+    </div>
+    
+    <button id="button6">Click me to Change the content, and container of para2 to DIV</button>
+    <button id="button7">Click me to Change the content, and container of para2 to P</button>    
+    
+    
+  </body>
+</html>
