@@ -49,8 +49,11 @@ var Dom = {
             tag = result[1];
             // if the node has any attributes, convert to object
             if (result[2] != "") {
+								// TODO - BUG - Split space will break on style='border:1px solid red'
                 attrList = result[2].split(' ');
+
                 for(var i=0;i<attrList.length;i++){
+
                     if (attrList[i] != "") {
                         var node = attrList[i].split('=');
                         attributes[node[0]];
@@ -102,8 +105,11 @@ var Dom = {
         if (el.firstChild == null) {
             switch(el.tagName) {
                 case 'UL': return 'LI'; break;
+								case 'DL': return 'DT'; break;
+								case 'TR': return 'TD'; break;
             }
         }
+				console.log(el.firstChild.tagName);
         return el.firstChild.tagName;
     }
 };

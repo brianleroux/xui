@@ -33,6 +33,7 @@ var Style = {
 	* syntax: 
 	* arguments: prop (CSS Key ie: border-color NOT borderColor )
 	* example:
+	* TODO: prop should be JS property, not CSS property
 	* 
 	*/
 	getStyle: function(prop,callback) {
@@ -75,7 +76,15 @@ var Style = {
 	    var re = this.getClassRegEx(className);
 	    return re.test(el.className);
 	},
-
+	/**
+	*
+	* removeClass
+	*	
+	* syntax:
+	* arguments:
+	* example:
+	* 
+	*/
 	removeClass:function(className) {
 	    var re = this.getClassRegEx(className);
 	    this.each(function(el) {
@@ -83,7 +92,16 @@ var Style = {
 	      });
 	    return this;
 	},
-
+	
+	/**
+	*
+	* css
+	*	
+	* syntax: x$(selector).css(object);
+	* arguments: JSON object of key/value paires to set/modify style on.
+	* example:
+	* 
+	*/
 	css: function(o) {
 		var that = this;
 		this.each(function(el) {
