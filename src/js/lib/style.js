@@ -14,8 +14,8 @@ var Style = {
 	*
 	* setStyle
 	*	
-	* syntax:
-	* arguments:
+	* syntax: x$('DIV').setStyle('width','100px');
+	* arguments: prop (JavaScript CSS Key ie: borderColor NOT border-color ), val - String
 	* example:
 	* 
 	*/
@@ -26,7 +26,25 @@ var Style = {
 	  return this;
 	},
 
-
+	/**
+	*
+	* getStyle 
+	*	
+	* syntax: 
+	* arguments: prop (CSS Key ie: border-color NOT borderColor )
+	* example:
+	* 
+	*/
+	getStyle: function(prop,callback) {
+	      this.each(function(el) {
+					var strValue = document.defaultView.getComputedStyle(el, "").getPropertyValue(prop);
+					console.log(strValue);
+					callback(strValue);
+	      });
+	  return this;
+	},
+	
+	// Private
 	getClassRegEx: function(className) {
 	    var re = this.reClassNameCache[className];
 	    if (!re) {
@@ -36,11 +54,21 @@ var Style = {
 	    return re;
 	},
 
+	/**
+	*
+	* addClass
+	*	
+	* syntax:
+	* arguments:
+	* example:
+	* 
+	*/
 	addClass: function(className) {
-	    this.each(function(el) {
-	        el.className += ' '+className;
-	      });
-	      return this;
+		this.each(function(el) {
+			if (this.hasClass(el,className)==false)
+				el.className += ' '+className;
+		});
+		return this;
 	},
 
 	hasClass: function(el,className) {
@@ -56,14 +84,6 @@ var Style = {
 	    return this;
 	},
 
-	toggleClass:function(className) {
-	    var that = this;
-	    this.each(function(el) {
-	        (this.hasClass(el,className)==true)? this.removeClass(className) : this.addClass(className);
-	      });
-	    return this;
-	},
-
 	css: function(o) {
 		var that = this;
 		this.each(function(el) {
@@ -72,8 +92,17 @@ var Style = {
 			}
 		});
 		return this || that;
-	},
+	}
 
+ /*
+	toggleClass:function(className) {
+	    var that = this;
+	    this.each(function(el) {
+	        (this.hasClass(el,className)==true)? this.removeClass(className) : this.addClass(className);
+	      });
+	    return this;
+	},
+	
 	position: function () {
 		this.each(function(el){
 	    	var topValue= 0,leftValue= 0;
@@ -88,4 +117,5 @@ var Style = {
 	 	});
 	   	return this;
 	}
+	*/
 };
