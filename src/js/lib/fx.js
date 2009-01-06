@@ -13,17 +13,18 @@ var Fx = {
   
 	/**
 	*
-	* ### tween ###
+	* ### tween
 	*	
 	* syntax:
-	* <code>
-	* x$('#box').tween({ left:100px, backgroundColor:'blue' });
+	* 
+	* `x$('#box').tween({ left:100px, backgroundColor:'blue' });`
 	*
-	* x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:100px }]);
+	* `x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:100px }]);`
 	*
-	* x$('#box').tween({ left:100px}).tween({ left:100px });
-	*</code>
+	* `x$('#box').tween({ left:100px}).tween({ left:100px });`
+	*
 	* arguments:
+	*
 	* example:
 	* 
 	*/

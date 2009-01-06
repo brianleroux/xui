@@ -5,16 +5,15 @@ XUI
 A basic framework for building mobile web applications.
 ---
 
-To build xui from source: run <strong>rake<strong> in the shell of your choice from the root of the project directory. (requires ruby)
+To build xui from source: run _rake_ in the shell of your choice from the root of the project directory. (requires ruby)
 There are other tasks for code minification, running the specs and generating docs.
 
-Check out the <em>example directory<em> for a comprehensive <strong>example application<strong>.
+Check out the _example directory_ for a comprehensive example application.
 
 API Documentation
 ===
 
 Welcome the XUI documentation. This is generated from inline documentation in the xui javascript source.
-
 
 
 Dom
@@ -25,18 +24,16 @@ Manipulating the document object model (DOM).
 
 
 
-
-### clean ###
+### clean
 
 Removes empty nodes from the DOM.
 
 syntax:
 
-<code>x$(window).clean();<code>
+`x$(window).clean();`
 
 arguments:
 example:
-
 
 
 
@@ -49,14 +46,14 @@ A good old fashioned event handling system.
 
 
 
-
-### on ###
+### on
 
 syntax:
 
-<code>x$('button').on( 'click', function(){ alert('hey that tickles!') });<code>
+`x$('button').on( 'click', function(){ alert('hey that tickles!') });`
 
 arguments:
+
 - type:string the event to subscribe to click|load|etc
 - fn:function a callback function to execute when the event is fired
 
@@ -65,12 +62,10 @@ example:
 
 
 
-
 Style
 ---
 
 Anything related to how things look. Usually, this is CSS.
-
 
 
 
@@ -89,14 +84,12 @@ example:
 
 
 
-
 ### getStyle ###
 
 syntax:
 arguments: prop (CSS Key ie: border-color NOT borderColor )
 example:
 TODO: prop should be JS property, not CSS property
-
 
 
 
@@ -110,7 +103,6 @@ example:
 
 
 
-
 ### removeClass ###
 
 syntax:
@@ -120,13 +112,11 @@ example:
 
 
 
-
 ### css ###
 
 syntax: x$(selector).css(object);
 arguments: JSON object of keyvalue paires to setmodify style on.
 example:
-
 
 
 
@@ -155,7 +145,6 @@ return this;
 
 
 
-
 Fx
 ---
 
@@ -164,20 +153,19 @@ Animations mostly but we're not excluding any ideas.
 
 
 
-
-### tween ###
+### tween
 
 syntax:
-<code>
-x$('#box').tween({ left:100px, backgroundColor:'blue' });
 
-x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:100px }]);
+`x$('#box').tween({ left:100px, backgroundColor:'blue' });`
 
-x$('#box').tween({ left:100px}).tween({ left:100px });
-<code>
+`x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:100px }]);`
+
+`x$('#box').tween({ left:100px}).tween({ left:100px });`
+
 arguments:
-example:
 
+example:
 
 
 
@@ -189,12 +177,11 @@ Remoting methods and ultilites.
 
 
 
-
-### xhr ###
+### xhr
 
 syntax:
 
-<code>xhr('pathtofile.html', {});<code>
+`xhr('pathtofile.html', {});`
 
 arguments:
 
@@ -208,8 +195,8 @@ example:
 
 
 
-
 TODO
+---
 
 - rock out with renewed authority
 - better docs we promise
@@ -218,8 +205,9 @@ TODO
 - dynamic TODO lists (no shit)
 
 LICENSE
+---
 
-Copyright (c) 2008 Brian LeRoux, Brock Whitten, Rob Ellis
+_Copyright (c) 2008 Brian LeRoux, Brock Whitten, Rob Ellis_
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

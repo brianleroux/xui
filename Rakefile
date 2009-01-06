@@ -38,7 +38,7 @@ task :doc do
   # removes comment debris (method chaining gone wrong)
   comments = comments.map{|r| r.gsub(/^\s|\*\/|\*/, '').gsub('/','').split("\n").map {|l| l.strip }.join("\n") }
   # build a readme
-  readme = comments.map{|x| BlueCloth.new(x)}.join("\n\n")
+  readme = comments.join("\n")
   # write it out
   open("#{ LIBPATH }#{ File::SEPARATOR }README.md", 'w'){|f| f.puts(readme) }
 end 

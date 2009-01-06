@@ -5,10 +5,10 @@
 *	A basic framework for building mobile web applications.
 *	---
 *
-*	To build xui from source: run <strong>rake</strong> in the shell of your choice from the root of the project directory. (requires ruby)
+*	To build xui from source: run _rake_ in the shell of your choice from the root of the project directory. (requires ruby)
 *	There are other tasks for code minification, running the specs and generating docs.
 *
-*	Check out the <em>example directory</em> for a comprehensive <strong>example application</strong>.
+*	Check out the _example directory_ for a comprehensive example application.
 *
 *	API Documentation
 *	===
@@ -79,6 +79,7 @@
 })();
 /*
 *	TODO
+*	---
 *
 *	- rock out with renewed authority
 *	- better docs we promise
@@ -87,8 +88,9 @@
 *	- dynamic TODO lists (no shit)
 *
 *	LICENSE
-*	
-*	Copyright (c) 2008 Brian LeRoux, Brock Whitten, Rob Ellis
+*	---
+*
+*	_Copyright (c) 2008 Brian LeRoux, Brock Whitten, Rob Ellis_
 *	
 *	Permission is hereby granted, free of charge, to any person obtaining
 *	a copy of this software and associated documentation files (the

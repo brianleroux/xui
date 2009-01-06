@@ -10,13 +10,13 @@ var Dom = {
 	
 	/**
 	*
-	* ### clean ###
+	* ### clean
 	*
 	* Removes empty nodes from the DOM.
 	*	
 	* syntax:
 	*
-	* <code>x$(window).clean();</code>
+	* `x$(window).clean();`
 	*
 	* arguments:
 	* example:

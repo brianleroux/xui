@@ -15,13 +15,14 @@ var Event = {
 
 	/**
 	*
-	* ### on ###
+	* ### on
 	*	
 	* syntax:
 	*
-	* <code>x$('button').on( 'click', function(){ alert('hey that tickles!') });</code>
+	* `x$('button').on( 'click', function(){ alert('hey that tickles!') });`
 	*
 	* arguments:
+	*
 	* - type:string the event to subscribe to click|load|etc
 	* - fn:function a callback function to execute when the event is fired
 	*

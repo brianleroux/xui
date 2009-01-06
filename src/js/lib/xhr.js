@@ -8,11 +8,11 @@
 */
 var Xhr = {	
 	/**
-	* ### xhr ###
+	* ### xhr 
 	*	
 	* syntax:
 	*
-	* <code>xhr('path/to/file.html', {});</code>
+	* `xhr('path/to/file.html', {});`
 	* 
 	* arguments:
 	*
