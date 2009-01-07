@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+	<head>
+		<title>XUI Doc</title>
+		<link rel="stylesheet" href="doc.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	</head>
+	<body>
+		<h1>
+			XUI
+		</h1>
+		<h2>
+			A basic framework for building mobile web applications.
+		</h2>
+		<h3>
+			why?!
+		</h3>
+		<p>
+			We hear your words. Why another JavaScript framework?! When development of PhoneGap was under way we noticed slow load times for modern JavaScript frameworks (such as Prototype, MooTools, YUI, Ext and even jQuery. This is mostly because these libraries contain a great deal of cross browser compatability code. XUI strives to be a framework for mobile device browsers such as WebKit, Fennec and Opera. Future support is being considered for IE and BlackBerry.
+		</p>
+		<h3>
+			Authors
+		</h3>
+		<ul>
+			<li>[Rob Ellis]:(mailto//:rob.ellis@nitobi.com/)
+			</li>
+			<li>[Brock Whitten]:(mailto//:brock@sintaxi.com/)
+			</li>
+			<li>[Brian LeRoux]:(mailto://brian@westcoastlogic.com/)
+			</li>
+		</ul>
+		<h3>
+			Download
+		</h3>
+		<ul>
+			<li>full development source (includes an example app) [zip]:"http://github.com/brianleroux/xui/zipball/master" or [tar]:"http://github.com/brianleroux/xui/tarball/master"
+			</li>
+			<li>just the code with inline documentation
+			</li>
+			<li>minified code (&lt;7k!)
+			</li>
+		</ul>
+		<h3>
+			Contribute
+		</h3>
+		<p>
+			Clone the source from GitHub:
+		</p>
+		<p>
+			<code>git clone git://github.com/brianleroux/xui.git</code>
+		</p>
+		<p>
+			To build xui: run <em>rake</em> in the shell of your choice from the root of the project directory. (This requires Ruby.) There are other tasks for code minification, running the specs and generating docs. Run <code>rake -T</code> to see them all.
+		</p>
+		<p>
+			Check out the <em>example directory</em> for a comprehensive example application. Specs are in the <em>spec directory</em>.
+		</p>
+		<h1>
+			API Documentation
+		</h1>
+		<p>
+			Welcome the XUI documentation. This is generated from inline documentation in the xui javascript source.
+		</p>
+		<p>
+			// merges sub lib objects // adds the xui system as x$ to the current window
+		</p>
+		<h2>
+			Dom
+		</h2>
+		<p>
+			Manipulating the document object model (DOM).
+		</p>
+		<h3>
+			clean
+		</h3>
+		<p>
+			Removes empty nodes from the DOM.
+		</p>
+		<p>
+			syntax:
+		</p>
+		<p>
+			<code>x$(window).clean();</code>
+		</p>
+		<p>
+			example:
+		</p>
+		<pre>
+<code>x$(window).clean();
+</code>
+</pre>
+		<p>
+			// Wraps the HTML in a TAG, Tag is optional // If the html starts with a Tag, it will wrap the context in that tag. // NOT Chainable // if the node has any attributes, convert to object // TODO - BUG - Split space will break on style='border:1px solid red' // Helper for finding a tag for inserting into the DOM, we are looking for simular tags // NOT Chainable
+		</p>
+		<h2>
+			Event
+		</h2>
+		<p>
+			A good old fashioned event handling system.
+		</p>
+		<h3>
+			on
+		</h3>
+		<p>
+			syntax:
+		</p>
+		<p>
+			<code>x$('button').on( 'click', function(){ alert('hey that tickles!') });</code>
+		</p>
+		<p>
+			arguments:
+		</p>
+		<ul>
+			<li>type:string the event to subscribe to click|load|etc
+			</li>
+			<li>fn:function a callback function to execute when the event is fired
+			</li>
+		</ul>
+		<p>
+			example:
+		</p>
+		<h2>
+			Style
+		</h2>
+		<p>
+			Anything related to how things look. Usually, this is CSS.
+		</p>
+		<h3>
+			setStyle
+		</h3>
+		<p>
+			syntax:
+		</p>
+		<p>
+			<code>x$('DIV').setStyle('width','100px');</code>
+		</p>
+		<p>
+			arguments:
+		</p>
+		<ul>
+			<li>prop (JavaScript CSS Key ie: borderColor NOT border-color ), val - String
+			</li>
+		</ul>
+		<p>
+			example:
+		</p>
+		<h3>
+			getStyle
+		</h3>
+		<p>
+			syntax: arguments: prop (CSS Key ie: border-color NOT borderColor ) example: TODO: prop should be JS property, not CSS property
+		</p>
+		<h3>
+			addClass
+		</h3>
+		<p>
+			syntax: arguments: example:
+		</p>
+		<h3>
+			removeClass
+		</h3>
+		<p>
+			syntax: arguments: example:
+		</p>
+		<h3>
+			css
+		</h3>
+		<p>
+			syntax:
+		</p>
+		<p>
+			<code>x$(selector).css(object);</code>
+		</p>
+		<p>
+			arguments:
+		</p>
+		<ul>
+			<li>JSON object of key/value paires to set/modify style on.
+			</li>
+		</ul>
+		<p>
+			example:
+		</p>
+		<p>
+			<code>x$('#box5').css({ backgroundColor:'blue', width:'100px', border:'2px solid red' });</code>
+		</p>
+		<p>
+			// -- private methods -- //toggleClass:function(className) { // var that = this; // this.each(function(el) { // (this.hasClass(el,className)==true)? this.removeClass(className) : this.addClass(className); // }); // return this; //}, // //position: function () { // this.each(function(el){ // var topValue= 0,leftValue= 0; // var obj = el; // while(obj) { // leftValue += obj.offsetLeft; // topValue += obj.offsetTop; // obj = obj.offsetParent; // } // el.leftPos = leftValue; // el.topPos = topValue; // }); // return this; //}
+		</p>
+		<h2>
+			Fx
+		</h2>
+		<p>
+			Animations mostly but we're not excluding any ideas.
+		</p>
+		<p>
+			// TODO should this be private __animationStack?
+		</p>
+		<h3>
+			tween
+		</h3>
+		<p>
+			syntax:
+		</p>
+		<p>
+			<code>x$('#box').tween({ left:100px, backgroundColor:'blue' });</code>
+		</p>
+		<p>
+			<code>x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:100px }]);</code>
+		</p>
+		<p>
+			<code>x$('#box').tween({ left:100px}).tween({ left:100px });</code>
+		</p>
+		<p>
+			arguments:
+		</p>
+		<p>
+			example:
+		</p>
+		<p>
+			// this sets duration and easing equation on a style property change // sets the starting point and ending point for each css property tween // haha
+		</p>
+		<h2>
+			Xhr
+		</h2>
+		<p>
+			Remoting methods and ultilites.
+		</p>
+		<h3>
+			xhr
+		</h3>
+		<p>
+			syntax:
+		</p>
+		<p>
+			<code>xhr('path/to/file.html', {});</code>
+		</p>
+		<p>
+			arguments:
+		</p>
+		<ul>
+			<li>url:string the url for request
+			</li>
+			<li>options:object -- method:string get|put|delete|post -- async:boolen -- data:string url encoded string of parameters to send
+			</li>
+		</ul>
+		<p>
+			example:
+		</p>
+		<p>
+			// Options is the same as XHR with map:object and new callback:function // ideally I would like to return the first form staring at this element selector
+		</p>
+		<h2>
+			TODO
+		</h2>
+		<ul>
+			<li>rock out with renewed authority
+			</li>
+			<li>better docs we promise
+			</li>
+			<li>more tests
+			</li>
+			<li>a more comprehensive exmaple application
+			</li>
+			<li>dynamic TODO lists (no shit)
+			</li>
+			<li>create doc/index.html from markdown
+			</li>
+			<li>inspect and generate example from markdown
+			</li>
+		</ul>
+		<h2>
+			LICENSE
+		</h2>
+		<p>
+			<em>Copyright (c) 2008 Brian LeRoux, Brock Whitten, Rob Ellis</em>
+		</p>
+		<p>
+			Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+		</p>
+		<p>
+			The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+		</p>
+		<p>
+			THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+		</p>
+	</body>
+</html>

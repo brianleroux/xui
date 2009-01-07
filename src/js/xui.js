@@ -4,11 +4,36 @@
 * 
 * A basic framework for building mobile web applications.
 * ---
+*
+* ### why?!
+*
+* We hear your words. Why another JavaScript framework?! When development of PhoneGap was under way we noticed slow
+* load times for modern JavaScript frameworks (such as Prototype, MooTools, YUI, Ext and even jQuery. This is mostly 
+* because these libraries contain a great deal of cross browser compatability code. XUI strives to be a framework for
+* mobile device browsers such as WebKit, Fennec and Opera. Future support is being considered for IE and BlackBerry.
+*
+* ### Authors
+*
+* - [Rob Ellis]:(mailto//:rob.ellis@nitobi.com/)
+* - [Brock Whitten]:(mailto//:brock@sintaxi.com/)
+* - [Brian LeRoux]:(mailto://brian@westcoastlogic.com/)
 * 
-* To build xui from source: run _rake_ in the shell of your choice from the root of the project directory. (requires ruby)
-* There are other tasks for code minification, running the specs and generating docs.
+* ### Download
 * 
-* Check out the _example directory_ for a comprehensive example application.
+* - full development source (includes an example app) [zip]:"http://github.com/brianleroux/xui/zipball/master" or [tar]:"http://github.com/brianleroux/xui/tarball/master"
+* - just the code with inline documentation
+* - minified code (<7k!)
+* 
+* ### Contribute
+*
+* Clone the source from GitHub:
+*
+* `git clone git://github.com/brianleroux/xui.git`
+*
+* To build xui: run _rake_ in the shell of your choice from the root of the project directory. (This requires Ruby.)
+* There are other tasks for code minification, running the specs and generating docs. Run `rake -T` to see them all.
+* 
+* Check out the _example directory_ for a comprehensive example application. Specs are in the _spec directory_. 
 * 
 * API Documentation
 * ===

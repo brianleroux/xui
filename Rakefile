@@ -33,14 +33,21 @@ task :doc do
   sauce = File.open(file).read
   # fetches all
   comments = sauce.scan(/\/(?:\*(?:.)*?\*\/|\/[^\n]*)/m)
+
   # removes single line comments (TODO extract TODOs)
-  comments = comments.reject{|c| c =~ /\/\/.*/m }
+
   # removes comment debris (method chaining gone wrong)
-  comments = comments.map{|r| r.gsub(/^\s|\*\/|\*/, '').gsub('/','').split("\n").map {|l| l.strip }.join("\n") }
+  comments = comments.map{|r| r.gsub('*/','').gsub(/^\s+\* |\* |\/\*+|^\*|^\s+\*|^\s+\/\*+/, '').gsub( /\s+\/\/.*/,'' )}
+  
   # build a readme
   readme = comments.join("\n")
-  # write it out
+  # write out the README.md
   open("#{ LIBPATH }#{ File::SEPARATOR }README.md", 'w'){|f| f.puts(readme) }
+  # write out the doc/index.html
+  FileUtils.mkdir_p "#{ LIBPATH }#{ File::SEPARATOR }doc"
+  open("#{ LIBPATH }#{ File::SEPARATOR }doc#{ File::SEPARATOR }index.html", 'w'){|f| f.puts(BlueCloth.new(readme).to_html) }
+  # launch docs in safari
+  sh "open -a WebKit #{ LIBPATH }#{ File::SEPARATOR }doc#{ File::SEPARATOR }index.html"
 end 
 
 

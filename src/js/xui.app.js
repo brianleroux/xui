@@ -20,7 +20,7 @@ x$(window).load(function(){
 
 
 
-x$.app('my special app', function(){
+x$.app( 'my special app', function(){
 	
 	// private methods
 	var _history = [];
@@ -35,8 +35,7 @@ x$.app('my special app', function(){
 		after:function(){},
 		
 		'about':function(options){ 
-			alert('page onload callback') 
-			$('#content').xhrjson('/get_json_from_sinatra', {partial:'_foo', map:{head:'.header', body:'.body'}})
+			$('#content').xhrjson('/get_json_from_sinatra', {partial:'_foo', map:{head:'.header', body:'.body'}});
 		},
 		
 		'contribute':function(){ alert('page onload callback') },
