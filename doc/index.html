@@ -193,13 +193,33 @@ example:</p></li>
 
 <p>arguments:</p>
 
+<p>url:string the url for request</p>
+
+<p>options:object (Options is the same as XHR with map:object and new callback:function)</p>
+
+<ul>
+<li>method:string get|put|delete|post default get</li>
+<li>async:boolen default false</li>
+<li>data:string url encoded string of parameters to send</li>
+<li>map:object {'dom selector':'json key'}</li>
+<li>callback:function - this function is applied to each json value</li>
+</ul>
+
+<h3>xhrjson</h3>
+
+<p>syntax:</p>
+
+<p><code>xhr('path/to/file.html', {});</code></p>
+
+<p>arguments:</p>
+
 <ul>
 <li>url:string the url for request</li>
 <li>options:object
 -- method:string get|put|delete|post default get
 -- async:boolen default false
 -- data:string url encoded string of parameters to send
--- map:object {'dom selector':'json key'}
+-- map:object {'json key':'dom selector'}
 -- callback:function - this function is applied to each json value</li>
 </ul>
 

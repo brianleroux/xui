@@ -10,7 +10,6 @@ var Event = {
 
 	eventfunctions : [],
 	click: function(fn) { return this.on('click',fn); },
-	dblclick: function(fn) { return this.on('dblclick',fn); },
 	load: function(fn) { return this.on('load',fn); },
 
 	/**

@@ -47,7 +47,7 @@ var Fx = {
 	        var options = this.animationStack[i];
 	        var duration     = options.duration == undefined ? .5    : options.duration;
 	        setTimeout(function(s,o){s.animate(o);},t*1000*duration,this,options);
-	        t += options.duration;
+	        t += duration;
 	    }
   
 	    return this;
@@ -58,13 +58,12 @@ var Fx = {
    
 	    var opt_after = options.after;
    
-	    var easing       = options.easing   == undefined ? 'ease-in' : options.easing;
-	    var before       = options.before   == undefined ? function(){} : options.before;    
-	    var after        = opt_after        == undefined ? function(){}    : function() {  opt_after.apply(that); };    
-	    var duration     = options.duration == undefined ? .5    : options.duration;
+	    var easing = (options.easing == undefined) ? 'ease-in' : options.easing;
+	    var before = (options.before == undefined) ? function(){} : options.before;    
+	    var after = (opt_after == undefined) ? function(){} : function() {  opt_after.apply(that); };    
+	    var duration = (options.duration == undefined) ? .5 : options.duration;
    
 	    options.easing = options.before = options.after = options.duration = undefined;
-   
 	    before.apply(before.arguments);
    
 	    // this sets duration and easing equation on a style property change
@@ -77,10 +76,9 @@ var Fx = {
 	        }   
 	    });
    
-	    var killSwitch = setTimeout(function(){ that.setStyle('-webkit-transition','none');},duration*1000)
-	    var doAfter = setTimeout(after,duration*1000);
+	    setTimeout(function(){ that.setStyle('-webkit-transition','none');},duration*1000)
+	    setTimeout(after,duration*1000);
 
-  
 	    return this || that; // haha
 	}
 };
