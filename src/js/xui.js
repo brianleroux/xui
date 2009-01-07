@@ -17,15 +17,15 @@
 *
 * ### Authors
 *
-* - [Rob Ellis]:(mailto//:rob.ellis@nitobi.com/)
-* - [Brock Whitten]:(mailto//:brock@sintaxi.com/)
-* - [Brian LeRoux]:(mailto://brian@westcoastlogic.com/)
+* - Rob Ellis
+* - Brock Whitten
+* - Brian LeRoux
 * 
 * ### Download
 * 
-* - full development source (includes an example app) [zip]:"http://github.com/brianleroux/xui/zipball/master" or [tar]:"http://github.com/brianleroux/xui/tarball/master"
-* - just the code with inline documentation
-* - minified code (<7k!)
+* - full development source (includes an example app) [zip]: http://github.com/brianleroux/xui/zipball/master or [tar]: http://github.com/brianleroux/xui/tarball/master
+* - just the code with inline documentation (official builds coming soonish - Brian Jan 6, 2009)
+* - minified code (<7k!) (official builds coming soonish - Brian Jan 6, 2009)
 * 
 * ### Contribute
 *
@@ -110,13 +110,22 @@
 * TODO
 * ---
 * 
-* - rock out with renewed authority
-* - better docs we promise
 * - more tests
 * - a more comprehensive exmaple application
 * - dynamic TODO lists (no shit)
-* - create doc/index.html from markdown
 * - inspect and generate example from markdown
+* - xui-app.js mvc framework functional
+* - generators
+* - canvas progressive enhancement
+*
+* Changelog
+* ---
+* 
+* _Jan 6, 2009_
+*
+* - rock out with renewed authority
+* - better docs we promise
+* - create doc/index.html from markdown
 * 
 * LICENSE
 * ---
