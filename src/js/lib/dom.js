@@ -91,15 +91,16 @@ var Dom = {
             tag = result[1];
             // if the node has any attributes, convert to object
             if (result[2] != "") {
-								// TODO - BUG - Split space will break on style='border:1px solid red'
-                attrList = result[2].split(' ');
+
+								var attre = /([a-zA-Z]*\s*=\s*['|"][a-zA-Z0-9:;#\s]*['|"])/;								
+                attrList = result[2].split(attre);
 
                 for(var i=0;i<attrList.length;i++){
-
-                    if (attrList[i] != "") {
+                    if (attrList[i] != "" && attrList[i] != " ") {
                         var node = attrList[i].split('=');
                         attributes[node[0]];
                         attributes[node[0]] = node[1].replace(/(["']?)/g,'');
+
                     }
                 }
             }

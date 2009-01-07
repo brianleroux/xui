@@ -43,7 +43,7 @@ var Xhr = {
     	
       	return this;
     },
-
+		
 		/**
 		* ### xhrjson 
 		*	
@@ -58,7 +58,7 @@ var Xhr = {
 		* -- method:string get|put|delete|post default get
 		* -- async:boolen default false
 		* -- data:string url encoded string of parameters to send
-		* -- map:object {'dom selector':'json key'}
+		* -- map:object {'json key':'dom selector'}
 		* -- callback:function - this function is applied to each json value
 		* 
 		*/
@@ -66,9 +66,9 @@ var Xhr = {
     xhrjson:function(url,options) {
         if (options == undefined) return this;
         var that = this;
-                  
+
         var cb = options.callback;
-        if (typeof (cb) != 'function') { var cb = function(x) {return x; }}
+        if (typeof cb != 'function') { var cb = function(x) {return x; }}
   
         var callback = function() {
             var o = eval('(' + this.responseText + ')');
