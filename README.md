@@ -2,15 +2,18 @@
 XUI
 ===
 
-A basic framework for building mobile web applications.
+A simple javascript framework for building mobile web applications.
 ---
 
-### why?!
+### WHY?!
 
-We hear your words. Why another JavaScript framework?! When development of PhoneGap was under way we noticed slow
-load times for modern JavaScript frameworks (such as Prototype, MooTools, YUI, Ext and even jQuery. This is mostly 
-because these libraries contain a great deal of cross browser compatability code. XUI strives to be a framework for
-mobile device browsers such as WebKit, Fennec and Opera. Future support is being considered for IE and BlackBerry.
+We hear your words. _Why another JavaScript framework?!_ When development of PhoneGap was under way we noticed slow
+load times for modern JavaScript frameworks (such as Prototype, MooTools, YUI, Ext and (yes) even jQuery. 
+A big reason why these libraries are so big is because  is mostly they contain a great deal of cross browser 
+compatability code. The mobile space has less browser implementations (so far) and different needs. Thus XUI.
+
+XUI strives to be a framework for first class mobile device browsers such as WebKit, Fennec and Opera with future 
+support under consideration for IE Mobile and BlackBerry.
 
 ### Authors
 
@@ -33,15 +36,13 @@ Clone the source from GitHub:
 To build xui: run _rake_ in the shell of your choice from the root of the project directory. (This requires Ruby.)
 There are other tasks for code minification, running the specs and generating docs. Run `rake -T` to see them all.
 
-Check out the _example directory_ for a comprehensive example application. Specs are in the _spec directory_. 
+Check out the _example_ directory for a comprehensive example application. Specs are in the _spec_ directory. 
 
 API Documentation
 ===
 
 Welcome the XUI documentation. This is generated from inline documentation in the xui javascript source.
 
-// merges sub lib objects
-// adds the xui system as x$ to the current window
 
 
 Dom
@@ -65,13 +66,6 @@ example:
 	x$(window).clean();
 		
 			
-// Wraps the HTML in a TAG, Tag is optional
-// If the html starts with a Tag, it will wrap the context in that tag.
-// NOT Chainable
-// if the node has any attributes, convert to object
-// TODO - BUG - Split space will break on style='border:1px solid red'
-// Helper for finding a tag for inserting into the DOM, we are looking for simular tags
-// NOT Chainable
 
 
 Event
@@ -163,29 +157,6 @@ example:
 `x$('#box5').css({ backgroundColor:'blue', width:'100px', border:'2px solid red' });`
  
 			
-// -- private methods --
-//toggleClass:function(className) {
-//    var that = this;
-//    this.each(function(el) {
-//        (this.hasClass(el,className)==true)? this.removeClass(className) : this.addClass(className);
-//      });
-//    return this;
-//},
-//
-//position: function () {
-//	this.each(function(el){
-//    	var topValue= 0,leftValue= 0;
-//        var obj = el;
-//        while(obj) {
-//            leftValue += obj.offsetLeft;
-//            topValue  += obj.offsetTop;
-//            obj 	  =  obj.offsetParent;
-//        }
-//        el.leftPos = leftValue;
-//        el.topPos = topValue;
-// 	});
-//   	return this;
-//}
 
 
 Fx
@@ -194,7 +165,6 @@ Fx
 Animations mostly but we're not excluding any ideas.
 
 		
-// TODO should this be private __animationStack?
 
 
 ### tween
@@ -212,9 +182,6 @@ arguments:
 example:
 
 			
-// this sets duration and easing equation on a style property change
-// sets the starting point and ending point for each css property tween
-// haha
 
 
 Xhr
@@ -241,8 +208,6 @@ arguments:
 example:
 
 			
-// Options is the same as XHR with map:object and new callback:function
-// ideally I would like to return the first form staring at this element selector
 
 TODO
 ---

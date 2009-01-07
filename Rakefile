@@ -31,14 +31,10 @@ task :doc do
   write 
   file = "#{ LIBPATH }#{ File::SEPARATOR }lib#{ File::SEPARATOR }xui.js"
   sauce = File.open(file).read
-  # fetches all
-  comments = sauce.scan(/\/(?:\*(?:.)*?\*\/|\/[^\n]*)/m)
-
-  # removes single line comments (TODO extract TODOs)
-
-  # removes comment debris (method chaining gone wrong)
-  comments = comments.map{|r| r.gsub('*/','').gsub(/^\s+\* |\* |\/\*+|^\*|^\s+\*|^\s+\/\*+/, '').gsub( /\s+\/\/.*/,'' )}
-  
+  # fetches all multiline comments
+  comments = sauce.gsub( /\s+\/\/.*/,'' ).scan(/\/(?:\*(?:.)*?\*\/|\/[^\n]*)/m)
+  # removes comment debris
+  comments = comments.map{|r| r.gsub('*/','').gsub(/^\s+\* |\* |\/\*+|^\*|^\s+\*|^\s+\/\*+/, '')}
   # build a readme
   readme = comments.join("\n")
   # write out the README.md
