@@ -7,6 +7,7 @@
 * 
 */
 var Xhr = {	
+
 	/**
 	* ### xhr 
 	*	
@@ -44,25 +45,26 @@ var Xhr = {
       	return this;
     },
 
-		/**
-		* ### xhrjson 
-		*	
-		* syntax:
-		*
-		* `xhr('path/to/file.html', {});`
-		* 
-		* arguments:
-		*
-		* - url:string the url for request
-		* - options:object
-		* -- method:string get|put|delete|post default get
-		* -- async:boolen default false
-		* -- data:string url encoded string of parameters to send
-		* -- map:object {'dom selector':'json key'}
-		* -- callback:function - this function is applied to each json value
-		* 
-		*/
-    // Options is the same as XHR with map:object and new callback:function
+	/**
+	* ### xhrjson 
+	*	
+	* syntax:
+	*
+	* `xhr('path/to/file.html', {});`
+	* 
+	* arguments:
+	* 
+	* url:string the url for request
+	*
+	* options:object (Options is the same as XHR with map:object and new callback:function)
+	*
+	* - method:string get|put|delete|post default get
+	* - async:boolen default false
+	* - data:string url encoded string of parameters to send
+	* - map:object {'dom selector':'json key'}
+	* - callback:function - this function is applied to each json value
+	* 
+	*/
     xhrjson:function(url,options) {
         if (options == undefined) return this;
         var that = this;

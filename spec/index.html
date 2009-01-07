@@ -47,6 +47,34 @@ describe("selector class", {
   
 });
 
+
+describe("XUI Style", {
+	
+	'before':function(){
+		e = x$('xui-style-tests');
+	},
+	'should set change the box backgroundColor':function(){
+		e.setStyle('backgroundColor', 'green');
+		value_of(e.first().style.backgroundColor).should_be('green');
+	},
+	'should return the box backgroundColor':function(){
+		value_of(e.getStyle('backgroundColor')).should_be('green');
+	},
+	'should add the class of testing':function(){
+		// addClass
+	},
+	'should remove the class of testing':function(){
+		// removeClass
+	},
+	'should remove the class testing':function(){
+		// hasClass
+	},
+	'should apply backgroundColor and border':function(){
+		// css	
+	}
+	
+});
+
 describe("animate test", {
 	/*
 	'the arguments should be array':function(){
@@ -65,20 +93,20 @@ describe("animate test", {
 });
 
 
-describe( 'xui.xhr', {
+describe( 'xui Xhr', {
 	// this is open for debate.
 	// xui.xhr.get( 'url', options );
 	// xui.xhr.post( 'url', { success:function(){}, timeout:3});
 });
 
-describe( 'xui.events', {
+describe( 'xui Events', {
 	// guestures, etc
 	// x$('#foo').click( function() { });
 	// x$('#foo').swipe( function() { });
 });
 
 
-describe( 'xui.fx', {
+describe( 'xui Fx', {
 	//	x$('#foo').click( function() { })
 });
 
@@ -91,5 +119,8 @@ describe( 'xui.fx', {
   <li class="item" id="item_2">this is item two</li>
   <li class="item" id="item_3">this is item three</li>
 </ul>
+
+<div id="xui-style-tests">xui style tests</div>	
+
 </body>
 </html>
