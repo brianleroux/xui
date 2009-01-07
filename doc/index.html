@@ -50,7 +50,7 @@ There are other tasks for code minification, running the specs and generating do
 
 <h3>clean</h3>
 
-<p>Removes empty nodes from the DOM.</p>
+<p>Removes empty nodes from the DOM. This is used internally as a helper, but it is also public.</p>
 
 <p>syntax:</p>
 
@@ -60,6 +60,17 @@ There are other tasks for code minification, running the specs and generating do
 
 <pre><code>x$(window).clean();
 </code></pre>
+
+<h3>html</h3>
+
+<p>Adds elements or changes the content of an element on a page.</p>
+
+<p>syntax:</p>
+
+<p><code>x$(window).html("String Fragment" [,"top" | "bottom" | "inner" | "outer" ]);</code></p>
+
+<p>arguments:
+example:</p>
 
 <h2>Event</h2>
 
@@ -165,13 +176,32 @@ example:</p>
 
 <ul>
 <li>url:string the url for request</li>
-<li>options:object
--- method:string get|put|delete|post
--- async:boolen
--- data:string url encoded string of parameters to send</li>
+<li><p>options:object
+-- method:string get|put|delete|post default get
+-- async:boolen default false
+-- data:string url encoded string of parameters to send
+-- callback:function to call on 200 status</p></li>
+<li><p>Returns responseText back 
+example:</p></li>
 </ul>
 
-<p>example:</p>
+<h3>xhrjson</h3>
+
+<p>syntax:</p>
+
+<p><code>xhr('path/to/file.html', {});</code></p>
+
+<p>arguments:</p>
+
+<ul>
+<li>url:string the url for request</li>
+<li>options:object
+-- method:string get|put|delete|post default get
+-- async:boolen default false
+-- data:string url encoded string of parameters to send
+-- map:object {'dom selector':'json key'}
+-- callback:function - this function is applied to each json value</li>
+</ul>
 
 <h2>TODO</h2>
 

@@ -55,7 +55,7 @@ Manipulating the document object model (DOM).
 
 ### clean
 
-Removes empty nodes from the DOM.
+Removes empty nodes from the DOM. This is used internally as a helper, but it is also public.
 	
 syntax:
 
@@ -66,6 +66,20 @@ example:
 	x$(window).clean();
 		
 			
+
+
+### html
+
+Adds elements or changes the content of an element on a page.
+	
+syntax:
+
+`x$(window).html("String Fragment" [,"top" | "bottom" | "inner" | "outer" ]);`
+
+arguments:
+example:
+
+				
 
 
 Event
@@ -201,13 +215,33 @@ arguments:
 
 - url:string the url for request
 - options:object
--- method:string get|put|delete|post
--- async:boolen
+-- method:string get|put|delete|post default get
+-- async:boolen default false
 -- data:string url encoded string of parameters to send
+-- callback:function to call on 200 status
 
+- Returns responseText back 
 example:
 
 			
+
+### xhrjson 
+	
+syntax:
+
+`xhr('path/to/file.html', {});`
+
+arguments:
+
+- url:string the url for request
+- options:object
+-- method:string get|put|delete|post default get
+-- async:boolen default false
+-- data:string url encoded string of parameters to send
+-- map:object {'dom selector':'json key'}
+-- callback:function - this function is applied to each json value
+
+				
 
 TODO
 ---
