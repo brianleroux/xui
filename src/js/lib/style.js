@@ -41,16 +41,15 @@ var Style = {
 	* 
 	*/
 	getStyle: function(prop,callback) {
-		var that = this;
+		
+		if( callback == undefined ) 
+			return document.defaultView.getComputedStyle( this.first(), "").getPropertyValue(prop);
+		
       	this.each( function(el) {
-				var strValue = document.defaultView.getComputedStyle(el, "").getPropertyValue(prop);
-				if (typeof callback == 'function') {
-					callback(strValue);
-				} else {
-					that = strValue;
-				}
+			var strValue = document.defaultView.getComputedStyle(el, "").getPropertyValue(prop);
+			callback(strValue);
       	});
-	  	return that;
+	  	return this;
 	},
 
 	/**

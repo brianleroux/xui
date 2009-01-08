@@ -109,19 +109,21 @@ describe("Style getStyle", {
 		e.first().style.backgroundColor = "blue";
 	},
   
+
   // This passes. but it should not be nessisary to pass a function
   'should return background color of blue if set in passed function':function(){
    var c = "";
    e.getStyle('background-color', function(v){
-     console.log(v);
      c = v;
    });
    value_of(c).should_be('rgb(0, 0, 255)');
   },
-	
-	// FAILING! - this needs integration.
+
+
 	'should return background color even if no function passed':function(){
-	  value_of(e.getStyle('background-color')).should_be('rgb(0, 0, 225)');
+
+		var style = e.getStyle('background-color');
+	  value_of(style).should_be('rgb(0, 0, 255)');
 	}
 	
 });
