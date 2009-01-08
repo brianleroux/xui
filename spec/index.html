@@ -10,14 +10,9 @@
 <script type="text/javascript" language="javascript">
 // <![CDATA[
 
-
-describe("xui base",{
-
-  'should return string of device':function() {
-    //value_of(xui.device).should_be('android');
-  }
-  
-});
+/////////////////////////////
+// SELECTOR
+/////////////////////////////
 
 describe("Selector string id", {
   
@@ -84,35 +79,62 @@ describe("Selector element", {
   
 });
 
+/////////////////////////////
+// Style
+/////////////////////////////
 
-describe("XUI Style", {
+describe("Style setStyle", {
 	
 	'before':function(){
-		e = x$('#xui-style-tests');
+		e = x$('#set-style-element');
 	},
+	
 	'should set change the box backgroundColor':function(){
 		e.setStyle('backgroundColor', 'green');
 		value_of(e.first().style.backgroundColor).should_be('green');
 	},
-	'should return the box backgroundColor':function(){
+	
+});
+
+describe("Style getStyle", {
+  
+  'before':function(){
+		e = x$('#get-style-element');
+	},
+  
+  'should return the box backgroundColor':function(){
 		var c = "";
+		
 		e.getStyle('background-color', function(v){
 			c = v;
 		});
-		value_of(c).should_be('rgb(0, 128, 0)');
-	},
-	'should add the class of testing':function(){
-		// addClass
-	},
-	'should remove the class of testing':function(){
-		// removeClass
-	},
-	'should remove the class testing':function(){
-		// hasClass
-	},
-	'should apply backgroundColor and border':function(){
-		// css	
+		
+		value_of(c).should_be('rgb(0, 0, 256)');
 	}
+	
+});
+
+describe("Style addClass", {
+  
+  'before':function(){
+		e = x$('#xui-style-tests');
+	},
+	
+});
+
+describe("Style removeClass", {
+  
+  'before':function(){
+		e = x$('#xui-style-tests');
+	},
+	
+});
+
+describe("Style hasClass", {
+  
+  'before':function(){
+		e = x$('#xui-style-tests');
+	},
 	
 });
 
@@ -164,7 +186,11 @@ describe( 'xui Fx', {
   </ul>
 </div>
 
-<div id="xui-style-tests">xui style tests</div>
+<div id="style_tests">
+  <p id="set-style-element">element for testing setStyle</p>
+  <p id="get-style-element" style="color:blue">element for testing getStyle</p>
+  <p id="add-class-element">element for testing addStyle</p>
+</div>
 
 </body>
 </html>
