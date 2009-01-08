@@ -11,7 +11,43 @@ x$.app = function(title,controller) {
 	
 	var container = controller.container || '#content';
 	
+	var load = function(url) {
+
+
+		var u = url.split('/');
+		u = u[u.length - 1];
+
+		document.location.hash = u;
+		for(var action in controller) {		
+			if (typeof action == 'string') {
+				var re = new RegExp(u); 
+				
+				if (re.test(action)) {
+					controller[action]();
+				}
+			}
+		}
+			
+		x$(container).xhr(url,{ callback:function(){
+			x$(container).html(this.responseText);
+			
+			x$('.nav A').click(function(e) { 
+				x$(window).stop(e); 
+				load(this.href);
+
+				x$('#back').click(function(){					
+					load(_history[_history.length-1]);
+				});
+				
+
+
+			});
+		}});
+	}
+	
+	
 	x$(window).load(function(){
+		
 	
 		for(var action in controller) {
 			if (action == 'before') {
@@ -23,27 +59,25 @@ x$.app = function(title,controller) {
 			}
 		}
 
-
 		// Main Flow Loop
-		before_method();
-		for(var action in controller) {
-			if (action == '_default') {
+		//before_method();
+		var load_page = null;
+		(function() {
+			var cp = document.location.hash;
+			cp = cp.replace("#",'');
+			// if this looks like a partial load it
+			load_page = cp;
 
-				x$(container).xhr(controller[action],{callback:function(){
-					x$(container).html(this.responseText);
-					
-					x$('.nav A').click(function(e) { 
-						// test to see if href is local
-						x$(window).stop(e); 
-						x$(container).xhr(this.href);
-					});	
-				}});
-				
+		})();
+		for(var action in controller) {
+			if (action == 'index') {
+				_history.push(controller[action]);
+				load(load_page || controller[action]);
 			}
-			console.log(action);
+			
 		}
 		after_method();	
-	
+		
 	
 	});
 }
@@ -53,20 +87,13 @@ x$.app = function(title,controller) {
 
 
 x$.app('my special app', {
-		container: '#content',
-	 	layout: 	'index.html',
-	 	_default: 	'_index.html',
-	 	after: 		function(){console.log(" From After");},
-	 	before: 	function(){ console.log(" From Before");},
+ 	after: 		function(){},
+ 	before: 	function(){ console.log(" From Before");},
 
-	 	'about':function(options){ 
-	 		alert('page onload callback') 
-	 		$('#content').xhrjson('/get_json_from_sinatra', {partial:'_foo', map:{head:'.header', body:'.body'}})
-	 	},
-	
-		'/foo/bar/index.html':function() {
-			alert('once index.html has been loaded');
-		}
+	//container: '#content',
+ 	layout: 	'index.html',
+ 	index: 	'_index.html',
+	'_contribute.html': function() {console.log('fire on this');}
 
 });
 

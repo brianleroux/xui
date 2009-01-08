@@ -260,6 +260,13 @@ TODO
 Changelog
 ---
 
+_Jan 7, 2009_
+
+- style spec passing
+- xui app phase one
+- testing approch resolved
+- hasClass now private
+
 _Jan 6, 2009_
 
 - rock out with renewed authority

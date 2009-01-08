@@ -42,14 +42,17 @@ var Style = {
 	*/
 	getStyle: function(prop,callback) {
 		
-		if( callback == undefined ) 
-			return document.defaultView.getComputedStyle( this.first(), "").getPropertyValue(prop);
+		var gs = function (el,p) {
+			return document.defaultView.getComputedStyle(el , "").getPropertyValue(p);
+		}
+
+		if( callback == undefined )  
+			return gs(this.first(),prop);
 		
-      	this.each( function(el) {
-			var strValue = document.defaultView.getComputedStyle(el, "").getPropertyValue(prop);
-			callback(strValue);
-      	});
-	  	return this;
+    this.each( function(el) {
+				callback(gs(el,prop));
+    });
+	  return this;
 	},
 
 	/**
@@ -63,10 +66,8 @@ var Style = {
 	*/
 	addClass: function(className) {
 		var that = this;
-		var hasClass = function(el,className) {
-		    var re = that.getClassRegEx(className);
-		    return re.test(el.className);
-		}
+		var hasClass = function(el,className) { var re = that.getClassRegEx(className); return re.test(el.className); }
+		
 		this.each(function(el) {
 			if (hasClass(el,className)==false)
 				el.className += ' '+className;
@@ -87,7 +88,7 @@ var Style = {
 	    var re = this.getClassRegEx(className);
 	    this.each(function(el) {
 	        el.className = el.className.replace(re, ' ');
-	      });
+	    });
 	    return this;
 	},
 	
