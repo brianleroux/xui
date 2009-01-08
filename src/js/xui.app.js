@@ -61,23 +61,9 @@ x$.app = function(title,controller) {
 x$.app('my special app', {
 		container: '#content',
 	 	layout: 	'index.html',
-	 	_default: 	'_index.html',
-<<<<<<< HEAD:src/js/xui.app.js
-	 	after: 		function(){ console.log(" From After"); },
-	 	before: 	function(){ console.log(" From Before"); }
-=======
+	 	index: 	'_index.html',
+
 	 	after: 		function(){console.log(" From After");},
-	 	before: 	function(){ console.log(" From Before");},
-
-	 	'about':function(options){ 
-	 		alert('page onload callback') 
-	 		$('#content').xhrjson('/get_json_from_sinatra', {partial:'_foo', map:{head:'.header', body:'.body'}})
-	 	},
-	
-		'/foo/bar/index.html':function() {
-			alert('once index.html has been loaded');
-		}
->>>>>>> 23eac651671b7a577e1eb170ff0052ca8e9cfef3:src/js/xui.app.js
-
+	 	before: 	function(){ console.log(" From Before");}
 });
 

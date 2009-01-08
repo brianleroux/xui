@@ -131,7 +131,8 @@ example:
 ### getStyle
 	
 syntax: 
-arguments: prop (CSS Key ie: border-color NOT borderColor )
+arguments: prop (CSS Key ie: border-color NOT borderColor)
+if callback is a function, it will pass the value into the function orherwise return the proprty
 example:
 TODO: prop should be JS property, not CSS property
 
@@ -245,24 +246,6 @@ options:object (Options is the same as XHR with map:object and new callback:func
 
 			
 
-### xhrjson 
-	
-syntax:
-
-`xhr('path/to/file.html', {});`
-
-arguments:
-
-- url:string the url for request
-- options:object
--- method:string get|put|delete|post default get
--- async:boolen default false
--- data:string url encoded string of parameters to send
--- map:object {'json key':'dom selector'}
--- callback:function - this function is applied to each json value
-
-				
-
 TODO
 ---
 
@@ -276,6 +259,13 @@ TODO
 
 Changelog
 ---
+
+_Jan 7, 2009_
+
+- style spec passing
+- xui app phase one
+- testing approch resolved
+- hasClass now private
 
 _Jan 6, 2009_
 
