@@ -19,7 +19,6 @@
 
 x$.app = function(title,controller) {
 	console.log(title);
-	// ... 
 	controller.apply(this);
 }
 
