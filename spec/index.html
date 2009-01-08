@@ -19,23 +19,23 @@ describe("xui base",{
   
 });
 
-describe("selector id", {
+describe("selector string:id", {
   
   'before': function(){
 		x = x$('#item_1');
   },
   
-  'should return the first element': function(){
-	  value_of(x.first()).should_be(x$('#item_1').first());
+  'should return array with one element': function(){
+	  value_of(x.elements.length).should_be(1);
 	},
 	
-	'should return first element test': function(){
+	'first element should have text: this is item one': function(){
 	  value_of(x.first().innerHTML).should_match('this is item one');
 	},
 	
 });
 
-describe("selector class", {
+describe("selector string:class", {
   
   'before': function(){
     x = x$(".item");
@@ -44,6 +44,43 @@ describe("selector class", {
 	'should return array with three items': function(){
 	  value_of(x.elements.length).should_be(3);
   },
+  
+  'first element should have text: this is item one': function(){
+	  value_of(x.first().innerHTML).should_match('this is item one');
+	},
+	
+	'last element should have text: this is item three': function(){
+	  value_of(x.elements[x.elements.length -1].innerHTML).should_match('this is item three');
+	},
+  
+});
+
+describe("selector string:no-selector", {
+  
+  'before': function(){
+    x = x$("item_1");
+  },
+  
+  'should return empty array': function(){
+	  value_of(x.elements.length).should_be(0);
+	},
+  
+});
+
+describe("selector element", {
+  
+  'before': function(){
+    el = document.getElementById("item_1")
+    x = x$(el);
+  },
+  
+  'should return array with one element': function(){
+	  value_of(x.elements.length).should_be(1);
+	},
+	
+	'first element should have text: this is item one': function(){
+	  value_of(x.first().innerHTML).should_match('this is item one');
+	},
   
 });
 
@@ -114,13 +151,16 @@ describe( 'xui Fx', {
 // ]]>
 </script>
 <body>
-<ul id="items">
-  <li class="item" id="item_1">this is item one</li>
-  <li class="item" id="item_2">this is item two</li>
-  <li class="item" id="item_3">this is item three</li>
-</ul>
 
-<div id="xui-style-tests">xui style tests</div>	
+<div id="selector_tests">
+  <ul id="items">
+    <li class="item" id="item_1">this is item one</li>
+    <li class="item" id="item_2">this is item two</li>
+    <li class="item" id="item_3">this is item three</li>
+  </ul>
+</div>
+
+<div id="xui-style-tests">xui style tests</div>
 
 </body>
 </html>
