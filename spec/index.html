@@ -51,14 +51,18 @@ describe("selector class", {
 describe("XUI Style", {
 	
 	'before':function(){
-		e = x$('xui-style-tests');
+		e = x$('#xui-style-tests');
 	},
 	'should set change the box backgroundColor':function(){
 		e.setStyle('backgroundColor', 'green');
 		value_of(e.first().style.backgroundColor).should_be('green');
 	},
 	'should return the box backgroundColor':function(){
-		value_of(e.getStyle('backgroundColor')).should_be('green');
+		var c = "";
+		e.getStyle('background-color', function(v){
+			c = v;
+		});
+		value_of(c).should_be('rgb(0, 128, 0)');
 	},
 	'should add the class of testing':function(){
 		// addClass
