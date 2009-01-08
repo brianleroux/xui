@@ -85,7 +85,7 @@
 	    },
 
 		// merges sub lib objects
-		merge: function( libObj ) {
+		extend: function( libObj ) {
 			
 			for(var x in libObj) {
 				this[x] = libObj[x];
@@ -103,7 +103,7 @@
 		var that = new _$(arguments);
 		
 		for( var i = 0; i < size; i++ ) {
-			that.merge( libs[i] );
+			that.extend( libs[i] );
 		}
 	
 		return that;
