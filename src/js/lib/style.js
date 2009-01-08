@@ -34,7 +34,8 @@ var Style = {
 	* ### getStyle
 	*	
 	* syntax: 
-	* arguments: prop (CSS Key ie: border-color NOT borderColor )
+	* arguments: prop (CSS Key ie: border-color NOT borderColor)
+	* if callback is a function, it will pass the value into the function orherwise return the proprty
 	* example:
 	* TODO: prop should be JS property, not CSS property
 	* 

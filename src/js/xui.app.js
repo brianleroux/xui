@@ -27,6 +27,8 @@ x$.app = function(title,controller) {
 	var before_method = null;
 	var after_method = null;
 	
+	var container = controller.container || '#content';
+	
 	x$(window).load(function(){
 	
 		for(var action in controller) {
@@ -43,13 +45,18 @@ x$.app = function(title,controller) {
 		// Main Flow Loop
 		before_method();
 		for(var action in controller) {
-			// Do shit
-			if (action == 'default') {
-				x$('#content').xhr(controller[action],{after:function(){
-					x$('.nav A').click(function() { console.log('DO SOmething');});	
+			if (action == '_default') {
+
+				x$(container).xhr(controller[action],{callback:function(){
+					x$(container).html(this.responseText);
+					
+					x$('.nav A').click(function(e) { 
+						// test to see if href is local
+						x$(window).stop(e); 
+						x$(container).xhr(this.href);
+					});	
 				}});
 				
-
 			}
 			console.log(action);
 		}
@@ -59,19 +66,17 @@ x$.app = function(title,controller) {
 	});
 }
 
-
-
+// Back button, animations (fade/swipe), partials 
 
 
 
 x$.app('my special app', {
+		container: '#content',
+	 	layout: 	'index.html',
+	 	_default: 	'_index.html',
+	 	after: 		function(){console.log(" From After");},
+	 	before: 	function(){ console.log(" From Before");},
 
-	 	'layout':'index.html',
-	 	'default':'_index.html',
-	 	'after':function(){console.log(" From After");},
-	 	'before':function(){ console.log(" From Before");},
-
-	 	
 	 	'about':function(options){ 
 	 		alert('page onload callback') 
 	 		$('#content').xhrjson('/get_json_from_sinatra', {partial:'_foo', map:{head:'.header', body:'.body'}})
