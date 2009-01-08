@@ -41,24 +41,30 @@ x$.app = function(title,controller) {
 			}
 		}
 
-
 		// Main Flow Loop
 		before_method();
 		for(var action in controller) {
 			if (action == '_default') {
-
-				x$(container).xhr(controller[action],{callback:function(){
+				_history.push(controller[action]);
+				load(controller[action]);			
+			}
+			
+			var load = function(url) {
+				console.log("Loading " + url);
+				x$(container).xhr(url,{ callback:function(){
 					x$(container).html(this.responseText);
 					
 					x$('.nav A').click(function(e) { 
-						// test to see if href is local
 						x$(window).stop(e); 
 						x$(container).xhr(this.href);
-					});	
+
+						x$('#back').click(function(){					
+							load(_history[_history.length-1]);
+						});
+
+					});
 				}});
-				
 			}
-			console.log(action);
 		}
 		after_method();	
 	
@@ -72,13 +78,8 @@ x$.app('my special app', {
 		container: '#content',
 	 	layout: 	'index.html',
 	 	_default: 	'_index.html',
-	 	after: 		function(){console.log(" From After");},
-	 	before: 	function(){ console.log(" From Before");},
-
-	 	'about':function(options){ 
-	 		alert('page onload callback') 
-	 		$('#content').xhrjson('/get_json_from_sinatra', {partial:'_foo', map:{head:'.header', body:'.body'}})
-	 	}
+	 	after: 		function(){ console.log(" From After"); },
+	 	before: 	function(){ console.log(" From Before"); }
 
 });
 
