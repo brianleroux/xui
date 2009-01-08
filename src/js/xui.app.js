@@ -40,6 +40,8 @@ x$.app = function(title,controller) {
 
 
 
+
+
 x$.app('my special app', {
 
 	 	'layout':'index.html',
@@ -50,7 +52,11 @@ x$.app('my special app', {
 	 	'about':function(options){ 
 	 		alert('page onload callback') 
 	 		$('#content').xhrjson('/get_json_from_sinatra', {partial:'_foo', map:{head:'.header', body:'.body'}})
-	 	}
+	 	},
+	
+		'/foo/bar/index.html':function() {
+			alert('once index.html has been loaded');
+		}
 
 });
 
