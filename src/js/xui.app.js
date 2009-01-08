@@ -11,7 +11,43 @@ x$.app = function(title,controller) {
 	
 	var container = controller.container || '#content';
 	
+	var load = function(url) {
+
+
+		var u = url.split('/');
+		u = u[u.length - 1];
+
+		document.location.hash = u;
+		for(var action in controller) {		
+			if (typeof action == 'string') {
+				var re = new RegExp(u); 
+				
+				if (re.test(action)) {
+					controller[action]();
+				}
+			}
+		}
+			
+		x$(container).xhr(url,{ callback:function(){
+			x$(container).html(this.responseText);
+			
+			x$('.nav A').click(function(e) { 
+				x$(window).stop(e); 
+				load(this.href);
+
+				x$('#back').click(function(){					
+					load(_history[_history.length-1]);
+				});
+				
+
+
+			});
+		}});
+	}
+	
+	
 	x$(window).load(function(){
+		
 	
 		for(var action in controller) {
 			if (action == 'before') {
@@ -24,32 +60,24 @@ x$.app = function(title,controller) {
 		}
 
 		// Main Flow Loop
-		before_method();
+		//before_method();
+		var load_page = null;
+		(function() {
+			var cp = document.location.hash;
+			cp = cp.replace("#",'');
+			// if this looks like a partial load it
+			load_page = cp;
+
+		})();
 		for(var action in controller) {
-			if (action == '_default') {
+			if (action == 'index') {
 				_history.push(controller[action]);
-				load(controller[action]);			
+				load(load_page || controller[action]);
 			}
 			
-			var load = function(url) {
-				console.log("Loading " + url);
-				x$(container).xhr(url,{ callback:function(){
-					x$(container).html(this.responseText);
-					
-					x$('.nav A').click(function(e) { 
-						x$(window).stop(e); 
-						x$(container).xhr(this.href);
-
-						x$('#back').click(function(){					
-							load(_history[_history.length-1]);
-						});
-
-					});
-				}});
-			}
 		}
 		after_method();	
-	
+		
 	
 	});
 }
@@ -59,11 +87,13 @@ x$.app = function(title,controller) {
 
 
 x$.app('my special app', {
-		container: '#content',
-	 	layout: 	'index.html',
-	 	index: 	'_index.html',
+ 	after: 		function(){},
+ 	before: 	function(){ console.log(" From Before");},
 
-	 	after: 		function(){console.log(" From After");},
-	 	before: 	function(){ console.log(" From Before");}
+	//container: '#content',
+ 	layout: 	'index.html',
+ 	index: 	'_index.html',
+	'_contribute.html': function() {console.log('fire on this');}
+
 });
 
