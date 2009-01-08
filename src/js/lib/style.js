@@ -41,14 +41,14 @@ var Style = {
 	* 
 	*/
 	getStyle: function(prop,callback) {
-      this.each(function(el) {
-				var strValue = document.defaultView.getComputedStyle(el, "").getPropertyValue(prop);
-				if (typeof callback == 'function') {
-					callback(strValue);
-				} else {
-					return strValue;
-				}
-      });
+		
+		if( callback == undefined ) 
+			return document.defaultView.getComputedStyle( this.first(), "").getPropertyValue(prop);
+		
+      	this.each( function(el) {
+			var strValue = document.defaultView.getComputedStyle(el, "").getPropertyValue(prop);
+			callback(strValue);
+      	});
 	  	return this;
 	},
 
@@ -62,8 +62,13 @@ var Style = {
 	* 
 	*/
 	addClass: function(className) {
+		var that = this;
+		var hasClass = function(el,className) {
+		    var re = that.getClassRegEx(className);
+		    return re.test(el.className);
+		}
 		this.each(function(el) {
-			if (this.hasClass(el,className)==false)
+			if (hasClass(el,className)==false)
 				el.className += ' '+className;
 		});
 		return this;
@@ -124,11 +129,6 @@ var Style = {
 	        this.reClassNameCache[className] = re;
 	    }
 	    return re;
-	},
-	
-	hasClass: function(el,className) {
-	    var re = this.getClassRegEx(className);
-	    return re.test(el.className);
 	}
 	
 	//toggleClass:function(className) {

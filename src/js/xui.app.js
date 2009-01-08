@@ -1,21 +1,3 @@
-// x$(window).load(function(){
-// 	
-// 	// load the default content by default 
-// 	x$('#content').xhr('_index.html');
-// 	
-// 	// relative links loaded via ajax and animated in (with a left to right swipe by default)
-// 	x$('div#stage ul.nav li a').click(function(e) {
-// 		var url = this.href;
-// 		
-// 		x$(this).stop(e);
-// 	
-// 		this.blur();
-// 		// ---------
-// 	
-// 		x$('#stage').tween({'left':'-330px'});
-// 		
-// 	});
-// });	
 
 x$.app = function(title,controller) {
 
@@ -74,13 +56,28 @@ x$.app = function(title,controller) {
 
 // Back button, animations (fade/swipe), partials 
 
+
+
 x$.app('my special app', {
 		container: '#content',
 	 	layout: 	'index.html',
 	 	_default: 	'_index.html',
+<<<<<<< HEAD:src/js/xui.app.js
 	 	after: 		function(){ console.log(" From After"); },
 	 	before: 	function(){ console.log(" From Before"); }
+=======
+	 	after: 		function(){console.log(" From After");},
+	 	before: 	function(){ console.log(" From Before");},
+
+	 	'about':function(options){ 
+	 		alert('page onload callback') 
+	 		$('#content').xhrjson('/get_json_from_sinatra', {partial:'_foo', map:{head:'.header', body:'.body'}})
+	 	},
+	
+		'/foo/bar/index.html':function() {
+			alert('once index.html has been loaded');
+		}
+>>>>>>> 23eac651671b7a577e1eb170ff0052ca8e9cfef3:src/js/xui.app.js
 
 });
-
 

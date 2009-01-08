@@ -1,0 +1,216 @@
+
+
+/*****************************************************************************/
+/*
+/* Common
+/*
+/*****************************************************************************/
+
+/* Global Reset */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: white;
+  font: 13.34px helvetica, arial, clean, sans-serif;
+  *font-size: small;
+  text-align: center;
+}
+
+table {
+  font-size: inherit;
+  font: 100%;
+}
+
+pre,
+code {
+  font: 115% Monaco, "Courier New", monospace;
+  *font-size: 100%;
+/*  line-height: 1.5em;*/
+}
+
+body * {
+  line-height: 1.4em;
+}
+
+img {
+  border: 0;
+}
+
+/* links */
+
+a {
+  color: #4183c4; /* blue */
+  text-decoration: none;
+}
+
+a.action {
+  color: #d00; /* red */
+  text-decoration: underline;
+}
+
+a.action span {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.clear {
+  clear: both;
+}
+
+.sparkline {
+  display: none;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+.hidden {
+  display: none;
+}
+
+img.help {
+  vertical-align: middle;
+}
+
+abbr {
+  border-bottom: none;
+}
+
+/*****************************************************************************/
+/*
+/* Common Layout
+/*
+/*****************************************************************************/
+
+body {
+  text-align: center;
+}
+
+.site {
+  width: 69em;
+  margin: 0 auto;
+  padding: 0 3em;
+  text-align: left;
+}
+
+
+
+.wikistyle h1 {
+  font-size: 170%;
+  border-top: 4px solid #aaa;
+  padding-top: .5em;
+}
+
+.wikistyle h2 {
+  font-size: 150%;
+  margin-top: 1.5em;
+  border-top: 4px solid #e0e0e0;
+  padding-top: .5em;
+}
+
+.wikistyle h3 {
+  margin-top: 1em;
+}
+
+.wikistyle p {
+  margin: 1em 0;
+  line-height: 1.5em;
+}
+
+.wikistyle ul {
+  margin: 1em 0 1em 1.3em;
+}
+
+.wikistyle ol {
+  margin: 1em 0 1em 1.5em;
+}
+
+.wikistyle blockquote {
+  margin: 1em 0;
+  border-left: 5px solid #ddd;
+  padding-left: .6em;
+  color: #555;
+}
+
+.wikistyle table {
+  margin: 1em 0;
+}
+
+  .wikistyle table th {
+    border-bottom: 1px solid #bbb;
+    padding: .2em 1em;
+  }
+
+  .wikistyle table td {
+    border-bottom: 1px solid #ddd;
+    padding: .2em 1em;
+  }
+
+.wikistyle pre {
+  margin: 1em 0;
+  font-size: 90%;
+  background-color: #f8f8ff;
+  border: 1px solid #dedede;
+  padding: .5em;
+  line-height: 1.5em;
+  color: #444;
+  overflow: auto;
+}
+
+  .wikistyle pre code {
+    padding: 0;
+    font-size: 100%;
+    background-color: #f8f8ff;
+    border: none;
+  }
+
+.wikistyle code {
+  font-size: 90%;
+  background-color: #f8f8ff;
+  color: #444;
+  padding: 0 .2em;
+  border: 1px solid #dedede;
+}
+
+/* console */
+
+.wikistyle pre.console {
+  margin: 1em 0;
+  font-size: 90%;
+  background-color: black;
+  padding: .5em;
+  line-height: 1.5em;
+  color: white;
+}
+
+  .wikistyle pre.console code {
+    padding: 0;
+    font-size: 100%;
+    background-color: black;
+    border: none;
+    color: white;
+  }
+
+  .wikistyle pre.console span {
+    color: #888;
+  }
+
+  .wikistyle pre.console span.command {
+    color: yellow;
+  }

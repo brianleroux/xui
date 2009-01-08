@@ -6,36 +6,37 @@
 	<link type="text/css" rel="stylesheet" href="JSSpec.css" />
 	<script type="text/javascript" src="../lib/xui.js"></script>
 	<script type="text/javascript" src="JSSpec.js"></script>
+	<style type="text/css">
+	body {
+		padding-top:1000px;
+	}
+	</style>
 </head>
+
 <script type="text/javascript" language="javascript">
 // <![CDATA[
 
+/////////////////////////////
+// SELECTOR
+/////////////////////////////
 
-describe("xui base",{
-
-  'should return string of device':function() {
-    //value_of(xui.device).should_be('android');
-  }
-  
-});
-
-describe("selector id", {
+describe("Selector string id", {
   
   'before': function(){
 		x = x$('#item_1');
   },
   
-  'should return the first element': function(){
-	  value_of(x.first()).should_be(x$('#item_1').first());
+  'should return array with one element': function(){
+	  value_of(x.elements.length).should_be(1);
 	},
 	
-	'should return first element test': function(){
+	'first element should have text: this is item one': function(){
 	  value_of(x.first().innerHTML).should_match('this is item one');
 	},
 	
 });
 
-describe("selector class", {
+describe("Selector string class", {
   
   'before': function(){
     x = x$(".item");
@@ -45,51 +46,191 @@ describe("selector class", {
 	  value_of(x.elements.length).should_be(3);
   },
   
+  'first element should have text: this is item one': function(){
+	  value_of(x.first().innerHTML).should_match('this is item one');
+	},
+	
+	'last element should have text: this is item three': function(){
+	  value_of(x.elements[x.elements.length -1].innerHTML).should_match('this is item three');
+	},
+  
 });
 
-describe("animate test", {
-	/*
-	'the arguments should be array':function(){
-		x$('item_1').tween([]);
+describe("Selector string none", {
+  
+  'before': function(){
+    x = x$("item_1");
+  },
+  
+  'should return empty array': function(){
+	  value_of(x.elements.length).should_be(0);
+	},
+  
+});
+
+describe("Selector element", {
+  
+  'before': function(){
+    el = document.getElementById("item_1")
+    x = x$(el);
+  },
+  
+  'should return array with one element': function(){
+	  value_of(x.elements.length).should_be(1);
+	},
+	
+	'first element should have text: this is item one': function(){
+	  value_of(x.first().innerHTML).should_match('this is item one');
+	},
+  
+});
+
+/////////////////////////////
+// Style
+/////////////////////////////
+
+describe("Style setStyle", {
+	
+	'before':function(){
+		e = x$('#set-style-element');
+	},
+	
+	'should set change the box backgroundColor':function(){
+		e.setStyle('backgroundColor', 'green');
+		value_of(e.first().style.backgroundColor).should_be('green');
+	},
+	
+});
+
+describe("Style getStyle", {
+  
+  'before':function(){
+		e = x$('#get-style-element');
+		e.first().style.backgroundColor = "blue";
+	},
+  
+
+  // This passes. but it should not be nessisary to pass a function
+  'should return background color of blue if set in passed function':function(){
+   	var c = "";
+   	e.getStyle('background-color', function(v){
+     	c = v;
+   	});
+   	value_of(c).should_be('rgb(0, 0, 255)');
+  },
+
+
+	'should return background color even if no function passed':function(){
+		var style = e.getStyle('background-color');
+	  value_of(style).should_be('rgb(0, 0, 255)');
 	}
 	
+});
+
+describe("Style addClass", {
+  
+  'before':function(){
+		x = x$('#add-class-element');
+		x.addClass("foo");
+	},
 	
-	'the arguments should an object':function(){
-		x$('item_1').tween({});
-	}
-	*/
-	'the arguments should an object':function(){
-		x$('item_1').tween({});
+	'should add class of foo':function(){
+	  value_of(x.first().className).should_be(" foo");
 	}
 	
 });
 
+describe("Style hasClass", {
+  
+  'before':function(){
+		e = x$('#has-class-element');
+	},
+	
+	'should have class of foo':function(){
+		value_of(e.hasClass('foo')).should_be(true);
+	},
+	
+	'should have class of bar for multiple elements':function(){
+		value_of( x$('.bar').hasClass('bar')).should_be(true);
+	},
+	
+	'should have class of foo for multiple elements with one element only having bar':function(){
+		value_of( x$('.bar').hasClass('foo')).should_be(false);
+	}
+	
 
-describe( 'xui.xhr', {
-	// this is open for debate.
-	// xui.xhr.get( 'url', options );
-	// xui.xhr.post( 'url', { success:function(){}, timeout:3});
 });
 
-describe( 'xui.events', {
-	// guestures, etc
-	// x$('#foo').click( function() { });
-	// x$('#foo').swipe( function() { });
+describe("Style removeClass", {
+  
+  'before':function(){
+		x = x$('#remove-class-element');
+	},
+	
+	'should remove the class of testing':function(){
+		x.removeClass('bar');
+		value_of(x.first().className).should_be(' '); 
+	},
+	
 });
 
 
-describe( 'xui.fx', {
-	//	x$('#foo').click( function() { })
-});
+
+// describe("animate test", {
+//  /*
+//  'the arguments should be array':function(){
+//    x$('item_1').tween([]);
+//  }
+//  
+//  
+//  'the arguments should an object':function(){
+//    x$('item_1').tween({});
+//  }
+//  */
+//  'the arguments should an object':function(){
+//    x$('item_1').tween({});
+//  }
+//  
+// });
+// 
+// 
+// describe( 'xui Xhr', {
+//  // this is open for debate.
+//  // xui.xhr.get( 'url', options );
+//  // xui.xhr.post( 'url', { success:function(){}, timeout:3});
+// });
+// 
+// describe( 'xui Events', {
+//  // guestures, etc
+//  // x$('#foo').click( function() { });
+//  // x$('#foo').swipe( function() { });
+// });
+// 
+// 
+// describe( 'xui Fx', {
+//  //  x$('#foo').click( function() { })
+// });
 
 
 // ]]>
 </script>
 <body>
-<ul id="items">
-  <li class="item" id="item_1">this is item one</li>
-  <li class="item" id="item_2">this is item two</li>
-  <li class="item" id="item_3">this is item three</li>
-</ul>
+
+<div id="selector_tests">
+  <ul id="items">
+    <li class="item" id="item_1">this is item one</li>
+    <li class="item" id="item_2">this is item two</li>
+    <li class="item" id="item_3">this is item three</li>
+  </ul>
+</div>
+
+<div id="style_tests">
+  <p id="set-style-element">element for testing setStyle</p>
+  <p id="get-style-element">element for testing getStyle</p>
+  <p id="add-class-element">element for testing addClass</p>	
+	<p id="has-class-element" class="foo bar">element for testing hasClass</p>
+  <p id="remove-class-element" class="bar">element for testing removeClass</p>  
+</div>
+
 </body>
 </html>

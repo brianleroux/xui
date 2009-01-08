@@ -2,13 +2,41 @@
 * XUI
 * ===
 * 
-* A basic framework for building mobile web applications.
+* A simple javascript framework for building mobile web applications.
 * ---
+*
+* ### WHY?!
+*
+* We hear your words. _Why another JavaScript framework?!_ When development of PhoneGap was under way we noticed slow
+* load times for modern JavaScript frameworks (such as Prototype, MooTools, YUI, Ext and (yes) even jQuery. 
+* A big reason why these libraries are so big is because  is mostly they contain a great deal of cross browser 
+* compatability code. The mobile space has less browser implementations (so far) and different needs. Thus XUI.
 * 
-* To build xui from source: run _rake_ in the shell of your choice from the root of the project directory. (requires ruby)
-* There are other tasks for code minification, running the specs and generating docs.
+* XUI strives to be a framework for first class mobile device browsers such as WebKit, Fennec and Opera with future 
+* support under consideration for IE Mobile and BlackBerry.
+*
+* ### Authors
+*
+* - Rob Ellis
+* - Brock Whitten
+* - Brian LeRoux
 * 
-* Check out the _example directory_ for a comprehensive example application.
+* ### Download
+* 
+* - full development source (includes an example app) [zip]: http://github.com/brianleroux/xui/zipball/master or [tar]: http://github.com/brianleroux/xui/tarball/master
+* - just the code with inline documentation (official builds coming soonish - Brian Jan 6, 2009)
+* - minified code (<7k!) (official builds coming soonish - Brian Jan 6, 2009)
+* 
+* ### Contribute
+*
+* Clone the source from GitHub:
+*
+* 	git clone git://github.com/brianleroux/xui.git
+*
+* To build xui: run _rake_ in the shell of your choice from the root of the project directory. (This requires Ruby.)
+* There are other tasks for code minification, running the specs and generating docs. Run `rake -T` to see them all.
+* 
+* Check out the _example_ directory for a comprehensive example application. Specs are in the _spec_ directory. 
 * 
 * API Documentation
 * ===
@@ -82,13 +110,22 @@
 * TODO
 * ---
 * 
-* - rock out with renewed authority
-* - better docs we promise
 * - more tests
 * - a more comprehensive exmaple application
 * - dynamic TODO lists (no shit)
-* - create doc/index.html from markdown
 * - inspect and generate example from markdown
+* - xui-app.js mvc framework functional
+* - generators
+* - canvas progressive enhancement
+*
+* Changelog
+* ---
+* 
+* _Jan 6, 2009_
+*
+* - rock out with renewed authority
+* - better docs we promise
+* - create doc/index.html from markdown
 * 
 * LICENSE
 * ---
