@@ -7,8 +7,8 @@
 	<script type="text/javascript" src="../lib/xui.js"></script>
 	<script type="text/javascript" src="JSSpec.js"></script>
 	<style type="text/css">
-	.testing {
-		background-color:blue;
+	body {
+		padding-top:1000px;
 	}
 	</style>
 </head>
@@ -109,15 +109,17 @@ describe("Style getStyle", {
 		e.first().style.backgroundColor = "blue";
 	},
   
+  // This passes. but it should not be nessisary to pass a function
   'should return background color of blue if set in passed function':function(){
-		var c = "";
-		e.getStyle('background-color', function(v){
-		  console.log(v);
-			c = v;
-		});
-		value_of(c).should_be('rgb(0, 0, 255)');
-	},
+   var c = "";
+   e.getStyle('background-color', function(v){
+     console.log(v);
+     c = v;
+   });
+   value_of(c).should_be('rgb(0, 0, 255)');
+  },
 	
+	// FAILING! - this needs integration.
 	'should return background color even if no function passed':function(){
 	  value_of(e.getStyle('background-color')).should_be('rgb(0, 0, 225)');
 	}
@@ -143,8 +145,9 @@ describe("Style hasClass", {
 		x = x$('#has-class-element');
 	},
 	
+	// FAILING! - this needs integration.
 	'should add the class of testing':function(){
-		value_of(x.first().hasClass(x.first(), 'foo')).should_be(true);
+		value_of(x.first().hasClass('foo')).should_be(true);
 	},
 
 });
@@ -152,52 +155,52 @@ describe("Style hasClass", {
 describe("Style removeClass", {
   
   'before':function(){
-		x = x$('#xui-style-tests');
+		x = x$('#remove-class-element');
 	},
 	
 	'should remove the class of testing':function(){
 		x.removeClass('foo');
-		value_of(e.first().className).should_be(' '); 
+		value_of(x.first().className).should_be(' '); 
 	},
 	
 });
 
 
 
-describe("animate test", {
-	/*
-	'the arguments should be array':function(){
-		x$('item_1').tween([]);
-	}
-	
-	
-	'the arguments should an object':function(){
-		x$('item_1').tween({});
-	}
-	*/
-	'the arguments should an object':function(){
-		x$('item_1').tween({});
-	}
-	
-});
-
-
-describe( 'xui Xhr', {
-	// this is open for debate.
-	// xui.xhr.get( 'url', options );
-	// xui.xhr.post( 'url', { success:function(){}, timeout:3});
-});
-
-describe( 'xui Events', {
-	// guestures, etc
-	// x$('#foo').click( function() { });
-	// x$('#foo').swipe( function() { });
-});
-
-
-describe( 'xui Fx', {
-	//	x$('#foo').click( function() { })
-});
+// describe("animate test", {
+//  /*
+//  'the arguments should be array':function(){
+//    x$('item_1').tween([]);
+//  }
+//  
+//  
+//  'the arguments should an object':function(){
+//    x$('item_1').tween({});
+//  }
+//  */
+//  'the arguments should an object':function(){
+//    x$('item_1').tween({});
+//  }
+//  
+// });
+// 
+// 
+// describe( 'xui Xhr', {
+//  // this is open for debate.
+//  // xui.xhr.get( 'url', options );
+//  // xui.xhr.post( 'url', { success:function(){}, timeout:3});
+// });
+// 
+// describe( 'xui Events', {
+//  // guestures, etc
+//  // x$('#foo').click( function() { });
+//  // x$('#foo').swipe( function() { });
+// });
+// 
+// 
+// describe( 'xui Fx', {
+//  //  x$('#foo').click( function() { })
+// });
 
 
 // ]]>
