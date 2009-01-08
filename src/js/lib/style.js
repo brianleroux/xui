@@ -40,15 +40,16 @@ var Style = {
 	* 
 	*/
 	getStyle: function(prop,callback) {
-      this.each(function(el) {
+		var that = this;
+      	this.each( function(el) {
 				var strValue = document.defaultView.getComputedStyle(el, "").getPropertyValue(prop);
-				if (type callback == 'function') {
+				if (typeof callback == 'function') {
 					callback(strValue);
 				} else {
-					return strValue;
+					that = strValue;
 				}
-      });
-	  	return this;
+      	});
+	  	return that;
 	},
 
 	/**
