@@ -127,46 +127,42 @@ describe("Style getStyle", {
 describe("Style addClass", {
   
   'before':function(){
-		e = x$('#xui-style-tests');
+		x = x$('#add-class-element');
+		x.addClass("foo");
 	},
 	
-});
-
-describe("Style removeClass", {
-  
-  'before':function(){
-		e = x$('#xui-style-tests');
-	},
+	'should add class of foo':function(){
+	  value_of(x.first().className).should_be(" foo");
+	}
 	
 });
 
 describe("Style hasClass", {
   
   'before':function(){
-		e = x$('#xui-style-tests');
+		x = x$('#has-class-element');
 	},
 	
 	'should add the class of testing':function(){
-		e.addClass('testing');
-		// intentional space in framework (for now) to allow multiple classes
-		value_of(e.first().className).should_be(' testing'); 
+		value_of(x.first().hasClass(x.first(), 'foo')).should_be(true);
+	},
+
+});
+
+describe("Style removeClass", {
+  
+  'before':function(){
+		x = x$('#xui-style-tests');
 	},
 	
 	'should remove the class of testing':function(){
-		e.removeClass('testing');
+		x.removeClass('foo');
 		value_of(e.first().className).should_be(' '); 
 	},
 	
-	'should apply backgroundColor':function(){
-		var background = "";
-		e.css({backgroundColor:'blue'});
-		e.getStyle('background-color', function(v){
-			background = v;
-		});
-		value_of(background).should_be('rgb(0, 0, 255)');
-	}
-
 });
+
+
 
 describe("animate test", {
 	/*
@@ -219,7 +215,9 @@ describe( 'xui Fx', {
 <div id="style_tests">
   <p id="set-style-element">element for testing setStyle</p>
   <p id="get-style-element">element for testing getStyle</p>
-  <p id="add-class-element">element for testing addStyle</p>
+  <p id="add-class-element">element for testing addClass</p>
+  <p id="has-class-element" class="foo">element for testing hasClass</p>
+  <p id="remove-class-element" class="foo">element for testing removeClass</p>
 </div>
 
 </body>
