@@ -112,16 +112,15 @@ describe("Style getStyle", {
 
   // This passes. but it should not be nessisary to pass a function
   'should return background color of blue if set in passed function':function(){
-   var c = "";
-   e.getStyle('background-color', function(v){
-     c = v;
-   });
-   value_of(c).should_be('rgb(0, 0, 255)');
+   	var c = "";
+   	e.getStyle('background-color', function(v){
+     	c = v;
+   	});
+   	value_of(c).should_be('rgb(0, 0, 255)');
   },
 
 
 	'should return background color even if no function passed':function(){
-
 		var style = e.getStyle('background-color');
 	  value_of(style).should_be('rgb(0, 0, 255)');
 	}
@@ -144,13 +143,21 @@ describe("Style addClass", {
 describe("Style hasClass", {
   
   'before':function(){
-		x = x$('#has-class-element');
+		e = x$('#has-class-element');
 	},
 	
-	// FAILING! - this needs integration.
-	'should add the class of testing':function(){
-		value_of(x.first().hasClass('foo')).should_be(true);
+	'should have class of foo':function(){
+		value_of(e.hasClass('foo')).should_be(true);
 	},
+	
+	'should have class of bar for multiple elements':function(){
+		value_of( x$('.bar').hasClass('bar')).should_be(true);
+	},
+	
+	'should have class of foo for multiple elements with one element only having bar':function(){
+		value_of( x$('.bar').hasClass('foo')).should_be(false);
+	}
+	
 
 });
 
@@ -161,7 +168,7 @@ describe("Style removeClass", {
 	},
 	
 	'should remove the class of testing':function(){
-		x.removeClass('foo');
+		x.removeClass('bar');
 		value_of(x.first().className).should_be(' '); 
 	},
 	
@@ -220,9 +227,9 @@ describe("Style removeClass", {
 <div id="style_tests">
   <p id="set-style-element">element for testing setStyle</p>
   <p id="get-style-element">element for testing getStyle</p>
-  <p id="add-class-element">element for testing addClass</p>
-  <p id="has-class-element" class="foo">element for testing hasClass</p>
-  <p id="remove-class-element" class="foo">element for testing removeClass</p>
+  <p id="add-class-element">element for testing addClass</p>	
+	<p id="has-class-element" class="foo bar">element for testing hasClass</p>
+  <p id="remove-class-element" class="bar">element for testing removeClass</p>  
 </div>
 
 </body>
