@@ -7,8 +7,8 @@
 	<script type="text/javascript" src="../lib/xui.js"></script>
 	<script type="text/javascript" src="JSSpec.js"></script>
 	<style type="text/css">
-	.testing {
-		background-color:blue;
+	body {
+		padding-top:1000px;
 	}
 	</style>
 </head>
@@ -16,14 +16,9 @@
 <script type="text/javascript" language="javascript">
 // <![CDATA[
 
-
-describe("xui base",{
-
-  'should return string of device':function() {
-    //value_of(xui.device).should_be('android');
-  }
-  
-});
+/////////////////////////////
+// SELECTOR
+/////////////////////////////
 
 describe("Selector string id", {
   
@@ -90,78 +85,122 @@ describe("Selector element", {
   
 });
 
+/////////////////////////////
+// Style
+/////////////////////////////
 
-describe("XUI Style", {
+describe("Style setStyle", {
 	
 	'before':function(){
-		e = x$('#xui-style-tests');
+		e = x$('#set-style-element');
 	},
+	
 	'should set change the box backgroundColor':function(){
 		e.setStyle('backgroundColor', 'green');
 		value_of(e.first().style.backgroundColor).should_be('green');
 	},
-	'should return the box backgroundColor':function(){
-		var c = "";
-		e.getStyle('background-color', function(v){
-			c = v;
-		});
-		value_of(c).should_be('rgb(0, 128, 0)');
+	
+});
+
+describe("Style getStyle", {
+  
+  'before':function(){
+		e = x$('#get-style-element');
+		e.first().style.backgroundColor = "blue";
 	},
+  
+  // This passes. but it should not be nessisary to pass a function
+  'should return background color of blue if set in passed function':function(){
+   var c = "";
+   e.getStyle('background-color', function(v){
+     console.log(v);
+     c = v;
+   });
+   value_of(c).should_be('rgb(0, 0, 255)');
+  },
+	
+	// FAILING! - this needs integration.
+	'should return background color even if no function passed':function(){
+	  value_of(e.getStyle('background-color')).should_be('rgb(0, 0, 225)');
+	}
+	
+});
+
+describe("Style addClass", {
+  
+  'before':function(){
+		x = x$('#add-class-element');
+		x.addClass("foo");
+	},
+	
+	'should add class of foo':function(){
+	  value_of(x.first().className).should_be(" foo");
+	}
+	
+});
+
+describe("Style hasClass", {
+  
+  'before':function(){
+		x = x$('#has-class-element');
+	},
+	
+	// FAILING! - this needs integration.
 	'should add the class of testing':function(){
-		e.addClass('testing');
-		// intentional space in framework (for now) to allow multiple classes
-		value_of(e.first().className).should_be(' testing'); 
+		value_of(x.first().hasClass('foo')).should_be(true);
 	},
+
+});
+
+describe("Style removeClass", {
+  
+  'before':function(){
+		x = x$('#remove-class-element');
+	},
+	
 	'should remove the class of testing':function(){
-		e.removeClass('testing');
-		value_of(e.first().className).should_be(' '); 
+		x.removeClass('foo');
+		value_of(x.first().className).should_be(' '); 
 	},
 	
-	'should apply backgroundColor':function(){
-		var background = "";
-		e.css({backgroundColor:'blue'});
-		e.getStyle('background-color', function(v){
-			background = v;
-		});
-		value_of(background).should_be('rgb(0, 0, 255)');
-	}
-
-});
-
-describe("animate test", {
-	/*
-	'the arguments should be array':function(){
-		x$('item_1').tween([]);
-	}
-	
-	
-	'the arguments should an object':function(){
-		x$('item_1').tween({});
-	}
-	*/
-	'the arguments should an object':function(){
-		x$('item_1').tween({});
-	}
-	
 });
 
 
-describe( 'xui Xhr', {
-	// this is open for debate.
-	// xui.xhr.get( 'url', options );
-	// xui.xhr.post( 'url', { success:function(){}, timeout:3});
-});
 
-describe( 'xui Events', {
-	// guestures, etc
-	// x$('#foo').click( function() { });
-	// x$('#foo').swipe( function() { });
-});
-
-
-describe( 'xui Fx', {
-	//	x$('#foo').click( function() { })
-});
+// describe("animate test", {
+//  /*
+//  'the arguments should be array':function(){
+//    x$('item_1').tween([]);
+//  }
+//  
+//  
+//  'the arguments should an object':function(){
+//    x$('item_1').tween({});
+//  }
+//  */
+//  'the arguments should an object':function(){
+//    x$('item_1').tween({});
+//  }
+//  
+// });
+// 
+// 
+// describe( 'xui Xhr', {
+//  // this is open for debate.
+//  // xui.xhr.get( 'url', options );
+//  // xui.xhr.post( 'url', { success:function(){}, timeout:3});
+// });
+// 
+// describe( 'xui Events', {
+//  // guestures, etc
+//  // x$('#foo').click( function() { });
+//  // x$('#foo').swipe( function() { });
+// });
+// 
+// 
+// describe( 'xui Fx', {
+//  //  x$('#foo').click( function() { })
+// });
 
 
 // ]]>
@@ -176,7 +215,13 @@ describe( 'xui Fx', {
   </ul>
 </div>
 
-<div id="xui-style-tests">xui style tests</div>
+<div id="style_tests">
+  <p id="set-style-element">element for testing setStyle</p>
+  <p id="get-style-element">element for testing getStyle</p>
+  <p id="add-class-element">element for testing addClass</p>
+  <p id="has-class-element" class="foo">element for testing hasClass</p>
+  <p id="remove-class-element" class="foo">element for testing removeClass</p>
+</div>
 
 </body>
 </html>
