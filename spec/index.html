@@ -6,7 +6,13 @@
 	<link type="text/css" rel="stylesheet" href="JSSpec.css" />
 	<script type="text/javascript" src="../lib/xui.js"></script>
 	<script type="text/javascript" src="JSSpec.js"></script>
+	<style type="text/css">
+	.testing {
+		background-color:blue;
+	}
+	</style>
 </head>
+
 <script type="text/javascript" language="javascript">
 // <![CDATA[
 
@@ -100,16 +106,20 @@ describe("Style getStyle", {
   
   'before':function(){
 		e = x$('#get-style-element');
+		e.first().style.backgroundColor = "blue";
 	},
   
-  'should return the box backgroundColor':function(){
+  'should return background color of blue if set in passed function':function(){
 		var c = "";
-		
 		e.getStyle('background-color', function(v){
+		  console.log(v);
 			c = v;
 		});
-		
-		value_of(c).should_be('rgb(0, 0, 256)');
+		value_of(c).should_be('rgb(0, 0, 255)');
+	},
+	
+	'should return background color even if no function passed':function(){
+	  value_of(e.getStyle('background-color')).should_be('rgb(0, 0, 225)');
 	}
 	
 });
@@ -136,6 +146,26 @@ describe("Style hasClass", {
 		e = x$('#xui-style-tests');
 	},
 	
+	'should add the class of testing':function(){
+		e.addClass('testing');
+		// intentional space in framework (for now) to allow multiple classes
+		value_of(e.first().className).should_be(' testing'); 
+	},
+	
+	'should remove the class of testing':function(){
+		e.removeClass('testing');
+		value_of(e.first().className).should_be(' '); 
+	},
+	
+	'should apply backgroundColor':function(){
+		var background = "";
+		e.css({backgroundColor:'blue'});
+		e.getStyle('background-color', function(v){
+			background = v;
+		});
+		value_of(background).should_be('rgb(0, 0, 255)');
+	}
+
 });
 
 describe("animate test", {
@@ -188,7 +218,7 @@ describe( 'xui Fx', {
 
 <div id="style_tests">
   <p id="set-style-element">element for testing setStyle</p>
-  <p id="get-style-element" style="color:blue">element for testing getStyle</p>
+  <p id="get-style-element">element for testing getStyle</p>
   <p id="add-class-element">element for testing addStyle</p>
 </div>
 
