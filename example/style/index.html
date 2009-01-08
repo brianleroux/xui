@@ -61,6 +61,7 @@
         
         x$('#button1').click(function(){
           x$('#box1').getStyle('background-color',function(value){
+            console.log(value);
             x$('#box2').setStyle('backgroundColor',value);
           });
         });  

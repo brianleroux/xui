@@ -40,11 +40,10 @@ var Style = {
 	* 
 	*/
 	getStyle: function(prop,callback) {
-      	this.each(function(el) {
+      this.each(function(el) {
 			var strValue = document.defaultView.getComputedStyle(el, "").getPropertyValue(prop);
-			console.log(strValue);
-			callback(strValue);
-      	});
+				callback(strValue);
+      });
 	  	return this;
 	},
 
