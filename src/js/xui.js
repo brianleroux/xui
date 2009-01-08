@@ -46,38 +46,42 @@
 (function() {
     var _$ = function(els) 
 	{
-        this.elements = [];
-		var size = els.length;
-		
-		for(var i = 0; i < size; i++ ) {
-			var element = els[i];
-
-			if( typeof element == 'string' ) {
-				var element = document.querySelectorAll(element);
-				var len = element.length;
-					
-				for(var x = 0; x < len; x++ ) {          
-					this.elements.push(element[x]);   
-				}
-
-			} else {
-				this.elements.push(element);
-			}
-		}       
-		return this;
+		return this.find(els);
 	};
 	
 	_$.prototype = {
+		
+		elements:[],
+		
+		find: function(q) {
+			this.elements = []; // should it behave like this?
+
+			var qlen = q.length;
+			for(var i = 0; i < qlen; i++ ) {
+				if( typeof q[i] == 'string' ) {
+					var list = document.querySelectorAll(q[i]);
+					var size = list.length;
+					
+					for(var j = 0; j < size; j++ ) {          
+						this.elements.push(list[j]);   
+					}
+				} else {
+					this.elements.push(q[i]);
+				}
 				
+			};
+			return this;
+		},
+		
 		first: function() {
 			return this.elements[0];
 		},
 		
 	    each: function(fn) {
-	    	for ( var i = 0, len = this.elements.length; i<len; ++i ) {
-					fn.call(this,this.elements[i]);
-				}
-				return this;
+	    	for( var i = 0, len = this.elements.length; i<len; ++i ) {
+				fn.call(this,this.elements[i]);
+			}
+			return this;
 	    },
 
 		// merges sub lib objects
@@ -120,6 +124,7 @@
 *
 * Changelog
 * ---
+*
 * 
 * _Jan 6, 2009_
 *

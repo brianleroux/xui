@@ -112,7 +112,8 @@ example:</p>
 <h3>getStyle</h3>
 
 <p>syntax: 
-arguments: prop (CSS Key ie: border-color NOT borderColor )
+arguments: prop (CSS Key ie: border-color NOT borderColor)
+if callback is a function, it will pass the value into the function orherwise return the proprty
 example:
 TODO: prop should be JS property, not CSS property</p>
 
@@ -203,24 +204,6 @@ example:</p></li>
 <li>data:string url encoded string of parameters to send</li>
 <li>map:object {'dom selector':'json key'}</li>
 <li>callback:function - this function is applied to each json value</li>
-</ul>
-
-<h3>xhrjson</h3>
-
-<p>syntax:</p>
-
-<p><code>xhr('path/to/file.html', {});</code></p>
-
-<p>arguments:</p>
-
-<ul>
-<li>url:string the url for request</li>
-<li>options:object
--- method:string get|put|delete|post default get
--- async:boolen default false
--- data:string url encoded string of parameters to send
--- map:object {'json key':'dom selector'}
--- callback:function - this function is applied to each json value</li>
 </ul>
 
 <h2>TODO</h2>

@@ -16,7 +16,7 @@ var Dom = {
 	*	
 	* syntax:
 	*
-	* `x$(window).clean();`
+	* 	x$(window).clean();
 	*
 	* example:
 	*
