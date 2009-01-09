@@ -77,7 +77,7 @@
 			return this.elements[0];
 		},
 		
-	  each: function(fn) {
+	  	each: function(fn) {
 			for( var i = 0, len = this.elements.length; i<len; ++i ) {
 				fn.call(this,this.elements[i]);
 			}
@@ -114,7 +114,14 @@
 * TODO
 * ---
 * 
+* - look into lib loading / extend method buggyness
 * - more tests
+* - doc for dom
+* - doc for event
+* - doc for fx
+* - doc for style
+* - doc for xhr
+* - doc for xui core methods
 * - a more comprehensive exmaple application
 * - dynamic TODO lists (no shit)
 * - inspect and generate example from markdown
@@ -124,6 +131,10 @@
 *
 * Changelog
 * ---
+*
+* _Jan 9, 2009_
+*
+* - more docs for xui core, xhr, style and fx
 *
 * _Jan 7, 2009_
 * 

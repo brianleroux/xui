@@ -8,22 +8,25 @@
 */
 var Fx = {
 
-	// TODO should this be private __animationStack?
-	animationStack: [],
-  
 	/**
 	*
 	* ### tween
 	*	
 	* syntax:
 	* 
-	* `x$('#box').tween({ left:100px, backgroundColor:'blue' });`
-	*
-	* `x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:100px }]);`
-	*
-	* `x$('#box').tween({ left:100px}).tween({ left:100px });`
+	* 	x$('#box').tween({ left:100px, backgroundColor:'blue' });
+	* 	
+	* 	x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:100px }]);
+	* 	
+	* 	x$('#box').tween({ left:100px}).tween({ left:100px });
 	*
 	* arguments:
+	* 
+	* properties:object an object literal of element properties to tween.
+	* 
+	* _or_
+	*
+	* queue:array an array literal of objects which contain properties to tween sequentially.
 	*
 	* example:
 	* 
@@ -40,6 +43,11 @@ var Fx = {
 	    this.start();
 	    return this;
 	},
+
+	// -- private -- //
+
+	// TODO should this be private __animationStack?
+	animationStack: [],
 
 	start:function() {
 	    var t = 0;

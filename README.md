@@ -59,7 +59,7 @@ Removes empty nodes from the DOM. This is used internally as a helper, but it is
 	
 syntax:
 
-`x$(window).clean();`
+	x$(window).clean();
 
 example:
 
@@ -142,7 +142,13 @@ TODO: prop should be JS property, not CSS property
 ### addClass
 	
 syntax:
+
+$('.foo').addClass('awesome');
+
 arguments:
+
+className:string the name of the CSS class to apply
+
 example:
 
 			
@@ -151,7 +157,13 @@ example:
 ### removeClass
 	
 syntax:
+
+$('.foo').removeClass('awesome');
+
 arguments:
+
+className:string the name of the CSS class to remove
+
 example:
 
 			
@@ -186,13 +198,19 @@ Animations mostly but we're not excluding any ideas.
 	
 syntax:
 
-`x$('#box').tween({ left:100px, backgroundColor:'blue' });`
-
-`x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:100px }]);`
-
-`x$('#box').tween({ left:100px}).tween({ left:100px });`
+	x$('#box').tween({ left:100px, backgroundColor:'blue' });
+	
+	x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:100px }]);
+	
+	x$('#box').tween({ left:100px}).tween({ left:100px });
 
 arguments:
+
+properties:object an object literal of element properties to tween.
+
+_or_
+
+queue:array an array literal of objects which contain properties to tween sequentially.
 
 example:
 
@@ -214,12 +232,14 @@ syntax:
 
 arguments:
 
-- url:string the url for request
-- options:object
--- method:string get|put|delete|post default get
--- async:boolen default false
--- data:string url encoded string of parameters to send
--- callback:function to call on 200 status
+url:string the url for request
+
+options:object
+
+- method:string get|put|delete|post default get
+- async:boolen default false
+- data:string url encoded string of parameters to send
+- callback:function to call on 200 status
 
 - Returns responseText back 
 example:
@@ -249,7 +269,14 @@ options:object (Options is the same as XHR with map:object and new callback:func
 TODO
 ---
 
+- look into lib loading / extend method buggyness
 - more tests
+- doc for dom
+- doc for event
+- doc for fx
+- doc for style
+- doc for xhr
+- doc for xui core methods
 - a more comprehensive exmaple application
 - dynamic TODO lists (no shit)
 - inspect and generate example from markdown
@@ -259,6 +286,10 @@ TODO
 
 Changelog
 ---
+
+_Jan 9, 2009_
+
+- more docs for xui core, xhr, style and fx
 
 _Jan 7, 2009_
 
