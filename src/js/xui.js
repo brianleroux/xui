@@ -45,8 +45,7 @@
 */
 
 (function() {
-    var _$ = function(els) 
-	{
+	var _$ = function(els) {
 		return this.find(els);
 	};
 	
@@ -78,16 +77,15 @@
 			return this.elements[0];
 		},
 		
-	    each: function(fn) {
-	    	for( var i = 0, len = this.elements.length; i<len; ++i ) {
+	  each: function(fn) {
+			for( var i = 0, len = this.elements.length; i<len; ++i ) {
 				fn.call(this,this.elements[i]);
 			}
 			return this;
-	    },
+		},
 
 		// merges sub lib objects
 		extend: function( libObj ) {
-			
 			for(var x in libObj) {
 				this[x] = libObj[x];
 			}
@@ -111,6 +109,7 @@
 	}
 
 })();
+
 /*
 * TODO
 * ---
