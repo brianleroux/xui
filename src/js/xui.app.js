@@ -1,4 +1,16 @@
 
+
+x$(window).load(function(){
+	
+	var blah = {
+		log:function(){console.log('hi');}
+	}
+	x$(window).extend(blah);
+	
+	x$('#container').log();
+	
+});
+
 x$.app = function(title,controller) {
 
 	var _history = [];
@@ -83,8 +95,6 @@ x$.app = function(title,controller) {
 }
 
 // Back button, animations (fade/swipe), partials 
-
-
 
 x$.app('my special app', {
  	after: 		function(){},
