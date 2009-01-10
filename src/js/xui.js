@@ -43,6 +43,7 @@
 * 
 * Welcome the XUI documentation. This is generated from inline documentation in the xui javascript source.
 */
+
 (function() {
 	var _$ = function(els) {
 		return this.find(els);
@@ -113,7 +114,14 @@
 * TODO
 * ---
 * 
+* - look into lib loading / extend method buggyness
 * - more tests
+* - doc for dom
+* - doc for event
+* - doc for fx
+* - doc for style
+* - doc for xhr
+* - doc for xui core methods
 * - a more comprehensive exmaple application
 * - dynamic TODO lists (no shit)
 * - inspect and generate example from markdown
@@ -123,6 +131,10 @@
 *
 * Changelog
 * ---
+*
+* _Jan 9, 2009_
+*
+* - more docs for xui core, xhr, style and fx
 *
 * _Jan 7, 2009_
 * 

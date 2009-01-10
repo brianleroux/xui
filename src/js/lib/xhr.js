@@ -17,12 +17,14 @@ var Xhr = {
 	* 
 	* arguments:
 	*
-	* - url:string the url for request
-	* - options:object
-	* -- method:string get|put|delete|post default get
-	* -- async:boolen default false
-	* -- data:string url encoded string of parameters to send
-	* -- callback:function to call on 200 status
+	* url:string the url for request
+	* 
+	* options:object
+	*
+	* - method:string get|put|delete|post default get
+	* - async:boolen default false
+	* - data:string url encoded string of parameters to send
+	* - callback:function to call on 200 status
 	*
 	* - Returns responseText back 
 	* example:

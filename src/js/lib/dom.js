@@ -41,20 +41,20 @@ var Dom = {
      },
 
 
-		/**
-		*
-		* ### html
-		*
-		* Adds elements or changes the content of an element on a page.
-		*	
-		* syntax:
-		*
-		* `x$(window).html("String Fragment" [,"top" | "bottom" | "inner" | "outer" ]);`
-		*
-		* arguments:
-		* example:
-		* 
-		*/
+	/**
+	*
+	* ### html
+	*
+	* Adds elements or changes the content of an element on a page.
+	*	
+	* syntax:
+	*
+	* `x$(window).html("String Fragment" [,"top" | "bottom" | "inner" | "outer" ]);`
+	*
+	* arguments:
+	* example:
+	* 
+	*/
     html:function(html,loc) {
         var that = this;
         this.clean();

@@ -60,7 +60,13 @@ var Style = {
 	* ### addClass
 	*	
 	* syntax:
+	*
+	* $('.foo').addClass('awesome');
+	* 
 	* arguments:
+	*
+	* className:string the name of the CSS class to apply
+	*
 	* example:
 	* 
 	*/
@@ -80,7 +86,13 @@ var Style = {
 	* ### removeClass
 	*	
 	* syntax:
+	*
+	* $('.foo').removeClass('awesome');
+	* 
 	* arguments:
+	*
+	* className:string the name of the CSS class to remove
+	*
 	* example:
 	* 
 	*/
