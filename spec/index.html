@@ -176,6 +176,21 @@ describe("Style removeClass", {
 
 
 
+describe("Dom clean", {
+  
+  'before':function(){
+		e = x$('#clean-test');
+	},
+	
+	'should remove the empty p and div nodes':function(){
+		e.clean();
+		value_of(e.first().innerHTML).should_be(''); 
+	},
+	
+});
+
+
+
 // describe("animate test", {
 //  /*
 //  'the arguments should be array':function(){
@@ -230,6 +245,10 @@ describe("Style removeClass", {
   <p id="add-class-element">element for testing addClass</p>	
 	<p id="has-class-element" class="foo bar">element for testing hasClass</p>
   <p id="remove-class-element" class="bar">element for testing removeClass</p>  
+</div>
+
+<div id="dom_tests">
+	<div id="clean-test"><p></p><div>  </div></div>
 </div>
 
 </body>
