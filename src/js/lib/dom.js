@@ -17,6 +17,10 @@ var Dom = {
 	* syntax:
 	*
 	* 	x$(window).html( location, htmlFragment );
+	*
+	* _or_
+	*
+	* 	x$(window).html( htmlFragment );
 	* 
 	* arguments:
 	* 
@@ -29,6 +33,10 @@ var Dom = {
 	*  	x$('#foo').html( 'outer',  htmlFragment );
 	* 	x$('#foo').html( 'top',    htmlFragment );
 	*  	x$('#foo').html( 'bottom', htmlFragment );
+	* 
+	* _or_
+	* 
+	* 	x$('#foo').html('<p>sweet as honey</p>');
 	* 
 	*/
     html:function(location, html) {
@@ -81,7 +89,13 @@ var Dom = {
 
 	        return element;
 	    };
-
+	
+		// allow for just the html to be pass in
+		if( html == null) {
+			html = location;
+			location = 'inner';
+		}	
+		
         this.each(function(el) {
             switch(location) {
                 case "inner": el.innerHTML = html; break;

@@ -44,7 +44,7 @@ x$.app = function(title,controller) {
 			x$(container).html(this.responseText);
 			
 			x$('.nav A').click(function(e) { 
-				x$(window).stop(e); 
+				e.preventDefault();
 				load(this.href);
 
 				x$('#back').click(function(){					
