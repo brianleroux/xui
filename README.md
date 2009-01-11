@@ -23,9 +23,7 @@ support under consideration for IE Mobile and BlackBerry.
 
 ### Download
 
-- full development source (includes an example app) [zip]: http://github.com/brianleroux/xui/zipball/master or [tar]: http://github.com/brianleroux/xui/tarball/master
-- just the code with inline documentation (official builds coming soonish - Brian Jan 6, 2009)
-- minified code (<7k!) (official builds coming soonish - Brian Jan 6, 2009)
+Minified code is less than 6k! _official builds coming soonish - Brian Jan 6, 2009_
 
 ### Contribute
 
@@ -53,33 +51,35 @@ Manipulating the document object model (DOM).
 		
 
 
-### clean
-
-Removes empty nodes from the DOM. This is used internally as a helper, but it is also public.
-	
-syntax:
-
-	x$(window).clean();
-
-example:
-
-	x$(window).clean();
-		
-			
-
-
 ### html
 
 Adds elements or changes the content of an element on a page.
 	
 syntax:
 
-`x$(window).html("String Fragment" [,"top" | "bottom" | "inner" | "outer" ]);`
+	x$(window).html( location, htmlFragment );
+
+_or_
+
+	x$(window).html( htmlFragment );
 
 arguments:
+
+- location:string can be one of inner, outer, top, bottom
+- htmlFragment:string any string of html markup
+
 example:
 
-				
+ 	x$('#foo').html( 'inner',  htmlFragment );
+ 	x$('#foo').html( 'outer',  htmlFragment );
+	x$('#foo').html( 'top',    htmlFragment );
+ 	x$('#foo').html( 'bottom', htmlFragment );
+
+_or_
+
+	x$('#foo').html('<p>sweet as honey</p>');
+
+			
 
 
 Event
@@ -91,10 +91,29 @@ A good old fashioned event handling system.
 
 
 ### on
-	
+
+Registers a callback function to a DOM event on the element collection.
+
+This method has shortcut aliases for: 
+
+- click
+- load
+- touchstart
+- touchmove
+- touchend
+- touchcancel
+- gesturestart
+- gesturechange
+- gestureend
+- orientationchange
+
+For more information see:
+
+- http://developer.apple.com/webapps/docs/documentation/AppleApplications/Reference/SafariWebContent/HandlingEvents/chapter_7_section_1.html#//apple_ref/doc/uid/TP40006511-SW1
+
 syntax:
 
-`x$('button').on( 'click', function(){ alert('hey that tickles!') });`
+	x$('button').on( 'click', function(){ alert('hey that tickles!') });
 
 arguments:
 
@@ -102,7 +121,11 @@ arguments:
 - fn:function a callback function to execute when the event is fired
 
 example:
-
+	
+	x$(window).load(function(e){
+		x$('.save').touchstart( function(evt){ alert('tee hee!') });	
+ 	});
+	
 			
 
 
@@ -286,6 +309,18 @@ TODO
 
 Changelog
 ---
+
+_Jan 11, 2009_
+
+- added mobile safari events (these will need testing in android, etc)
+- cleaned up Dom.html and documented
+
+_Jan 10, 2009_
+
+- removed Dom.clean for now
+- made Dom.getTag and Dom.wrap private 
+- documented Dom
+- more Dom tests
 
 _Jan 9, 2009_
 

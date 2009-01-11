@@ -89,7 +89,7 @@ describe("Selector element", {
 // Style
 /////////////////////////////
 
-describe("Style setStyle", {
+describe("Style.setStyle", {
 	
 	'before':function(){
 		e = x$('#set-style-element');
@@ -102,7 +102,7 @@ describe("Style setStyle", {
 	
 });
 
-describe("Style getStyle", {
+describe("Style.getStyle", {
   
   'before':function(){
 		e = x$('#get-style-element');
@@ -127,7 +127,7 @@ describe("Style getStyle", {
 	
 });
 
-describe("Style addClass", {
+describe("Style.addClass", {
   
   'before':function(){
 		x = x$('#add-class-element');
@@ -140,7 +140,7 @@ describe("Style addClass", {
 	
 });
 
-describe("Style hasClass", {
+describe("Style.hasClass", {
   
   'before':function(){
 		e = x$('#has-class-element');
@@ -161,7 +161,7 @@ describe("Style hasClass", {
 
 });
 
-describe("Style removeClass", {
+describe("Style.removeClass", {
   
   'before':function(){
 		x = x$('#remove-class-element');
@@ -176,16 +176,32 @@ describe("Style removeClass", {
 
 
 
-describe("Dom clean", {
+describe("Dom.html", {
   
   'before':function(){
-		e = x$('#clean-test');
+		inner  = x$('#html-test-inner');
+		outer  = x$('#html-test-outer');
+		top    = x$('#html-test-top');
+		bottom = x$('#html-test-bottom');
 	},
 	
-	'should remove the empty p and div nodes':function(){
-		e.clean();
-		value_of(e.first().innerHTML).should_be(''); 
+	'should insert html into the #html-test-inner node':function(){
+		inner.html('inner', '<p>hello world</p>');
+		value_of(inner.first().children[0].tagName).should_be('P'); 
 	},
+	
+	'should insert html into the #html-test-outer node':function(){
+		outer.html('outer', '<div>');
+		// value_of(outer.first().children[0].tagName).should_be('P'); 
+	},
+	'should insert html into the #html-test-top node':function(){
+		top.html('top', '<div>');
+		// value_of(top.first().children[0].tagName).should_be('P'); 
+	},
+	'should insert html into the #html-test-bottom node':function(){
+		bottom.html('bottom', '<div>');
+		// value_of(bottom.first().children[0].tagName).should_be('P'); 
+	}
 	
 });
 
@@ -248,7 +264,10 @@ describe("Dom clean", {
 </div>
 
 <div id="dom_tests">
-	<div id="clean-test"><p></p><div>  </div></div>
+	<div id="html-test-inner"></div>
+	<div id="html-test-outer"></div>
+	<div id="html-test-top"></div>
+	<div id="html-test-bottom"></div>
 </div>
 
 </body>
