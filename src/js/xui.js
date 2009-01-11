@@ -131,7 +131,14 @@
 *
 * Changelog
 * ---
-*
+* 
+* _Jan 10, 2009_
+* 
+* - removed Dom.clean for now
+* - made Dom.getTag and Dom.wrap private 
+* - documented Dom
+* - more Dom tests
+* 
 * _Jan 9, 2009_
 *
 * - more docs for xui core, xhr, style and fx
