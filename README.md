@@ -53,33 +53,27 @@ Manipulating the document object model (DOM).
 		
 
 
-### clean
-
-Removes empty nodes from the DOM. This is used internally as a helper, but it is also public.
-	
-syntax:
-
-	x$(window).clean();
-
-example:
-
-	x$(window).clean();
-		
-			
-
-
 ### html
 
 Adds elements or changes the content of an element on a page.
 	
 syntax:
 
-`x$(window).html("String Fragment" [,"top" | "bottom" | "inner" | "outer" ]);`
+	x$(window).html( location, htmlFragment );
 
 arguments:
+
+- location:string can be one of inner, outer, top, bottom
+- htmlFragment:string any string of html markup
+
 example:
 
-				
+ 	x$('#foo').html( 'inner',  htmlFragment );
+ 	x$('#foo').html( 'outer',  htmlFragment );
+	x$('#foo').html( 'top',    htmlFragment );
+ 	x$('#foo').html( 'bottom', htmlFragment );
+
+			
 
 
 Event
@@ -286,6 +280,13 @@ TODO
 
 Changelog
 ---
+
+_Jan 10, 2009_
+
+- removed Dom.clean for now
+- made Dom.getTag and Dom.wrap private 
+- documented Dom
+- more Dom tests
 
 _Jan 9, 2009_
 

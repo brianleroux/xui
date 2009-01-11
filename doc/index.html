@@ -48,30 +48,29 @@ There are other tasks for code minification, running the specs and generating do
 
 <p>Manipulating the document object model (DOM).</p>
 
-<h3>clean</h3>
-
-<p>Removes empty nodes from the DOM. This is used internally as a helper, but it is also public.</p>
-
-<p>syntax:</p>
-
-<pre><code>x$(window).clean();
-</code></pre>
-
-<p>example:</p>
-
-<pre><code>x$(window).clean();
-</code></pre>
-
 <h3>html</h3>
 
 <p>Adds elements or changes the content of an element on a page.</p>
 
 <p>syntax:</p>
 
-<p><code>x$(window).html("String Fragment" [,"top" | "bottom" | "inner" | "outer" ]);</code></p>
+<pre><code>x$(window).html( location, htmlFragment );
+</code></pre>
 
-<p>arguments:
-example:</p>
+<p>arguments:</p>
+
+<ul>
+<li>location:string can be one of inner, outer, top, bottom</li>
+<li>htmlFragment:string any string of html markup</li>
+</ul>
+
+<p>example:</p>
+
+<pre><code>x$('#foo').html( 'inner',  htmlFragment );
+x$('#foo').html( 'outer',  htmlFragment );
+x$('#foo').html( 'top',    htmlFragment );
+x$('#foo').html( 'bottom', htmlFragment );
+</code></pre>
 
 <h2>Event</h2>
 
@@ -248,6 +247,15 @@ example:</p></li>
 </ul>
 
 <h2>Changelog</h2>
+
+<p><em>Jan 10, 2009</em></p>
+
+<ul>
+<li>removed Dom.clean for now</li>
+<li>made Dom.getTag and Dom.wrap private </li>
+<li>documented Dom</li>
+<li>more Dom tests</li>
+</ul>
 
 <p><em>Jan 9, 2009</em></p>
 
