@@ -23,9 +23,7 @@
 * 
 * ### Download
 * 
-* - full development source (includes an example app) [zip]: http://github.com/brianleroux/xui/zipball/master or [tar]: http://github.com/brianleroux/xui/tarball/master
-* - just the code with inline documentation (official builds coming soonish - Brian Jan 6, 2009)
-* - minified code (<7k!) (official builds coming soonish - Brian Jan 6, 2009)
+* Minified code is less than 6k! _official builds coming soonish - Brian Jan 6, 2009_
 * 
 * ### Contribute
 *
@@ -131,6 +129,11 @@
 *
 * Changelog
 * ---
+* 
+* _Jan 11, 2009_
+*
+* - added mobile safari events (these will need testing in android, etc)
+* - cleaned up Dom.html and documented
 * 
 * _Jan 10, 2009_
 * 

@@ -22,11 +22,7 @@ support under consideration for IE Mobile and BlackBerry.</p>
 
 <h3>Download</h3>
 
-<ul>
-<li>full development source (includes an example app) [zip]: http://github.com/brianleroux/xui/zipball/master or [tar]: http://github.com/brianleroux/xui/tarball/master</li>
-<li>just the code with inline documentation (official builds coming soonish - Brian Jan 6, 2009)</li>
-<li>minified code (&lt;7k!) (official builds coming soonish - Brian Jan 6, 2009)</li>
-</ul>
+<p>Minified code is less than 6k! <em>official builds coming soonish - Brian Jan 6, 2009</em></p>
 
 <h3>Contribute</h3>
 
@@ -57,6 +53,11 @@ There are other tasks for code minification, running the specs and generating do
 <pre><code>x$(window).html( location, htmlFragment );
 </code></pre>
 
+<p>_or_</p>
+
+<pre><code>x$(window).html( htmlFragment );
+</code></pre>
+
 <p>arguments:</p>
 
 <ul>
@@ -72,15 +73,44 @@ x$('#foo').html( 'top',    htmlFragment );
 x$('#foo').html( 'bottom', htmlFragment );
 </code></pre>
 
+<p>_or_</p>
+
+<pre><code>x$('#foo').html('&lt;p&gt;sweet as honey&lt;/p&gt;');
+</code></pre>
+
 <h2>Event</h2>
 
 <p>A good old fashioned event handling system.</p>
 
 <h3>on</h3>
 
+<p>Registers a callback function to a DOM event on the element collection.</p>
+
+<p>This method has shortcut aliases for: </p>
+
+<ul>
+<li>click</li>
+<li>load</li>
+<li>touchstart</li>
+<li>touchmove</li>
+<li>touchend</li>
+<li>touchcancel</li>
+<li>gesturestart</li>
+<li>gesturechange</li>
+<li>gestureend</li>
+<li>orientationchange</li>
+</ul>
+
+<p>For more information see:</p>
+
+<ul>
+<li>http://developer.apple.com/webapps/docs/documentation/AppleApplications/Reference/SafariWebContent/HandlingEvents/chapter<em>7</em>section<em>1.html#//apple</em>ref/doc/uid/TP40006511-SW1</li>
+</ul>
+
 <p>syntax:</p>
 
-<p><code>x$('button').on( 'click', function(){ alert('hey that tickles!') });</code></p>
+<pre><code>x$('button').on( 'click', function(){ alert('hey that tickles!') });
+</code></pre>
 
 <p>arguments:</p>
 
@@ -90,6 +120,11 @@ x$('#foo').html( 'bottom', htmlFragment );
 </ul>
 
 <p>example:</p>
+
+<pre><code>x$(window).load(function(e){
+    x$('.save').touchstart( function(evt){ alert('tee hee!') });    
+});
+</code></pre>
 
 <h2>Style</h2>
 
@@ -247,6 +282,13 @@ example:</p></li>
 </ul>
 
 <h2>Changelog</h2>
+
+<p><em>Jan 11, 2009</em></p>
+
+<ul>
+<li>added mobile safari events (these will need testing in android, etc)</li>
+<li>cleaned up Dom.html and documented</li>
+</ul>
 
 <p><em>Jan 10, 2009</em></p>
 
