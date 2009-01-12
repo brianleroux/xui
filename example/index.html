@@ -5,6 +5,22 @@
 		<link rel="stylesheet" type="text/css" href="../src/css/xui.css" />
 		<script src="../lib/xui.js" type="text/javascript" ></script>
 		<script src="../src/js/xui.app.js" type="text/javascript"></script>
+		<script type="text/javascript">
+		// Back button, animations (fade/swipe), partials 
+
+		x$.app('my special app', {
+		 	after: 	   function(){},
+		 	before:    function(){ console.log(" From Before");},
+			container: '#content',
+		 	layout:    'index.html',
+		 	index: 	   '_index.html',
+
+			'_contribute.html': function() {console.log('fire on this');}
+		});
+		
+		</script>
+		
+		
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 </head>
 <body>

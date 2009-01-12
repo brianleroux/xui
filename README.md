@@ -293,17 +293,11 @@ TODO
 ---
 
 - look into lib loading / extend method buggyness
-- more tests
-- doc for dom
-- doc for event
-- doc for fx
-- doc for style
-- doc for xhr
+- more tests!!!
+- better docs (generate side by side code like ubiquity)
 - doc for xui core methods
-- a more comprehensive exmaple application
-- dynamic TODO lists (no shit)
+- doc and test xui.app
 - inspect and generate example from markdown
-- xui-app.js mvc framework functional
 - generators
 - canvas progressive enhancement
 
@@ -314,6 +308,7 @@ _Jan 11, 2009_
 
 - added mobile safari events (these will need testing in android, etc)
 - cleaned up Dom.html and documented
+- documented event a little
 
 _Jan 10, 2009_
 
