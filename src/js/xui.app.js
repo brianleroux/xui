@@ -135,7 +135,7 @@ x$.app = function(title,controller) {
 };
 
 
-
+/*
 x$.app = function( title, controller ) {
 	
 	// helper for loading default options when not present
@@ -163,4 +163,4 @@ x$.app = function( title, controller ) {
 	});
 };
 
-
+*/
