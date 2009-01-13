@@ -8,7 +8,7 @@
 		x$(window).load(function(){
 			
 			x$('.box').click(function(e){
-				x$('.box').tween({ backgroundColor:'#AAffff','border':'1px solid #000',by:[320,0]});
+				x$('.box').tween({rotate:{Z:90}});
 			});
 			
 		});
@@ -16,6 +16,7 @@
 		<style type="text/css">
 		  body {margin:0px;}
 			.box {
+			  position:absolute;
 				background:blue;
 				border:1px solid red;
 				width:320px;
