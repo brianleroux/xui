@@ -71,7 +71,9 @@ var Fx = {
 	    var after = (opt_after == undefined) ? function(){} : function() {  opt_after.apply(that); };    
 	    var duration = (options.duration == undefined) ? .5 : options.duration;
    
-	    options.easing = options.before = options.after = options.duration = undefined;
+			var translate = options.by ;
+			
+	    options.easing = options.by = options.before = options.after = options.duration = undefined;
 	    before.apply(before.arguments);
    
 	    // this sets duration and easing equation on a style property change
@@ -81,12 +83,19 @@ var Fx = {
 	    this.each( function(el) {
 	        for( var prop in options ) {
 	            that.setStyle( prop, options[prop] )
-	        }   
+	        }
+	 				if (translate)
+						that.setStyle('-webkit-transform', that.translateOp(translate[0],translate[1]));
 	    });
-   
+			
+
 	    setTimeout(function(){ that.setStyle('-webkit-transition','none');},duration*1000)
 	    setTimeout(after,duration*1000);
 
 	    return this || that; // haha
+	},
+	
+	translateOp: function(xPixels, yPixels) {
+	    return 'translate(' + xPixels + 'px, ' + yPixels + 'px)';
 	}
 };
