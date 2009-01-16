@@ -163,4 +163,61 @@ x$.app = function( title, controller ) {
 	});
 };
 
+
+
+
+
+
+
+
+
+
+	x$.app('hello world app', { 
+	
+  	// application filters
+  	after: 	   function(){console.log('called before every action is called')},
+  	before:    function(){console.log('called after every action is called')},
+
+	// layout templating
+  	layout:    'index.html',  // default layout used
+  	container: '#content',    // default element action results will be rendered in
+  	index: 	   '_index.html', // default action to load
+  
+	
+
+	});
+	
+	
+	
+	<script src="person.js" />
+	
+	var config = function() {
+		
+		return {
+			// application filters
+		  	after: 	   function(){console.log('called before every action is called')},
+		  	before:    function(){console.log('called after every action is called')},
+
+			// layout templating
+		  	layout:    'index.html',  // default layout used
+		  	container: '#content',    // default element action results will be rendered in
+		  	index: 	   '_index.html', // default action to load
+			
+			// controllers
+			controllers:[Auth, Home, Foo, Whatever],
+			models:[new Person],
+		}
+	};
+
+	x$.app('title', config );
+	
+	
+
+
+
+
+
+
+
+
 */

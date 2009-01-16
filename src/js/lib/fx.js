@@ -71,9 +71,10 @@ var Fx = {
 	    var after = (opt_after == undefined) ? function(){} : function() {  opt_after.apply(that); };    
 	    var duration = (options.duration == undefined) ? .5 : options.duration;
    
-			var translate = options.by ;
+			var translate = options.by;
+			var rotate = options.rotate;
 			
-	    options.easing = options.by = options.before = options.after = options.duration = undefined;
+	    options.easing = options.rotate = options.by = options.before = options.after = options.duration = undefined;
 	    before.apply(before.arguments);
    
 	    // this sets duration and easing equation on a style property change
@@ -84,12 +85,20 @@ var Fx = {
 	        for( var prop in options ) {
 	            that.setStyle( prop, options[prop] )
 	        }
-	 				if (translate)
+	 				if (translate) {
 						that.setStyle('-webkit-transform', that.translateOp(translate[0],translate[1]));
+					}
+					
+					// if (rotate) {
+					// 	for(var x in rotate) {
+					// 		that.setStyle('-webkit-transform', that.rotateOp(x,rotate[x]));
+					// 	}
+					// }
+
 	    });
-			
 
 	    setTimeout(function(){ that.setStyle('-webkit-transition','none');},duration*1000)
+	    setTimeout(function(){ that.setStyle('-webkit-transform','none');},duration*1000)	
 	    setTimeout(after,duration*1000);
 
 	    return this || that; // haha
@@ -97,5 +106,10 @@ var Fx = {
 	
 	translateOp: function(xPixels, yPixels) {
 	    return 'translate(' + xPixels + 'px, ' + yPixels + 'px)';
+	},
+	
+	rotateOp: function(axis, degree){
+	    return 'rotate' + axis + '(' + degree + 'deg)';
 	}
+	
 };
