@@ -304,6 +304,10 @@ TODO
 Changelog
 ---
 
+_Jan 13, 2009_
+
+- merged robs fixes and cleanup
+
 _Jan 11, 2009_
 
 - added mobile safari events (these will need testing in android, etc)
