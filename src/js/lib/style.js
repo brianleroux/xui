@@ -14,12 +14,16 @@ var Style = {
 	*	
 	* syntax: 
 	*
-	* `x$('DIV').setStyle('width','100px');`
+	* 	x$(selector).setStyle(property, value);
 	*
 	* arguments: 
-	* - prop (JavaScript CSS Key ie: borderColor NOT border-color ), val - String
+	*
+	* - property:string the property to modify
+	* - value:string the property value to set
 	*
 	* example:
+	* 
+	* 	x$('.txt').setStyle('color', '#000');
 	* 
 	*/
 	setStyle: function(prop, val) {
@@ -34,25 +38,34 @@ var Style = {
 	* ### getStyle
 	*	
 	* syntax: 
-	* arguments: prop (CSS Key ie: border-color NOT borderColor)
-	* if callback is a function, it will pass the value into the function orherwise return the proprty
-	* example:
-	* TODO: prop should be JS property, not CSS property
+	*
+	* 	x$(selector).getStyle(property, callback);
+	*
+	* arguments: 
 	* 
+	* - property:string a css key (for example, border-color NOT borderColor)
+	* - callback:function (optional) a method to call on each element in the collection 
+	*
+	* example:
+	*
+	*	x$('ul#nav li.trunk').getStyle('font-size');
+	*	
+	* 	x$('a.globalnav').getStyle( 'background', function(prop){ prop == 'blue' ? 'green' : 'blue' });
+	*
 	*/
-	getStyle: function(prop,callback) {
+	getStyle: function(prop, callback) {
 		
 		var gs = function (el,p) {
 			return document.defaultView.getComputedStyle(el , "").getPropertyValue(p);
 		}
 
-		if( callback == undefined )  
+		if(callback == undefined)  
 			return gs(this.first(),prop);
 		
-    this.each( function(el) {
-				callback(gs(el,prop));
-    });
-	  return this;
+   		this.each( function(el) {
+			callback(gs(el,prop));
+   		});
+	  	return this;
 	},
 
 	/**
@@ -61,14 +74,16 @@ var Style = {
 	*	
 	* syntax:
 	*
-	* $('.foo').addClass('awesome');
+	* 	$(selector).addClass(className);
 	* 
 	* arguments:
 	*
-	* className:string the name of the CSS class to apply
+	* - className:string the name of the CSS class to apply
 	*
 	* example:
 	* 
+	* 	$('.foo').addClass('awesome');
+	*
 	*/
 	addClass: function(className) {
 		var that = this;
@@ -87,13 +102,15 @@ var Style = {
 	*	
 	* syntax:
 	*
-	* $('.foo').removeClass('awesome');
+	* 	x$(selector).removeClass(className);
 	* 
 	* arguments:
 	*
-	* className:string the name of the CSS class to remove
+	* - className:string the name of the CSS class to remove.
 	*
 	* example:
+	* 
+	* 	x$('.awesome').removeClass('awesome');
 	* 
 	*/
 	removeClass:function(className) {
@@ -110,15 +127,15 @@ var Style = {
 	*	
 	* syntax: 
 	*
-	* `x$(selector).css(object);`
+	* 	x$(selector).css(object);
 	*
 	* arguments: 
 	*
-	* - JSON object of key/value paires to set/modify style on.
+	* - an object literal of css key/value pairs to set/modify style on.
 	*
 	* example:
 	* 
-	* `x$('#box5').css({ backgroundColor:'blue', width:'100px', border:'2px solid red' });`
+	* 	x$('#box5').css({ backgroundColor:'blue', width:'100px', border:'2px solid red' });
 	*  
 	*/
 	css: function(o) {

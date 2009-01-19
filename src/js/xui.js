@@ -40,8 +40,24 @@
 * ===
 * 
 * Welcome the XUI documentation. This is generated from inline documentation in the xui javascript source.
+*
+* 
+* 
+* Basics
+* ---
+*	
+* XUI is available to the entire document as x$. It is a function, that accepts a query selector. The syntax is 
+* mostly chainable and should be familiar to anyone who has worked with jQuery.
+*
+* 	x$('a.navigation').css({ background:'blue' });
+* 
+* The query selection engine is based on the browser implementation of querySelectorAll so its fast. Real fast.
+* XUI allows for a single expression, an element or an array of elements to be passed
+* 
+* 	x$(window);
+*
+* 
 */
-
 (function() {
 	var _$ = function(els) {
 		return this.find(els);
@@ -75,7 +91,7 @@
 			return this.elements[0];
 		},
 		
-	  each: function(fn) {
+	  	each: function(fn) {
 			for( var i = 0, len = this.elements.length; i<len; ++i ) {
 				fn.call(this,this.elements[i]);
 			}
@@ -115,14 +131,18 @@
 * - look into lib loading / extend method buggyness
 * - more tests!!!
 * - better docs (generate side by side code like ubiquity)
-* - doc for xui core methods
-* - doc and test xui.app
 * - inspect and generate example from markdown
 * - generators
 * - canvas progressive enhancement
+* - prop should be JS property, not CSS property
 *
 * Changelog
 * ---
+* 
+* _Jan 18, 2009_
+* 
+* - more documentation for core, etc
+* - after cat getting out of the bag on ajaxian we're working furiously to get this production ready
 *
 * _Jan 13, 2009_
 *

@@ -18,7 +18,7 @@ var Dom = {
 	*
 	* 	x$(window).html( location, htmlFragment );
 	*
-	* _or_
+	* or..
 	*
 	* 	x$(window).html( htmlFragment );
 	* 
@@ -34,7 +34,7 @@ var Dom = {
 	* 	x$('#foo').html( 'top',    htmlFragment );
 	*  	x$('#foo').html( 'bottom', htmlFragment );
 	* 
-	* _or_
+	* or
 	* 
 	* 	x$('#foo').html('<p>sweet as honey</p>');
 	* 

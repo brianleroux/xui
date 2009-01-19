@@ -43,6 +43,23 @@ Welcome the XUI documentation. This is generated from inline documentation in th
 
 
 
+Basics
+---
+	
+XUI is available to the entire document as x$. It is a function, that accepts a query selector. The syntax is 
+mostly chainable and should be familiar to anyone who has worked with jQuery.
+
+	x$('a.navigation').css({ background:'blue' });
+
+The query selection engine is based on the browser implementation of querySelectorAll so its fast. Real fast.
+XUI allows for a single expression, an element or an array of elements to be passed
+
+	x$(window);
+
+
+
+
+
 Dom
 ---
 	
@@ -59,7 +76,7 @@ syntax:
 
 	x$(window).html( location, htmlFragment );
 
-_or_
+or..
 
 	x$(window).html( htmlFragment );
 
@@ -75,7 +92,7 @@ example:
 	x$('#foo').html( 'top',    htmlFragment );
  	x$('#foo').html( 'bottom', htmlFragment );
 
-_or_
+or
 
 	x$('#foo').html('<p>sweet as honey</p>');
 
@@ -141,12 +158,16 @@ Anything related to how things look. Usually, this is CSS.
 	
 syntax: 
 
-`x$('DIV').setStyle('width','100px');`
+	x$(selector).setStyle(property, value);
 
 arguments: 
-- prop (JavaScript CSS Key ie: borderColor NOT border-color ), val - String
+
+- property:string the property to modify
+- value:string the property value to set
 
 example:
+
+	x$('.txt').setStyle('color', '#000');
 
 			
 
@@ -154,10 +175,19 @@ example:
 ### getStyle
 	
 syntax: 
-arguments: prop (CSS Key ie: border-color NOT borderColor)
-if callback is a function, it will pass the value into the function orherwise return the proprty
+
+	x$(selector).getStyle(property, callback);
+
+arguments: 
+
+- property:string a css key (for example, border-color NOT borderColor)
+- callback:function (optional) a method to call on each element in the collection 
+
 example:
-TODO: prop should be JS property, not CSS property
+
+	x$('ul#nav li.trunk').getStyle('font-size');
+	
+	x$('a.globalnav').getStyle( 'background', function(prop){ prop == 'blue' ? 'green' : 'blue' });
 
 			
 
@@ -166,13 +196,15 @@ TODO: prop should be JS property, not CSS property
 	
 syntax:
 
-$('.foo').addClass('awesome');
+	$(selector).addClass(className);
 
 arguments:
 
-className:string the name of the CSS class to apply
+- className:string the name of the CSS class to apply
 
 example:
+
+	$('.foo').addClass('awesome');
 
 			
 
@@ -181,13 +213,15 @@ example:
 	
 syntax:
 
-$('.foo').removeClass('awesome');
+	x$(selector).removeClass(className);
 
 arguments:
 
-className:string the name of the CSS class to remove
+- className:string the name of the CSS class to remove.
 
 example:
+
+	x$('.awesome').removeClass('awesome');
 
 			
 
@@ -196,15 +230,15 @@ example:
 	
 syntax: 
 
-`x$(selector).css(object);`
+	x$(selector).css(object);
 
 arguments: 
 
-- JSON object of key/value paires to set/modify style on.
+- an object literal of css key/value pairs to set/modify style on.
 
 example:
 
-`x$('#box5').css({ backgroundColor:'blue', width:'100px', border:'2px solid red' });`
+	x$('#box5').css({ backgroundColor:'blue', width:'100px', border:'2px solid red' });
  
 			
 
@@ -295,14 +329,18 @@ TODO
 - look into lib loading / extend method buggyness
 - more tests!!!
 - better docs (generate side by side code like ubiquity)
-- doc for xui core methods
-- doc and test xui.app
 - inspect and generate example from markdown
 - generators
 - canvas progressive enhancement
+- prop should be JS property, not CSS property
 
 Changelog
 ---
+
+_Jan 18, 2009_
+
+- more documentation for core, etc
+- after cat getting out of the bag on ajaxian we're working furiously to get this production ready
 
 _Jan 13, 2009_
 

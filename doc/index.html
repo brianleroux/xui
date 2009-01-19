@@ -40,6 +40,20 @@ There are other tasks for code minification, running the specs and generating do
 
 <p>Welcome the XUI documentation. This is generated from inline documentation in the xui javascript source.</p>
 
+<h2>Basics</h2>
+
+<p>XUI is available to the entire document as x$. It is a function, that accepts a query selector. The syntax is 
+mostly chainable and should be familiar to anyone who has worked with jQuery.</p>
+
+<pre><code>x$('a.navigation').css({ background:'blue' });
+</code></pre>
+
+<p>The query selection engine is based on the browser implementation of querySelectorAll so its fast. Real fast.
+XUI allows for a single expression, an element or an array of elements to be passed</p>
+
+<pre><code>x$(window);
+</code></pre>
+
 <h2>Dom</h2>
 
 <p>Manipulating the document object model (DOM).</p>
@@ -53,7 +67,7 @@ There are other tasks for code minification, running the specs and generating do
 <pre><code>x$(window).html( location, htmlFragment );
 </code></pre>
 
-<p>_or_</p>
+<p>or..</p>
 
 <pre><code>x$(window).html( htmlFragment );
 </code></pre>
@@ -73,7 +87,7 @@ x$('#foo').html( 'top',    htmlFragment );
 x$('#foo').html( 'bottom', htmlFragment );
 </code></pre>
 
-<p>_or_</p>
+<p>or</p>
 
 <pre><code>x$('#foo').html('&lt;p&gt;sweet as honey&lt;/p&gt;');
 </code></pre>
@@ -134,63 +148,95 @@ x$('#foo').html( 'bottom', htmlFragment );
 
 <p>syntax: </p>
 
-<p><code>x$('DIV').setStyle('width','100px');</code></p>
+<pre><code>x$(selector).setStyle(property, value);
+</code></pre>
 
 <p>arguments: </p>
 
 <ul>
-<li>prop (JavaScript CSS Key ie: borderColor NOT border-color ), val - String</li>
+<li>property:string the property to modify</li>
+<li>value:string the property value to set</li>
 </ul>
 
 <p>example:</p>
 
+<pre><code>x$('.txt').setStyle('color', '#000');
+</code></pre>
+
 <h3>getStyle</h3>
 
-<p>syntax: 
-arguments: prop (CSS Key ie: border-color NOT borderColor)
-if callback is a function, it will pass the value into the function orherwise return the proprty
-example:
-TODO: prop should be JS property, not CSS property</p>
+<p>syntax: </p>
+
+<pre><code>x$(selector).getStyle(property, callback);
+</code></pre>
+
+<p>arguments: </p>
+
+<ul>
+<li>property:string a css key (for example, border-color NOT borderColor)</li>
+<li>callback:function (optional) a method to call on each element in the collection </li>
+</ul>
+
+<p>example:</p>
+
+<pre><code>x$('ul#nav li.trunk').getStyle('font-size');
+
+x$('a.globalnav').getStyle( 'background', function(prop){ prop == 'blue' ? 'green' : 'blue' });
+</code></pre>
 
 <h3>addClass</h3>
 
 <p>syntax:</p>
 
-<p>$('.foo').addClass('awesome');</p>
+<pre><code>$(selector).addClass(className);
+</code></pre>
 
 <p>arguments:</p>
 
-<p>className:string the name of the CSS class to apply</p>
+<ul>
+<li>className:string the name of the CSS class to apply</li>
+</ul>
 
 <p>example:</p>
+
+<pre><code>$('.foo').addClass('awesome');
+</code></pre>
 
 <h3>removeClass</h3>
 
 <p>syntax:</p>
 
-<p>$('.foo').removeClass('awesome');</p>
+<pre><code>x$(selector).removeClass(className);
+</code></pre>
 
 <p>arguments:</p>
 
-<p>className:string the name of the CSS class to remove</p>
+<ul>
+<li>className:string the name of the CSS class to remove.</li>
+</ul>
 
 <p>example:</p>
+
+<pre><code>x$('.awesome').removeClass('awesome');
+</code></pre>
 
 <h3>css</h3>
 
 <p>syntax: </p>
 
-<p><code>x$(selector).css(object);</code></p>
+<pre><code>x$(selector).css(object);
+</code></pre>
 
 <p>arguments: </p>
 
 <ul>
-<li>JSON object of key/value paires to set/modify style on.</li>
+<li>an object literal of css key/value pairs to set/modify style on.</li>
 </ul>
 
 <p>example:</p>
 
-<p><code>x$('#box5').css({ backgroundColor:'blue', width:'100px', border:'2px solid red' });</code></p>
+<pre><code>x$('#box5').css({ backgroundColor:'blue', width:'100px', border:'2px solid red' });
+</code></pre>
 
 <h2>Fx</h2>
 
@@ -268,14 +314,20 @@ example:</p></li>
 <li>look into lib loading / extend method buggyness</li>
 <li>more tests!!!</li>
 <li>better docs (generate side by side code like ubiquity)</li>
-<li>doc for xui core methods</li>
-<li>doc and test xui.app</li>
 <li>inspect and generate example from markdown</li>
 <li>generators</li>
 <li>canvas progressive enhancement</li>
+<li>prop should be JS property, not CSS property</li>
 </ul>
 
 <h2>Changelog</h2>
+
+<p><em>Jan 18, 2009</em></p>
+
+<ul>
+<li>more documentation for core, etc</li>
+<li>after cat getting out of the bag on ajaxian we're working furiously to get this production ready</li>
+</ul>
 
 <p><em>Jan 13, 2009</em></p>
 
