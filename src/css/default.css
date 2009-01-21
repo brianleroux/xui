@@ -1,0 +1,27 @@
+body {
+  width: 320px;
+  margin: 0px;
+  padding: 0px;
+  background-image: url('images/background_stripes.png');
+  background-repeat: repeat;
+  font-family: Helvetica;
+  
+  -webkit-touch-callout: none;    /* removes touch tooltip callout */
+  -webkit-text-size-adjust: none; /* removes safaris font size rendering */
+}
+
+/*
+when the orientation changes to landscape mode, the body is assigned the .landscape
+class so that we can easily change metrics and other properties via simple CSS matching
+*/
+body.landscape {
+  width: 480px;
+}
+
+#browser {
+  min-height: 416px;
+}
+
+body.landscape #browser {
+  min-height: 268px;
+}

@@ -1,0 +1,63 @@
+
+#header {
+  position: relative;
+  height: 40px;
+  background-image: url('images/header_middle.png');
+  border-bottom: 1px solid rgb(45, 54, 66);
+}
+
+.button {
+  /* use absolute positioning and transforms as these will be subject to hardware transitions */
+  position: absolute;
+  -webkit-transform: translate(0px, 0px);
+  /* the buttons should be displayed on top of the titles so that they can always receive touches */
+  z-index: 1;
+  /* set up the font appearance */
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  text-shadow: rgba(0, 0, 0, .6) 0px -1px 0px;
+  /* set up the chrome background */
+  -webkit-border-image : url('images/back_button.png') 0 4 0 13;
+  border-width : 0 4px 0 13px;
+  padding-top: 7px;
+  padding-right: 4px;
+  /* base metrics used to ensure a minumum size and specify a max size that can be used to trim the contents */
+  min-width: 40px;
+  max-width: 60px;
+  height: 23px; 
+  /* enfore trimming if the label is too long */
+  white-space : nowrap;
+  overflow : hidden;
+  text-overflow: ellipsis;
+}
+
+body.landscape .button {
+  max-width: 90px;
+}
+
+/* touched state for the buttons */
+.button:active {
+  -webkit-border-image : url('images/back_button_touched.png') 0 4 0 13;
+}
+
+.title {
+  /* use absolute positioning and transforms as these will be subject to hardware transitions */
+  position: absolute;
+  -webkit-transform: translate(0px, 0px);
+  /* base metrics */
+  height: 31px;
+  margin-top: 3px;
+  /* the titles should be displayed below the button so that they don't receive touches */
+  z-index: 0;
+  /* set up the font appearance */
+  font-size: 16pt;
+  font-weight: bold;
+  color: white;
+  text-shadow: rgba(0, 0, 0, .6) 0px -1px 0px;
+  /* enfore trimming if the label is too long */
+  white-space : nowrap;
+  overflow : hidden;
+  text-overflow: ellipsis;
+}
