@@ -130,6 +130,7 @@
 * 
 * - look into lib loading / extend method buggyness
 * - more tests!!!
+* - get jslint passing
 * - better docs (generate side by side code like ubiquity)
 * - inspect and generate example from markdown
 * - generators

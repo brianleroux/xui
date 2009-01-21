@@ -47,10 +47,101 @@ x$(window).load(function(){
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	x$('#dd').touchstart: function(e) {
+	    if (e.targetTouches.length != 1)
+	        return false;
+
+	    this.startX = e.targetTouches[0].clientX;
+	    this.startY = e.targetTouches[0].clientY;
+	    return false;
+	}
+	x$('#dd').touchmove: function(e) {
+	    // Prevent the browser from doing its default thing (scroll, zoom)
+	    e.preventDefault();
+	    // Don't track motion when multiple touches are down in this element (that's a gesture)
+	    if (e.targetTouches.length != 1)
+	        return false;
+
+	    var leftDelta = e.targetTouches[0].clientX - this.startX;
+	    var topDelta = e.targetTouches[0].clientY - this.startY;
+	    var newLeft = (this.x) + leftDelta;
+	    var newTop = (this.y) + topDelta;
+	    this.position = newLeft + ',' + newTop;
+	    this.startX = e.targetTouches[0].clientX;
+	    this.startY = e.targetTouches[0].clientY;
+	    return false;
+	}
+	x$('#dd').touchend: function(e)	{
+	    // Prevent the browser from doing its default thing (scroll, zoom)
+	    e.preventDefault();
+	    // Stop tracking when the last finger is removed from this element
+	    if (e.targetTouches.length > 0)
+	        return false;
+
+	    // this.element.removeEventListener('touchmove', function(e) { return self.onTouchMove(e) }, false);
+	    // this.element.removeEventListener('touchend', function(e) { return self.onTouchEnd(e) }, false)
+	    return false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 });		
 </script>
 <style type="text/css">
 	
+	#dd,
 	#drag {
 		background:blue;
 		width:100px;
@@ -70,6 +161,8 @@ x$(window).load(function(){
 
 <div id="drag">drag me!</div>
 <div id="resize-and-rotate">resize and rotate me!</div>
-	
+
+
+<div id="dd">	draggable webkit docs style </div>
 </body>
 </html>
