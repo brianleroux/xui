@@ -40,8 +40,11 @@ var Dom = {
 	* 	x$('#foo').html('<p>sweet as honey</p>');
 	* 
 	*/
-    html:function(location, html) {
 	
+	
+    html:function(location, html) {
+		var that = this;
+		
 		// private method for finding a dom element 
 		var getTag = function(el) {
 			
@@ -56,6 +59,32 @@ var Dom = {
 			return el.firstChild.tagName;
 		};
 	
+
+		var trim = function( text ) { return text.replace( /^\s+|\s+$/g, "" ); };
+		
+		// private method { Generate elements from markup }
+		var gen = function(fragment) {
+			var last = null;
+			var span = document.createElement('SPAN');
+			span.innerHTML = fragment;
+
+			// Get the last Child
+			// Trim
+			do {
+				last = span.innerHTML;
+				var re = /^<([A-Z][A-Z0-9]*)(.*)[^>]*>(.*?)<\/\1>/i;
+				if(re.test(last)) {
+		            result = re.exec(last);
+					var n = document.createElement(result[1]);
+					span.appendChild(n);
+					n.innerHTML = result[3];
+				} else {
+					last = undefined;
+				}
+				span = n;
+			} while(last != undefined)
+						
+		};
 	
 		// private method
 	    // Wraps the HTML in a TAG, Tag is optional
@@ -98,17 +127,20 @@ var Dom = {
 
 
 		this.clean();
-		
-		// allow for just the html to be pass in
 
 		if (arguments.length == 1 && arguments[0] != 'remove') {
 			html = location;
 			location = 'inner';
 		}	
+					
+					
+		gen(html);
 						
         this.each(function(el) {
             switch(location) {
-                case "inner": el.innerHTML = html; break;
+                case "inner": 
+					el.innerHTML = html; 
+					break;
                 case "outer":
                     if (typeof html == 'string') html = wrap(html, getTag(el));
                     el.parentNode.replaceChild(html,el);
@@ -131,19 +163,20 @@ var Dom = {
     },
 
 
+	
 	// This is needed el.node will return something useless without it.
 	clean:  function() {
   		var ns = /\S/;
  		this.each(function(el) {
 			var d = el, n = d.firstChild, ni = -1;
 			while(n) {
-	 	  	var nx = n.nextSibling;
-	 	    if (n.nodeType == 3 && !ns.test(n.nodeValue)) {
-	 	    	d.removeChild(n);
-	 	    } else {
-	 	    	n.nodeIndex = ++ni;
-	 	    }
-	 	    n = nx;
+	 	  		var nx = n.nextSibling;
+		 	    if (n.nodeType == 3 && !ns.test(n.nodeValue)) {
+		 	    	d.removeChild(n);
+		 	    } else {
+		 	    	n.nodeIndex = ++ni;
+		 	    }
+		 	    n = nx;
 		 	}
 		});
  	  return this;
