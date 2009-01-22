@@ -33,6 +33,7 @@ var Dom = {
 	*  	x$('#foo').html( 'outer',  htmlFragment );
 	* 	x$('#foo').html( 'top',    htmlFragment );
 	*  	x$('#foo').html( 'bottom', htmlFragment );
+	*  	x$('#foo').html( 'remove' );	
 	* 
 	* or
 	* 
@@ -66,8 +67,6 @@ var Dom = {
 	            result = re.exec(xhtml);
 
 	            tag = result[1];
-				console.log(tag); // Should be P
-						
 						
 	            // if the node has any attributes, convert to object
 	            if (result[2] != "") {
@@ -101,7 +100,8 @@ var Dom = {
 		this.clean();
 		
 		// allow for just the html to be pass in
-		if( html == null) {
+
+		if (arguments.length == 1 && arguments[0] != 'remove') {
 			html = location;
 			location = 'inner';
 		}	
@@ -111,7 +111,6 @@ var Dom = {
                 case "inner": el.innerHTML = html; break;
                 case "outer":
                     if (typeof html == 'string') html = wrap(html, getTag(el));
-					console.log(html);
                     el.parentNode.replaceChild(html,el);
                 break;
                 case "top":
@@ -122,6 +121,10 @@ var Dom = {
                     if (typeof html == 'string') html = wrap(html, getTag(el));
                     el.insertBefore(html,null);
                 break;
+				case "remove": 
+					var parent = el.parentNode;
+					parent.removeChild(el);
+				break;
             }
       	});
         return this;

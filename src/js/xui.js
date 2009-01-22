@@ -140,6 +140,11 @@
 * Changelog
 * ---
 * 
+* _jab 21, 2009_
+*
+* - fixed DOM
+* - added remove
+*
 * _Jan 18, 2009_
 * 
 * - more documentation for core, etc
