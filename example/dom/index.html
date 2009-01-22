@@ -28,7 +28,10 @@
         
         x$('#button1').click(function(){
 
-          x$('#div1').html("New <link ></link>Content From JavaScript Land");
+          //x$('#div1').html("New <link ></link>Content From JavaScript Land");
+          var d = document.createElement('div');
+          d.innerHTML = "SOme new test";
+          x$('#div1').html("<p>Some Test</p>");
         });  
                 
         x$('#button2').click(function(){

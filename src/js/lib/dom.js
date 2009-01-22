@@ -25,7 +25,7 @@ var Dom = {
 	* arguments:
 	* 
 	* - location:string can be one of inner, outer, top, bottom
-	* - htmlFragment:string any string of html markup
+	* - htmlFragment:string any string of html markup or HTMLElement
 	*
 	* example:
 	*
@@ -107,7 +107,11 @@ var Dom = {
         this.each(function(el) {
             switch(location) {
                 case "inner": 
-					el.innerHTML = html; 
+					if (typeof html == 'string') 
+						el.innerHTML = html; 
+					else 
+						el.innerHTML = ''; 
+						el.appendChild(html);
 					break;
                 case "outer":
                     if (typeof html == 'string') html = wrap(html, getTag(el));

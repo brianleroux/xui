@@ -139,6 +139,9 @@
 *
 * Changelog
 * ---
+* _jab 22, 2009_
+* 
+* - Full support for HTMLElement in DOM.html()
 * 
 * _jab 21, 2009_
 *
