@@ -66,9 +66,12 @@ var Dom = {
 	            result = re.exec(xhtml);
 
 	            tag = result[1];
+				console.log(tag); // Should be P
+						
+						
 	            // if the node has any attributes, convert to object
 	            if (result[2] != "") {
-
+									
 					var attre = /([a-zA-Z]*\s*=\s*['|"][a-zA-Z0-9:;#\s]*['|"])/;								
 	                var attrList = result[2].split(attre);
 
@@ -80,10 +83,9 @@ var Dom = {
 	                    }
 	                }
 	            }
-	            html = result[3];
+	            xhtml = result[3];
 	        }
 
-				console.log(tag);
 	        var element = document.createElement(tag);
 	        element.innerHTML = xhtml;
 	        for (var i in attributes) {
@@ -94,24 +96,25 @@ var Dom = {
 
 	        return element;
 	    };
-	
+
+
+		this.clean();
+		
 		// allow for just the html to be pass in
 		if( html == null) {
 			html = location;
 			location = 'inner';
 		}	
-		
-
-				
+						
         this.each(function(el) {
             switch(location) {
                 case "inner": el.innerHTML = html; break;
                 case "outer":
                     if (typeof html == 'string') html = wrap(html, getTag(el));
+					console.log(html);
                     el.parentNode.replaceChild(html,el);
                 break;
                 case "top":
-										
                     if (typeof html == 'string') html = wrap(html, getTag(el));
                     el.insertBefore(html,el.firstChild);
                 break;
@@ -122,5 +125,24 @@ var Dom = {
             }
       	});
         return this;
-    }	
+    },
+
+
+	// This is needed el.node will return something useless without it.
+	clean:  function() {
+  		var ns = /\S/;
+ 		this.each(function(el) {
+			var d = el, n = d.firstChild, ni = -1;
+			while(n) {
+	 	  	var nx = n.nextSibling;
+	 	    if (n.nodeType == 3 && !ns.test(n.nodeValue)) {
+	 	    	d.removeChild(n);
+	 	    } else {
+	 	    	n.nodeIndex = ++ni;
+	 	    }
+	 	    n = nx;
+		 	}
+		});
+ 	  return this;
+ 	}
 };
