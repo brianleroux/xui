@@ -43,7 +43,6 @@ var Dom = {
 	
 	
     html:function(location, html) {
-		var that = this;
 		
 		// private method for finding a dom element 
 		var getTag = function(el) {
@@ -57,33 +56,6 @@ var Dom = {
 				}
 			}
 			return el.firstChild.tagName;
-		};
-	
-
-		var trim = function( text ) { return text.replace( /^\s+|\s+$/g, "" ); };
-		
-		// private method { Generate elements from markup }
-		var gen = function(fragment) {
-			var last = null;
-			var span = document.createElement('SPAN');
-			span.innerHTML = fragment;
-
-			// Get the last Child
-			// Trim
-			do {
-				last = span.innerHTML;
-				var re = /^<([A-Z][A-Z0-9]*)(.*)[^>]*>(.*?)<\/\1>/i;
-				if(re.test(last)) {
-		            result = re.exec(last);
-					var n = document.createElement(result[1]);
-					span.appendChild(n);
-					n.innerHTML = result[3];
-				} else {
-					last = undefined;
-				}
-				span = n;
-			} while(last != undefined)
-						
 		};
 	
 		// private method
@@ -125,16 +97,12 @@ var Dom = {
 	        return element;
 	    };
 
-
 		this.clean();
 
 		if (arguments.length == 1 && arguments[0] != 'remove') {
 			html = location;
 			location = 'inner';
 		}	
-					
-					
-		gen(html);
 						
         this.each(function(el) {
             switch(location) {
