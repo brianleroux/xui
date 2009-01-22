@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>DOM Examples</title>
-    <script src="../../lib/xui-min.js" type="text/javascript"></script>
+    <script src="../../lib/xui.js" type="text/javascript"></script>
     <style type="text/css" media="screen">
     
 
@@ -31,27 +31,27 @@
         });  
                 
         x$('#button2').click(function(){
-          x$('#list1').html("New Content Added to Top",'top');
+          x$('#list1').html('top',"New Content Added to Top");
         });
            
         x$('#button3').click(function(){
-          x$('#list1').html("New Content Added to Bottom",'bottom');
+          x$('#list1').html('bottom',"New Content Added to Bottom");
         });   
         
         x$('#button4').click(function(){
-          x$('#p1').html("New Content Added to Top",'top');
+          x$('#p1').html("top","New Content Added to Top");
         });
         
         x$('#button5').click(function(){
-          x$('#p1').html("New Content Added to Bottom",'bottom');
+          x$('#p1').html('bottom',"New Content Added to Bottom");
         });
         
         x$('#button6').click(function(){
-          x$('#para2').html("<div id='para2' style='border:1px solid blue'>New Content and DIV Container Added to Outer</div>",'outer');
+          x$('#para2').html('outer',"<div id='para2' style='border:1px solid blue'>New Content and DIV Container Added to Outer</div>");
         });
 
         x$('#button7').click(function(){
-          x$('#para2').html("<p id='para2' style='border:1px solid red'>New Content and P Container Added to Outer</p>",'outer');
+          x$('#para2').html('outer',"<p id='para2' style='border:1px solid red'>New Content and P Container Added to Outer</p>");
         });
 
                        

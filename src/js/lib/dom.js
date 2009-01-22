@@ -43,6 +43,7 @@ var Dom = {
 	
 		// private method for finding a dom element 
 		var getTag = function(el) {
+			
 			if (el.firstChild == null) {
 				switch(el.tagName) {
 					case 'UL': return 'LI'; break;
@@ -63,6 +64,7 @@ var Dom = {
 	        var re = /^<([A-Z][A-Z0-9]*)(.*)[^>]*>(.*?)<\/\1>/i;
 	        if(re.test(xhtml)) {
 	            result = re.exec(xhtml);
+
 	            tag = result[1];
 	            // if the node has any attributes, convert to object
 	            if (result[2] != "") {
@@ -80,6 +82,8 @@ var Dom = {
 	            }
 	            html = result[3];
 	        }
+
+				console.log(tag);
 	        var element = document.createElement(tag);
 	        element.innerHTML = xhtml;
 	        for (var i in attributes) {
@@ -97,6 +101,8 @@ var Dom = {
 			location = 'inner';
 		}	
 		
+
+				
         this.each(function(el) {
             switch(location) {
                 case "inner": el.innerHTML = html; break;
@@ -105,6 +111,7 @@ var Dom = {
                     el.parentNode.replaceChild(html,el);
                 break;
                 case "top":
+										
                     if (typeof html == 'string') html = wrap(html, getTag(el));
                     el.insertBefore(html,el.firstChild);
                 break;
