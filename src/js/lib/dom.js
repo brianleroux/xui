@@ -107,11 +107,12 @@ var Dom = {
         this.each(function(el) {
             switch(location) {
                 case "inner": 
-					if (typeof html == 'string') 
+					if (typeof html == 'string') {
 						el.innerHTML = html; 
-					else 
+					} else {
 						el.innerHTML = ''; 
 						el.appendChild(html);
+					}
 					break;
                 case "outer":
                     if (typeof html == 'string') html = wrap(html, getTag(el));
