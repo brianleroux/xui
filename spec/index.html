@@ -204,6 +204,33 @@ describe("Dom.html", {
 	
 });
 
+describe("XHR.function", {
+  
+  'before':function(){
+		x = x$('#xhr-test-function');
+	},
+	
+	'should insert partial into element':function(){
+	  x.xhr("example.html");
+    value_of(document.getElementById('xhr-test-function').innerHTML).should_be('<h1>this is a html partial</h1>')
+	}
+	
+});
+
+
+describe("XHR.json", {
+  
+  'before':function(){
+    x = x$('body');
+	},
+	
+	'should get json':function(){
+	  ob = x.xhrjson("example.js");
+    value_of(ob.innerHTML).should_be('{ "id":"1", "name":"foo" }');
+	}
+	
+});
+
 
 
 // describe("animate test", {
@@ -267,6 +294,12 @@ describe("Dom.html", {
 	<div id="html-test-outer"></div>
 	<div id="html-test-top"></div>
 	<div id="html-test-bottom"></div>
+</div>
+
+<div id="xhr_tests">
+  <div id="xhr-test-function"></div>
+  <div id="xhr-test-json"></div>
+  <div id="xhr-test-form"></div>
 </div>
 
 </body>
