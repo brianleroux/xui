@@ -1,6 +1,5 @@
-/* ==================== MAIN PAGES CONTENT ==================== */
-
-#pages_container > div {
+#pageOne,
+#pageTwo {
   position: absolute;
   /*
   add a default transform so that the contents of the pages
