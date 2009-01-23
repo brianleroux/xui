@@ -25,7 +25,7 @@ var Dom = {
 	* arguments:
 	* 
 	* - location:string can be one of inner, outer, top, bottom
-	* - htmlFragment:string any string of html markup
+	* - htmlFragment:string any string of html markup or HTMLElement
 	*
 	* example:
 	*
@@ -33,14 +33,17 @@ var Dom = {
 	*  	x$('#foo').html( 'outer',  htmlFragment );
 	* 	x$('#foo').html( 'top',    htmlFragment );
 	*  	x$('#foo').html( 'bottom', htmlFragment );
+	*  	x$('#foo').html( 'remove' );	
 	* 
 	* or
 	* 
 	* 	x$('#foo').html('<p>sweet as honey</p>');
 	* 
 	*/
-    html:function(location, html) {
 	
+	
+    html:function(location, html) {
+		
 		// private method for finding a dom element 
 		var getTag = function(el) {
 			
@@ -55,7 +58,6 @@ var Dom = {
 			return el.firstChild.tagName;
 		};
 	
-	
 		// private method
 	    // Wraps the HTML in a TAG, Tag is optional
 	    // If the html starts with a Tag, it will wrap the context in that tag.
@@ -66,9 +68,10 @@ var Dom = {
 	            result = re.exec(xhtml);
 
 	            tag = result[1];
+						
 	            // if the node has any attributes, convert to object
 	            if (result[2] != "") {
-
+									
 					var attre = /([a-zA-Z]*\s*=\s*['|"][a-zA-Z0-9:;#\s]*['|"])/;								
 	                var attrList = result[2].split(attre);
 
@@ -80,10 +83,9 @@ var Dom = {
 	                    }
 	                }
 	            }
-	            html = result[3];
+	            xhtml = result[3];
 	        }
 
-				console.log(tag);
 	        var element = document.createElement(tag);
 	        element.innerHTML = xhtml;
 	        for (var i in attributes) {
@@ -94,24 +96,28 @@ var Dom = {
 
 	        return element;
 	    };
-	
-		// allow for just the html to be pass in
-		if( html == null) {
+
+		this.clean();
+
+		if (arguments.length == 1 && arguments[0] != 'remove') {
 			html = location;
 			location = 'inner';
 		}	
-		
-
-				
+						
         this.each(function(el) {
             switch(location) {
-                case "inner": el.innerHTML = html; break;
+                case "inner": 
+					if (typeof html == 'string') 
+						el.innerHTML = html; 
+					else 
+						el.innerHTML = ''; 
+						el.appendChild(html);
+					break;
                 case "outer":
                     if (typeof html == 'string') html = wrap(html, getTag(el));
                     el.parentNode.replaceChild(html,el);
                 break;
                 case "top":
-										
                     if (typeof html == 'string') html = wrap(html, getTag(el));
                     el.insertBefore(html,el.firstChild);
                 break;
@@ -119,8 +125,32 @@ var Dom = {
                     if (typeof html == 'string') html = wrap(html, getTag(el));
                     el.insertBefore(html,null);
                 break;
+				case "remove": 
+					var parent = el.parentNode;
+					parent.removeChild(el);
+				break;
             }
       	});
         return this;
-    }	
+    },
+
+
+	
+	// This is needed el.node will return something useless without it.
+	clean:  function() {
+  		var ns = /\S/;
+ 		this.each(function(el) {
+			var d = el, n = d.firstChild, ni = -1;
+			while(n) {
+	 	  		var nx = n.nextSibling;
+		 	    if (n.nodeType == 3 && !ns.test(n.nodeValue)) {
+		 	    	d.removeChild(n);
+		 	    } else {
+		 	    	n.nodeIndex = ++ni;
+		 	    }
+		 	    n = nx;
+		 	}
+		});
+ 	  return this;
+ 	}
 };

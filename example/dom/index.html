@@ -27,7 +27,11 @@
       x$(window).load(function(){
         
         x$('#button1').click(function(){
-          x$('#div1').html("New Content From JavaScript Land");
+
+          //x$('#div1').html("New <link ></link>Content From JavaScript Land");
+          var d = document.createElement('div');
+          d.innerHTML = "SOme new test";
+          x$('#div1').html("<p>Some Test</p>");
         });  
                 
         x$('#button2').click(function(){
@@ -47,11 +51,15 @@
         });
         
         x$('#button6').click(function(){
-          x$('#para2').html('outer',"<div id='para2' style='border:1px solid blue'>New Content and DIV Container Added to Outer</div>");
+          x$('#para2').html('outer',"<div id='para2' style='border:1px solid blue'>New Content and <b>DIV Container</b> Added to Outer</div>");
         });
 
         x$('#button7').click(function(){
-          x$('#para2').html('outer',"<p id='para2' style='border:1px solid red'>New Content and P Container Added to Outer</p>");
+          x$('#para2').html('outer',"<p id='para2' style='border:1px solid red'>New Content and <b>P Container</b> Added to Outer</p>");
+        });
+
+        x$('#button8').click(function(){
+          x$('#para2').html('remove');
         });
 
                        
@@ -61,7 +69,7 @@
   </head>
   <body>
     
-    <h1>Using html</h1>
+    <h1>Using html - here</h1>
     <p>Click on the text below to change the innerHTML of the element.</p>
     <div class="wrap">
       <div id="div1">Blah blah blah</div>
@@ -86,11 +94,11 @@
 
     <pre>
       x$('#button2').click(function(){
-        x$('#list1').html("New Content Added to Top",'top');
+        x$('#list1').html("top","New Content Added to Top");
       });
          
       x$('#button3').click(function(){
-        x$('#list1').html("New Content Added to Bottom",'bottom');
+        x$('#list1').html("bottom","New Content Added to Bottom");
       });        
     </pre>
 
@@ -103,11 +111,11 @@
     <button id="button5">Click me to Add an item to the Bottom of the list.</button>
     <pre>
       x$('#button4').click(function(){
-        x$('#p1').html("New Content Added to Top",'top');
+        x$('#p1').html("top","New Content Added to Top");
       });
       
       x$('#button5').click(function(){
-        x$('#p1').html("New Content Added to Bottom",'bottom');
+        x$('#p1').html("bottom","New Content Added to Bottom");
       });
     </pre>
     
@@ -119,6 +127,8 @@
     <button id="button6">Click me to Change the content, and container of para2 to DIV</button>
     <button id="button7">Click me to Change the content, and container of para2 to P</button>    
     
+    
+    <button id="button8">Remove #para2</button>        
     
   </body>
 </html>

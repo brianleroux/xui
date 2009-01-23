@@ -139,7 +139,15 @@
 *
 * Changelog
 * ---
+* _jab 22, 2009_
 * 
+* - Full support for HTMLElement in DOM.html()
+* 
+* _jab 21, 2009_
+*
+* - fixed DOM
+* - added remove
+*
 * _Jan 18, 2009_
 * 
 * - more documentation for core, etc
