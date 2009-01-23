@@ -2,7 +2,7 @@
 #header {
   position: relative;
   height: 40px;
-  background-image: url('images/header_middle.png');
+  background-image: url('../images/themes/default/header_middle.png');
   border-bottom: 1px solid rgb(45, 54, 66);
 }
 
@@ -19,7 +19,7 @@
   color: white;
   text-shadow: rgba(0, 0, 0, .6) 0px -1px 0px;
   /* set up the chrome background */
-  -webkit-border-image : url('images/back_button.png') 0 4 0 13;
+  -webkit-border-image : url('../images/themes/default/back_button.png') 0 4 0 13;
   border-width : 0 4px 0 13px;
   padding-top: 7px;
   padding-right: 4px;
@@ -39,7 +39,7 @@ body.landscape .button {
 
 /* touched state for the buttons */
 .button:active {
-  -webkit-border-image : url('images/back_button_touched.png') 0 4 0 13;
+  -webkit-border-image : url('../images/themes/default/back_button_touched.png') 0 4 0 13;
 }
 
 .title {
