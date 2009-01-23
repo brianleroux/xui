@@ -18,10 +18,10 @@ body.landscape {
   width: 480px;
 }
 
-#browser {
+#container {
   min-height: 416px;
 }
 
-body.landscape #browser {
+body.landscape #container {
   min-height: 268px;
 }
