@@ -6,58 +6,70 @@
   border-bottom: 1px solid rgb(45, 54, 66);
 }
 
-.button {
+#header a.button {
   /* use absolute positioning and transforms as these will be subject to hardware transitions */
   position: absolute;
   -webkit-transform: translate(0px, 0px);
+
   /* the buttons should be displayed on top of the titles so that they can always receive touches */
   z-index: 1;
-  /* set up the font appearance */
+
   font-size: 12px;
   font-weight: bold;
   text-align: center;
   color: white;
   text-shadow: rgba(0, 0, 0, .6) 0px -1px 0px;
-  /* set up the chrome background */
+
+  /* background and border */
   -webkit-border-image : url('../images/themes/default/back_button.png') 0 4 0 13;
   border-width : 0 4px 0 13px;
   padding-top: 7px;
   padding-right: 4px;
+  margin:5px 0 0 5px;
+
   /* base metrics used to ensure a minumum size and specify a max size that can be used to trim the contents */
   min-width: 40px;
   max-width: 60px;
   height: 23px; 
+
   /* enfore trimming if the label is too long */
   white-space : nowrap;
   overflow : hidden;
   text-overflow: ellipsis;
+  text-decoration:none;
 }
 
-body.landscape .button {
+body.landscape #header a.button {
   max-width: 90px;
 }
 
 /* touched state for the buttons */
-.button:active {
+#header a.button:active {
   -webkit-border-image : url('../images/themes/default/back_button_touched.png') 0 4 0 13;
 }
 
-.title {
+#header h1 {
   /* use absolute positioning and transforms as these will be subject to hardware transitions */
   position: absolute;
   -webkit-transform: translate(0px, 0px);
   /* base metrics */
   height: 31px;
-  margin-top: 3px;
+  width:320px;
+  line-height:31px;
+  margin-top: 5px;
+
   /* the titles should be displayed below the button so that they don't receive touches */
   z-index: 0;
+
   /* set up the font appearance */
   font-size: 16pt;
   font-weight: bold;
   color: white;
   text-shadow: rgba(0, 0, 0, .6) 0px -1px 0px;
+
   /* enfore trimming if the label is too long */
   white-space : nowrap;
   overflow : hidden;
   text-overflow: ellipsis;
+  text-align:center;
 }
