@@ -139,11 +139,15 @@
 *
 * Changelog
 * ---
-* _jab 22, 2009_
+* _jan 30, 2009_
+*
+* - Fixed bug in html.wrap private - createAttributes was broken
+*
+* _jan 22, 2009_
 * 
 * - Full support for HTMLElement in DOM.html()
 * 
-* _jab 21, 2009_
+* _jan 21, 2009_
 *
 * - fixed DOM
 * - added remove

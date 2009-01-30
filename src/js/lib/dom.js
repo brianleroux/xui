@@ -62,22 +62,22 @@ var Dom = {
 	    // Wraps the HTML in a TAG, Tag is optional
 	    // If the html starts with a Tag, it will wrap the context in that tag.
 	    var wrap = function(xhtml,tag) {
+		
 	        var attributes = {};
 	        var re = /^<([A-Z][A-Z0-9]*)(.*)[^>]*>(.*?)<\/\1>/i;
 	        if(re.test(xhtml)) {
 	            result = re.exec(xhtml);
-
 	            tag = result[1];
 						
 	            // if the node has any attributes, convert to object
 	            if (result[2] != "") {
-									
-					var attre = /([a-zA-Z]*\s*=\s*['|"][a-zA-Z0-9:;#\s]*['|"])/;								
-	                var attrList = result[2].split(attre);
+
+	                var attrList = result[2].split(/([a-zA-Z]*\s*=\s*['|"][a-zA-Z0-9:;#\s]*['|"])/);
 
 	                for(var i=0;i<attrList.length;i++){
-	                    if (attrList[i] != "" && attrList[i] != " ") {
-	                        var node = attrList[i].split('=');
+						var attr = attrList[i].replace(/^\s*|\s*$/g, "");
+						if (attr != "" && attr != " ") {
+	                        var node = attr.split('=');
 	                        attributes[node[0]];
 	                        attributes[node[0]] = node[1].replace(/(["']?)/g,'');
 	                    }
@@ -87,13 +87,14 @@ var Dom = {
 	        }
 
 	        var element = document.createElement(tag);
-	        element.innerHTML = xhtml;
-	        for (var i in attributes) {
-	            var a = document.createAttribute(i);
-	            a.nodeValue = attributes[i];
+
+	        for (var x in attributes) {
+				var a = document.createAttribute(x);
+	            a.nodeValue = attributes[x];			
 	            element.setAttributeNode(a);
 	        }
-
+		
+			element.innerHTML = xhtml;
 	        return element;
 	    };
 
