@@ -35,7 +35,7 @@
 	/* The leftButton image is split into three. Both left and right sides are 14 pixels wide.  */
 	/* The remaining 1 pixel is used for the middle part of the image.	 */
 	/* The left and right sides will remain fixed while the middle part is scaling horizontally.  */
-	-webkit-border-image: url('../images/themes/default/blueButton.png') 0 14 0 14;	
+	-webkit-border-image: url('../images/blueButton.png') 0 14 0 14;	
 }
 
 /*  Builds a button using a 29x46 image */
@@ -49,7 +49,7 @@
 	text-shadow: #fff 0px 1px 1px;	
 	
 	/* Note that the -webkit-border-image values are given as  0 14 0 14 and not 0px 14px 0px 14px */
-	-webkit-border-image: url('../images/themes/default/whiteButton.png') 0 14 0 14;
+	-webkit-border-image: url('../images/whiteButton.png') 0 14 0 14;
 }
 
 /*	Builds a button using a 29x46 image */
@@ -60,7 +60,7 @@
 	
 	/* Put a 1 pixel blur black shadow below the button's text */
 	text-shadow: #000 0px 1px 1px;	
-	-webkit-border-image: url('../images/themes/default/grayButton.png') 0 14 0 14;
+	-webkit-border-image: url('../images/grayButton.png') 0 14 0 14;
 	margin: 3px auto;	
 }
 
@@ -77,7 +77,7 @@
 	
 	/* -webkit-border-image divides the leftButton image into 2 corners and middle part.	*/
 	/* The left corner is 12 pixels wide. The right corner is 5 pixels wide and the middle part is 1 pixel. */
-	-webkit-border-image: url('../images/themes/default/leftButton.png') 0 5 0 12;		
+	-webkit-border-image: url('../images/leftButton.png') 0 5 0 12;		
 }
 
 /* Creates a button using a 18x30 image */
@@ -91,5 +91,5 @@
 	/* -webkit-border-image divides the rightButton image into three parts. */
 	/* The right and left corners of the image are respectively 12 pixels and 5 pixels wide. */
 	/* This leaves 1 pixel for the midlle part of the image.		*/
-	-webkit-border-image: url('../images/themes/default/rightButton.png') 0 12 0 5;
+	-webkit-border-image: url('../images/rightButton.png') 0 12 0 5;
 }

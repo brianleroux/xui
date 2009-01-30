@@ -65,7 +65,7 @@ list items with the .group class are those that can be tapped to drill
 further down and therefore need an arrow in the background to indicate that
 */
 li.group {
-  background-image: url('../images/themes/default/chevron.png');
+  background-image: url('../images/chevron.png');
   background-repeat: no-repeat;
   background-position: 280px 18px;
 }
@@ -76,7 +76,7 @@ body.landscape li.group {
 
 /* this is for the touched state of list items */
 li.group:active {
-  background-image: url('../images/themes/default/chevron_touched.png'), url('../images/themes/default/item_background_touched.png');
+  background-image: url('../images/chevron_touched.png'), url('../images/item_background_touched.png');
   background-position: 280px 18px, 0 0;
   background-repeat: no-repeat, repeat-x;
   color: white;
