@@ -1,13 +1,19 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-	<head>
-		<title>XUI App Example</title>
-		<link rel="stylesheet" type="text/css" href="../src/css/xui.css" />
+
+  <head>
+    <title>XUI Example App</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		
+		
+		
 		<script src="../lib/xui.js" type="text/javascript" ></script>
 		<script src="../src/js/xui.app.js" type="text/javascript"></script>
+		
+		
 		<script type="text/javascript">
-		// Back button, animations (fade/swipe), partials 
-
 		x$.app('my special app', {
 		 	after: 	   function(){},
 		 	before:    function(){ console.log(" From Before");},
@@ -17,18 +23,22 @@
 			// ----------------------
 			'_contribute.html': function() {console.log('fire on this');}
 		});
-		
 		</script>
-		
-		
-		<meta name="apple-mobile-web-app-capable" content="yes" />
 </head>
 <body>
-
 <div id="stage">
-
 	<div id="header"><h1>XUI</h1></div>
-	<div id="content"></div>
+	<div id="content">
+		
+		
+		<!-- programically created nodes -->
+		<div id="pageOne"></div>
+    <div id="pageTwo"></div>
+    
+		
+		
+		
+	</div>
 	<div id="footer">Brought to you by the handsome creators of <a href="http://phonegap.com">PhoneGap</a> at <a href="http://nitobi.com">Nitobi</a>.</div>
 </div>
 </body>
