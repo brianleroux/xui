@@ -1,5 +1,7 @@
 body {
   width: 320px;
+  min-height: 316px; /* helps preventDefault apparently */
+
   margin: 0px;
   padding: 0px;
   background-image: url('../images/background.png');

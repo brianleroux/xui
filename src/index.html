@@ -7,22 +7,37 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 
 <link rel="stylesheet" href="themes/default/css/base.css" type="text/css" media="screen" title="no title" charset="utf-8" />
-<link rel="stylesheet" href="themes/default/css/header.css" type="text/css" media="screen" title="no title" charset="utf-8" />
 <link rel="stylesheet" href="themes/default/css/buttons.css" type="text/css" media="screen" title="no title" charset="utf-8" />
-<!-- 
-<link rel="stylesheet" href="css/default-page.css" type="text/css" media="screen" title="no title" charset="utf-8">
--->
+<link rel="stylesheet" href="themes/default/css/header.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+<link rel="stylesheet" href="themes/default/css/page.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<link rel="stylesheet" href="themes/default/css/footer.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+
 <script src="../lib/xui.js" type="text/javascript"></script>
 <!-- 
 <script src="../src/js/xui-app.js" type="text/javascript"></script>
 -->
 <script type="text/javascript">
 // x$.app('default application'});
+window.onload	= function(e) {
+	
+	// stop scrolling around
+	e.preventDefault();
+	
+	// hide the url
+	var hideUrl = function() {
+		setTimeout(function() {
+			window.scrollTo(0, 1);
+		}, 0);
+	}();
+}
+
+	
 </script>
 </head>
 
 <body>
 <div id="stage">
+	
 	<div id="header">
 		<a class="backButton">Back</a>
 		<h1>XUI</h1>
@@ -30,20 +45,23 @@
 
 	<div id="content">		
 			<div id="pageOne">
-				
-				<!-- button demo -->
-				<h1>Buttons demonstration</h1>
-
+				<ul>
+					<li>One for the money</li>
+					<li class="group">Two for the show</li>
+					<li>Three to get ready</li>
+					<li>Four to go</li>
+				</ul>
+			</div>
+			<!-- 
+	    <div id="pageTwo">
+	    	<h1>Buttons demonstration</h1>
 				<p><a class="white button">White</a></p>
 				<p><a class="black button">Black</a></p>
 				<p><a class="blue button">Blue</a></p>
 			  <p><a class="blackRight button">Black right</a></p>
 			  <p><a class="blackLeft button">Black left</a></p>
-			  
-
-				
-			</div>
-	    <div id="pageTwo"></div>
+	    </div>
+			-->
 	</div>
 
 	<div id="footer">Brought to you by the handsome creators of <a href="http://phonegap.com">PhoneGap</a> at <a href="http://nitobi.com">Nitobi</a>.</div>
