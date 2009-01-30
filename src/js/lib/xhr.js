@@ -13,7 +13,7 @@ var Xhr = {
 	*	
 	* syntax:
 	*
-	* `xhr('path/to/file.html', {});`
+	* 	xhr('path/to/file.html', {});
 	* 
 	* arguments:
 	*

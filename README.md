@@ -83,7 +83,7 @@ or..
 arguments:
 
 - location:string can be one of inner, outer, top, bottom
-- htmlFragment:string any string of html markup
+- htmlFragment:string any string of html markup or HTMLElement
 
 example:
 
@@ -91,6 +91,7 @@ example:
  	x$('#foo').html( 'outer',  htmlFragment );
 	x$('#foo').html( 'top',    htmlFragment );
  	x$('#foo').html( 'bottom', htmlFragment );
+ 	x$('#foo').html( 'remove' );	
 
 or
 
@@ -328,6 +329,7 @@ TODO
 
 - look into lib loading / extend method buggyness
 - more tests!!!
+- get jslint passing
 - better docs (generate side by side code like ubiquity)
 - inspect and generate example from markdown
 - generators
@@ -336,6 +338,14 @@ TODO
 
 Changelog
 ---
+_jab 22, 2009_
+
+- Full support for HTMLElement in DOM.html()
+
+_jab 21, 2009_
+
+- fixed DOM
+- added remove
 
 _Jan 18, 2009_
 

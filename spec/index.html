@@ -221,12 +221,12 @@ describe("XHR.function", {
 describe("XHR.json", {
   
   'before':function(){
-    x = x$('body');
+    x = x$('#xhr-test-json');
 	},
 	
 	'should get json':function(){
-	  ob = x.xhrjson("example.js");
-    value_of(ob.innerHTML).should_be('{ "id":"1", "name":"foo" }');
+	  x.xhrjson("example.js");
+    value_of(x.first().innerHTML).should_be('{ "id":"1", "name":"foo" }');
 	}
 	
 });
