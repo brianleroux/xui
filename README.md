@@ -451,21 +451,20 @@ example:
  
 The available options are the same as the xhr method with the addition of map. 
 
-		x$('#user').xhrjson( '/users/1.json', {map:{'#name':'username', 'img#avatar[@src]':'image_url' }});
+		x$('#user').xhrjson( '/users/1.json', {map:{'username':'#name', 'image_url':'img#avatar[@src]'} });
 
 			 
 
 TODO
 ---
 
-- look into lib loading / extend method buggyness
-- more tests!!!
+- xui-app merge
+- look into extend method buggyness
 - get jslint passing
-- better docs (generate side by side code like ubiquity)
-- inspect and generate example from markdown
+- look into activejs doc build system and enhance to generate side by side code like ubiquity
 - generators
 - canvas progressive enhancement
-- prop should be JS property, not CSS property
+- prop should be js property insted of a css property
 
 Changelog
 ---

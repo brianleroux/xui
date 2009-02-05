@@ -142,14 +142,13 @@
 * TODO
 * ---
 * 
-* - look into lib loading / extend method buggyness
-* - more tests!!!
+* - xui-app merge
+* - look into extend method buggyness
 * - get jslint passing
-* - better docs (generate side by side code like ubiquity)
-* - inspect and generate example from markdown
+* - look into activejs doc build system and enhance to generate side by side code like ubiquity
 * - generators
 * - canvas progressive enhancement
-* - prop should be JS property, not CSS property
+* - prop should be js property insted of a css property
 *
 * Changelog
 * ---

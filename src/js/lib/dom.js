@@ -15,7 +15,7 @@ var Dom = {
 	outer: 	function(html) { return this.html('outer',  html); },
 	top: 	function(html) { return this.html('top',    html); },
 	bottom: function(html) { return this.html('bottom', html); },
-	remove: function(html) { return this.html('remove', html); },
+	remove: function()     { return this.html('remove'      ); },
 	
 
 	/**

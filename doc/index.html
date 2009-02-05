@@ -445,20 +445,19 @@ handy JSON objects we added the convienance the map property which allows you to
 
 <p>The available options are the same as the xhr method with the addition of map. </p>
 
-<pre><code>    x$('#user').xhrjson( '/users/1.json', {map:{'#name':'username', 'img#avatar[@src]':'image_url' }});
+<pre><code>    x$('#user').xhrjson( '/users/1.json', {map:{'username':'#name', 'image_url':'img#avatar[@src]'} });
 </code></pre>
 
 <h2>TODO</h2>
 
 <ul>
-<li>look into lib loading / extend method buggyness</li>
-<li>more tests!!!</li>
+<li>xui-app merge</li>
+<li>look into extend method buggyness</li>
 <li>get jslint passing</li>
-<li>better docs (generate side by side code like ubiquity)</li>
-<li>inspect and generate example from markdown</li>
+<li>look into activejs doc build system and enhance to generate side by side code like ubiquity</li>
 <li>generators</li>
 <li>canvas progressive enhancement</li>
-<li>prop should be JS property, not CSS property</li>
+<li>prop should be js property insted of a css property</li>
 </ul>
 
 <h2>Changelog</h2>
