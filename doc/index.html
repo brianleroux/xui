@@ -1,3 +1,11 @@
+<p>@projectDescription     XUI JavaScript library for mobile web applications.</p>
+
+<p>@author Rob Ellis rob.ellis@nitobi.com
+@author Brian LeRoux brian.leroux@westcoastlogic.com
+@author Brock Whitten brock@sintaxi.com</p>
+
+<p>@version    0.1 </p>
+
 <h1>XUI</h1>
 
 <h2>A simple javascript framework for building mobile web applications.</h2>
@@ -22,7 +30,7 @@ support under consideration for IE Mobile and BlackBerry.</p>
 
 <h3>Download</h3>
 
-<p>Minified code is less than 6k! <em>official builds coming soonish - Brian Jan 6, 2009</em></p>
+<p>Minified code is less than 6k! </p>
 
 <h3>Contribute</h3>
 
@@ -38,7 +46,7 @@ There are other tasks for code minification, running the specs and generating do
 
 <h1>API Documentation</h1>
 
-<p>Welcome the XUI documentation. This is generated from inline documentation in the xui javascript source.</p>
+<p>Welcome the XUI documentation. This is generated from inline documentation in the XUI javascript source.</p>
 
 <h2>Basics</h2>
 
@@ -52,50 +60,108 @@ mostly chainable and should be familiar to anyone who has worked with jQuery.</p
 XUI allows for a single expression, an element or an array of elements to be passed</p>
 
 <pre><code>x$(window);
+
+x$('ul#globalnav li a.selected');
+
+x$(['li', 'div#foo']);
 </code></pre>
+
+<p>Returns the first element in the collection.</p>
+
+<p>@return {Element} Returns a single DOM element.</p>
+
+<p>@namespace {Dom}
+@example</p>
 
 <h2>Dom</h2>
 
-<p>Manipulating the document object model (DOM).</p>
+<p>Manipulating the Document Object Model aka the DOM.</p>
+
+<p>For manipulating HTML markup in the DOM.</p>
+
+<p>@method
+@param {location} [inner|outer|top|bottom|remove]
+@param {html} A string representation of HTML markup. 
+@return {Element Collection}
+@example</p>
 
 <h3>html</h3>
 
-<p>Adds elements or changes the content of an element on a page.</p>
+<p>Adds elements or changes the content of an element on a page. This method has shortcut aliases:</p>
+
+<ul>
+<li>inner</li>
+<li>outer</li>
+<li>top</li>
+<li>bottom</li>
+<li>remove </li>
+</ul>
 
 <p>syntax:</p>
 
-<pre><code>x$(window).html( location, htmlFragment );
+<pre><code>    x$(window).html( location, html );
 </code></pre>
 
-<p>or..</p>
+<p>or this method will accept just an html fragment with a default behavior of inner..</p>
 
-<pre><code>x$(window).html( htmlFragment );
+<pre><code>    x$(window).html( htmlFragment );
 </code></pre>
 
 <p>arguments:</p>
 
 <ul>
 <li>location:string can be one of inner, outer, top, bottom</li>
-<li>htmlFragment:string any string of html markup or HTMLElement</li>
+<li>html:string any string of html markup or HTMLElement</li>
 </ul>
 
 <p>example:</p>
 
-<pre><code>x$('#foo').html( 'inner',  htmlFragment );
-x$('#foo').html( 'outer',  htmlFragment );
-x$('#foo').html( 'top',    htmlFragment );
-x$('#foo').html( 'bottom', htmlFragment );
-x$('#foo').html( 'remove' );
+<pre><code>x$('#foo').html( 'inner',  '&lt;strong&gt;rock and roll&lt;/strong&gt;' );
+x$('#foo').html( 'outer',  '&lt;p&gt;lock and load&lt;/p&gt;' );
+    x$('#foo').html( 'top',    '&lt;div&gt;bangers and mash&lt;/div&gt;');
+x$('#foo').html( 'bottom', '&lt;em&gt;mean and clean&lt;/em&gt;');
+x$('#foo').html( 'remove'  '&lt;h1&gt;first and last&lt;/h1&gt;');
 </code></pre>
 
 <p>or</p>
 
-<pre><code>x$('#foo').html('&lt;p&gt;sweet as honey&lt;/p&gt;');
+<pre><code>    x$('#foo').html('&lt;p&gt;sweet as honey&lt;/p&gt;');
 </code></pre>
+
+<p>Removes all erronious nodes from the DOM.</p>
+
+<p>@method 
+@return {Element Collection} 
+@example</p>
+
+<h3>clean</h3>
+
+<p>Walks the Element Collection removing empty nodes and whitespace.</p>
+
+<p>syntax:</p>
+
+<pre><code>    x$(selector).clean();
+</code></pre>
+
+<p>example:</p>
+
+<pre><code>    x$(window).clean();
+</code></pre>
+
+<p>@namespace {Event}
+@example</p>
 
 <h2>Event</h2>
 
 <p>A good old fashioned event handling system.</p>
+
+<p>Register callbacks to DOM events.</p>
+
+<p>@method
+@param {Event} The event identifier as a string.
+@param {Function} The callback function to invoke when the event is raised.
+@return {Element Collection}
+@example</p>
 
 <h3>on</h3>
 
@@ -124,7 +190,12 @@ x$('#foo').html( 'remove' );
 
 <p>syntax:</p>
 
-<pre><code>x$('button').on( 'click', function(){ alert('hey that tickles!') });
+<pre><code>    x$('button').on( 'click', function(e){ alert('hey that tickles!') });
+</code></pre>
+
+<p>or...</p>
+
+<pre><code>    x$('a.save').click(function(e){ alert('tee hee!') });
 </code></pre>
 
 <p>arguments:</p>
@@ -136,14 +207,25 @@ x$('#foo').html( 'remove' );
 
 <p>example:</p>
 
-<pre><code>x$(window).load(function(e){
-    x$('.save').touchstart( function(evt){ alert('tee hee!') });    
+<pre><code>    x$(window).load(function(e){
+        x$('.save').touchstart( function(evt){ alert('tee hee!') }).css(background:'grey'); 
 });
 </code></pre>
+
+<p>@namespace {Style}
+@example</p>
 
 <h2>Style</h2>
 
 <p>Anything related to how things look. Usually, this is CSS.</p>
+
+<p>Sets a single CSS property to a new value.</p>
+
+<p>@method
+@param {String} The property to set.
+@param {String} The value to set the property.
+@return {Element Collection}
+@example</p>
 
 <h3>setStyle</h3>
 
@@ -163,6 +245,14 @@ x$('#foo').html( 'remove' );
 
 <pre><code>x$('.txt').setStyle('color', '#000');
 </code></pre>
+
+<p>Retuns a single CSS property. Can also invoke a callback to perform more specific processing tasks related to the property value.</p>
+
+<p>@method
+@param {String} The property to retrieve.
+@param {Function} A callback function to invoke with the property value.
+@return {Element Collection}
+@example</p>
 
 <h3>getStyle</h3>
 
@@ -185,6 +275,13 @@ x$('#foo').html( 'remove' );
 x$('a.globalnav').getStyle( 'background', function(prop){ prop == 'blue' ? 'green' : 'blue' });
 </code></pre>
 
+<p>Adds the classname to all the elements in the collection. </p>
+
+<p>@method
+@param {String} The class name.
+@return {Element Collection}
+@example</p>
+
 <h3>addClass</h3>
 
 <p>syntax:</p>
@@ -203,6 +300,13 @@ x$('a.globalnav').getStyle( 'background', function(prop){ prop == 'blue' ? 'gree
 <pre><code>$('.foo').addClass('awesome');
 </code></pre>
 
+<p>Removes the classname from all the elements in the collection. </p>
+
+<p>@method
+@param {String} The class name.
+@return {Element Collection}
+@example</p>
+
 <h3>removeClass</h3>
 
 <p>syntax:</p>
@@ -218,8 +322,15 @@ x$('a.globalnav').getStyle( 'background', function(prop){ prop == 'blue' ? 'gree
 
 <p>example:</p>
 
-<pre><code>x$('.awesome').removeClass('awesome');
+<pre><code>x$('.bar').removeClass('awesome');
 </code></pre>
+
+<p>Set a number of CSS properties at once.</p>
+
+<p>@method
+@param {Object} An object literal of CSS properties and corosponding values.
+@return {Element Collection}
+@example    </p>
 
 <h3>css</h3>
 
@@ -231,21 +342,41 @@ x$('a.globalnav').getStyle( 'background', function(prop){ prop == 'blue' ? 'gree
 <p>arguments: </p>
 
 <ul>
-<li>an object literal of css key/value pairs to set/modify style on.</li>
+<li>an object literal of css key/value pairs to set.</li>
 </ul>
 
 <p>example:</p>
 
-<pre><code>x$('#box5').css({ backgroundColor:'blue', width:'100px', border:'2px solid red' });
+<pre><code>x$('h2.fugly').css({ backgroundColor:'blue', color:'white', border:'2px solid red' });
 </code></pre>
+
+<p>@namespace {Fx}
+@example</p>
 
 <h2>Fx</h2>
 
-<p>Animations mostly but we're not excluding any ideas.</p>
+<p>Animations, transforms and transitions for getting the most out of hardware accelerated CSS.</p>
+
+<p>Tween is a method for transforming a css property to a new value.</p>
+
+<p>@method
+@param {Object} [Array|Object]
+@return {Element Collection}
+@example</p>
 
 <h3>tween</h3>
 
 <p>syntax:</p>
+
+<p>x$(selector).tween(obj);</p>
+
+<p>arguments:</p>
+
+<ul>
+<li>properties:object an object literal of element css properties to tween or an array containing object literals of css properties to tween sequentially.</li>
+</ul>
+
+<p>example:</p>
 
 <pre><code>x$('#box').tween({ left:100px, backgroundColor:'blue' });
 
@@ -254,60 +385,68 @@ x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:
 x$('#box').tween({ left:100px}).tween({ left:100px });
 </code></pre>
 
-<p>arguments:</p>
-
-<p>properties:object an object literal of element properties to tween.</p>
-
-<p>_or_</p>
-
-<p>queue:array an array literal of objects which contain properties to tween sequentially.</p>
-
-<p>example:</p>
+<p>@namespace {Xhr}
+@example</p>
 
 <h2>Xhr</h2>
 
-<p>Remoting methods and ultilites.  </p>
+<p>Remoting methods and utils. </p>
+
+<p>The classic Xml Http Request sometimes also known as the Greek God: Ajax. Not to be confused with AJAX the cleaning agent. 
+This method has a few new tricks. It is always invoked on an element collection. If there no callback is defined the response 
+text will be inserted into the elements in the collection. </p>
+
+<p>@method
+@param {String} The URL to request.
+@param {Object} The method options including a callback function to invoke when the request returns. 
+@return {Element Collection}
+@example</p>
 
 <h3>xhr</h3>
 
 <p>syntax:</p>
 
-<p><code>xhr('path/to/file.html', {});</code></p>
+<pre><code>    xhr(url, options);
+</code></pre>
 
-<p>arguments:</p>
-
-<p>url:string the url for request</p>
-
-<p>options:object</p>
+<p>options:</p>
 
 <ul>
-<li>method:string get|put|delete|post default get</li>
-<li>async:boolen default false</li>
-<li>data:string url encoded string of parameters to send</li>
-<li><p>callback:function to call on 200 status</p></li>
-<li><p>Returns responseText back 
-example:</p></li>
+<li>method {String} [get|put|delete|post] Defaults to 'get'.</li>
+<li>async {Boolen} Asynchronous request. Defaults to false.</li>
+<li>data {String} A url encoded string of parameters to send.</li>
+<li>callback {Function} Called on 200 status (success). Defaults to the Style.html method.</li>
 </ul>
+
+<p>example:</p>
+
+<pre><code>    x$('#status').xhr('/status.html');
+
+    x$('#left-panel).xhr('/panel', {callback:function(e){ alert(e) }});
+</code></pre>
+
+<p>Another twist on remoting: lightweight and unobtrusive DOM databinding. Since we are often talking to a server with 
+handy JSON objects we added the convienance the map property which allows you to map JSON nodes to DOM elements. </p>
+
+<p>@method
+@param {String} The URL to request.
+@param {Object} The method options including a callback function to invoke when the request returns. 
+@return {Element Collection}
+@example</p>
 
 <h3>xhrjson</h3>
 
 <p>syntax:</p>
 
-<p><code>xhr('path/to/file.html', {});</code></p>
+<pre><code>    xhrjson(url, options);
+</code></pre>
 
-<p>arguments:</p>
+<p>example:</p>
 
-<p>url:string the url for request</p>
+<p>The available options are the same as the xhr method with the addition of map. </p>
 
-<p>options:object (Options is the same as XHR with map:object and new callback:function)</p>
-
-<ul>
-<li>method:string get|put|delete|post default get</li>
-<li>async:boolen default false</li>
-<li>data:string url encoded string of parameters to send</li>
-<li>map:object {'dom selector':'json key'}</li>
-<li>callback:function - this function is applied to each json value</li>
-</ul>
+<pre><code>    x$('#user').xhrjson( '/users/1.json', {map:{'#name':'username', 'img#avatar[@src]':'image_url' }});
+</code></pre>
 
 <h2>TODO</h2>
 
@@ -324,13 +463,26 @@ example:</p></li>
 
 <h2>Changelog</h2>
 
-<p><em>jab 22, 2009</em></p>
+<p><em>feb 04, 2009</em></p>
+
+<ul>
+<li>started scriptdoc </li>
+<li>added Dom.html method alias shortcuts for: inner, outer, top, bottom and remove</li>
+</ul>
+
+<p><em>jan 30, 2009</em></p>
+
+<ul>
+<li>Fixed bug in html.wrap private - createAttributes was broken</li>
+</ul>
+
+<p><em>jan 22, 2009</em></p>
 
 <ul>
 <li>Full support for HTMLElement in DOM.html()</li>
 </ul>
 
-<p><em>jab 21, 2009</em></p>
+<p><em>jan 21, 2009</em></p>
 
 <ul>
 <li>fixed DOM</li>

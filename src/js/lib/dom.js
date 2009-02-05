@@ -11,6 +11,13 @@
  */
 var Dom = {
 
+	inner: 	function(html) { return this.html('inner',  html); },
+	outer: 	function(html) { return this.html('outer',  html); },
+	top: 	function(html) { return this.html('top',    html); },
+	bottom: function(html) { return this.html('bottom', html); },
+	remove: function(html) { return this.html('remove', html); },
+	
+
 	/**
 	 * For manipulating HTML markup in the DOM.
 	 * 
@@ -22,13 +29,19 @@ var Dom = {
 	 * 
 	 * ### html
 	 *
-	 * Adds elements or changes the content of an element on a page.
+	 * Adds elements or changes the content of an element on a page. This method has shortcut aliases:
+	 *
+	 * - inner
+	 * - outer
+	 * - top
+ 	 * - bottom
+	 * - remove 
 	 *	
 	 * syntax:
 	 *
 	 * 		x$(window).html( location, html );
 	 *
-	 * or..
+	 * or this method will accept just an html fragment with a default behavior of inner..
 	 *
 	 * 		x$(window).html( htmlFragment );
 	 * 
@@ -181,4 +194,5 @@ var Dom = {
 		});
  	  return this;
  	}
+//---
 };

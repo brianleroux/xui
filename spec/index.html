@@ -17,7 +17,7 @@
 // <![CDATA[
 
 /////////////////////////////
-// SELECTOR
+// 			SELECTOR SPECS     //
 /////////////////////////////
 
 describe("Selector string id", {
@@ -85,8 +85,10 @@ describe("Selector element", {
   
 });
 
+
+
 /////////////////////////////
-// Style
+// 			 STYLE SPECS       //
 /////////////////////////////
 
 describe("Style.setStyle", {
@@ -109,8 +111,6 @@ describe("Style.getStyle", {
 		e.first().style.backgroundColor = "blue";
 	},
   
-
-  // This passes. but it should not be nessisary to pass a function
   'should return background color of blue if set in passed function':function(){
    	var c = "";
    	e.getStyle('background-color', function(v){
@@ -118,7 +118,6 @@ describe("Style.getStyle", {
    	});
    	value_of(c).should_be('rgb(0, 0, 255)');
   },
-
 
 	'should return background color even if no function passed':function(){
 		var style = e.getStyle('background-color');
@@ -139,26 +138,6 @@ describe("Style.addClass", {
 	}
 	
 });
-/*
-describe("Style.hasClass", {
-  
-  'before':function(){
-		e = x$('#has-class-element');
-	},
-	
-	'should have class of foo':function(){
-		value_of(e.hasClass('foo')).should_be(true);
-	},
-	
-	'should have class of bar for multiple elements':function(){
-		value_of( x$('.bar').hasClass('bar')).should_be(true);
-	},
-	
-	'should have class of foo for multiple elements with one element only having bar':function(){
-		value_of( x$('.bar').hasClass('foo')).should_be(false);
-	}
-});
-*/
 
 describe("Style.removeClass", {
   
@@ -174,6 +153,9 @@ describe("Style.removeClass", {
 });
 
 
+/////////////////////////////
+// 			  DOM SPECS        //
+/////////////////////////////
 
 describe("Dom.html", {
   
@@ -190,19 +172,27 @@ describe("Dom.html", {
 	},
 	
 	'should insert html into the #html-test-outer node':function(){
-		outer.html('outer', '<div>');
-		// value_of(outer.first().children[0].tagName).should_be('P'); 
+		outer.html('outer', '<div id="html-test-outer">sneaky</div>'); 
+		value_of(x$('#html-test-outer').first().innerHTML).should_be('sneaky'); 
 	},
+	
 	'should insert html into the #html-test-top node':function(){
-		top.html('top', '<div>');
-		// value_of(top.first().children[0].tagName).should_be('P'); 
+		top.html('top', '<div>come out on top</div>');
+		value_of(top.first().children[0].innerHTML).should_be('come out on top'); 
 	},
+	
 	'should insert html into the #html-test-bottom node':function(){
-		bottom.html('bottom', '<div>');
-		// value_of(bottom.first().children[0].tagName).should_be('P'); 
+		bottom.html('bottom', '<div>undertow</div>');
+		var last = bottom.first().children.length - 1;
+		value_of(bottom.first().children[last].innerHTML).should_be('undertow'); 
 	}
 	
 });
+
+
+/////////////////////////////
+// 			  XHR SPECS        //
+/////////////////////////////
 
 describe("XHR.function", {
   
@@ -217,7 +207,6 @@ describe("XHR.function", {
 	
 });
 
-
 describe("XHR.json", {
   
   'before':function(){
@@ -225,48 +214,38 @@ describe("XHR.json", {
 	},
 	
 	'should get json':function(){
-	  x.xhrjson("example.js");
-    value_of(x.first().innerHTML).should_be('{ "id":"1", "name":"foo" }');
+	  x.xhrjson('example.js', {map:{'id':'#json-id', 'name':'#json-name'}});
+    value_of(document.getElementById('json-id').innerHTML).should_be(1);
+		value_of(document.getElementById('json-name').innerHTML).should_be('foo');
 	}
 	
 });
 
 
+/////////////////////////////
+// 			   FX SPECS        //
+/////////////////////////////
+describe( 'xui Fx', {
+	
+	'before':function(){},
+	// not sure how to test this... 
+	'should move elemnt':function(){}
+	
+});
 
-// describe("animate test", {
-//  /*
-//  'the arguments should be array':function(){
-//    x$('item_1').tween([]);
-//  }
-//  
-//  
-//  'the arguments should an object':function(){
-//    x$('item_1').tween({});
-//  }
-//  */
-//  'the arguments should an object':function(){
-//    x$('item_1').tween({});
-//  }
-//  
-// });
-// 
-// 
-// describe( 'xui Xhr', {
-//  // this is open for debate.
-//  // xui.xhr.get( 'url', options );
-//  // xui.xhr.post( 'url', { success:function(){}, timeout:3});
-// });
-// 
-// describe( 'xui Events', {
-//  // guestures, etc
-//  // x$('#foo').click( function() { });
-//  // x$('#foo').swipe( function() { });
-// });
-// 
-// 
-// describe( 'xui Fx', {
-//  //  x$('#foo').click( function() { })
-// });
+
+
+/////////////////////////////
+// 			EVENT SPECS        //
+/////////////////////////////
+describe( 'xui Events', {
+	
+	'before':function(){},
+	// not sure how to test this either... if broken you probably have bigger problems!
+	'should be clickable':function(){}
+	
+});
+
 
 
 // ]]>
@@ -298,8 +277,15 @@ describe("XHR.json", {
 
 <div id="xhr_tests">
   <div id="xhr-test-function"></div>
-  <div id="xhr-test-json"></div>
+  <div id="xhr-test-json">
+  	<div id="json-id">no id here</div>
+		<div id="json-name">no name here</div>
+  </div>
   <div id="xhr-test-form"></div>
+</div>
+
+<div id="event_tests">
+  <div id="event-test-click"></div>
 </div>
 
 </body>

@@ -1,4 +1,12 @@
 
+@projectDescription 	XUI JavaScript library for mobile web applications.
+
+@author	Rob Ellis rob.ellis@nitobi.com
+@author	Brian LeRoux brian.leroux@westcoastlogic.com
+@author	Brock Whitten brock@sintaxi.com
+
+@version	0.1 
+
 XUI
 ===
 
@@ -23,7 +31,7 @@ support under consideration for IE Mobile and BlackBerry.
 
 ### Download
 
-Minified code is less than 6k! _official builds coming soonish - Brian Jan 6, 2009_
+Minified code is less than 6k! 
 
 ### Contribute
 
@@ -39,7 +47,7 @@ Check out the _example_ directory for a comprehensive example application. Specs
 API Documentation
 ===
 
-Welcome the XUI documentation. This is generated from inline documentation in the xui javascript source.
+Welcome the XUI documentation. This is generated from inline documentation in the XUI javascript source.
 
 
 
@@ -55,58 +63,112 @@ The query selection engine is based on the browser implementation of querySelect
 XUI allows for a single expression, an element or an array of elements to be passed
 
 	x$(window);
+	
+	x$('ul#globalnav li a.selected');
+	
+	x$(['li', 'div#foo']);
 
 
 
+Returns the first element in the collection.
 
+@return {Element} Returns a single DOM element.
+		 
+
+
+@namespace {Dom}
+@example
 
 Dom
 ---
 	
-Manipulating the document object model (DOM).
+Manipulating the Document Object Model aka the DOM.
 
-		
+		 
 
+For manipulating HTML markup in the DOM.
+
+@method
+@param {location} [inner|outer|top|bottom|remove]
+@param {html} A string representation of HTML markup. 
+@return {Element Collection}
+@example
 
 ### html
 
-Adds elements or changes the content of an element on a page.
+Adds elements or changes the content of an element on a page. This method has shortcut aliases:
+
+- inner
+- outer
+- top
+- bottom
+- remove 
 	
 syntax:
 
-	x$(window).html( location, htmlFragment );
+		x$(window).html( location, html );
 
-or..
+or this method will accept just an html fragment with a default behavior of inner..
 
-	x$(window).html( htmlFragment );
+		x$(window).html( htmlFragment );
 
 arguments:
 
 - location:string can be one of inner, outer, top, bottom
-- htmlFragment:string any string of html markup or HTMLElement
+- html:string any string of html markup or HTMLElement
 
 example:
 
- 	x$('#foo').html( 'inner',  htmlFragment );
- 	x$('#foo').html( 'outer',  htmlFragment );
-	x$('#foo').html( 'top',    htmlFragment );
- 	x$('#foo').html( 'bottom', htmlFragment );
- 	x$('#foo').html( 'remove' );	
+ 	x$('#foo').html( 'inner',  '<strong>rock and roll</strong>' );
+ 	x$('#foo').html( 'outer',  '<p>lock and load</p>' );
+		x$('#foo').html( 'top',    '<div>bangers and mash</div>');
+ 	x$('#foo').html( 'bottom', '<em>mean and clean</em>');
+ 	x$('#foo').html( 'remove'  '<h1>first and last</h1>');	
 
 or
 
-	x$('#foo').html('<p>sweet as honey</p>');
+		x$('#foo').html('<p>sweet as honey</p>');
 
-			
+			 
 
+Removes all erronious nodes from the DOM.
+
+@method 
+@return {Element Collection} 
+@example
+
+### clean
+
+Walks the Element Collection removing empty nodes and whitespace.
+	
+syntax:
+
+		x$(selector).clean();
+
+example:
+
+		x$(window).clean();
+			 
+
+
+@namespace {Event}
+@example
 
 Event
 ---
 	
 A good old fashioned event handling system.
 
-		
+		 
 
+
+Register callbacks to DOM events.
+
+@method
+@param {Event} The event identifier as a string.
+@param {Function} The callback function to invoke when the event is raised.
+@return {Element Collection}
+@example
 
 ### on
 
@@ -131,7 +193,11 @@ For more information see:
 
 syntax:
 
-	x$('button').on( 'click', function(){ alert('hey that tickles!') });
+		x$('button').on( 'click', function(e){ alert('hey that tickles!') });
+
+or...
+
+		x$('a.save').click(function(e){ alert('tee hee!') });
 
 arguments:
 
@@ -140,20 +206,31 @@ arguments:
 
 example:
 	
-	x$(window).load(function(e){
-		x$('.save').touchstart( function(evt){ alert('tee hee!') });	
+		x$(window).load(function(e){
+			x$('.save').touchstart( function(evt){ alert('tee hee!') }).css(background:'grey');	
  	});
 	
-			
+			 
 
+
+@namespace {Style}
+@example
 
 Style
 ---
 	
 Anything related to how things look. Usually, this is CSS.
 
-		
+		 
 
+
+Sets a single CSS property to a new value.
+
+@method
+@param {String} The property to set.
+@param {String} The value to set the property.
+@return {Element Collection}
+@example
 
 ### setStyle
 	
@@ -170,8 +247,16 @@ example:
 
 	x$('.txt').setStyle('color', '#000');
 
-			
+			 
 
+
+Retuns a single CSS property. Can also invoke a callback to perform more specific processing tasks related to the property value.
+
+@method
+@param {String} The property to retrieve.
+@param {Function} A callback function to invoke with the property value.
+@return {Element Collection}
+@example
 
 ### getStyle
 	
@@ -190,8 +275,15 @@ example:
 	
 	x$('a.globalnav').getStyle( 'background', function(prop){ prop == 'blue' ? 'green' : 'blue' });
 
-			
+			 
 
+
+Adds the classname to all the elements in the collection. 
+
+@method
+@param {String} The class name.
+@return {Element Collection}
+@example
 
 ### addClass
 	
@@ -207,8 +299,15 @@ example:
 
 	$('.foo').addClass('awesome');
 
-			
+			 
 
+
+Removes the classname from all the elements in the collection. 
+
+@method
+@param {String} The class name.
+@return {Element Collection}
+@example
 
 ### removeClass
 	
@@ -222,10 +321,17 @@ arguments:
 
 example:
 
-	x$('.awesome').removeClass('awesome');
+	x$('.bar').removeClass('awesome');
 
-			
+			 
 
+
+Set a number of CSS properties at once.
+
+@method
+@param {Object} An object literal of CSS properties and corosponding values.
+@return {Element Collection}
+@example	
 
 ### css
 	
@@ -235,26 +341,44 @@ syntax:
 
 arguments: 
 
-- an object literal of css key/value pairs to set/modify style on.
+- an object literal of css key/value pairs to set.
 
 example:
 
-	x$('#box5').css({ backgroundColor:'blue', width:'100px', border:'2px solid red' });
+	x$('h2.fugly').css({ backgroundColor:'blue', color:'white', border:'2px solid red' });
  
-			
+			 
 
+
+@namespace {Fx}
+@example
 
 Fx
 ---
 	
-Animations mostly but we're not excluding any ideas.
+Animations, transforms and transitions for getting the most out of hardware accelerated CSS.
 
-		
+		 
 
+
+Tween is a method for transforming a css property to a new value.
+
+@method
+@param {Object} [Array|Object]
+@return {Element Collection}
+@example
 
 ### tween
 	
 syntax:
+
+x$(selector).tween(obj);
+
+arguments:
+
+- properties:object an object literal of element css properties to tween or an array containing object literals of css properties to tween sequentially.
+
+example:
 
 	x$('#box').tween({ left:100px, backgroundColor:'blue' });
 	
@@ -262,67 +386,74 @@ syntax:
 	
 	x$('#box').tween({ left:100px}).tween({ left:100px });
 
-arguments:
+			 
 
-properties:object an object literal of element properties to tween.
 
-_or_
-
-queue:array an array literal of objects which contain properties to tween sequentially.
-
-example:
-
-			
+@namespace {Xhr}
+@example
 
 
 Xhr
 ---
 	
-Remoting methods and ultilites.  
+Remoting methods and utils. 
 
-		
+		 
 
+
+The classic Xml Http Request sometimes also known as the Greek God: Ajax. Not to be confused with AJAX the cleaning agent. 
+This method has a few new tricks. It is always invoked on an element collection. If there no callback is defined the response 
+text will be inserted into the elements in the collection. 
+
+@method
+@param {String} The URL to request.
+@param {Object} The method options including a callback function to invoke when the request returns. 
+@return {Element Collection}
+@example
+	
 ### xhr 
 	
 syntax:
 
-`xhr('path/to/file.html', {});`
+		xhr(url, options);
 
-arguments:
+options:
 
-url:string the url for request
+- method {String} [get|put|delete|post] Defaults to 'get'.
+- async {Boolen} Asynchronous request. Defaults to false.
+- data {String} A url encoded string of parameters to send.
+- callback {Function} Called on 200 status (success). Defaults to the Style.html method.
 
-options:object
-
-- method:string get|put|delete|post default get
-- async:boolen default false
-- data:string url encoded string of parameters to send
-- callback:function to call on 200 status
-
-- Returns responseText back 
 example:
 
-			
+		x$('#status').xhr('/status.html');
+
+		x$('#left-panel).xhr('/panel', {callback:function(e){ alert(e) }});
+			 
+
+
+Another twist on remoting: lightweight and unobtrusive DOM databinding. Since we are often talking to a server with 
+handy JSON objects we added the convienance the map property which allows you to map JSON nodes to DOM elements. 
+
+@method
+@param {String} The URL to request.
+@param {Object} The method options including a callback function to invoke when the request returns. 
+@return {Element Collection}
+@example
 
 ### xhrjson 
 	
 syntax:
 
-`xhr('path/to/file.html', {});`
+		xhrjson(url, options);
 
-arguments:
+example:
+ 
+The available options are the same as the xhr method with the addition of map. 
 
-url:string the url for request
+		x$('#user').xhrjson( '/users/1.json', {map:{'#name':'username', 'img#avatar[@src]':'image_url' }});
 
-options:object (Options is the same as XHR with map:object and new callback:function)
-
-- method:string get|put|delete|post default get
-- async:boolen default false
-- data:string url encoded string of parameters to send
-- map:object {'dom selector':'json key'}
-- callback:function - this function is applied to each json value
-
-			
+			 
 
 TODO
 ---
@@ -338,11 +469,21 @@ TODO
 
 Changelog
 ---
-_jab 22, 2009_
+
+_feb 04, 2009_
+
+- started scriptdoc 
+- added Dom.html method alias shortcuts for: inner, outer, top, bottom and remove
+
+_jan 30, 2009_
+
+- Fixed bug in html.wrap private - createAttributes was broken
+
+_jan 22, 2009_
 
 - Full support for HTMLElement in DOM.html()
 
-_jab 21, 2009_
+_jan 21, 2009_
 
 - fixed DOM
 - added remove

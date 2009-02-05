@@ -1,36 +1,44 @@
 /**
-*
-* Fx
-* ---
-*	
-* Animations mostly but we're not excluding any ideas.
-* 
-*/
+ *
+ * @namespace {Fx}
+ * @example
+ *
+ * Fx
+ * ---
+ *	
+ * Animations, transforms and transitions for getting the most out of hardware accelerated CSS.
+ * 
+ */
 var Fx = {
 
 	/**
-	*
-	* ### tween
-	*	
-	* syntax:
-	* 
-	* 	x$('#box').tween({ left:100px, backgroundColor:'blue' });
-	* 	
-	* 	x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:100px }]);
-	* 	
-	* 	x$('#box').tween({ left:100px}).tween({ left:100px });
-	*
-	* arguments:
-	* 
-	* properties:object an object literal of element properties to tween.
-	* 
-	* _or_
-	*
-	* queue:array an array literal of objects which contain properties to tween sequentially.
-	*
-	* example:
-	* 
-	*/
+	 *
+	 * Tween is a method for transforming a css property to a new value.
+	 * 
+	 * @method
+	 * @param {Object} [Array|Object]
+	 * @return {Element Collection}
+	 * @example
+	 * 
+	 * ### tween
+	 *	
+	 * syntax:
+	 * 
+	 * x$(selector).tween(obj);
+	 *
+	 * arguments:
+	 * 
+	 * - properties:object an object literal of element css properties to tween or an array containing object literals of css properties to tween sequentially.
+	 *
+	 * example:
+	 *
+	 * 	x$('#box').tween({ left:100px, backgroundColor:'blue' });
+	 * 	
+	 * 	x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:100px }]);
+	 * 	
+	 * 	x$('#box').tween({ left:100px}).tween({ left:100px });
+	 * 
+	 */
 	tween: function( options ) {
 	    if (options instanceof Array) {
 	        for(var i=0;i<options.length;i++) {
@@ -46,7 +54,7 @@ var Fx = {
 
 	// -- private -- //
 
-	// TODO should this be private __animationStack?
+	// TODO move these methods into the tween method
 	animationStack: [],
 
 	start:function() {
@@ -111,5 +119,5 @@ var Fx = {
 	rotateOp: function(axis, degree){
 	    return 'rotate' + axis + '(' + degree + 'deg)';
 	}
-	
+//---	
 };

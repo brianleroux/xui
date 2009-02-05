@@ -1,216 +1,131 @@
-
-
-/*****************************************************************************/
-/*
-/* Common
-/*
-/*****************************************************************************/
-
-/* Global Reset */
-
-* {
-  margin: 0;
-  padding: 0;
+body{
+  font-family: Arial, sans-serif;
+  font-size:82%;
+  margin:0;
+  line-height:1.5em;
+  background:#eee;
+  padding:30px;
+}
+h1.title{
+  margin:0;
+  padding:0;
+  display:inline;
+  float:left;
+}
+h1.title a{
+  font-size:4em;
+  text-decoration:none;
+  color:#222;
+  margin:0;
+  line-height:1em;
+  font-size:4.4em;
+  letter-spacing:-.12em;
 }
 
-html, body {
-  height: 100%;
+a.download{
+  color:green;
+  font-family:Georgia;
+  font-size:3.3em;
+  font-weight:bold;
+  padding:30px 0;
+  display:block;
+  text-align:center;
+  margin:0;
 }
 
-body {
-  background-color: white;
-  font: 13.34px helvetica, arial, clean, sans-serif;
-  *font-size: small;
-  text-align: center;
+h2{
+  color:lightblue;
+  font-style:italic;
+  color:#933;
 }
 
-table {
-  font-size: inherit;
-  font: 100%;
+h3{
+  font-size:1.5em;
+  color:#2B2720;
+  font-family:Georgia,"Times New Roman",Times,serif;
+  border-bottom:1px solid #E2E1DE;
+  margin-bottom:0.5em;
 }
 
-pre,
-code {
-  font: 115% Monaco, "Courier New", monospace;
-  *font-size: 100%;
-/*  line-height: 1.5em;*/
+#shell{
+  padding:10px 20px;
+  background:#fff;
+  width:700px;
+  min-height:800px;
 }
 
-body * {
-  line-height: 1.4em;
+#why{
+  background:#ffd;
+  border:1px solid #ffb;
+  padding:0px 15px 0px;
 }
 
-img {
-  border: 0;
+#why h3{
+  margin-top:15px;
+  border-width:0;
+}
+#content{
+  clear:both;
 }
 
-/* links */
-
-a {
-  color: #4183c4; /* blue */
-  text-decoration: none;
+#nav{
+font-size:1.3em;
+line-height:normal;
+margin-left:180px;
+padding-top:12px;
+font-family:Georgia;
+font-weight:200;
+font-style:italic;
+overflow:auto;
 }
-
-a.action {
-  color: #d00; /* red */
-  text-decoration: underline;
+#nav ul{
+float:left;
+margin:0;
+padding:0;
+list-style:none;
 }
-
-a.action span {
-  text-decoration: none;
+#nav li{
+float:left;
+margin:0;
+padding:0;
 }
-
-a:hover {
-  text-decoration: underline;
+#nav a{
+float:left;
+display:block;
+padding:3px 10px 3px 10px;
+text-decoration:none;
+color:#777;
 }
-
-.clear {
-  clear: both;
+/* Commented Backslash Hack
+hides rule from IE5-Mac \*/
+#nav a {float:none;}
+/* End IE5-Mac hack */
+#nav a:hover {
+color:#888;
+text-decortation:none;
 }
-
-.sparkline {
-  display: none;
+#nav .selected a{
+color:#0479A7;
 }
-
-.right {
-  float: right;
-}
-
-.left {
-  float: left;
-}
-
-.hidden {
-  display: none;
-}
-
-img.help {
-  vertical-align: middle;
-}
-
-abbr {
-  border-bottom: none;
-}
-
-/*****************************************************************************/
-/*
-/* Common Layout
-/*
-/*****************************************************************************/
-
-body {
-  text-align: center;
-}
-
-.site {
-  width: 69em;
-  margin: 0 auto;
-  padding: 0 3em;
-  text-align: left;
+#nav .btn-log a{
+margin-left:70px;
+color:gold;
 }
 
 
+pre {
+background:#DFECF1;
+border:1px dotted #ccc;
+color:#25221D;
+font-family:"Courier New","Andale Mono",monospace;
+font-size:12px;
+font-size-adjust:none;
+font-stretch:normal;
+font-style:normal;
+font-variant:normal;
+font-weight:normal;
+line-height:normal;
+overflow:auto;
+padding:10px;
 
-.wikistyle h1 {
-  font-size: 170%;
-  border-top: 4px solid #aaa;
-  padding-top: .5em;
 }
-
-.wikistyle h2 {
-  font-size: 150%;
-  margin-top: 1.5em;
-  border-top: 4px solid #e0e0e0;
-  padding-top: .5em;
-}
-
-.wikistyle h3 {
-  margin-top: 1em;
-}
-
-.wikistyle p {
-  margin: 1em 0;
-  line-height: 1.5em;
-}
-
-.wikistyle ul {
-  margin: 1em 0 1em 1.3em;
-}
-
-.wikistyle ol {
-  margin: 1em 0 1em 1.5em;
-}
-
-.wikistyle blockquote {
-  margin: 1em 0;
-  border-left: 5px solid #ddd;
-  padding-left: .6em;
-  color: #555;
-}
-
-.wikistyle table {
-  margin: 1em 0;
-}
-
-  .wikistyle table th {
-    border-bottom: 1px solid #bbb;
-    padding: .2em 1em;
-  }
-
-  .wikistyle table td {
-    border-bottom: 1px solid #ddd;
-    padding: .2em 1em;
-  }
-
-.wikistyle pre {
-  margin: 1em 0;
-  font-size: 90%;
-  background-color: #f8f8ff;
-  border: 1px solid #dedede;
-  padding: .5em;
-  line-height: 1.5em;
-  color: #444;
-  overflow: auto;
-}
-
-  .wikistyle pre code {
-    padding: 0;
-    font-size: 100%;
-    background-color: #f8f8ff;
-    border: none;
-  }
-
-.wikistyle code {
-  font-size: 90%;
-  background-color: #f8f8ff;
-  color: #444;
-  padding: 0 .2em;
-  border: 1px solid #dedede;
-}
-
-/* console */
-
-.wikistyle pre.console {
-  margin: 1em 0;
-  font-size: 90%;
-  background-color: black;
-  padding: .5em;
-  line-height: 1.5em;
-  color: white;
-}
-
-  .wikistyle pre.console code {
-    padding: 0;
-    font-size: 100%;
-    background-color: black;
-    border: none;
-    color: white;
-  }
-
-  .wikistyle pre.console span {
-    color: #888;
-  }
-
-  .wikistyle pre.console span.command {
-    color: yellow;
-  }

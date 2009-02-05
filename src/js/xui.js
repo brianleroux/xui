@@ -153,6 +153,12 @@
 *
 * Changelog
 * ---
+* 
+* _feb 04, 2009_
+*
+* - started scriptdoc 
+* - added Dom.html method alias shortcuts for: inner, outer, top, bottom and remove
+*
 * _jan 30, 2009_
 *
 * - Fixed bug in html.wrap private - createAttributes was broken
