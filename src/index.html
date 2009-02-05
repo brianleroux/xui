@@ -17,21 +17,29 @@
 <script src="../src/js/xui-app.js" type="text/javascript"></script>
 -->
 <script type="text/javascript">
-// x$.app('default application'});
-window.onload	= function(e) {
+x$(window).load(function(e) {
 	
 	// stop scrolling around
 	e.preventDefault();
 	
-	// hide the url
+	// hide the navigator bar
 	var hideUrl = function() {
-		setTimeout(function() {
-			window.scrollTo(0, 1);
-		}, 0);
-	}();
-}
-
+		setTimeout( scrollTo, 0, 0, 1);
+	};
 	
+	var setOrientation = function() {
+		x$(document.body).addClass((window.orientation == 0 || window.orientation == null) ? 'portrait' : 'landscape');	
+	};
+	
+	// set a portrait or landscape class
+	x$(window).orientationchange(function(e){
+		  setOrientation();
+	});
+	
+	hideUrl();
+	setOrientation();
+///	
+});
 </script>
 </head>
 

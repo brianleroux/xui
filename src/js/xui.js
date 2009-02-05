@@ -1,4 +1,12 @@
 /*
+* @projectDescription 	XUI JavaScript library for mobile web applications.
+*
+* @author	Rob Ellis rob.ellis@nitobi.com
+* @author	Brian LeRoux brian.leroux@westcoastlogic.com
+* @author	Brock Whitten brock@sintaxi.com
+*
+* @version	0.1 
+*
 * XUI
 * ===
 * 
@@ -23,7 +31,7 @@
 * 
 * ### Download
 * 
-* Minified code is less than 6k! _official builds coming soonish - Brian Jan 6, 2009_
+* Minified code is less than 6k! 
 * 
 * ### Contribute
 *
@@ -39,7 +47,7 @@
 * API Documentation
 * ===
 * 
-* Welcome the XUI documentation. This is generated from inline documentation in the xui javascript source.
+* Welcome the XUI documentation. This is generated from inline documentation in the XUI javascript source.
 *
 * 
 * 
@@ -55,7 +63,10 @@
 * XUI allows for a single expression, an element or an array of elements to be passed
 * 
 * 	x$(window);
-*
+*	
+*	x$('ul#globalnav li a.selected');
+*	
+*	x$(['li', 'div#foo']);
 * 
 */
 (function() {
@@ -68,8 +79,7 @@
 		elements:[],
 		
 		find: function(q) {
-			this.elements = []; // should it behave like this?
-
+			this.elements = []; 
 			var qlen = q.length;
 			for(var i = 0; i < qlen; i++ ) {
 				if( typeof q[i] == 'string' ) {
@@ -82,11 +92,15 @@
 				} else {
 					this.elements.push(q[i]);
 				}
-				
 			};
 			return this;
 		},
 		
+		/**
+		 * Returns the first element in the collection.
+		 * 
+		 * @return {Element} Returns a single DOM element.
+		 */
 		first: function() {
 			return this.elements[0];
 		},

@@ -1,47 +1,55 @@
 /**
-*
-* Dom
-* ---
-*	
-* Manipulating the document object model (DOM).
-* 
-*/
+ *
+ * @namespace {Dom}
+ * @example
+ *
+ * Dom
+ * ---
+ *	
+ * Manipulating the Document Object Model aka the DOM.
+ * 
+ */
 var Dom = {
 
 	/**
-	*
-	* ### html
-	*
-	* Adds elements or changes the content of an element on a page.
-	*	
-	* syntax:
-	*
-	* 	x$(window).html( location, htmlFragment );
-	*
-	* or..
-	*
-	* 	x$(window).html( htmlFragment );
-	* 
-	* arguments:
-	* 
-	* - location:string can be one of inner, outer, top, bottom
-	* - htmlFragment:string any string of html markup or HTMLElement
-	*
-	* example:
-	*
-	*  	x$('#foo').html( 'inner',  htmlFragment );
-	*  	x$('#foo').html( 'outer',  htmlFragment );
-	* 	x$('#foo').html( 'top',    htmlFragment );
-	*  	x$('#foo').html( 'bottom', htmlFragment );
-	*  	x$('#foo').html( 'remove' );	
-	* 
-	* or
-	* 
-	* 	x$('#foo').html('<p>sweet as honey</p>');
-	* 
-	*/
-	
-	
+	 * For manipulating HTML markup in the DOM.
+	 * 
+	 * @method
+	 * @param {location} [inner|outer|top|bottom|remove]
+	 * @param {html} A string representation of HTML markup. 
+	 * @return {Element Collection}
+	 * @example
+	 * 
+	 * ### html
+	 *
+	 * Adds elements or changes the content of an element on a page.
+	 *	
+	 * syntax:
+	 *
+	 * 		x$(window).html( location, html );
+	 *
+	 * or..
+	 *
+	 * 		x$(window).html( htmlFragment );
+	 * 
+	 * arguments:
+	 * 
+	 * - location:string can be one of inner, outer, top, bottom
+	 * - html:string any string of html markup or HTMLElement
+	 *
+	 * example:
+	 *
+	 *  	x$('#foo').html( 'inner',  '<strong>rock and roll</strong>' );
+	 *  	x$('#foo').html( 'outer',  '<p>lock and load</p>' );
+	 * 		x$('#foo').html( 'top',    '<div>bangers and mash</div>');
+	 *  	x$('#foo').html( 'bottom', '<em>mean and clean</em>');
+	 *  	x$('#foo').html( 'remove'  '<h1>first and last</h1>');	
+	 * 
+	 * or
+	 * 
+	 * 		x$('#foo').html('<p>sweet as honey</p>');
+	 * 
+	 */
     html:function(location, html) {
 		
 		// private method for finding a dom element 
@@ -138,7 +146,25 @@ var Dom = {
 
 
 	
-	// This is needed el.node will return something useless without it.
+	/**
+	 * Removes all erronious nodes from the DOM.
+	 * 
+	 * @method 
+	 * @return {Element Collection} 
+	 * @example
+	 * 
+	 * ### clean
+	 * 
+	 * Walks the Element Collection removing empty nodes and whitespace.
+	 *	
+	 * syntax:
+	 *
+	 * 		x$(selector).clean();
+	 *
+	 * example:
+	 * 
+	 * 		x$(window).clean();
+	 */
 	clean:  function() {
   		var ns = /\S/;
  		this.each(function(el) {
