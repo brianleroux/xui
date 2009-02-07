@@ -1,0 +1,25 @@
+<div id="core" class="example">
+	<h1>Selector system</h1>
+	<p>An XUI object is instantiated with the <em>x$</em> method accepting any element, css selector or array of selectors as an argument.</p>
+	<pre>
+		// any element
+		x$(window)
+		
+		// a css selector 
+		x$('ul#nav li a.selected');
+		
+		// an array of selectors
+		x$(['li', 'div#foo']);
+	</pre>
+	
+	<h1>Convenience methods</h1>
+	<pre>
+		// returns the first element
+		x$(window).first();
+		
+		// each iterator
+		x$('button').each(function(element){
+			
+		});
+	</pre>
+</div>
