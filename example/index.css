@@ -36,7 +36,7 @@
 	
 	div#examples {
 		float:right;
-		width:600px;
+		width:660px;
 		margin:0 20px 0 0;
 	}	
 	
@@ -45,18 +45,31 @@
 		text-decoration:underline;
 	}
 	
-	
 pre {
    	display: block;
-	margin:0;
-	padding:0;
-   	white-space: pre;
-   	line-height: 1.4;
+	margin:0 0 10px 0;
+	padding:10px;
    	border: 4px solid #333;
    	background: #000;
-   	font-size: 12pt;
-   	font-family:; monaco, monospace;
-		-webkit-border-radius:10px;
-		-moz-border-radius:10px;
-		color:green;
+   	font-size: 11pt;
+   	font-family: monaco, monospace;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	color:green;
+}
+
+.example {
+	border:1px solid #ccc;
+	background:#eaeaea;
+	padding:10px;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+}
+
+.wrap {
+	border:1px solid yellow;
+	background:#ffffcc;
+	padding:10px;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
 }

@@ -25,11 +25,11 @@ var initDomExample = function() {
 	});
 
 	x$('#button6').click(function(){
-		x$('#para2').html('outer',"<div id='para2' style='border:1px solid blue'>New Content and <b>DIV Container</b> Added to Outer</div>");
+		x$('#para2').html('outer','<div id="para2">New Content and <b>DIV Container</b> Added to Outer</div>');
 	});
 
 	x$('#button7').click(function(){
-		x$('#para2').html('outer',"<p id='para2' style='border:1px solid red'>New Content and <b>P Container</b> Added to Outer</p>");
+		x$('#para2').html('outer','<p id="para2">New Content and <b>P Container</b> Added to Outer</p>');
 	});
 
 	x$('#button8').click(function(){
