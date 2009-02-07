@@ -5,6 +5,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="stylesheet" href="index.css" type="text/css" media="screen" title="no title" charset="utf-8" />
 
 <script src="../lib/xui.js" type="text/javascript" ></script>
 
@@ -20,118 +21,42 @@ x$(window).load(function(e){
 			x$(this).tween({background:	'#eaeaea', color:'#222222'});
 		});		
 		
+		// load the examples into the layout
+		x$('div#nav ul li a').each(function(e){
+			x$(e).click(function(evt){
+				x$('#stage').xhr(e.href);
+				
+				// remove selected from everyone else
+				x$('div#nav ul li a').removeClass('selected');
+				
+				// add it to this element
+				x$(e).addClass('selected');
+				
+				evt.preventDefault();
+				e.blur();
+			});
+		});
+		
+		x$('#stage').xhr('core/index.html');
 ///---			
 });
 </script>
-<style tyep="text/css">
-	body {
-		font-family:Arial, sans-serif;
-		letter-spacing:-0.12em;
-		padding:20px;
-		color:#222222;
-	}
-	
-	div#nav {
-		background:#eaeaea;
-		border:5px solid #ccc;
-		-webkit-border-radius:10px;
-		-moz-border-radius:10px;
-		width:300px;
-		float:right;
-	}
-	
-	div#nav ul {
-		list-style:none;
-		margin:0;
-		padding:0;
-	}
-	
-	div#nav ul li {
-		margin:0;
-		padding:0;
-	}
-	
-	div#nav ul li a {
-		cursor:pointer;
-		display:block;
-		font-size:22pt;
-		padding:20px;
-		-webkit-border-radius:10px;
-		-moz-border-radius:10px;
-	}
-	
-	#hide {
-		background:red;
-		color:#fff;
-	}
-		
-	div#examples {
-		float:right;
-		width:400px;
-	}	
-	
-</style>
 </head>
 <body>
 
 <div id="nav">
 <ul>
-	<li><a>Core</a></li>
-	<li><a>Dom</a></li>
-	<li><a>Event</a></li>
-	<li><a>Fx</a></li>
-	<li><a>Style</a></li>
-	<li><a>Xhr</a></li>
+	<li><a href="core/index.html">Core</a></li>
+	<li><a href="dom/index.html">Dom</a></li>
+	<li><a href="event/index.html">Event</a></li>
+	<li><a href="fx/index.html">Fx</a></li>
+	<li><a href="style/index.html">Style</a></li>
+	<li><a href="xhr/index.html">Xhr</a></li>
 </ul>
 </div>
 
 <div id="examples">
-	<div id="hide">this should be hidden</div>
-	
-	<div id="core" class="example">
-		<h1>Selector system</h1>
-		<p>An XUI object is instantiated with the <em>x$</em> method accepting any element, css selector or array of selectors as an argument.</p>
-		<pre>
-			// any element
-			x$(window)
-			
-			// a css selector 
-			x$('ul#nav li a.selected');
-			
-			// an array of selectors
-			x$(['li', 'div#foo']);
-		</pre>
-		
-		<h1>Convenience methods</h1>
-		<pre>
-			// returns the first element
-			x$(window).first();
-			
-			// each iterator
-			x$('button').each(function(element){
-				
-			});
-			
-			// extend, for mixins 
-			x$(window).extend({
-				
-				hide:function() {
-					x$(this).each(function(element){
-						$(element).setStyle('display', 'none');
-					});
-					return this;
-				}
-				
-			});
-			
-		</pre>
-	</div>
-	
-	<div id="Dom"></div>
-	<div id="Event"></div>
-	<div id="Fx"></div>
-	<div id="Style"></div>
-	<div id="Xhr"></div>
+	<div id="stage"></div>	
 </div>
 
 </div>
