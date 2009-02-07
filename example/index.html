@@ -7,27 +7,41 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <link rel="stylesheet" href="index.css" type="text/css" media="screen" title="no title" charset="utf-8" />
 
-<script src="../lib/xui.js" type="text/javascript" ></script>
+<script src="../lib/xui.js" type="text/javascript"></script>
+
+<script src="dom/dom.js" type="text/javascript"></script>
+<script src="event/event.js" type="text/javascript"></script>
+<script src="fx/fx.js" type="text/javascript"></script>
+<script src="style/style.js" type="text/javascript"></script>
+<script src="xhr/xhr.js" type="text/javascript"></script>
+
 
 <script type="text/javascript">
 x$(window).load(function(e){
 		
 		// hover states with js
-		x$('div#nav ul li a').on('mouseover', function(e){
-			x$(this).tween({background:'#222222', color:'#fff'});
+		/*x$('div#nav ul li a').on('mouseover', function(e){
+			x$(this).tween({background:'#222222', color:'#fff', duration:.3});
 		});
 		x$('div#nav ul li a').on('mouseout', function(e){
-			x$(this).tween({background:	'#eaeaea', color:'#222222'});
+			x$(this).tween({background:	'#eaeaea', color:'#222222', duration:.3});
 		});		
-		
+		*/
 		// load the examples into the layout
 		x$('div#nav ul li a').each(function(e){
 			x$(e).click(function(evt){
-				x$('#stage').xhr(e.href);
-				// remove selected from everyone else
-				x$('div#nav ul li a').removeClass('selected');
-				// add it to this element
-				x$(e).addClass('selected');
+				
+				var library = e.href.split('/')[e.href.split('/').length-2];
+				
+				var callbacks = {
+					'dom':initDomExample,
+					'event':initEventExample,
+					'fx':initFxExample,
+					'style':initStyleExample,
+					'xhr':initXhrExample
+				}
+				
+				x$('#stage').xhr(e.href, {callback:callback[library]});
 				// stop the href default and remove the fugly outline
 				evt.preventDefault();
 				e.blur();
@@ -36,24 +50,6 @@ x$(window).load(function(e){
 		
 		// load the default page
 		x$('#stage').xhr('core/index.html');
-		
-		// testing extend
-		x$().extend({
-			log:function(msg) {
-				console.log(msg);
-			}
-		});
-		
-		x$().log('hello world')
-		
-		console.log('pls extend');
-
-		
-		
-		
-		
-		
-		
 ///---			
 });
 </script>

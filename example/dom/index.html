@@ -1,106 +1,58 @@
+<h1>Using html - here</h1>
+<p>Click on the text below to change the innerHTML of the element.</p>
+<div class="wrap">
+  <div id="div1">Blah blah blah</div>
+</div>
+<button id="button1">Click me to change the Div's Content</button>
 
-    <script type="text/javascript" charset="utf-8">
-      x$(window).load(function(){
-        
-        x$('#button1').click(function(){
+<pre>
+  x$('#button1').click(function(){
+    x$('#div1').html("New Content From JavaScript Land");
+  });
+</pre>
 
-          //x$('#div1').html("New <link ></link>Content From JavaScript Land");
-          var d = document.createElement('div');
-          d.innerHTML = "SOme new test";
-          x$('#div1').html("<p>Some Test</p>");
-        });  
-                
-        x$('#button2').click(function(){
-          x$('#list1').html('top',"New Content Added to Top");
-        });
-           
-        x$('#button3').click(function(){
-          x$('#list1').html('bottom',"New Content Added to Bottom");
-        });   
-        
-        x$('#button4').click(function(){
-          x$('#p1').html("top","New Content Added to Top");
-        });
-        
-        x$('#button5').click(function(){
-          x$('#p1').html('bottom',"New Content Added to Bottom");
-        });
-        
-        x$('#button6').click(function(){
-          x$('#para2').html('outer',"<div id='para2' style='border:1px solid blue'>New Content and <b>DIV Container</b> Added to Outer</div>");
-        });
+<h1>Using html - top and bottom lists</h1>
+<p>HTML has a second [optional] parameter, location (top, bottom, outer or default inner). #list1 is an empty unordered list. When you use top,bottom and outer, x$().html() inspects the string you pass in and does what you want.</p>
 
-        x$('#button7').click(function(){
-          x$('#para2').html('outer',"<p id='para2' style='border:1px solid red'>New Content and <b>P Container</b> Added to Outer</p>");
-        });
+<div class="wrap">
+  <ul id="list1">
+  </ul>
+</div>
+<button id="button2">Click me to Add an item to the Top of the list.</button>
+<button id="button3">Click me to Add an item to the Bottom of the list.</button>
 
-        x$('#button8').click(function(){
-          x$('#para2').html('remove');
-        });
+<pre>
+  x$('#button2').click(function(){
+    x$('#list1').html("top","New Content Added to Top");
+  });
+     
+  x$('#button3').click(function(){
+    x$('#list1').html("bottom","New Content Added to Bottom");
+  });        
+</pre>
 
-                       
-      });
-      
-    </script>
+<h1>Using html - top and bottom paragraphs </h1>
+<p>This example is identical to the one above, except instead of a list, we are using paragraphs. When ever we need to create a node, x$().html will look to see what the parent Nodes First Sibling is and create that node. In this case, it is a paragraph.</p>
+<div id="p1" class="wrap">
+  <p id="para1">Random paragraph</p>
+</div>
+<button id="button4">Click me to Add an item to the Top of the list.</button>
+<button id="button5">Click me to Add an item to the Bottom of the list.</button>
+<pre>
+  x$('#button4').click(function(){
+    x$('#p1').html("top","New Content Added to Top");
+  });
+  
+  x$('#button5').click(function(){
+    x$('#p1').html("bottom","New Content Added to Bottom");
+  });
+</pre>
 
+<h1>Using html - outer with fragments </h1>
+<div class="wrap">
+  <p id="para2">Random paragraph</p>
+</div>
 
-    <h1>Using html - here</h1>
-    <p>Click on the text below to change the innerHTML of the element.</p>
-    <div class="wrap">
-      <div id="div1">Blah blah blah</div>
-    </div>
-    <button id="button1">Click me to change the Div's Content</button>
-    
-    <pre>
-      x$('#button1').click(function(){
-        x$('#div1').html("New Content From JavaScript Land");
-      });
-    </pre>
-    
-    <h1>Using html - top and bottom lists</h1>
-    <p>HTML has a second [optional] parameter, location (top, bottom, outer or default inner). #list1 is an empty unordered list. When you use top,bottom and outer, x$().html() inspects the string you pass in and does what you want.</p>
-
-    <div class="wrap">
-      <ul id="list1">
-      </ul>
-    </div>
-    <button id="button2">Click me to Add an item to the Top of the list.</button>
-    <button id="button3">Click me to Add an item to the Bottom of the list.</button>
-
-    <pre>
-      x$('#button2').click(function(){
-        x$('#list1').html("top","New Content Added to Top");
-      });
-         
-      x$('#button3').click(function(){
-        x$('#list1').html("bottom","New Content Added to Bottom");
-      });        
-    </pre>
-
-    <h1>Using html - top and bottom paragraphs </h1>
-    <p>This example is identical to the one above, except instead of a list, we are using paragraphs. When ever we need to create a node, x$().html will look to see what the parent Nodes First Sibling is and create that node. In this case, it is a paragraph.</p>
-    <div id="p1" class="wrap">
-      <p id="para1">Random paragraph</p>
-    </div>
-    <button id="button4">Click me to Add an item to the Top of the list.</button>
-    <button id="button5">Click me to Add an item to the Bottom of the list.</button>
-    <pre>
-      x$('#button4').click(function(){
-        x$('#p1').html("top","New Content Added to Top");
-      });
-      
-      x$('#button5').click(function(){
-        x$('#p1').html("bottom","New Content Added to Bottom");
-      });
-    </pre>
-    
-    <h1>Using html - outer with fragments </h1>
-    <div class="wrap">
-      <p id="para2">Random paragraph</p>
-    </div>
-    
-    <button id="button6">Click me to Change the content, and container of para2 to DIV</button>
-    <button id="button7">Click me to Change the content, and container of para2 to P</button>    
-    
-    
-    <button id="button8">Remove #para2</button>        
+<button id="button6">Click me to Change the content, and container of para2 to DIV</button>
+<button id="button7">Click me to Change the content, and container of para2 to P</button>    
+<button id="button8">Remove #para2</button>        

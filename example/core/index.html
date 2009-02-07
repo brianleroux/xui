@@ -12,11 +12,16 @@
 		x$(['li', 'div#foo']);
 	</pre>
 	
-	<h1>Convenience methods</h1>
+	<h1>Convenience method</h1>
+	<p>Rather often you want to do something with just the first element in a collection.</p>
 	<pre>
 		// returns the first element
 		x$(window).first();
-		
+	</pre>
+	
+	<h1>Each iterator</h1>
+	<p>Used internally by nearly every method in XUI to loop over the element collection.</p>
+	<pre>	
 		// each iterator
 		x$('button').each(function(element){
 			
