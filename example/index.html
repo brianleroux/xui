@@ -22,6 +22,8 @@ x$(window).load(function(e){
 		// load the examples into the layout
 		x$('div#nav ul li a').each(function(e){
 			x$(e).click(function(evt){
+				x$('div#nav ul li a').removeClass('selected');
+				x$(this).addClass('selected');
 				
 				var library = e.href.split('/')[e.href.split('/').length-2];
 				
@@ -43,6 +45,8 @@ x$(window).load(function(e){
 		
 		// load the default page
 		x$('#stage').xhr('core/index.html');
+		x$('div#nav ul li:first-child a').addClass('selected');
+		
 ///---			
 });
 </script>

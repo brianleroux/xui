@@ -40,9 +40,8 @@
 		margin:0 20px 0 0;
 	}	
 	
-	a.selected {
-		background:blue;
-		text-decoration:underline;
+	.selected {
+		background:#ddd;
 	}
 	
 pre {
@@ -104,16 +103,7 @@ pre {
 }
 
 
-
-
-
-
-
-
-
-
-
-
+/* these are from the old style examples... need to clean this up */
 .box {
   position:absolute;
   width:50px;
@@ -144,25 +134,4 @@ pre {
 .red {
   background-color:red;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
