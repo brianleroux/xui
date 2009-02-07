@@ -16,7 +16,6 @@ x$(window).load(function(e){
 		x$('div#nav ul li a').on('mouseover', function(e){
 			x$(this).tween({background:'#222222', color:'#fff'});
 		});
-
 		x$('div#nav ul li a').on('mouseout', function(e){
 			x$(this).tween({background:	'#eaeaea', color:'#222222'});
 		});		
@@ -25,19 +24,36 @@ x$(window).load(function(e){
 		x$('div#nav ul li a').each(function(e){
 			x$(e).click(function(evt){
 				x$('#stage').xhr(e.href);
-				
 				// remove selected from everyone else
 				x$('div#nav ul li a').removeClass('selected');
-				
 				// add it to this element
 				x$(e).addClass('selected');
-				
+				// stop the href default and remove the fugly outline
 				evt.preventDefault();
 				e.blur();
 			});
 		});
 		
+		// load the default page
 		x$('#stage').xhr('core/index.html');
+		
+		// testing extend
+		x$().extend({
+			log:function(msg) {
+				console.log(msg);
+			}
+		});
+		
+		x$().log('hello world')
+		
+		console.log('pls extend');
+
+		
+		
+		
+		
+		
+		
 ///---			
 });
 </script>

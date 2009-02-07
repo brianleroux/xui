@@ -70,9 +70,17 @@
 * 
 */
 (function() {
-	var _$ = function(els) {
-		return this.find(els);
+	var _$ = function(q) { 
+		q = q || document;
+		return this.find(q);
 	};
+	
+	_$.extend = function(obj) {
+		var original = this.prototype;
+		var extended = obj;
+		for (var key in (extended || {})) original[key] = extended[key];
+		return original;
+	}
 	
 	_$.prototype = {
 		
@@ -115,37 +123,20 @@
 				fn.call(this,this.elements[i]);
 			}
 			return this;
-		},
-
-		/**
-		 * Extends XUI library with an object.
-		 * 
-		 * @return {XUI} Returns the extended XUI.
-		 */
-		extend: function( that ) {
-			var ext = function(original, extended){
-				for (var key in (extended || {})) original[key] = extended[key];
-				return original;
-			};
-			return ext(this, that);
 		}
 	};
 	
+	<%= build_sub_libraries %>
+
+	var libs = <%= "[#{ libs_to_build.map {|x| x.capitalize }.join(', ') }]" %>;
+	
+	for (var i = 0, size = libs.length; i < size; i++) _$.extend( libs[i] );
 
 	// adds the xui system as x$ to the current window
 	var xui = window.x$ = function() {
-		<%= build_sub_libraries %>
-	
-		var libs = <%= "[#{ libs_to_build.map {|x| x.capitalize }.join(',') }]" %>;
-		var size = libs.length;
-		var that = new _$(arguments);
-		
-		for (var i = 0; i < size; i++) {
-			that.extend( libs[i] );
-		}
-		return that;
+		return new _$(arguments);
 	}
-
+//---
 })();
 
 /*
