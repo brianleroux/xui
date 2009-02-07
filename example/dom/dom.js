@@ -4,7 +4,7 @@ var initDomExample = function() {
 	
 	x$('#button1').click(function(){
 	  	var d = document.createElement('div');
-	  	d.innerHTML = "SOme new test";
+	  	d.innerHTML = "Some new test";
 	  	x$('#div1').html("<p>Some Test</p>");
 	});  
         

@@ -1,4 +1,6 @@
 var initEventExample = function() {
+	x$('#stage').html(this.responseText);
+	
 	// via the excellent:
 	// http://www.sitepen.com/blog/2008/07/10/touching-and-gesturing-on-the-iphone/
 	x$('#drag').touchmove(function(e) { 

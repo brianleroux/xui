@@ -40,8 +40,8 @@ x$(window).load(function(e){
 					'style':initStyleExample,
 					'xhr':initXhrExample
 				}
-				
-				x$('#stage').xhr(e.href, {callback:callback[library]});
+
+				x$('#stage').xhr(e.href, {callback:callbacks[library]});
 				// stop the href default and remove the fugly outline
 				evt.preventDefault();
 				e.blur();
