@@ -73,3 +73,20 @@ pre {
 	-webkit-border-radius:10px;
 	-moz-border-radius:10px;
 }
+
+
+#drag,
+#resize-and-rotate {
+	background:blue;
+	width:100px;
+	height:100px;
+	line-height:100px;
+	text-align:center;
+	color:white;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+}
+
+#resize-and-rotate {
+	background:green;
+}
