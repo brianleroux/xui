@@ -90,3 +90,15 @@ pre {
 #resize-and-rotate {
 	background:green;
 }
+
+#fx {
+	position:absolute;
+	background:green;
+	width:100px;
+	height:100px;
+	line-height:100px;
+	text-align:center;
+	color:white;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+}

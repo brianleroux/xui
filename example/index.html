@@ -19,14 +19,6 @@
 <script type="text/javascript">
 x$(window).load(function(e){
 		
-		// hover states with js
-		x$('div#nav ul li a').on('mouseover', function(e){
-				x$(this).tween({background:'#222222', color:'#fff' });
-		});
-		x$('div#nav ul li a').on('mouseout', function(e){
-				x$(this).tween({background:	'#eaeaea', color:'#222222' });
-		});		
-
 		// load the examples into the layout
 		x$('div#nav ul li a').each(function(e){
 			x$(e).click(function(evt){
