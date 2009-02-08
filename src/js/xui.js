@@ -153,6 +153,10 @@
 *
 * Changelog
 * ---
+*
+* _feb 07, 2009_
+*
+* - Fixed bug in DOM Regex related to attributes (wrap)
 * 
 * _feb 04, 2009_
 *

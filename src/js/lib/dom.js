@@ -85,7 +85,7 @@ var Dom = {
 	    var wrap = function(xhtml,tag) {
 		
 	        var attributes = {};
-	        var re = /^<([A-Z][A-Z0-9]*)(.*)[^>]*>(.*?)<\/\1>/i;
+	        var re = /^<([A-Z][A-Z0-9]*)([^>]*)>(.*)<\/\1>/i;
 	        if(re.test(xhtml)) {
 	            result = re.exec(xhtml);
 	            tag = result[1];
@@ -93,7 +93,7 @@ var Dom = {
 	            // if the node has any attributes, convert to object
 	            if (result[2] != "") {
 
-	                var attrList = result[2].split(/([a-zA-Z]*\s*=\s*['|"][a-zA-Z0-9:;#\s]*['|"])/);
+	                var attrList = result[2].split(/([A-Z]*\s*=\s*['|"][A-Z0-9:;#\s]*['|"])/i);
 
 	                for(var i=0;i<attrList.length;i++){
 						var attr = attrList[i].replace(/^\s*|\s*$/g, "");
