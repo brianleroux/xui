@@ -5,13 +5,14 @@ var initFxExample = function() {
 		x$('#fx').tween([
 			{
 				background:'red',
-				right:'0px',
+				by:[600,0], // X,Y
 				duration:2.5
 			},
 			{
 				background:'blue',
 				bottom:'0px',
-				duration:2.5
+				by:[0,0], // X,Y
+				duration:.5
 			}
 		]);
 	});
