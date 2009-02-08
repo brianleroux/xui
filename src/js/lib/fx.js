@@ -79,8 +79,8 @@ var Fx = {
 	    var after = (opt_after == undefined) ? function(){} : function() {  opt_after.apply(that); };    
 	    var duration = (options.duration == undefined) ? .5 : options.duration;
    
-			var translate = options.by;
-			var rotate = options.rotate;
+		var translate = options.by;
+		var rotate = options.rotate;
 			
 	    options.easing = options.rotate = options.by = options.before = options.after = options.duration = undefined;
 	    before.apply(before.arguments);
@@ -93,16 +93,10 @@ var Fx = {
 	        for( var prop in options ) {
 	            that.setStyle( prop, options[prop] )
 	        }
-	 				if (translate) {
-						that.setStyle('-webkit-transform', that.translateOp(translate[0],translate[1]));
-					}
-					
-					// if (rotate) {
-					// 	for(var x in rotate) {
-					// 		that.setStyle('-webkit-transform', that.rotateOp(x,rotate[x]));
-					// 	}
-					// }
-
+	
+			if (translate) {
+				that.setStyle('-webkit-transform', that.translateOp(translate[0],translate[1]));
+			}
 	    });
 
 	    setTimeout(function(){ that.setStyle('-webkit-transition','none');},duration*1000)
