@@ -1,135 +1,151 @@
 /**
-* XUI Apps
-* ---
-* 
-* Lightweight MVC for building rich mobile applications. 
-*
-* An XUI app has at a minimum a name and often a controller. Controllers are impolmented as object literals wherein 
-* the keys represent the templates to load and the values are callback functions which are executed once a template
-* has loaded. Models are up to you to implement but we try to make things a little nicer with json smart partials.
-*
-* Rendered templates that contain lists with links become link groups as in the native guis. These links are unobtrusively
-* enhanced with XUI app goodness: they call actions on your controller objects.
-*
-* syntax:
-* 
-* 	x$.app( title, controller );
-* 
-* arguments:
-* 
-* - title:string an appropriate name for your application
-* - controller:object the controller object define application functionality. also accepts an array of controllers.
-* 
-* example:
-* 
-* This app demonstrates all the defaults for a controller.
-*
-* 	x$.app('hello world app', { 
-*	
-*   	// application filters
-*   	after: 	   function(){console.log('called before every action is called')},
-*   	before:    function(){console.log('called after every action is called')},
-*
-* 		// layout templating
-*   	layout:    'index.html',  // default layout used
-*   	container: '#content',    // default element action results will be rendered in
-*   	index: 	   '_index.html', // default action to load
-*   
-* 		// action called after an action has loaded 
-* 		// the action key is a path to the template to be rendered and the method to call is the value
-* 		'_index.html':function(){ console.log('_index.html has been loaded')}
-*   });
-*
-* 
-* A slightly more complex app construction allowing for private members (sometimes called the module pattern).
-*
-* 	x$.app('hello world app', function(){
-*	
-* 		var Person = {};	
-* 
-*		var isAuthenicated = function() {
-* 			return Person.username && Person.password;
-* 		};
-* 
-* 		var checkAuth = function() {
-* 			if(!isAuthenticated())
-				load('login.html');
-* 		};
-*
-* 		return {
-*			before:checkAuth,
-* 
-*			'login.html':function(){},
-* 			'register.html':function(){},
-* 			'logout.html':function(){},
-*			'forgotpwd.html':function(){},
-* 			'account.html':function(){}
-* 		}
-* 	});
-*/ 
-x$.app = function(title,controller) {
+ * Based on iScroll by Matteo Spinelli, http://cubiq.org/
+ * http://cubiq.org/dropbox/mit-license.txt
+ */
 
-	var _history = [];
-	var _viewCache = [];
-	
-	var currentRequest = null
-	var before_method = null;
-	var after_method = null;
-	var container = controller.container || '#content';
-	
-	var load = function(url) {
-		var u = url.split('/');
-		u = u[u.length - 1];
-		document.location.hash = u;
-		for(var action in controller) {		
-			if (typeof action == 'string') {
-				var re = new RegExp(u); 		
-				if (re.test(action)) {
-					controller[action]();
-				}
-			}
+function scrollable(el)
+{
+	this.element = el;
+	this.position = 0;
+	this.refresh();
+	this.element.style.webkitTransitionTimingFunction = 'cubic-bezier(0, 0, 0.2, 1)';
+	this.acceleration = 0.009;
+
+	this.element.addEventListener('touchstart', this, false);
+}
+
+scrollable.prototype = {
+	handleEvent: function(e) {
+		switch(e.type) {
+			case 'touchstart': this.onTouchStart(e); break;
+			case 'touchmove': this.onTouchMove(e); break;
+			case 'touchend': this.onTouchEnd(e); break;
+			case 'webkitTransitionEnd': this.onTransitionEnd(e); break;
 		}
-		x$(container).xhr(url,{ callback:function(){
-			x$(container).html(this.responseText);
-			
-			x$('.nav A').click(function(e) { 
-				e.preventDefault();
-				load(this.href);
-				x$('#back').click(function(){					
-					load(_history[_history.length-1]);
-				});
-			});
-		}});
+	},
+
+	get position() {
+		return this._position;
+	},
+	
+	set position(pos) {
+		this._position = pos;
+		this.element.style.webkitTransform = 'translate(0, ' + this._position + 'px)';
+	},
+	
+	refresh: function() {
+		this.element.style.webkitTransitionDuration = '0';
+
+		if( this.element.offsetHeight<this.element.parentNode.clientHeight )
+			this.maxScroll = 0;
+		else		
+			this.maxScroll = this.element.parentNode.clientHeight - this.element.offsetHeight;
+	},
+	
+	onTouchStart: function(e) {
+		e.preventDefault();
+
+		this.element.style.webkitTransitionDuration = '0';	// Remove any transition
+		var theTransform = parseInt(window.getComputedStyle(this.element,null).webkitTransform.split(',')[13]);
+		if( theTransform!=this.position )
+			this.position = theTransform;
+		
+		this.startY = e.targetTouches[0].clientY;
+		this.scrollStartY = this.position;
+		this.scrollStartTime = e.timeStamp;
+		this.moved = false;
+
+		this.element.addEventListener('touchmove', this, false);
+		this.element.addEventListener('touchend', this, false);
+
+		return false;
+	},
+	
+	onTouchMove: function(e) {
+		if( e.targetTouches.length != 1 )
+			return false;
+		
+		var topDelta = e.targetTouches[0].clientY - this.startY;
+		if( this.position>0 || this.position<this.maxScroll ) topDelta/=2;
+		this.position = this.position + topDelta;
+		this.startY = e.targetTouches[0].clientY;
+		this.moved = true;
+
+		// Prevent slingshot effect
+		if( e.timeStamp-this.scrollStartTime>100 ) {
+			this.scrollStartY = this.position;
+			this.scrollStartTime = e.timeStamp;
+		}
+
+		return false;
+	},
+	
+	onTouchEnd: function(e) {
+		this.element.removeEventListener('touchmove', this, false);
+		this.element.removeEventListener('touchend', this, false);
+
+		// If we are outside of the boundaries, let's go back to the sheepfold
+		if( this.position>0 || this.position<this.maxScroll ) {
+			this.scrollTo(this.position>0 ? 0 : this.maxScroll);
+			return false;
+		}
+
+		if( !this.moved ) {
+			var theTarget = e.target;
+			if(theTarget.nodeType == 3) theTarget = theTarget.parentNode;
+			var theEvent = document.createEvent("MouseEvents");
+			theEvent.initEvent('click', true, true);
+			theTarget.dispatchEvent(theEvent);
+			return false
+		}
+
+		// Lame formula to calculate a fake deceleration
+		var scrollDistance = this.position - this.scrollStartY;
+		var scrollDuration = e.timeStamp - this.scrollStartTime;
+
+		var newDuration = (2 * scrollDistance / scrollDuration) / this.acceleration;
+		var newScrollDistance = (this.acceleration / 2) * (newDuration * newDuration);
+		
+		if( newDuration<0 ) {
+			newDuration = -newDuration;
+			newScrollDistance = -newScrollDistance;
+		}
+
+		var newPosition = this.position + newScrollDistance;
+		
+		if( newPosition>this.element.parentNode.clientHeight/2 )
+			newPosition = this.element.parentNode.clientHeight/2;
+		else if( newPosition>0 )
+			newPosition/= 1.5;
+		else if( newPosition<this.maxScroll-this.element.parentNode.clientHeight/2 )
+			newPosition = this.maxScroll-this.element.parentNode.clientHeight/2;
+		else if( newPosition<this.maxScroll )
+			newPosition = (newPosition - this.maxScroll) / 1.5 + this.maxScroll;
+		else
+			newDuration*= 6;
+
+		this.scrollTo(newPosition, Math.round(newDuration) + 'ms');
+
+		return false;
+	},
+	
+	onTransitionEnd: function() {
+		this.element.removeEventListener('webkitTransitionEnd', this, false);
+		this.scrollTo( this.position>0 ? 0 : this.maxScroll );
+	},
+	
+	scrollTo: function(dest, runtime) {
+		this.element.style.webkitTransitionDuration = runtime ? runtime : '300ms';
+		this.position = dest ? dest : 0;
+
+		// If we are outside of the boundaries at the end of the transition go back to the sheepfold
+		if( this.position>0 || this.position<this.maxScroll )
+			this.element.addEventListener('webkitTransitionEnd', this, false);
 	}
-	
-	
-	x$(window).load(function(){
-		for(var action in controller) {
-			if (action == 'before') {
-				before_method = controller[action];
-			}
-			
-			if (action == 'after') {
-				after_method = controller[action];
-			}
-		}
-
-		// Main Flow Loop
-		before_method();
-		var load_page = null;
-		(function() {
-			var cp = document.location.hash;
-			cp = cp.replace("#",'');
-			// if this looks like a partial load it
-			load_page = cp;
-
-		})();
-		for(var action in controller) {
-			if (action == 'index') {
-				_history.push(controller[action]);
-				load(load_page || controller[action]);
-			}
-		}
-		after_method();	
-	});
 };
+
+
+
+
+
+x$(window).load( function(){ setTimeout(function(){ new scrollable(x$('#scroller').first())) }, 100) };
