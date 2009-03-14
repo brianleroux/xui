@@ -104,6 +104,39 @@
 			return this;
 		},
 		
+		
+		_q2: function(q,t) {
+			var list = document.querySelectorAll(q);
+			if (list.length != 0) {
+				var ele = [];
+				this.each(function(el) {
+					for(var i = 0; i < list.length; i++ ) {
+						if (t == 1) {
+							if (el == list[i]) ele.push(el);
+						} else {
+							if (el != list[i]) ele.push(el);							
+						}
+					}					
+		      	});
+				this.elements = ele;
+			}
+			return this;
+		},
+		
+		/**
+		 * Has modifies the elements array and reurns all the elements that match a CSS Query
+		 */				
+		has: function(q) {
+			return this._q2(q,1);
+		},
+		
+		/**
+		 * Not modifies the elements array and reurns all the elements that DO NOT match a CSS Query
+		 */
+		not: function(q) {
+			return this._q2(q,0);
+		},
+
 		/**
 		 * Returns the first element in the collection.
 		 * 
@@ -153,6 +186,10 @@
 *
 * Changelog
 * ---
+* _march 13, 2009_
+*
+* - Added HAS Method - Modifed the origional Element list
+* - Added NOT Method - Modifed the origional Element list
 *
 * _feb 07, 2009_
 *
