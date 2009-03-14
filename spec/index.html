@@ -189,6 +189,26 @@ describe("Dom.html", {
 	
 });
 
+/////////////////////////////
+// 			  HAS / NOT        //
+/////////////////////////////
+
+describe("has and not", {
+  
+  'before':function(){
+		x = x$('ul#has_tests li');
+	},
+	
+	'should return two elements. ony two have class foo':function(){
+		value_of(x.has(".foo").elements.length).should_be(2);
+	},
+	
+	'should return three elements after omitting class foo':function(){
+		value_of(x.not(".foo").elements.length).should_be(3);
+	}
+	
+});
+
 
 /////////////////////////////
 // 			  XHR SPECS        //
@@ -287,6 +307,22 @@ describe( 'xui Events', {
 <div id="event_tests">
   <div id="event-test-click"></div>
 </div>
+
+<ul id="has_tests">
+  <li class="foo">one</li>
+  <li>two</li>
+  <li class="foo">three</li>
+  <li>four</li>
+  <li>five</li>
+</ul>
+
+<ul id="not_tests">
+  <li class="foo">one</li>
+  <li>two</li>
+  <li class="foo">three</li>
+  <li>four</li>
+  <li>five</li>
+</ul>
 
 </body>
 </html>

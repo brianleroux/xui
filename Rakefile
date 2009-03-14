@@ -94,5 +94,5 @@ end
 def spec
   puts 'running automated test suite'
   sh "open -a WebKit file://#{ LIBPATH }/spec/index.html"
-  sh "open -a '/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone Simulator.app' file://#{ LIBPATH }/spec/index.html"
+  sh "open -a '/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone Simulator.app' file://#{ LIBPATH }spec/index.html"
 end 
