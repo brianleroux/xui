@@ -85,36 +85,45 @@
 	_$.prototype = {
 		
 		elements:[],
+		query:'',
 		
 		find: function(q) {
-			this.elements = []; 
+			var ele = [];
 			var qlen = q.length;
 			for(var i = 0; i < qlen; i++ ) {
 				if( typeof q[i] == 'string' ) {
+					this.query = q[i];
 					var list = document.querySelectorAll(q[i]);
 					var size = list.length;
-					
 					for(var j = 0; j < size; j++ ) {          
-						this.elements.push(list[j]);   
+						ele.push(list[j]);   
 					}
 				} else {
-					this.elements.push(q[i]);
+					ele.push(q[i]);
 				}
 			}
+			this.elements = this.elements.concat(ele);
 			return this;
 		},
 		
-		
+		/**
+		 * Private
+		 */
 		_q2: function(q,t) {
 			var list = document.querySelectorAll(q);
+
 			if (list.length != 0) {
 				var ele = [];
 				this.each(function(el) {
 					for(var i = 0; i < list.length; i++ ) {
 						if (t == 1) {
-							if (el == list[i]) ele.push(el);
+							if (el == list[i]) { ele.push(el); }
 						} else {
-							if (el != list[i]) ele.push(el);							
+							if (el != list[i]) { 
+								console.log(el); 
+								
+								ele.push(el);	
+							}
 						}
 					}					
 		      	});
@@ -136,6 +145,14 @@
 		not: function(q) {
 			return this._q2(q,0);
 		},
+
+		/**
+		 * Adds more DOM nodes to the existing element list.
+		 */
+		add: function(q) {
+			return this.find([q]);
+		},
+
 
 		/**
 		 * Returns the first element in the collection.
