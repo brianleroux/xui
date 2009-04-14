@@ -66,6 +66,8 @@
 *	
 *	x$('ul#globalnav li a.selected');
 *	
+*	x$('li', 'div#foo');
+*
 *	x$(['li', 'div#foo']);
 * 
 */
@@ -87,55 +89,103 @@
 		elements:[],
 		
 		find: function(q) {
-			this.elements = []; 
+			var ele = [];
 			var qlen = q.length;
+
 			for(var i = 0; i < qlen; i++ ) {
-				if( typeof q[i] == 'string' ) {
+				if( typeof q[i] == 'string' ) { // one selector
 					var list = document.querySelectorAll(q[i]);
 					var size = list.length;
-					
 					for(var j = 0; j < size; j++ ) {          
-						this.elements.push(list[j]);   
+						ele.push(list[j]);   
 					}
 				} else {
-					this.elements.push(q[i]);
+					if (q[i] instanceof Array) { // an array of selectors
+						for (var x = 0; x < q[i].length; x++) {
+							var list = document.querySelectorAll(q[i][x]);
+							var size = list.length;
+							for(var j = 0; j < size; j++ ) {          
+								ele.push(list[j]);   
+							}
+						}
+					} else {
+						ele.push(q[i]);	// an element
+					}
 				}
 			}
+			this.elements = this.elements.concat(this.reduce(ele));
 			return this;
 		},
-		
-		
-		_q2: function(q,t) {
-			var list = document.querySelectorAll(q);
-			if (list.length != 0) {
-				var ele = [];
-				this.each(function(el) {
-					for(var i = 0; i < list.length; i++ ) {
-						if (t == 1) {
-							if (el == list[i]) ele.push(el);
-						} else {
-							if (el != list[i]) ele.push(el);							
-						}
-					}					
-		      	});
-				this.elements = ele;
-			}
-			return this;
-		},
-		
+				
 		/**
-		 * Has modifies the elements array and reurns all the elements that match a CSS Query
+		 * Array Unique
+		 */				
+		reduce: function( el, b ) {
+			var a = [], i, l = el.length;
+			for( i=0; i<l; i++ ) {
+				if( a.indexOf( el[i], 0, b ) < 0 ) { a.push( el[i] ); }
+			}
+			return a;
+		},
+		/**
+		 * Array Remove - By John Resig (MIT Licensed) 
+		 */
+		removex: function(array, from, to) {
+	      var rest = array.slice((to || from) + 1 || array.length);
+	      array.length = from < 0 ? array.length + from : from;
+	      return array.push.apply(array, rest);
+	    },
+				
+		/**
+		 * Has modifies the elements array and reurns all the elements that match (has) a CSS Query
 		 */				
 		has: function(q) {
-			return this._q2(q,1);
+
+			var t = [];
+			this.each(function(el){
+				x$(q).each(function(hel) { if (hel == el) { t.push(el); } });
+	      	});
+	
+			this.elements = t;
+			return this;
 		},
 		
 		/**
 		 * Not modifies the elements array and reurns all the elements that DO NOT match a CSS Query
 		 */
 		not: function(q) {
-			return this._q2(q,0);
+			var list = this.elements;
+			for (var i = 0; i<list.length;i++) {
+				x$(q).each(function(hel){
+					if (list[i] == hel ) { 
+						this.elements = this.removex(list,list.indexOf(list[i])); 
+					}
+				});				
+			}
+
+			// var that = this;
+			// this.each(function(el){
+			// 	x$(q).each(function(hel){
+			// 		if (el == hel ) { 
+			// 			that.elements = this.removex(that.elements,that.elements.indexOf(el)); 
+			// 		}
+			// 	});
+			// });
+
+			
+			return this;
+
 		},
+
+		/**
+		 * Adds more DOM nodes to the existing element list.
+		 */
+		add: function(q) {
+			this.find([q]);
+			this.elements = this.reduce(this.elements);
+			return this;
+		},
+
 
 		/**
 		 * Returns the first element in the collection.
@@ -187,12 +237,28 @@
 * Changelog
 * ---
 <<<<<<< HEAD:src/js/xui.js
+<<<<<<< HEAD:src/js/xui.js
 =======
+=======
+* _april 13, 2009_
+*
+* - Make changes to the core selector element to take an element, coma list or array or elements/selectors
+* - Added add Method - Adds more elements to the origional selector set.
+* - Added reduce Method - Removes duplicate array elements
+* - Removed Private Method and Fixed has and not, they both pass the spec now.
+* - Added Array Remove - By John Resig (MIT Licensed)
+*
+>>>>>>> 5d343d7abf036bb606aa12dd42a2f1fa8b4c5ca1:src/js/xui.js
 * _march 13, 2009_
 *
+<<<<<<< HEAD:src/js/xui.js
 * - Added HAS Method - Modifed the origional Element list
 * - Added NOT Method - Modifed the origional Element list
 >>>>>>> 6eec060a504da35a10de941e205fc269ccc4a7ec:src/js/xui.js
+=======
+* - Added has Method - Modifed the origional Element list
+* - Added not Method - Modifed the origional Element list
+>>>>>>> 5d343d7abf036bb606aa12dd42a2f1fa8b4c5ca1:src/js/xui.js
 *
 * _feb 07, 2009_
 *
