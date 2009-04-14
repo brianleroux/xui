@@ -155,7 +155,7 @@
 		},
 				
 		/**
-		 * Has modifies the elements array and reurns all the elements that match a CSS Query
+		 * Has modifies the elements array and reurns all the elements that match (has) a CSS Query
 		 */				
 		has: function(q) {
 			var elhas = x$(q).elements;

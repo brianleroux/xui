@@ -13,9 +13,10 @@
   x$(window).load(function(e) {
   
     
-    var x = x$('li').has('.fixed');
+    var x = x$('li').not('.bar');
+    console.log(x.elements);
   
-
+//  console.log(instanceof RegExp)
 
     
     //x$('ul li').has(".fixed").inner('HAS IT');
@@ -34,9 +35,9 @@
 <body>
   
   <ul>
-    <li>One</li>
+    <li class="one">One</li>
     <li class="foo bar fixed">Two</li>
-    <li>Three</li>
+    <li class="three">Three</li>
   </ul>
   
   <div id="baz">Baz</div>
