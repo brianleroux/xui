@@ -12,10 +12,14 @@
 <script type="text/javascript">
   x$(window).load(function(e) {
   
+
     
-    var x = x$('li').not('.bar');
+    x = x$('ul#has_tests li').not(".foo");
+    
     console.log(x.elements);
-  
+    
+    
+        
 //  console.log(instanceof RegExp)
 
     
@@ -34,12 +38,15 @@
 
 <body>
   
-  <ul>
-    <li class="one">One</li>
-    <li class="foo bar fixed">Two</li>
-    <li class="three">Three</li>
+  <ul id="has_tests">
+    <li class="foo">one</li>
+    <li>two</li>
+    <li class="foo">three</li>
+    <li>four</li>
+    <li>five</li>
   </ul>
   
+    
   <div id="baz">Baz</div>
   <button id="add">Add</button>
 </body>  

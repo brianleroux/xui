@@ -118,32 +118,6 @@
 		},
 				
 		/**
-		 * Private
-		 */
-		_q2: function(q,t) {
-			var list = document.querySelectorAll(q);
-
-			if (list.length != 0) {
-				var ele = [];
-				this.each(function(el) {
-					for(var i = 0; i < list.length; i++ ) {
-						if (t == 1) {
-							if (el == list[i]) { ele.push(el); }
-						} else {
-							if (el != list[i]) { 
-								console.log(el); 
-								
-								ele.push(el);	
-							}
-						}
-					}					
-		      	});
-				this.elements = ele;
-			}
-			return this;
-		},
-
-		/**
 		 * Array Unique
 		 */				
 		reduce: function( el, b ) {
@@ -153,21 +127,54 @@
 			}
 			return a;
 		},
+		/**
+		 * Array Remove - By John Resig (MIT Licensed) 
+		 */
+		removex: function(array, from, to) {
+	      var rest = array.slice((to || from) + 1 || array.length);
+	      array.length = from < 0 ? array.length + from : from;
+	      return array.push.apply(array, rest);
+	    },
 				
 		/**
 		 * Has modifies the elements array and reurns all the elements that match (has) a CSS Query
 		 */				
 		has: function(q) {
-			var elhas = x$(q).elements;
-			console.log(elhas);
-			return this
+
+			var t = [];
+			this.each(function(el){
+				x$(q).each(function(hel) { if (hel == el) { t.push(el); } });
+	      	});
+	
+			this.elements = t;
+			return this;
 		},
 		
 		/**
 		 * Not modifies the elements array and reurns all the elements that DO NOT match a CSS Query
 		 */
 		not: function(q) {
-			return this._q2(q,0);
+			var list = this.elements;
+			for (var i = 0; i<list.length;i++) {
+				x$(q).each(function(hel){
+					if (list[i] == hel ) { 
+						this.elements = this.removex(list,list.indexOf(list[i])); 
+					}
+				});				
+			}
+
+			// var that = this;
+			// this.each(function(el){
+			// 	x$(q).each(function(hel){
+			// 		if (el == hel ) { 
+			// 			that.elements = this.removex(that.elements,that.elements.indexOf(el)); 
+			// 		}
+			// 	});
+			// });
+
+			
+			return this;
+
 		},
 
 		/**
@@ -234,6 +241,8 @@
 * - Make changes to the core selector element to take an element, coma list or array or elements/selectors
 * - Added add Method - Adds more elements to the origional selector set.
 * - Added reduce Method - Removes duplicate array elements
+* - Removed Private Method and Fixed has and not, they both pass the spec now.
+* - Added Array Remove - By John Resig (MIT Licensed)
 *
 * _march 13, 2009_
 *
