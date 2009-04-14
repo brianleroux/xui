@@ -66,6 +66,8 @@
 *	
 *	x$('ul#globalnav li a.selected');
 *	
+*	x$('li', 'div#foo');
+*
 *	x$(['li', 'div#foo']);
 * 
 */
@@ -85,27 +87,36 @@
 	_$.prototype = {
 		
 		elements:[],
-		query:'',
 		
 		find: function(q) {
 			var ele = [];
 			var qlen = q.length;
+
 			for(var i = 0; i < qlen; i++ ) {
-				if( typeof q[i] == 'string' ) {
-					this.query = q[i];
+				if( typeof q[i] == 'string' ) { // one selector
 					var list = document.querySelectorAll(q[i]);
 					var size = list.length;
 					for(var j = 0; j < size; j++ ) {          
 						ele.push(list[j]);   
 					}
 				} else {
-					ele.push(q[i]);
+					if (q[i] instanceof Array) { // an array of selectors
+						for (var x = 0; x < q[i].length; x++) {
+							var list = document.querySelectorAll(q[i][x]);
+							var size = list.length;
+							for(var j = 0; j < size; j++ ) {          
+								ele.push(list[j]);   
+							}
+						}
+					} else {
+						ele.push(q[i]);	// an element
+					}
 				}
 			}
-			this.elements = this.elements.concat(ele);
+			this.elements = this.elements.concat(this.reduce(ele));
 			return this;
 		},
-		
+				
 		/**
 		 * Private
 		 */
@@ -131,12 +142,25 @@
 			}
 			return this;
 		},
-		
+
+		/**
+		 * Array Unique
+		 */				
+		reduce: function( el, b ) {
+			var a = [], i, l = el.length;
+			for( i=0; i<l; i++ ) {
+				if( a.indexOf( el[i], 0, b ) < 0 ) { a.push( el[i] ); }
+			}
+			return a;
+		},
+				
 		/**
 		 * Has modifies the elements array and reurns all the elements that match a CSS Query
 		 */				
 		has: function(q) {
-			return this._q2(q,1);
+			var elhas = x$(q).elements;
+			console.log(elhas);
+			return this
 		},
 		
 		/**
@@ -150,7 +174,9 @@
 		 * Adds more DOM nodes to the existing element list.
 		 */
 		add: function(q) {
-			return this.find([q]);
+			this.find([q]);
+			this.elements = this.reduce(this.elements);
+			return this;
 		},
 
 
@@ -203,10 +229,16 @@
 *
 * Changelog
 * ---
+* _april 13, 2009_
+*
+* - Make changes to the core selector element to take an element, coma list or array or elements/selectors
+* - Added add Method - Adds more elements to the origional selector set.
+* - Added reduce Method - Removes duplicate array elements
+*
 * _march 13, 2009_
 *
-* - Added HAS Method - Modifed the origional Element list
-* - Added NOT Method - Modifed the origional Element list
+* - Added has Method - Modifed the origional Element list
+* - Added not Method - Modifed the origional Element list
 *
 * _feb 07, 2009_
 *
