@@ -147,12 +147,19 @@ var Style = {
 	 * 
 	 */
 	removeClass:function(className) {
-	    var re = this.getClassRegEx(className);
-	    this.each(function(el) {
-	        el.className = el.className.replace(re, ' ');
-	    });
+		if (className == undefined) {
+		   this.each(function(el) {
+		      el.className = '';
+		   });
+		} else {
+		   var re = this.getClassRegEx(className);
+		   this.each(function(el) {
+		      el.className = el.className.replace(re, ' ');
+		   });
+		}
 	    return this;
 	},
+	
 	
 	/**
 	 *

@@ -12,21 +12,10 @@
 <script type="text/javascript">
   x$(window).load(function(e) {
   
-
-    
-    x = x$('ul#has_tests li').not(".foo");
+    x = x$('a[href^="#"]').setStyle('color','red');
     
     console.log(x.elements);
     
-    
-        
-//  console.log(instanceof RegExp)
-
-    
-    //x$('ul li').has(".fixed").inner('HAS IT');
-    //x$('ul li').not(".fixed").css({color:'red'});
-    
-    //x$('#add').click(function(){x$('ul').bottom('item');});
   });
 
 
@@ -38,10 +27,14 @@
 
 <body>
   
+  <h1 > Nope</h1>
+  <a href="Find this">Nope</a>  
+  <a href="#back">Yep</a>  
+  
   <ul id="has_tests">
     <li class="foo">one</li>
     <li>two</li>
-    <li class="foo">three</li>
+    <li class="foo baz">three</li>
     <li>four</li>
     <li>five</li>
   </ul>

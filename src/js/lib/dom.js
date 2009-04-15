@@ -130,10 +130,15 @@ var Dom = {
             switch(location) {
                 case "inner": 
 					if (typeof html == 'string') {
-						el.innerHTML = html; 
+					  el.innerHTML = html; 
+					  var list= el.getElementsByTagName('SCRIPT');
+					  var len = list.length;
+					  for(var i=0; i<len; i++) {
+					    eval(list[i].text);
+					    }
 					} else {
-						el.innerHTML = ''; 
-						el.appendChild(html);
+					  el.innerHTML = ''; 
+					  el.appendChild(html);
 					}
 					break;
                 case "outer":
