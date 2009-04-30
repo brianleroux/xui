@@ -209,9 +209,13 @@
 		}
 	};
 	
-	<%= build_sub_libraries %>
-
-	var libs = <%= "[#{ libs_to_build.map {|x| x.capitalize }.join(', ') }]" %>;
+	var libs = []
+	
+	//= require <dom>
+	//= require <event>
+	//= require <style>
+	//= require <fx>
+	//= require <xhr>
 	
 	for (var i = 0, size = libs.length; i < size; i++) _$.extend( libs[i] );
 

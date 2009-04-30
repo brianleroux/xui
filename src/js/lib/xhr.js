@@ -104,3 +104,5 @@ var Xhr = {
     }
 //---
 };
+
+libs.push(Xhr);

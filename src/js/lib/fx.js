@@ -115,3 +115,5 @@ var Fx = {
 	}
 //---	
 };
+
+libs.push(Fx);

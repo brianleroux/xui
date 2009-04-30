@@ -202,3 +202,5 @@ var Style = {
 	}
 //---
 };
+
+libs.push(Style);

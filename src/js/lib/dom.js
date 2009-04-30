@@ -196,3 +196,5 @@ var Dom = {
  	}
 //---
 };
+
+libs.push(Dom);

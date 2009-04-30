@@ -15,7 +15,14 @@ task :default => :spec
 
 desc 'writes out an uncompiled version of xui'
 task :build do
-  write
+  require File.join(LIBPATH, 'util', 'sprockets', 'lib', 'sprockets')
+
+  secretary = Sprockets::Secretary.new(:load_path    => ['src/js/**'], 
+                                       :source_files => ["src/js/xui.js"])
+  concatenation = secretary.concatenation
+
+  FileUtils.mkdir_p(File.join(LIBPATH, 'lib'))
+  concatenation.save_to("lib/xui.js")
 end
 
 desc 'creates lib/xui-min.js (tho not obfuscates)'
@@ -74,41 +81,4 @@ task :doc => :build do
   open(index_file, 'w') { |f| f.puts(BlueCloth.new(readme).to_html) }
   # launch docs in safari
   sh "open -a WebKit #{index_file}"
-end 
-
-
-# - helpers
-
-# writes out an uncompiled version of xui
-def write
-  puts 'writing the full source into lib/xui.js'
-  FileUtils.mkdir_p(File.join(LIBPATH, 'lib'))
-  path  = File.join(LIBPATH, 'src', 'js', 'xui.js')
-  final = File.join(LIBPATH, 'lib', 'xui.js')
-  html  = ERB.new(open(path).read).result
-  open(final,'w'){|f| f.puts( html )} 
-end
-
-# the sub libraries used by xui
-def libs_to_build
-  %w(dom event style fx xhr)
-end 
-
-# used within src/js/xui.js erb call
-def build_sub_libraries
-  s = ""
-  libs_to_build.each do |lib|
-    lib_file = File.join(LIBPATH, 'src', 'js', 'lib', lib + '.js')
-    s << import(lib_file)
-  end
-  s
-end
-
-# helper for build_sub_libaries
-def import(lib)
-	s = ""
-	r = ""
-  open(lib) { |f| s << "\n#{f.read}\n\n" }
-	s.each_line {|l| r << "		#{l}"}
-	r
 end

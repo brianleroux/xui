@@ -86,3 +86,5 @@ var Event = {
 	}
 //---
 };
+
+libs.push(Event);
