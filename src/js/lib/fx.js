@@ -91,7 +91,7 @@ var Fx = {
 	    // sets the starting point and ending point for each css property tween
 	    this.each( function(el) {
 	        for( var prop in options ) {
-	            that.setStyle( prop, options[prop] )
+	            that.setStyle(prop, options[prop]);
 	        }
 	
 			if (translate) {
@@ -99,8 +99,8 @@ var Fx = {
 			}
 	    });
 
-	    setTimeout(function(){ that.setStyle('-webkit-transition','none');},duration*1000)
-	    setTimeout(function(){ that.setStyle('-webkit-transform','none');},duration*1000)	
+	    setTimeout(function(){ that.setStyle('-webkit-transition','none');},duration*1000);
+	    setTimeout(function(){ that.setStyle('-webkit-transform','none');},duration*1000);
 	    setTimeout(after,duration*1000);
 
 	    return this || that; // haha

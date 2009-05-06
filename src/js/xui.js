@@ -219,12 +219,14 @@
 	//= require <fx>
 	//= require <xhr>
 	
-	for (var i = 0, size = libs.length; i < size; i++) _$.extend( libs[i] );
+	for (var i = 0, size = libs.length; i < size; i++) {
+	  _$.extend( libs[i] );
+  }
 
 	// adds the xui system as x$ to the current window
 	var xui = window.x$ = function() {
 		return new _$(arguments);
-	}
+	};
 //---
 })();
 

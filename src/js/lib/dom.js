@@ -127,34 +127,40 @@ var Dom = {
         this.each(function(el) {
             switch(location) {
                 case "inner": 
-					if (typeof html == 'string') {
-					  el.innerHTML = html; 
-					  var list= el.getElementsByTagName('SCRIPT');
-					  var len = list.length;
-					  for(var i=0; i<len; i++) {
-					    eval(list[i].text);
-					    }
-					} else {
-					  el.innerHTML = ''; 
-					  el.appendChild(html);
-					}
-					break;
+          					if (typeof html == 'string') {
+          					  el.innerHTML = html; 
+          					  var list= el.getElementsByTagName('SCRIPT');
+          					  var len = list.length;
+          					  for(var i=0; i<len; i++) {
+          					    eval(list[i].text);
+        					    }
+          					} else {
+          					  el.innerHTML = ''; 
+          					  el.appendChild(html);
+          					}
+          					break;
                 case "outer":
-                    if (typeof html == 'string') html = wrap(html, getTag(el));
+                    if (typeof html == 'string') {
+                      html = wrap(html, getTag(el));
+                    }
                     el.parentNode.replaceChild(html,el);
-                break;
+                    break;
                 case "top":
-                    if (typeof html == 'string') html = wrap(html, getTag(el));
+                    if (typeof html == 'string') {
+                      html = wrap(html, getTag(el));
+                    }
                     el.insertBefore(html,el.firstChild);
-                break;
+                    break;
                 case "bottom":
-                    if (typeof html == 'string') html = wrap(html, getTag(el));
+                    if (typeof html == 'string') {
+                      html = wrap(html, getTag(el));
+                    }
                     el.insertBefore(html,null);
-                break;
-				case "remove": 
-					var parent = el.parentNode;
-					parent.removeChild(el);
-				break;
+                    break;
+				        case "remove": 
+          					var parent = el.parentNode;
+          					parent.removeChild(el);
+          				  break;
             }
       	});
         return this;
