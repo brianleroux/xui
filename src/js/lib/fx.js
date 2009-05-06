@@ -61,7 +61,7 @@ var Fx = {
 	    var t = 0;
 	    for (var i = 0; i< this.animationStack.length;i++) {
 	        var options = this.animationStack[i];
-	        var duration     = options.duration == undefined ? .5    : options.duration;
+	        var duration = options.duration === undefined ? 0.5 : options.duration;
 	        setTimeout(function(s,o){s.animate(o);},t*1000*duration,this,options);
 	        t += duration;
 	    }
@@ -74,10 +74,10 @@ var Fx = {
    
 	    var opt_after = options.after;
    
-	    var easing = (options.easing == undefined) ? 'ease-in' : options.easing;
-	    var before = (options.before == undefined) ? function(){} : options.before;    
-	    var after = (opt_after == undefined) ? function(){} : function() {  opt_after.apply(that); };    
-	    var duration = (options.duration == undefined) ? .5 : options.duration;
+	    var easing = (options.easing === undefined) ? 'ease-in' : options.easing;
+	    var before = (options.before === undefined) ? function(){} : options.before;    
+	    var after = (opt_after === undefined) ? function(){} : function() {  opt_after.apply(that); };    
+	    var duration = (options.duration === undefined) ? 0.5 : options.duration;
    
 		var translate = options.by;
 		var rotate = options.rotate;
