@@ -92,19 +92,21 @@
 			var ele = [];
 			var qlen = q.length;
 
-			for(var i = 0; i < qlen; i++ ) {
-				if( typeof q[i] == 'string' ) { // one selector
-					var list = document.querySelectorAll(q[i]);
-					var size = list.length;
-					for(var j = 0; j < size; j++ ) {          
+      var list, size;
+      var i, j;
+			for(i = 0; i < qlen; i++ ) {
+				if (typeof q[i] == 'string' ) { // one selector
+					list = document.querySelectorAll(q[i]);
+					size = list.length;
+					for(j = 0; j < size; j++ ) {          
 						ele.push(list[j]);   
 					}
 				} else {
 					if (q[i] instanceof Array) { // an array of selectors
 						for (var x = 0; x < q[i].length; x++) {
-							var list = document.querySelectorAll(q[i][x]);
-							var size = list.length;
-							for(var j = 0; j < size; j++ ) {          
+							list = document.querySelectorAll(q[i][x]);
+							size = list.length;
+							for(j = 0; j < size; j++ ) {          
 								ele.push(list[j]);   
 							}
 						}
@@ -209,7 +211,7 @@
 		}
 	};
 	
-	var libs = []
+	var libs = [];
 	
 	//= require <dom>
 	//= require <event>

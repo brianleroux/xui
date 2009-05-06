@@ -68,11 +68,11 @@ var Dom = {
 		// private method for finding a dom element 
 		var getTag = function(el) {
 			
-			if (el.firstChild == null) {
+			if (el.firstChild === null) {
 				switch(el.tagName) {
-					case 'UL': return 'LI'; break;
-					case 'DL': return 'DT'; break;
-					case 'TR': return 'TD'; break;
+					case 'UL': return 'LI';
+					case 'DL': return 'DT';
+					case 'TR': return 'TD';
 					default: return el.tagName;
 				}
 			}
@@ -91,18 +91,16 @@ var Dom = {
 	            tag = result[1];
 						
 	            // if the node has any attributes, convert to object
-	            if (result[2] != "") {
+	            if (result[2] !== "") {
+                var attrList = result[2].split(/([A-Z]*\s*=\s*['|"][A-Z0-9:;#\s]*['|"])/i);
 
-	                var attrList = result[2].split(/([A-Z]*\s*=\s*['|"][A-Z0-9:;#\s]*['|"])/i);
-
-	                for(var i=0;i<attrList.length;i++){
-						var attr = attrList[i].replace(/^\s*|\s*$/g, "");
-						if (attr != "" && attr != " ") {
-	                        var node = attr.split('=');
-	                        attributes[node[0]];
-	                        attributes[node[0]] = node[1].replace(/(["']?)/g,'');
-	                    }
-	                }
+                for(var i=0;i<attrList.length;i++){
+      						var attr = attrList[i].replace(/^\s*|\s*$/g, "");
+      						if (attr !== "" && attr !== " ") {
+                    var node = attr.split('=');
+                    attributes[node[0]] = node[1].replace(/(["']?)/g,'');
+                  }
+                }
 	            }
 	            xhtml = result[3];
 	        }
@@ -110,12 +108,12 @@ var Dom = {
 	        var element = document.createElement(tag);
 
 	        for (var x in attributes) {
-				var a = document.createAttribute(x);
-	            a.nodeValue = attributes[x];			
-	            element.setAttributeNode(a);
+				    var a = document.createAttribute(x);
+	          a.nodeValue = attributes[x];			
+	          element.setAttributeNode(a);
 	        }
 		
-			element.innerHTML = xhtml;
+			    element.innerHTML = xhtml;
 	        return element;
 	    };
 
