@@ -149,7 +149,8 @@
 			this.elements = t;
 			return this;
 		},
-		
+
+
 		/**
 		 * Not modifies the elements array and reurns all the elements that DO NOT match a CSS Query
 		 */
@@ -203,7 +204,10 @@
 		 */
 	  	each: function(fn) {
 			for (var i = 0, len = this.elements.length; i<len; ++i) {
-				fn.call(this,this.elements[i]);
+                if (fn.call(this, this.elements[i]) === false) {
+					// allow breaking out of each loop
+					break;
+				}
 			}
 			return this;
 		}

@@ -164,6 +164,7 @@ describe("Dom.html", {
 		outer  = x$('#html-test-outer');
 		top    = x$('#html-test-top');
 		bottom = x$('#html-test-bottom');
+		h = x$('#html-test-h');
 	},
 	
 	'should insert html into the #html-test-inner node':function(){
@@ -185,6 +186,10 @@ describe("Dom.html", {
 		bottom.html('bottom', '<div>undertow</div>');
 		var last = bottom.first().children.length - 1;
 		value_of(bottom.first().children[last].innerHTML).should_be('undertow'); 
+	},
+
+	'should reutrn html of #html-test-h node':function(){
+		value_of(h.html()).should_be('<p>foo</p>');
 	}
 	
 });
@@ -293,6 +298,7 @@ describe( 'xui Events', {
 	<div id="html-test-outer"></div>
 	<div id="html-test-top"></div>
 	<div id="html-test-bottom"></div>
+	<div id="html-test-html"><p>foo</p></div>
 </div>
 
 <div id="xhr_tests">
