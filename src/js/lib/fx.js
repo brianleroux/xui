@@ -39,7 +39,7 @@ var Fx = {
 	 * 	x$('#box').tween({ left:100px}).tween({ left:100px });
 	 * 
 	 */
-	tween: function( options ) {
+	tween: function( options,callback ) {
 	    if (options instanceof Array) {
 	        for(var i=0;i<options.length;i++) {
 	            this.animationStack.push(options[i]);                   
@@ -48,7 +48,7 @@ var Fx = {
 	        this.animationStack.push(options);
 	    }
   
-	    this.start();
+	    this.start(callback);
 	    return this;
 	},
 
@@ -57,15 +57,22 @@ var Fx = {
 	// TODO move these methods into the tween method
 	animationStack: [],
 
-	start:function() {
+	start:function(callback) {
 	    var t = 0;
+	    var len = this.animationStack.length;
 	    for (var i = 0; i< this.animationStack.length;i++) {
 	        var options = this.animationStack[i];
 	        var duration     = options.duration == undefined ? .5    : options.duration;
-	        setTimeout(function(s,o){s.animate(o);},t*1000*duration,this,options);
+	        setTimeout(function(s,o,i){
+			s.animate(o);
+			if ((i == len - 1) && callback && typeof(callback) == 'function') {
+				callback();
+			}
+		},t*1000*duration,this,options);
 	        t += duration;
 	    }
   
+	    this.animationStack = [];
 	    return this;
 	},
   

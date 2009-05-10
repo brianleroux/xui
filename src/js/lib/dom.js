@@ -121,6 +121,9 @@ var Dom = {
 
 		this.clean();
 
+		if (arguments.length == 0) {
+			return this[0].innerHTML;
+		}
 		if (arguments.length == 1 && arguments[0] != 'remove') {
 			html = location;
 			location = 'inner';
