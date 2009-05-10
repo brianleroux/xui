@@ -164,7 +164,7 @@ describe("Dom.html", {
 		outer  = x$('#html-test-outer');
 		top    = x$('#html-test-top');
 		bottom = x$('#html-test-bottom');
-		h = x$('#html-test-h');
+		h = x$('#html-test-html');
 	},
 	
 	'should insert html into the #html-test-inner node':function(){
@@ -188,7 +188,7 @@ describe("Dom.html", {
 		value_of(bottom.first().children[last].innerHTML).should_be('undertow'); 
 	},
 
-	'should reutrn html of #html-test-h node':function(){
+	'should return html of #html-test-html node':function(){
 		value_of(h.html()).should_be('<p>foo</p>');
 	}
 	

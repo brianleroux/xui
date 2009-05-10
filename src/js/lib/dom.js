@@ -122,7 +122,7 @@ var Dom = {
 		this.clean();
 
 		if (arguments.length == 0) {
-			return this[0].innerHTML;
+			return this.elements[0].innerHTML;
 		}
 		if (arguments.length == 1 && arguments[0] != 'remove') {
 			html = location;
@@ -156,10 +156,10 @@ var Dom = {
                     if (typeof html == 'string') html = wrap(html, getTag(el));
                     el.insertBefore(html,null);
                 break;
-				case "remove": 
-					var parent = el.parentNode;
-					parent.removeChild(el);
-				break;
+		case "remove": 
+			var parent = el.parentNode;
+			parent.removeChild(el);
+		break;
             }
       	});
         return this;
