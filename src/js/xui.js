@@ -194,7 +194,26 @@
 		 * @return {Element} Returns a single DOM element.
 		 */
 		first: function() {
-			return this.elements[0];
+			return this.get(0);
+		},
+
+		/**
+		 * Returns the element in the collection at the 
+		 * given index
+		 *
+		 * @return {Element} Returns a single DOM element
+		 * */
+		get: function(index) {
+			return this.elements[index];
+		},
+
+		/**
+		 * Returns the size of the collection
+		 *
+		 * @return {Number} Returns an integer size of collection
+		 * */
+		size: function() {
+			return this.elements.length;
 		},
 		
 		/**

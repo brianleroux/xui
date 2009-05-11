@@ -85,6 +85,28 @@ describe("Selector element", {
   
 });
 
+describe("Get elements by index", {
+	'before' : function() {
+		li = x$('#get_tests li');
+	},
+
+	'element with index 1 should have text "second"': function() {
+		value_of(li.get(1).innerHTML).should_match('second');
+	}
+});
+
+describe('count elements', {
+	'before' : function() {
+		els = x$('#items li');
+	},
+
+	'should be 5 elements in collection' : function() {
+		value_of(els.size()).should_be(3);
+	}
+});
+
+
+
 
 
 /////////////////////////////
@@ -165,9 +187,18 @@ describe("Dom.html", {
 		top    = x$('#html-test-top');
 		bottom = x$('#html-test-bottom');
 		h = x$('#html-test-html');
-		h = x$('#html-test-h');
 	},
-	
+
+	'should insert html after #html-test-html' : function() {
+		h.after('<div>after</div>');
+		value_of(h.first().nextSibling.innerHTML).should_be('after');
+	},
+
+	'should insert html before #html-test-html' : function() {
+		h.before('<div>before</div>');
+		value_of(h.first().previousSibling.innerHTML).should_be('before');
+	},
+
 	'should insert html into the #html-test-inner node':function(){
 		inner.html('inner', '<p>hello world</p>');
 		value_of(inner.first().children[0].tagName).should_be('P'); 
@@ -314,6 +345,11 @@ describe( 'xui Events', {
 <div id="event_tests">
   <div id="event-test-click"></div>
 </div>
+
+<ul id="get_tests">
+	<li class="foo">first</li>
+	<li class="bar">second</li>
+</ul>
 
 <ul id="has_tests">
   <li class="foo">one</li>
