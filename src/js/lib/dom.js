@@ -219,6 +219,14 @@ var Dom = {
  	  return this;
  	},
 
+	/**
+	 * Attribute getter/setter
+	 *
+	 * @method
+	 * @param {String} attributeName
+	 * @param {String} attributeValue
+	 * @return {Element Collection|String}
+	 * */
 	attr: function(attribute, val) {
 		if (arguments.length == 2) {
 			this.each(function(el) {

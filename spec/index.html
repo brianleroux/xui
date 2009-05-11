@@ -95,6 +95,24 @@ describe("Get elements by index", {
 	}
 });
 
+describe("Get collection by index", {
+	'before' : function() {
+		li = x$('#get_tests li');
+	},
+
+	'eq(1) should return a collection with one element': function() {
+		value_of(li.eq(1).size()).should_be(1);
+	},
+
+	'eq(1) should return an element with class "bar"': function() {
+		value_of(li.eq(1).get(0).className).should_match('bar');
+	},
+
+	'eq(1,2) should return a collection with two elements': function() {
+		value_of(li.eq(1,2).size()).should_be(2);
+	}
+});
+
 describe('count elements', {
 	'before' : function() {
 		els = x$('#items li');
@@ -349,6 +367,7 @@ describe( 'xui Events', {
 <ul id="get_tests">
 	<li class="foo">first</li>
 	<li class="bar">second</li>
+	<li>third</li>
 </ul>
 
 <ul id="has_tests">

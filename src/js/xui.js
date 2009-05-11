@@ -206,6 +206,16 @@
 		get: function(index) {
 			return this.elements[index];
 		},
+		
+		/**
+		 * Returns a collection containing the element
+		 * at the given index
+		 * */
+		eq: function(idx1,idx2) {
+			var idx2 = idx2 ? idx2 + 1 : idx1 + 1;
+			this.elements = this.elements.slice(idx1,idx2);
+			return this;
+		},
 
 		/**
 		 * Returns the size of the collection
