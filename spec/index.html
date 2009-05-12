@@ -224,9 +224,19 @@ describe("Dom.html", {
 		value_of(h.first().nextSibling.innerHTML).should_be('after');
 	},
 
+	'html inserted after should have "p" as tag name' : function() {
+		h.after('<p>after</p>');
+		value_of(h.first().nextSibling.tagName.toLowerCase()).should_match('p');
+	},
+
 	'should insert html before #html-test-html' : function() {
 		h.before('<div>before</div>');
 		value_of(h.first().previousSibling.innerHTML).should_be('before');
+	},
+
+	'html inserted before should have "p" as tag name' : function() {
+		h.before('<p>before</p>');
+		value_of(h.first().previousSibling.tagName.toLowerCase()).should_match('p');
 	},
 
 	'should insert html into the #html-test-inner node':function(){
