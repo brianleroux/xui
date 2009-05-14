@@ -17,6 +17,7 @@ var Fx = {
 	 * 
 	 * @method
 	 * @param {Object} [Array|Object]
+	 * @param {Function} 
 	 * @return {Element Collection}
 	 * @example
 	 * 
@@ -24,22 +25,24 @@ var Fx = {
 	 *	
 	 * syntax:
 	 * 
-	 * x$(selector).tween(obj);
+	 * x$(selector).tween(obj, callback);
 	 *
 	 * arguments:
 	 * 
-	 * - properties:object an object literal of element css properties to tween or an array containing object literals of css properties to tween sequentially.
+	 * - properties: object an object literal of element css properties to tween or an array containing object literals of css properties to tween sequentially.
+	 * - callback (optional): function to run when the animation is complete
 	 *
 	 * example:
 	 *
 	 * 	x$('#box').tween({ left:100px, backgroundColor:'blue' });
+	 * 	x$('#box').tween({ left:100px, backgroundColor:'blue' }, function() { alert('done!'); });
 	 * 	
 	 * 	x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:100px }]);
 	 * 	
 	 * 	x$('#box').tween({ left:100px}).tween({ left:100px });
 	 * 
 	 */
-	tween: function( options ) {
+	tween: function( options,callback ) {
 	    if (options instanceof Array) {
 	        for(var i=0;i<options.length;i++) {
 	            this.animationStack.push(options[i]);                   
@@ -48,7 +51,7 @@ var Fx = {
 	        this.animationStack.push(options);
 	    }
   
-	    this.start();
+	    this.start(callback);
 	    return this;
 	},
 
@@ -57,15 +60,24 @@ var Fx = {
 	// TODO move these methods into the tween method
 	animationStack: [],
 
-	start:function() {
+	start:function(callback) {
 	    var t = 0;
+	    var len = this.animationStack.length;
 	    for (var i = 0; i< this.animationStack.length;i++) {
 	        var options = this.animationStack[i];
 	        var duration     = options.duration == undefined ? .5    : options.duration;
-	        setTimeout(function(s,o){s.animate(o);},t*1000*duration,this,options);
+	        setTimeout(function(s,o,i){
+			s.animate(o);
+			if ((i == len - 1) && callback && typeof(callback) == 'function') {
+				callback();
+			}
+		},t*1000*duration,this,options);
 	        t += duration;
 	    }
   
+	    // clear the animation stack so animations
+	    // don't run twice next time around
+	    this.animationStack = [];
 	    return this;
 	},
   

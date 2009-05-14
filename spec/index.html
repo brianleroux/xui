@@ -85,6 +85,46 @@ describe("Selector element", {
   
 });
 
+describe("Get elements by index", {
+	'before' : function() {
+		li = x$('#get_tests li');
+	},
+
+	'element with index 1 should have text "second"': function() {
+		value_of(li.get(1).innerHTML).should_match('second');
+	}
+});
+
+describe("Get collection by index", {
+	'before' : function() {
+		li = x$('#get_tests li');
+	},
+
+	'eq(1) should return a collection with one element': function() {
+		value_of(li.eq(1).size()).should_be(1);
+	},
+
+	'eq(1) should return an element with class "bar"': function() {
+		value_of(li.eq(1).get(0).className).should_match('bar');
+	},
+
+	'eq(1,2) should return a collection with two elements': function() {
+		value_of(li.eq(1,2).size()).should_be(2);
+	}
+});
+
+describe('count elements', {
+	'before' : function() {
+		els = x$('#items li');
+	},
+
+	'should be 5 elements in collection' : function() {
+		value_of(els.size()).should_be(3);
+	}
+});
+
+
+
 
 
 /////////////////////////////
@@ -164,8 +204,19 @@ describe("Dom.html", {
 		outer  = x$('#html-test-outer');
 		top    = x$('#html-test-top');
 		bottom = x$('#html-test-bottom');
+		h = x$('#html-test-html');
 	},
-	
+
+	'should insert html after #html-test-html' : function() {
+		h.after('<div>after</div>');
+		value_of(h.first().nextSibling.innerHTML).should_be('after');
+	},
+
+	'should insert html before #html-test-html' : function() {
+		h.before('<div>before</div>');
+		value_of(h.first().previousSibling.innerHTML).should_be('before');
+	},
+
 	'should insert html into the #html-test-inner node':function(){
 		inner.html('inner', '<p>hello world</p>');
 		value_of(inner.first().children[0].tagName).should_be('P'); 
@@ -185,6 +236,10 @@ describe("Dom.html", {
 		bottom.html('bottom', '<div>undertow</div>');
 		var last = bottom.first().children.length - 1;
 		value_of(bottom.first().children[last].innerHTML).should_be('undertow'); 
+	},
+
+	'should return html of #html-test-html node':function(){
+		value_of(h.html()).should_be('<p>foo</p>');
 	}
 	
 });
@@ -293,6 +348,7 @@ describe( 'xui Events', {
 	<div id="html-test-outer"></div>
 	<div id="html-test-top"></div>
 	<div id="html-test-bottom"></div>
+	<div id="html-test-html"><p>foo</p></div>
 </div>
 
 <div id="xhr_tests">
@@ -307,6 +363,12 @@ describe( 'xui Events', {
 <div id="event_tests">
   <div id="event-test-click"></div>
 </div>
+
+<ul id="get_tests">
+	<li class="foo">first</li>
+	<li class="bar">second</li>
+	<li>third</li>
+</ul>
 
 <ul id="has_tests">
   <li class="foo">one</li>

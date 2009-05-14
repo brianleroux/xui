@@ -149,7 +149,8 @@
 			this.elements = t;
 			return this;
 		},
-		
+
+
 		/**
 		 * Not modifies the elements array and reurns all the elements that DO NOT match a CSS Query
 		 */
@@ -193,7 +194,36 @@
 		 * @return {Element} Returns a single DOM element.
 		 */
 		first: function() {
-			return this.elements[0];
+			return this.get(0);
+		},
+
+		/**
+		 * Returns the element in the collection at the 
+		 * given index
+		 *
+		 * @return {Element} Returns a single DOM element
+		 * */
+		get: function(index) {
+			return this.elements[index];
+		},
+		
+		/**
+		 * Returns a collection containing the element
+		 * at the given index
+		 * */
+		eq: function(idx1,idx2) {
+			var idx2 = idx2 ? idx2 + 1 : idx1 + 1;
+			this.elements = this.elements.slice(idx1,idx2);
+			return this;
+		},
+
+		/**
+		 * Returns the size of the collection
+		 *
+		 * @return {Number} Returns an integer size of collection
+		 * */
+		size: function() {
+			return this.elements.length;
 		},
 		
 		/**
@@ -203,7 +233,10 @@
 		 */
 	  	each: function(fn) {
 			for (var i = 0, len = this.elements.length; i<len; ++i) {
-				fn.call(this,this.elements[i]);
+                if (fn.call(this, this.elements[i]) === false) {
+					// allow breaking out of each loop
+					break;
+				}
 			}
 			return this;
 		}
