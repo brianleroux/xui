@@ -1,0 +1,6 @@
+- xhr loads into a fresh div
+- back button in a cookie, localstorage, sessionstorage or (perhaps ideally) in the key/val store
+- click area of the li a should be the entire thing (make a block)
+- consolidate css in build file
+- sprite the theme
+- make it look good in a regular browser

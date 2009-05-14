@@ -17,39 +17,94 @@
 <script src="../src/js/xui-app.js" type="text/javascript"></script>
 -->
 <script type="text/javascript">
-x$(window).load(function(e) {
+
+var control = {
 	
-	// stop scrolling around
-	e.preventDefault();
+	defaultAction:null,
+	history:null,
 	
-	// hide the navigator bar
-	var hideUrl = function() {
+	init:function(e) {
+		// stop the default scroll behavior
+		e.preventDefault();
+		
+		// set up the display
+		control.hideUrl();
+		control.setOrientation();
+		
+		// watch for orientation change events
+		x$(window).orientationchange(function(e){
+			control.setOrientation();
+		});
+		
+		// control enable links
+		x$('ul li a').click(function(e) {
+			var action = x$(this).attr('href');
+			control.render(action);
+			e.preventDefault();
+			return false;
+		});
+		
+		// hide back button at root level
+		if (history.length == 1)
+			x$('#header a.back').css({display:'none'});
+		
+		// enables the back button
+		x$('#header a.back').click(function(e){
+			control.history.pop();
+			var action = control.history[control.history.length - 1]
+			control.render(action);
+			e.preventDefault();
+			return false;		
+		});
+		
+		control.defaultAction = '#' + x$('.default').first().id;
+		control.history = [control.defaultAction];
+	},
+	
+	// Three types of navigation:
+	// - in page anchor (inPage)
+	// - remote partial (remotePartial)
+	// - remote page    (remotePage)
+	render:function(action) {
+		if (action == null) return false; // pointless link is pointless
+		
+		var finalPath  = action.split('/')[action.split('/').length - 1];
+		var firstGlyph = finalPath.substr(0, 1);
+		var navigate   = (firstGlyph == '#' ? 'inPage' : (firstGlyph == '_' ? 'remotePartial' : 'remotePage'));
+		
+		control.history.push(action);
+		x$('#header a.back').css({display:'inline'});
+		
+		var navigationOptions = {
+			'inPage':function() {
+				x$('.page').css({display:'none'});
+				x$(action).css({display:'block'});
+			},
+			'remotePartial':function() {
+				x$('#content').xhr(action);
+			},
+			'remotePage':function() {
+				document.location = action;
+			}
+		}[navigate]();
+	},
+	
+	// ---------------- //
+	//			helpers			//
+	// ---------------- //
+	
+	// hides the url bar on iPhones
+	hideUrl:function() {
 		setTimeout( scrollTo, 0, 0, 1);
-	};
+	},
 	
-	var setOrientation = function() {
+	// sets a class on the body tag (portrait or landscape)
+	setOrientation:function() {
 		x$(document.body).addClass((window.orientation == 0 || window.orientation == null) ? 'portrait' : 'landscape');	
-	};
-	
-	// set a portrait or landscape class
-	x$(window).orientationchange(function(e){
-		  setOrientation();
-	});
-	
-	// catch link clicks
-	x$('ul li a').click(function(e){
-		var whereTo = x$(this).href;
-		alert(whereTo);
-		return false;
-	});
-	
-	
-	
-	
-	hideUrl();
-	setOrientation();
-///	
-});
+	}
+};
+
+x$(window).load(control.init);
 </script>
 </head>
 
@@ -57,21 +112,27 @@ x$(window).load(function(e) {
 <div id="stage">
 	
 	<div id="header">
-		<a class="backButton">Back</a>
-		<h1>XUI</h1>
+		<a class="back">Back</a>
+		<h1>Certaldo!</h1>
 	</div>
 
 	<div id="content">		
-			<div id="pageOne">
+			<div id="pageOne" class="page default">
 				<ul>
-					<li><a href="#">One for the money</a></li>
-					<li class="group"><a href="/buttons">Two for the show</a></li>
-					<li><a href="#">Three to get ready</a></li>
-					<li><a href="#">Four to go</a></li>
+					<li class="group"><a href="#controls">Webkit controls</a></li>
+					<li class="group"><a href="#buttons">Buttons</a></li>
+					<li class="group"><a href="_documentation.html">Documentation</a></li>
+					<li class="group"><a href="about.html">About</a></li>
 				</ul>
 			</div>
+			
+			<div id="controls" class="page">
+				<p>Some default webkit friendly controls that I becha didn't know about:</p>
+				<input type="search" /><br />
+				<input type="range" />
+			</div>
 
-	    <div id="pageTwo">
+	    <div id="buttons" class="page">
 	    	<h1>Buttons demonstration</h1>
 				<p><a class="white button">White</a></p>
 				<p><a class="black button">Black</a></p>
@@ -79,6 +140,8 @@ x$(window).load(function(e) {
 			  <p><a class="blackRight button">Black right</a></p>
 			  <p><a class="blackLeft button">Black left</a></p>
 	    </div>
+	
+	<!-- end #content -->
 	</div>
 
 	<div id="footer">Brought to you by the handsome creators of <a href="http://phonegap.com">PhoneGap</a> at <a href="http://nitobi.com">Nitobi</a>.</div>

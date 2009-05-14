@@ -1,5 +1,4 @@
-#pageOne,
-#pageTwo {
+.page {
   position: absolute;
   /*
   add a default transform so that the contents of the pages
@@ -7,10 +6,11 @@
   smoothly later on when we launch transitions
   */
   -webkit-transform: translate(0px,0px);
+  display:none;
 }
 
-#pageTwo {
-	display:none;
+.default {
+	display:block;
 }
 
 ul {

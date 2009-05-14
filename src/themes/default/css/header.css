@@ -6,7 +6,7 @@
   border-bottom: 1px solid rgb(45, 54, 66);
 }
 
-#header a.backButton {
+#header a.back {
   /* use absolute positioning and transforms as these will be subject to hardware transitions */
   position: absolute;
   -webkit-transform: translate(0px, 0px);
@@ -39,12 +39,12 @@
   text-decoration:none;
 }
 
-body.landscape #header a.backButton {
+body.landscape #header a.back {
   max-width: 90px;
 }
 
 /* touched state for the buttons */
-#header a.backButton:active {
+#header a.back:active {
   -webkit-border-image : url('../images/button-back-touched.png') 0 4 0 13;
 }
 
