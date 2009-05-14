@@ -16,13 +16,15 @@ var Dom = {
 	top: 	function(html) { return this.html('top',    html); },
 	bottom: function(html) { return this.html('bottom', html); },
 	remove: function()     { return this.html('remove'      ); },
+	before: function(html) { return this.html('before', html); },
+	after: function(html) { return this.html('after', html); },
 	
 
 	/**
 	 * For manipulating HTML markup in the DOM.
 	 * 
 	 * @method
-	 * @param {location} [inner|outer|top|bottom|remove]
+	 * @param {location} [inner|outer|top|bottom|remove|before|after]
 	 * @param {html} A string representation of HTML markup. 
 	 * @return {Element Collection}
 	 * @example
@@ -36,6 +38,8 @@ var Dom = {
 	 * - top
  	 * - bottom
 	 * - remove 
+	 * - before
+	 * - after
 	 *	
 	 * syntax:
 	 *
@@ -56,7 +60,9 @@ var Dom = {
 	 *  	x$('#foo').html( 'outer',  '<p>lock and load</p>' );
 	 * 		x$('#foo').html( 'top',    '<div>bangers and mash</div>');
 	 *  	x$('#foo').html( 'bottom', '<em>mean and clean</em>');
-	 *  	x$('#foo').html( 'remove'  '<h1>first and last</h1>');	
+	 *  	x$('#foo').html( 'remove');	
+	 *  	x$('#foo').html( 'before', '<p>some warmup html</p>');
+	 *  	x$('#foo').html( 'after', '<p>more html!</p>');
 	 * 
 	 * or
 	 * 
@@ -122,7 +128,7 @@ var Dom = {
 		this.clean();
 
 		if (arguments.length == 0) {
-			return this[0].innerHTML;
+			return this.elements[0].innerHTML;
 		}
 		if (arguments.length == 1 && arguments[0] != 'remove') {
 			html = location;
@@ -156,10 +162,20 @@ var Dom = {
                     if (typeof html == 'string') html = wrap(html, getTag(el));
                     el.insertBefore(html,null);
                 break;
-				case "remove": 
-					var parent = el.parentNode;
-					parent.removeChild(el);
-				break;
+		case "remove": 
+			var parent = el.parentNode;
+			parent.removeChild(el);
+		break;
+		case "before":
+			var parent = el.parentNode;
+			if (typeof html == 'string') html = wrap(html, getTag(parent));
+			parent.insertBefore(html, el);
+		break;
+		case "after":
+			var parent = el.parentNode;
+			if (typeof html == 'string') html = wrap(html, getTag(parent));
+			parent.insertBefore(html, el.nextSibling);
+		break;
             }
       	});
         return this;
@@ -201,7 +217,27 @@ var Dom = {
 		 	}
 		});
  	  return this;
- 	}
+ 	},
+
+	/**
+	 * Attribute getter/setter
+	 *
+	 * @method
+	 * @param {String} attributeName
+	 * @param {String} attributeValue
+	 * @return {Element Collection|String}
+	 * */
+	attr: function(attribute, val) {
+		if (arguments.length == 2) {
+			this.each(function(el) {
+				el.setAttribute(attribute, val);
+			});
+
+			return this;
+		} else {
+			return this.elements[0].getAttribute(attribute);
+		}
+	}
 //---
 };
 
