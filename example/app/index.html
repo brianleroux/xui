@@ -6,13 +6,13 @@
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes" />
 
-<link rel="stylesheet" href="themes/default/css/base.css" type="text/css" media="screen" title="no title" charset="utf-8" />
-<link rel="stylesheet" href="themes/default/css/buttons.css" type="text/css" media="screen" title="no title" charset="utf-8" />
-<link rel="stylesheet" href="themes/default/css/header.css" type="text/css" media="screen" title="no title" charset="utf-8" />
-<link rel="stylesheet" href="themes/default/css/page.css" type="text/css" media="screen" title="no title" charset="utf-8">
-<link rel="stylesheet" href="themes/default/css/footer.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+<link rel="stylesheet" href="../../src/themes/default/css/base.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+<link rel="stylesheet" href="../../src/themes/default/css/buttons.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+<link rel="stylesheet" href="../../src/themes/default/css/header.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+<link rel="stylesheet" href="../../src/themes/default/css/page.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<link rel="stylesheet" href="../../src/themes/default/css/footer.css" type="text/css" media="screen" title="no title" charset="utf-8" />
 
-<script src="../lib/xui.js" type="text/javascript"></script>
+<script src="../../lib/xui.js" type="text/javascript"></script>
 <!-- 
 <script src="../src/js/xui-app.js" type="text/javascript"></script>
 -->
@@ -36,6 +36,16 @@ x$(window).load(function(e) {
 		  setOrientation();
 	});
 	
+	// catch link clicks
+	x$('ul li a').click(function(e){
+		var whereTo = x$(this).href;
+		alert(whereTo);
+		return false;
+	});
+	
+	
+	
+	
 	hideUrl();
 	setOrientation();
 ///	
@@ -54,13 +64,13 @@ x$(window).load(function(e) {
 	<div id="content">		
 			<div id="pageOne">
 				<ul>
-					<li>One for the money</li>
-					<li class="group">Two for the show</li>
-					<li>Three to get ready</li>
-					<li>Four to go</li>
+					<li><a href="#">One for the money</a></li>
+					<li class="group"><a href="/buttons">Two for the show</a></li>
+					<li><a href="#">Three to get ready</a></li>
+					<li><a href="#">Four to go</a></li>
 				</ul>
 			</div>
-			<!-- 
+
 	    <div id="pageTwo">
 	    	<h1>Buttons demonstration</h1>
 				<p><a class="white button">White</a></p>
@@ -69,7 +79,6 @@ x$(window).load(function(e) {
 			  <p><a class="blackRight button">Black right</a></p>
 			  <p><a class="blackLeft button">Black left</a></p>
 	    </div>
-			-->
 	</div>
 
 	<div id="footer">Brought to you by the handsome creators of <a href="http://phonegap.com">PhoneGap</a> at <a href="http://nitobi.com">Nitobi</a>.</div>

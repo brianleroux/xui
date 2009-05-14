@@ -9,6 +9,10 @@
   -webkit-transform: translate(0px,0px);
 }
 
+#pageTwo {
+	display:none;
+}
+
 ul {
   width: 300px;
   padding: 0px;
@@ -80,6 +84,11 @@ li.group:active {
   background-position: 280px 18px, 0 0;
   background-repeat: no-repeat, repeat-x;
   color: white;
+}
+
+li a {
+	text-decoration:none;
+	color:#000;
 }
 
 body.landscape li.group:active {
