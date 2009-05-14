@@ -53,6 +53,17 @@ li:first-child {
   border-bottom-width: 0;
 }
 
+p {
+  -webkit-border-top-left-radius: 8px;
+  -webkit-border-top-right-radius: 8px;
+  -webkit-border-bottom-left-radius: 8px;
+  -webkit-border-bottom-right-radius: 8px;
+  background:#fff;
+  border: 1px solid rgb(171,173,176);
+  margin:10px;
+  padding:10px;
+}
+
 /*
 this matches the last list item, which needs rounding in the bottom corners
 and a bottom border
