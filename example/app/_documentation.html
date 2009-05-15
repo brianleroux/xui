@@ -1,0 +1,53 @@
+<h1>Certaldo</h1>
+
+<p>A micro MVC framework based on XUI.js for device neutral mobile web applications. Web standards friendly. Everything you need. Nothing you do not.</p>
+
+<h1>Controllers</h1>
+
+<ul>
+	<li>can navigate to either a #anchor or a relative external url of content via an xhr call</li>
+	<li>automatically maps an href to a regex/function</li>
+</ul>
+
+
+<h1>Models</h1>
+
+<h2>Key/Value Store</h2>
+<ul>
+<li>object oriented</li>
+<li>one database with many key value store tables</li>
+<li>used internally for offline sync</li>
+<li>based on silentrob's excellent sql lib</li>
+</ul>
+
+<h2>Offline Syncronisation</h2>
+<ul>
+<li>application logic is stored in the database</li>
+<li>application markup is stored in the database</li>
+<li>html 5 pragma meta cache</li>
+<li>checks to see if the app is online, if so, it checks for a newer version</li>
+</ul>
+
+
+
+<h1>Views</h1>
+
+<h2>Templating</h2>
+<ul>
+<li>templates begining with an underscore are considered html fragments (eg. _person.html )</li>
+<li>JSONPath is used to map JSON objects to DOM nodes</li>
+</ul>
+
+<h2>Native Theming</h2>
+<ul>
+<li>default themes automatically detects the devices for native guis: iPhone, Android, Palm Pre native</li>
+<li>dead simple to implment your own</li>
+<li>sprited for max speed</li>
+</ul>
+
+<h2>Other nifty features</h2>
+<ul>
+<li>automatically hides navitagation elements such as the url bar</li>
+<li>iphone springboard friendly meta tags</li>
+<li>automatic handling of device orientation events</li>
+</ul>
