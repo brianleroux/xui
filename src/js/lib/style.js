@@ -76,15 +76,16 @@ var Style = {
 		
 		var gs = function (el,p) {
 			return document.defaultView.getComputedStyle(el , "").getPropertyValue(p);
-		}
+		};
 
-		if(callback == undefined)  
+		if(callback === undefined) {  
 			return gs(this.first(),prop);
+		}
 		
-   		this.each( function(el) {
-			callback(gs(el,prop));
-   		});
-	  	return this;
+ 		this.each( function(el) {
+		  callback(gs(el,prop));
+ 		});
+  	return this;
 	},
 
 	/**
@@ -113,11 +114,15 @@ var Style = {
 	 */
 	addClass: function(className) {
 		var that = this;
-		var hasClass = function(el,className) { var re = that.getClassRegEx(className); return re.test(el.className); }
+		var hasClass = function(el,className) { 
+		  var re = that.getClassRegEx(className); 
+		  return re.test(el.className); 
+		};
 		
 		this.each(function(el) {
-			if (hasClass(el,className)==false)
-				el.className += ' '+className;
+			if (hasClass(el,className) === false) {
+				el.className += ' ' + className;
+			}
 		});
 		return this;
 	},
@@ -147,7 +152,7 @@ var Style = {
 	 * 
 	 */
 	removeClass:function(className) {
-		if (className == undefined) {
+		if (className === undefined) {
 		   this.each(function(el) {
 		      el.className = '';
 		   });
@@ -157,7 +162,7 @@ var Style = {
 		      el.className = el.className.replace(re, ' ');
 		   });
 		}
-	    return this;
+	  return this;
 	},
 	
 	

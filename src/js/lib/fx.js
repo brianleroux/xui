@@ -65,13 +65,13 @@ var Fx = {
 	    var len = this.animationStack.length;
 	    for (var i = 0; i< this.animationStack.length;i++) {
 	        var options = this.animationStack[i];
-	        var duration     = options.duration == undefined ? .5    : options.duration;
+	        var duration     = options.duration === undefined ? 0.5    : options.duration;
 	        setTimeout(function(s,o,i){
-			s.animate(o);
-			if ((i == len - 1) && callback && typeof(callback) == 'function') {
-				callback();
-			}
-		},t*1000*duration,this,options);
+      			s.animate(o);
+      			if ((i == len - 1) && callback && typeof(callback) == 'function') {
+      				callback();
+      			}
+      		},t*1000*duration,this,options);
 	        t += duration;
 	    }
   
@@ -86,10 +86,10 @@ var Fx = {
    
 	    var opt_after = options.after;
    
-	    var easing = (options.easing == undefined) ? 'ease-in' : options.easing;
-	    var before = (options.before == undefined) ? function(){} : options.before;    
-	    var after = (opt_after == undefined) ? function(){} : function() {  opt_after.apply(that); };    
-	    var duration = (options.duration == undefined) ? .5 : options.duration;
+	    var easing = (options.easing === undefined) ? 'ease-in' : options.easing;
+	    var before = (options.before === undefined) ? function(){} : options.before;    
+	    var after = (opt_after === undefined) ? function(){} : function() {  opt_after.apply(that); };    
+	    var duration = (options.duration === undefined) ? 0.5 : options.duration;
    
 		var translate = options.by;
 		var rotate = options.rotate;
@@ -103,7 +103,7 @@ var Fx = {
 	    // sets the starting point and ending point for each css property tween
 	    this.each( function(el) {
 	        for( var prop in options ) {
-	            that.setStyle( prop, options[prop] )
+	            that.setStyle(prop, options[prop]);
 	        }
 	
 			if (translate) {
@@ -111,8 +111,8 @@ var Fx = {
 			}
 	    });
 
-	    setTimeout(function(){ that.setStyle('-webkit-transition','none');},duration*1000)
-	    setTimeout(function(){ that.setStyle('-webkit-transform','none');},duration*1000)	
+	    setTimeout(function(){ that.setStyle('-webkit-transition','none');},duration*1000);
+	    setTimeout(function(){ that.setStyle('-webkit-transform','none');},duration*1000);
 	    setTimeout(after,duration*1000);
 
 	    return this || that; // haha
