@@ -36,30 +36,39 @@ var Xhr = {
 	 * - async {Boolen} Asynchronous request. Defaults to false.
 	 * - data {String} A url encoded string of parameters to send.
 	 * - callback {Function} Called on 200 status (success). Defaults to the Style.html method.
+	 * - headers {Array} contains objects for http headers - each header is a name/value pair
 	 * 
 	 * example:
 	 * 
 	 * 		x$('#status').xhr('/status.html');
 	 * 
 	 *		x$('#left-panel).xhr('/panel', {callback:function(e){ alert(e) }});
+	 *		
+	 *		x$('#inbox').xhr('http://mail.com/inbox', 
+	 *							{ headers: [{name:"Authorization",
+	 * 							  value: "Basic " + btoa(user + ":" + passw)}]});
 	 */
     xhr:function(url,options) {   
          
-      if (options === undefined) {
-        options = {};
-      }
+        if (options == undefined) var options = {};
 
     	var that   = this;
     	var req    = new XMLHttpRequest();
-      var method = options.method || 'get';
-      var async  = options.async || false;            
-      var params = options.data || null;
-      
-      req.open(method,url,async);
-      req.onload = (options.callback != null) ? options.callback : function() { that.html(this.responseText); };
-      req.send(params);
-  	
-    	return this;
+        var method = options.method || 'get';
+        var async  = options.async || false ;            
+        var params = options.data || null;
+        
+        req.open(method,url,async);
+		if (options.headers) {
+			var i = 0;
+			for (i=0; i<options.headers.length; i++) {
+				req.setRequestHeader(options.headers[i].name, options.headers[i].value);
+			}
+		}
+        req.onload = (options.callback != null) ? options.callback : function() { that.html(this.responseText); }
+        req.send(params);
+    	
+      	return this;
     },
 
 	/**
@@ -87,27 +96,22 @@ var Xhr = {
 	 * 
 	 */
     xhrjson:function(url,options) {
-      if (options === undefined) {
+        if (options == undefined) return this;
+        var that = this;
+
+        var cb = options.callback;
+        if (typeof cb != 'function')
+			cb = function(x){return x};
+  
+        var callback = function() {
+            var o = eval('(' + this.responseText + ')');
+            for (var prop in o) { 
+				x$(options.map[prop]).html(cb(o[prop])); 
+			}
+        };
+        options.callback = callback;
+        this.xhr(url, options);
         return this;
-      }
-      var that = this;
-
-      var cb = options.callback;
-      if (typeof cb != 'function') {
-		    cb = function(x){ return x; };
-	    }
-
-      var callback = function() {
-        var o = eval('(' + this.responseText + ')');
-        for (var prop in o) { 
-  				x$(options.map[prop]).html(cb(o[prop])); 
-  			}
-      };
-      options.callback = callback;
-      this.xhr(url, options);
-      return this;
     }
 //---
 };
-
-libs.push(Xhr);
