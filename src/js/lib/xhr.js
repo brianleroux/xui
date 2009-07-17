@@ -45,19 +45,25 @@ var Xhr = {
 	 */
     xhr:function(url,options) {   
          
-      if (options === undefined) {
+        if (options === undefined) {
         options = {};
-      }
+        }
 
-    	var that   = this;
-    	var req    = new XMLHttpRequest();
-      var method = options.method || 'get';
-      var async  = options.async || false;            
-      var params = options.data || null;
-      
-      req.open(method,url,async);
-      req.onload = (options.callback != null) ? options.callback : function() { that.html(this.responseText); };
-      req.send(params);
+        var that   = this;
+        var req    = new XMLHttpRequest();
+        var method = options.method || 'get';
+        var async  = options.async || false;            
+        var params = options.data || null;
+
+        if (options.headers) {
+            for (var i=0; i<options.headers.length; i++) {
+              req.setRequestHeader(options.headers[i].name, options.headers[i].value);
+            }
+        }
+    
+        req.open(method,url,async);
+        req.onload = (options.callback != null) ? options.callback : function() { that.html(this.responseText); };
+        req.send(params);
   	
     	return this;
     },
