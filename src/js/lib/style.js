@@ -73,7 +73,7 @@ var Style = {
 	 *
 	 */
 	getStyle: function(prop, callback) {
-		
+
 		var gs = function (el,p) {
 			return document.defaultView.getComputedStyle(el , "").getPropertyValue(p);
 		};

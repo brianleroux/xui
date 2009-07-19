@@ -165,16 +165,6 @@
 					}
 				});				
 			}
-
-			// var that = this;
-			// this.each(function(el){
-			// 	x$(q).each(function(hel){
-			// 		if (el == hel ) { 
-			// 			that.elements = this.removex(that.elements,that.elements.indexOf(el)); 
-			// 		}
-			// 	});
-			// });
-
 			
 			return this;
 
@@ -277,10 +267,6 @@
 *
 * Changelog
 * ---
-<<<<<<< HEAD:src/js/xui.js
-<<<<<<< HEAD:src/js/xui.js
-=======
-=======
 * _april 13, 2009_
 *
 * - Make changes to the core selector element to take an element, coma list or array or elements/selectors
@@ -289,17 +275,10 @@
 * - Removed Private Method and Fixed has and not, they both pass the spec now.
 * - Added Array Remove - By John Resig (MIT Licensed)
 *
->>>>>>> 5d343d7abf036bb606aa12dd42a2f1fa8b4c5ca1:src/js/xui.js
 * _march 13, 2009_
 *
-<<<<<<< HEAD:src/js/xui.js
-* - Added HAS Method - Modifed the origional Element list
-* - Added NOT Method - Modifed the origional Element list
->>>>>>> 6eec060a504da35a10de941e205fc269ccc4a7ec:src/js/xui.js
-=======
 * - Added has Method - Modifed the origional Element list
 * - Added not Method - Modifed the origional Element list
->>>>>>> 5d343d7abf036bb606aa12dd42a2f1fa8b4c5ca1:src/js/xui.js
 *
 * _feb 07, 2009_
 *
