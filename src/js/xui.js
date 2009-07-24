@@ -71,20 +71,23 @@
 *	x$(['li', 'div#foo']);
 * 
 */
+
+var xui;
+
 (function() {
-	var _$ = function(q) {
+	xui = function(q) {
 		q = q || document;
 		return this.find(q);
 	};
 	
-	_$.extend = function(obj) {
+	xui.extend = function(obj) {
 		var original = this.prototype;
 		var extended = obj;
 		for (var key in (extended || {})) original[key] = extended[key];
 		return original;
 	};
 	
-	_$.prototype = {
+	xui.prototype = {
 		
 		elements:[],
 		
@@ -243,12 +246,12 @@
 	//= require <xhr>
 	
 	for (var i = 0, size = libs.length; i < size; i++) {
-	  _$.extend( libs[i] );
+	  xui.extend( libs[i] );
   }
 
 	// adds the xui system as x$ to the current window
-	var xui = window.x$ = function() {
-		return new _$(arguments);
+	window.x$ = function() {
+		return new xui(arguments);
 	};
 //---
 })();

@@ -468,6 +468,9 @@ TODO
 
 Changelog
 ---
+_july 22, 2009_
+
+- exposed xui to the global namespace in order to make xui extandable
 
 _feb 04, 2009_
 
