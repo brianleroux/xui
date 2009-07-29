@@ -50,25 +50,27 @@ var Xhr = {
 	 */
     xhr:function(url,options) {   
          
-        if (options == undefined) var options = {};
+        if (options === undefined) {
+        options = {};
+        }
 
-    	var that   = this;
-    	var req    = new XMLHttpRequest();
+        var that   = this;
+        var req    = new XMLHttpRequest();
         var method = options.method || 'get';
-        var async  = options.async || false ;            
+        var async  = options.async || false;            
         var params = options.data || null;
-        
+
+        if (options.headers) {
+            for (var i=0; i<options.headers.length; i++) {
+              req.setRequestHeader(options.headers[i].name, options.headers[i].value);
+            }
+        }
+    
         req.open(method,url,async);
-		if (options.headers) {
-			var i = 0;
-			for (i=0; i<options.headers.length; i++) {
-				req.setRequestHeader(options.headers[i].name, options.headers[i].value);
-			}
-		}
-        req.onload = (options.callback != null) ? options.callback : function() { that.html(this.responseText); }
+        req.onload = (options.callback != null) ? options.callback : function() { that.html(this.responseText); };
         req.send(params);
-    	
-      	return this;
+  	
+    	return this;
     },
 
 	/**

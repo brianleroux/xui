@@ -243,7 +243,14 @@ var Dom = {
 
 			return this;
 		} else {
-			return this.elements[0].getAttribute(attribute);
+		    var attrs = [];
+			this.each(function(el) {
+			    if (el.getAttribute(attribute) != null)
+				    attrs.push(el.getAttribute(attribute));
+
+			});
+            return attrs;
+//			return this.elements[0].getAttribute(attribute);
 		}
 	}
 //---

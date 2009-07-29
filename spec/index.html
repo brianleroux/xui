@@ -321,6 +321,26 @@ describe( 'xui Events', {
 	
 });
 
+/////////////////////////////
+// 			   Plugin          //
+/////////////////////////////
+describe( 'xui extend', {
+	
+	'before':function(){
+	  Foo = {
+      bar: function(){
+        return this.get(0).innerHTML;
+      }
+    }
+    xui.extend(Foo);
+	},
+	
+	'should be extendable':function(){
+	  value_of(x$("#extention-test").bar()).should_be("xui has been extended!");
+	}
+	
+});
+
 
 
 // ]]>
@@ -362,6 +382,10 @@ describe( 'xui Events', {
 
 <div id="event_tests">
   <div id="event-test-click"></div>
+</div>
+
+<div id="extention_tests">
+  <div id="extention-test">xui has been extended!</div>
 </div>
 
 <ul id="get_tests">
