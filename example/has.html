@@ -21,9 +21,14 @@
 
   x$(window).load(function(e) {
   
-  x$().xhr("xhr/data.json",{method:'POST',data:'one=1&two=2', callback:function(e){console.log(this.responseText);}});
-  
-  
+    x$('#click3').click(function(){
+
+      console.log(x$('#has_tests .bar').hasClass('bar'));
+      
+      x$('li').hasClass('foo', function(e){x$(e).css({color:'red'}); });      
+
+    });
+		
     	x$('#add').click(function(){
     		x$('#baz').tween([{ background:'red' },{ background:'blue'}]);
     		x$('#baz').tween({ background:'red' }).tween({ background:'blue'});    		
@@ -52,8 +57,8 @@ x$('#add2').click(function(){
   <h1 > Nope</h1>
   
   <ul id="has_tests">
-    <li class="foo">one</li>
-    <li>two</li>
+    <li id="one" class="foo bar baz">one</li>
+    <li id="two">two</li>
     <li class="foo baz">three</li>
     <li>four</li>
     <li>five</li>
@@ -63,5 +68,7 @@ x$('#add2').click(function(){
   <div id="baz"><span>Baz</span></div>
   <button id="add">Chain (red, blue)</button>
   <button id="add2">Simple</button>  
+  
+  <button id="click3">hasclass</button>    
 </body>  
 </html>

@@ -273,6 +273,7 @@ var xui;
 * _july 31, 2009_
 * 
 * - Changed xhr params, the second param can now be a callback function OR an options object.
+* - Added hasClass Method - New method to Style object.
 *
 * _april 13, 2009_
 *
