@@ -37,16 +37,16 @@ var Fx = {
 	 * 	x$('#box').tween({ left:100px, backgroundColor:'blue' });
 	 * 	x$('#box').tween({ left:100px, backgroundColor:'blue' }, function() { alert('done!'); });
 	 * 	
-	 * 	x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:100px }]);
+	 * 	x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:'100px' }]);
 	 * 	
-	 * 	x$('#box').tween({ left:100px}).tween({ left:100px });
+	 * 	x$('#box').tween({ left:100px}).tween({ left:'100px' });
 	 * 
 	 */
 	tween: function( options, callback ) {
         this.animationStack = [];	    
 	    if (options instanceof Array) {
 	        for(var i=0; i < options.length; i++) {
-	            this.animationStack.push(options[i]);                   
+	            this.animationStack.push(options[i]);
 	        }
 	    } else if (options instanceof Object) {
 	        this.animationStack.push(options);
@@ -70,6 +70,7 @@ var Fx = {
 
 	        var options = this.animationStack[i];
 	        var duration     = options.duration === undefined ? 0.5    : options.duration;
+	        // We use setTimeout to stage the animations.
 	        setTimeout(function(s,o,i){
       			s.animate(o);
       			if ((i == len - 1) && callback && typeof(callback) == 'function') {

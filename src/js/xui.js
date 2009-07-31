@@ -270,6 +270,10 @@ var xui;
 *
 * Changelog
 * ---
+* _july 31, 2009_
+* 
+* - Changed xhr params, the second param can now be a callback function OR an options object.
+*
 * _april 13, 2009_
 *
 * - Make changes to the core selector element to take an element, coma list or array or elements/selectors

@@ -10,6 +10,7 @@
   #baz {
     width:100px;
     height:100px;
+    left:0px;
     border:2px solid #000;
     -webkit-border-radius:6px;    
   }
@@ -20,9 +21,28 @@
 
   x$(window).load(function(e) {
   
+  x$().xhr("xhr/data.json",{method:'POST',data:'one=1&two=2', callback:function(e){console.log(this.responseText);}});
+  
+  
     	x$('#add').click(function(){
-    		x$('#baz').tween({ background:'red' }).tween({ background:'blue'});
+    		x$('#baz').tween([{ background:'red' },{ background:'blue'}]);
+    		x$('#baz').tween({ background:'red' }).tween({ background:'blue'});    		
   		});
+
+var l = 200;	
+x$('#add2').click(function(){
+	x$('#baz').tween({ background:'black',color:'#fff',after: function(){
+	  x$('#baz').tween({ background:'red',duration:1,after:function(){
+	    x$('#baz').tween({ by:[200,0],duration:.5, after: function(){
+
+        // This keeps the element in the position after the animation
+	      x$('#baz').css({'position':'relative','left':l + 'px'});
+        l += 200;	
+	    }});
+	  }});
+	}});
+});
+  		
 		});
 </script>
 </head>
@@ -41,6 +61,7 @@
   
     
   <div id="baz"><span>Baz</span></div>
-  <button id="add">Add</button>
+  <button id="add">Chain (red, blue)</button>
+  <button id="add2">Simple</button>  
 </body>  
 </html>
