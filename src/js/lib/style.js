@@ -158,7 +158,7 @@ var Style = {
 
 		if(callback === undefined && this.elements.length == 1) {  
             var re = this.getClassRegEx(className); 
-            return re.test(el.className);
+            return re.test(that.first().className);
 		}
 
  		this.each( function(el) {

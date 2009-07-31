@@ -23,9 +23,8 @@
   
     x$('#click3').click(function(){
 
-      console.log(x$('#has_tests .bar').hasClass('bar'));
-      
-      x$('li').hasClass('foo', function(e){x$(e).css({color:'red'}); });      
+      console.log(x$('#one').hasClass('bar'));    
+//      x$('li').hasClass('foo', function(e){x$(e).css({color:'red'}); });      
 
     });
 		
@@ -56,8 +55,8 @@ x$('#add2').click(function(){
   
   <h1 > Nope</h1>
   
-  <ul id="has_tests">
-    <li id="one" class="foo bar baz">one</li>
+  <ul id="has_tests" >
+    <li id="one" class="foo bar baz" style="font-size:20px">one</li>
     <li id="two">two</li>
     <li class="foo baz">three</li>
     <li>four</li>
