@@ -192,6 +192,18 @@ describe("Style.removeClass", {
 	
 });
 
+describe("Style.hasClass", {
+  
+  'before':function(){
+		x = x$('#has-class-element');
+	},
+	
+	'should have the class bar':function(){
+		value_of(x.hasClass('bar')).should_be(true); 
+	},
+	
+});
+
 
 /////////////////////////////
 // 			  DOM SPECS        //
