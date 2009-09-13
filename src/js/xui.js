@@ -75,7 +75,7 @@
 var xui;
 
 (function() {
-	xui = function(q) {
+	var xui = function(q) {
 		q = q || document;
 		return this.find(q);
 	};
@@ -94,9 +94,9 @@ var xui;
 		find: function(q) {
 			var ele = [];
 			var qlen = q.length;
+      		var list, size;
+      		var i, j;
 
-      var list, size;
-      var i, j;
 			for(i = 0; i < qlen; i++ ) {
 				if (typeof q[i] == 'string' ) { // one selector
 					list = document.querySelectorAll(q[i]);
@@ -247,7 +247,7 @@ var xui;
 	
 	for (var i = 0, size = libs.length; i < size; i++) {
 	  xui.extend( libs[i] );
-  }
+  	}
 
 	// adds the xui system as x$ to the current window
 	window.x$ = function() {
