@@ -39,7 +39,7 @@ var Xhr = {
 	 * - xhrInner
 	 * - xhrOuter
 	 * - xhrTop
- 	 * - xhrBottom
+   * - xhrBottom
 	 * - xhrBefore
 	 * - xhrAfter
 	 *	
