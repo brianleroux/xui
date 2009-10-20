@@ -270,10 +270,18 @@ var xui;
 *
 * Changelog
 * ---
+* _oct 16, 2009_
+* 
+* - Modified xhr method to have same behaviour as html method.
+*
 * _july 31, 2009_
 * 
 * - Changed xhr params, the second param can now be a callback function OR an options object.
 * - Added hasClass Method - New method to Style object.
+*
+* _july 22, 2009_
+* 
+* - Exposed xui to the global namespace in order to make xui extandable
 *
 * _april 13, 2009_
 *
