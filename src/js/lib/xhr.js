@@ -39,7 +39,7 @@ var Xhr = {
 	 * - xhrInner
 	 * - xhrOuter
 	 * - xhrTop
-   * - xhrBottom
+     * - xhrBottom
 	 * - xhrBefore
 	 * - xhrAfter
 	 *	
@@ -77,18 +77,24 @@ var Xhr = {
 	 *
 	 *    x$('#status').xhr('/status.html');
 	 * 
-	 *		x$('#left-panel).xhr('/panel', {callback:function(){ alert("All Done!") }});
+	 *	  x$('#left-panel').xhr('/panel', {callback:function(){ alert("All Done!") }});
 	 *
-	 *		x$('#left-panel).xhr('/panel', function(){ alert(this.responseText) });    // New Callback Syntax
+	 *	  x$('#left-panel').xhr('/panel', function(){ alert(this.responseText) }); 
+     *
+	 *  or New Form Magic
+	 *
+	 *   // On a form element you can omit the URL and DATA... 
+	 *   x$('#form_id').xhr(function(){ alert(this.responseText) }); // NEW 
+	 * 
 	 */
     xhr:function(location,url,options) {
-        
+
         // this is to keep support for the old syntax (easy as that)
         if (!/^inner|outer|top|bottom|before|after$/.test(location)) {
          options = url;
          url = location;
          location = 'inner';
-        }
+        }       
         
         var o = options;
         
@@ -101,11 +107,19 @@ var Xhr = {
             o = {};
         }
 
+        if (this.first().tagName == "FORM") {
+            o.callback  = url;            
+            url         = this.first().action;
+            o.data      = this._toQueryString(this.first());
+            o.method    = this.first().method;
+        }
+
         var that   = this;
         var req    = new XMLHttpRequest();
         var method = o.method || 'get';
         var async  = o.async || false;            
         var params = o.data || null;
+        req.queryString = params;
 
         if (o.headers) {
             for (var i=0; i<o.headers.length; i++) {
@@ -119,6 +133,7 @@ var Xhr = {
   	
     	return this;
     },
+    
 
 	/**
 	 * 

@@ -244,6 +244,7 @@ var xui;
 	//= require <style>
 	//= require <fx>
 	//= require <xhr>
+	//= require <form>	
 	
 	for (var i = 0, size = libs.length; i < size; i++) {
 	  xui.extend( libs[i] );
@@ -270,6 +271,10 @@ var xui;
 *
 * Changelog
 * ---
+* _oct 24, 2009_
+* 
+* - Modified xhr method to allow remote forms by default
+*
 * _oct 16, 2009_
 * 
 * - Modified xhr method to have same behaviour as html method.

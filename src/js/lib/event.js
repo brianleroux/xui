@@ -13,6 +13,7 @@ var Event = {
 	
 	click: 		   		function(fn) { return this.on('click', 				fn); },
 	load: 		   		function(fn) { return this.on('load',				fn); },
+	submit: 		   	function(fn) { return this.on('submit',				fn); },	
 	touchstart:    		function(fn) { return this.on('touchstart',			fn); },
 	touchmove: 	   		function(fn) { return this.on('touchmove',			fn); },
 	touchend: 	   		function(fn) { return this.on('touchend',			fn); },
