@@ -11,24 +11,47 @@
  * 
  */
 var Xhr = {	
+  
+  xhrInner:  function(url) { return this.xhr('inner',  url); },
+  xhrOuter:  function(url) { return this.xhr('outer',  url); },
+  xhrTop:    function(url) { return this.xhr('top',    url); },
+  xhrBottom: function(url) { return this.xhr('bottom', url); },
+  xhrBefore: function(url) { return this.xhr('before', url); },
+  xhrAfter:  function(url) { return this.xhr('after',  url); },
 
 	/**
 	 * 
 	 * The classic Xml Http Request sometimes also known as the Greek God: Ajax. Not to be confused with AJAX the cleaning agent. 
-	 * This method has a few new tricks. It is always invoked on an element collection. If there no callback is defined the response 
-	 * text will be inserted into the elements in the collection. 
+	 * This method has a few new tricks. It is always invoked on an element collection and follows the identical behaviour as the
+	 * `html` method. If there no callback is defined the response text will be inserted into the elements in the collection. 
 	 * 
 	 * @method
+	 * @param {location} [inner|outer|top|bottom|before|after]
 	 * @param {String} The URL to request.
 	 * @param {Object} The method options including a callback function to invoke when the request returns. 
 	 * @return {Element Collection}
 	 * @example
 	 *	
-	 * ### xhr 
+	 * ### xhr
+	 *
+	 * Adds elements or changes the content of an element on a page. This method has shortcut aliases:
+	 *
+	 * - xhrInner
+	 * - xhrOuter
+	 * - xhrTop
+   * - xhrBottom
+	 * - xhrBefore
+	 * - xhrAfter
 	 *	
 	 * syntax:
 	 *
+	 *    xhr(location, url, options)
+	 *
+	 * or this method will accept just a url with a default behavior of inner...
+	 *
 	 * 		xhr(url, options);
+	 *
+	 * location
 	 * 
 	 * options:
 	 *
@@ -37,37 +60,63 @@ var Xhr = {
 	 * - data {String} A url encoded string of parameters to send.
 	 * - callback {Function} Called on 200 status (success). Defaults to the Style.html method.
 	 * - headers {Array} contains objects for http headers - each header is a name/value pair
+	 * - callback {Function} Called on 200 status (success)
+     *
+     * response 
+     * - The response available to the callback function as 'this', it is not passed in. 
+     * - this.reponseText will have the resulting data from the file.
 	 * 
 	 * example:
+	 *
+	 * 		x$('#status').xhr('inner', '/status.html');
+	 * 		x$('#status').xhr('outer', '/status.html');
+	 * 		x$('#status').xhr('top',   '/status.html');
+	 * 		x$('#status').xhr('bottom','/status.html');
+	 * 		x$('#status').xhr('before','/status.html');
+	 * 		x$('#status').xhr('after', '/status.html');
+	 *
+	 * or 
+	 *
+	 *    x$('#status').xhr('/status.html');
 	 * 
-	 * 		x$('#status').xhr('/status.html');
-	 * 
-	 *		x$('#left-panel).xhr('/panel', {callback:function(e){ alert(e) }});
-	 *		
-	 *		x$('#inbox').xhr('http://mail.com/inbox', 
-	 *							{ headers: [{name:"Authorization",
-	 * 							  value: "Basic " + btoa(user + ":" + passw)}]});
+	 *		x$('#left-panel).xhr('/panel', {callback:function(){ alert("All Done!") }});
+	 *
+	 *		x$('#left-panel).xhr('/panel', function(){ alert(this.responseText) });    // New Callback Syntax
 	 */
-    xhr:function(url,options) {   
-         
+    xhr:function(location,url,options) {
+        
+        // this is to keep support for the old syntax (easy as that)
+        if (!/^inner|outer|top|bottom|before|after$/.test(location)) {
+         options = url;
+         url = location;
+         location = 'inner';
+        }
+        
+        var o = options;
+        
+        if (typeof options == "function") {
+            o = {};
+            o.callback = options;
+        }
+        
         if (options === undefined) {
-        options = {};
+            o = {};
         }
 
         var that   = this;
         var req    = new XMLHttpRequest();
-        var method = options.method || 'get';
-        var async  = options.async || false;            
-        var params = options.data || null;
+        var method = o.method || 'get';
+        var async  = o.async || false;            
+        var params = o.data || null;
 
-        if (options.headers) {
-            for (var i=0; i<options.headers.length; i++) {
-              req.setRequestHeader(options.headers[i].name, options.headers[i].value);
+        if (o.headers) {
+            for (var i=0; i<o.headers.length; i++) {
+              req.setRequestHeader(o.headers[i].name, o.headers[i].value);
             }
         }
     
         req.open(method,url,async);
-        req.onload = (options.callback != null) ? options.callback : function() { that.html(this.responseText); };
+        req.onload = (o.callback != null) ? o.callback : function() { that.html(location, this.responseText); };
         req.send(params);
   	
     	return this;

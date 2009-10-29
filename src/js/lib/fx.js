@@ -37,20 +37,21 @@ var Fx = {
 	 * 	x$('#box').tween({ left:100px, backgroundColor:'blue' });
 	 * 	x$('#box').tween({ left:100px, backgroundColor:'blue' }, function() { alert('done!'); });
 	 * 	
-	 * 	x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:100px }]);
+	 * 	x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:'100px' }]);
 	 * 	
-	 * 	x$('#box').tween({ left:100px}).tween({ left:100px });
+	 * 	x$('#box').tween({ left:100px}).tween({ left:'100px' });
 	 * 
 	 */
-	tween: function( options,callback ) {
+	tween: function( options, callback ) {
+        this.animationStack = [];	    
 	    if (options instanceof Array) {
-	        for(var i=0;i<options.length;i++) {
-	            this.animationStack.push(options[i]);                   
+	        for(var i=0; i < options.length; i++) {
+	            this.animationStack.push(options[i]);
 	        }
 	    } else if (options instanceof Object) {
 	        this.animationStack.push(options);
 	    }
-  
+
 	    this.start(callback);
 	    return this;
 	},
@@ -61,11 +62,15 @@ var Fx = {
 	animationStack: [],
 
 	start:function(callback) {
+	    
 	    var t = 0;
 	    var len = this.animationStack.length;
+	    
 	    for (var i = 0; i< this.animationStack.length;i++) {
+
 	        var options = this.animationStack[i];
 	        var duration     = options.duration === undefined ? 0.5    : options.duration;
+	        // We use setTimeout to stage the animations.
 	        setTimeout(function(s,o,i){
       			s.animate(o);
       			if ((i == len - 1) && callback && typeof(callback) == 'function') {
@@ -74,10 +79,7 @@ var Fx = {
       		},t*1000*duration,this,options);
 	        t += duration;
 	    }
-  
-	    // clear the animation stack so animations
-	    // don't run twice next time around
-	    this.animationStack = [];
+
 	    return this;
 	},
   
@@ -98,7 +100,7 @@ var Fx = {
 	    before.apply(before.arguments);
    
 	    // this sets duration and easing equation on a style property change
-	    this.setStyle( '-webkit-transition', 'all ' + duration + 's ' + easing );
+	    this.setStyle('-webkit-transition', 'all ' + duration + 's ' + easing );
    
 	    // sets the starting point and ending point for each css property tween
 	    this.each( function(el) {
@@ -108,6 +110,10 @@ var Fx = {
 	
 			if (translate) {
 				that.setStyle('-webkit-transform', that.translateOp(translate[0],translate[1]));
+			}
+			
+			if (rotate) {
+				that.setStyle('-webkit-transform', that.rotateOp(rotate[0],rotate[1]));
 			}
 	    });
 
@@ -123,7 +129,7 @@ var Fx = {
 	},
 	
 	rotateOp: function(axis, degree){
-	    return 'rotate' + axis + '(' + degree + 'deg)';
+	    return 'rotate' + axis.toUpperCase() + '(' + degree + 'deg)';
 	}
 //---	
 };

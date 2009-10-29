@@ -126,6 +126,50 @@ var Style = {
 		});
 		return this;
 	},
+	/**
+	 *
+	 * Checks to see if classname is one the element
+	 * 
+	 * @method
+	 * @param {String} The class name.
+	 * @param {Function} A callback function (optional)
+	 * @return {XUI Object - self} Chainable
+	 * @example
+	 *
+	 * ### hasClass
+	 *	
+	 * syntax:
+	 *
+	 * 	$(selector).hasClass('className');
+	 * 	$(selector).hasClass('className', function(element) {});	 
+	 * 
+	 * arguments:
+	 *
+	 * - className:string the name of the CSS class to apply
+	 *
+	 * example:
+	 * 
+	 * 	$('#foo').hasClass('awesome'); // returns true or false
+	 * 	$('.foo').hasClass('awesome',function(e){}); // returns XUI object
+	 *
+	 */	
+	hasClass: function(className, callback) { 
+        var that = this;
+
+		if(callback === undefined && this.elements.length == 1) {  
+            var re = this.getClassRegEx(className); 
+            return re.test(that.first().className);
+		}
+
+ 		this.each( function(el) {
+            var re = that.getClassRegEx(className); 
+            if (re.test(el.className) == true) {
+                callback(el);
+            }
+ 		});
+ 		
+		return this;        
+	},
 	
 	/**
 	 *
