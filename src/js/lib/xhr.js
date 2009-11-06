@@ -49,37 +49,27 @@ var Xhr = {
 	 *
 	 *		x$('#left-panel).xhr('/panel', function(){ alert(this.responseText) });    // New Callback Syntax
 	 */
-    xhr:function(url,options) {   
-        var o = options;
-        
-        if (typeof options == "function") {
-            o = {};
-            o.callback = options;
-        }
-        
-        if (options === undefined) {
-            o = {};
-        }
+    xhr:function(url,options) {
+        if (options == undefined) var options = {};
 
-        var that   = this;
-        var req    = new XMLHttpRequest();
-        var method = o.method || 'get';
-        var async  = o.async || false;            
-        var params = o.data || null;
+         var that   = this;
+         var req    = new XMLHttpRequest();
+         var method = options.method || 'get';
+         var async  = options.async || false ;
+         var params = options.data || null;
 
-        if (o.headers) {
-            for (var i=0; i<o.headers.length; i++) {
-              req.setRequestHeader(o.headers[i].name, o.headers[i].value);
-            }
-        }
-    
-    
-        req.open(method,url,async);
-        req.onload = (o.callback != null) ? o.callback : function() { that.html(this.responseText); };
-        req.send(params);
-  	
-    	return this;
-    },
+         req.open(method,url,async);
+         req.onload = (options.callback != null) ? options.callback : function() { that.html(this.responseText); }
+                                             
+         if (method === 'post') {
+            req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            req.send(params);
+         } else {
+            req.send(params);
+         }
+
+         return this;
+     },
 
 	/**
 	 * 
