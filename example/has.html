@@ -19,52 +19,27 @@
 
 <script type="text/javascript">
 
-  x$(window).load(function(e) {
-  
-    x$('#click3').click(function(){
-      
+    x$(window).load(function(e) {
+        
+        x$("form").submit(function(e){
+            e.preventDefault();
+            x$(this).xhrTop();            
+        });
     });
-		
-    	x$('#add').click(function(){
-    		x$('#baz').tween([{ background:'red' },{ background:'blue'}]);
-    		x$('#baz').tween({ background:'red' }).tween({ background:'blue'});    		
-  		});
-
-var l = 200;	
-x$('#add2').click(function(){
-	x$('#baz').tween({ background:'black',color:'#fff',after: function(){
-	  x$('#baz').tween({ background:'red',duration:1,after:function(){
-	    x$('#baz').tween({ by:[200,0],duration:.5, after: function(){
-
-        // This keeps the element in the position after the animation
-	      x$('#baz').css({'position':'relative','left':l + 'px'});
-        l += 200;	
-	    }});
-	  }});
-	}});
-});
-  		
-		});
+  
 </script>
 </head>
 
 <body>
   
-  <h1 > Nope</h1>
-  
-  <ul id="has_tests" >
-    <li id="one" class="foo bar baz" style="font-size:20px">one</li>
-    <li id="two">two</li>
-    <li class="foo baz">three</li>
-    <li>four</li>
-    <li>five</li>
-  </ul>
-  
+<form action="xhr/data.html" method="get">
+    <input type="text" name="this" value="that" /><br />
+    <input type="radio" name="car" value="vol" /> Volvo
+    <input type="radio" name="car" value="ford" /> Ford
+    <input type="radio" name="car" value="bmw" /> BMW
     
-  <div id="baz"><span>Baz</span></div>
-  <button id="add">Chain (red, blue)</button>
-  <button id="add2">Simple</button>  
-  
-  <button id="click3">button</button>    
+    <input type="submit" name="submit" id="submit">  
+</form>
+
 </body>  
 </html>

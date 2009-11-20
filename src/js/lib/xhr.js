@@ -11,24 +11,47 @@
  * 
  */
 var Xhr = {	
+  
+  xhrInner:  function(url) { return this.xhr('inner',  url); },
+  xhrOuter:  function(url) { return this.xhr('outer',  url); },
+  xhrTop:    function(url) { return this.xhr('top',    url); },
+  xhrBottom: function(url) { return this.xhr('bottom', url); },
+  xhrBefore: function(url) { return this.xhr('before', url); },
+  xhrAfter:  function(url) { return this.xhr('after',  url); },
 
 	/**
 	 * 
 	 * The classic Xml Http Request sometimes also known as the Greek God: Ajax. Not to be confused with AJAX the cleaning agent. 
-	 * This method has a few new tricks. It is always invoked on an element collection. If there no callback is defined the response 
-	 * text will be inserted into the elements in the collection. 
+	 * This method has a few new tricks. It is always invoked on an element collection and follows the identical behaviour as the
+	 * `html` method. If there no callback is defined the response text will be inserted into the elements in the collection. 
 	 * 
 	 * @method
+	 * @param {location} [inner|outer|top|bottom|before|after]
 	 * @param {String} The URL to request.
 	 * @param {Object} The method options including a callback function to invoke when the request returns. 
 	 * @return {Element Collection}
 	 * @example
 	 *	
-	 * ### xhr 
+	 * ### xhr
+	 *
+	 * Adds elements or changes the content of an element on a page. This method has shortcut aliases:
+	 *
+	 * - xhrInner
+	 * - xhrOuter
+	 * - xhrTop
+     * - xhrBottom
+	 * - xhrBefore
+	 * - xhrAfter
 	 *	
 	 * syntax:
 	 *
+	 *    xhr(location, url, options)
+	 *
+	 * or this method will accept just a url with a default behavior of inner...
+	 *
 	 * 		xhr(url, options);
+	 *
+	 * location
 	 * 
 	 * options:
 	 *
@@ -42,22 +65,67 @@ var Xhr = {
      * - this.reponseText will have the resulting data from the file.
 	 * 
 	 * example:
-	 * 
-	 * 		x$('#status').xhr('/status.html');
-	 * 
-	 *		x$('#left-panel).xhr('/panel', {callback:function(){ alert("All Done!") }});
 	 *
-	 *		x$('#left-panel).xhr('/panel', function(){ alert(this.responseText) });    // New Callback Syntax
+	 * 		x$('#status').xhr('inner', '/status.html');
+	 * 		x$('#status').xhr('outer', '/status.html');
+	 * 		x$('#status').xhr('top',   '/status.html');
+	 * 		x$('#status').xhr('bottom','/status.html');
+	 * 		x$('#status').xhr('before','/status.html');
+	 * 		x$('#status').xhr('after', '/status.html');
+	 *
+	 * or 
+	 *
+	 *    x$('#status').xhr('/status.html');
+	 * 
+	 *	  x$('#left-panel').xhr('/panel', {callback:function(){ alert("All Done!") }});
+	 *
+	 *	  x$('#left-panel').xhr('/panel', function(){ alert(this.responseText) }); 
+     *
+	 *  or New Form Magic
+	 *
+	 *   // On a form element you can omit the URL and DATA... 
+	 *   x$('#form_id').xhr(function(){ alert(this.responseText) }); // NEW 
+	 * 
 	 */
-    xhr:function(url,options) {
-        if (options == undefined) var options = {};
 
-         var that   = this;
-         var req    = new XMLHttpRequest();
-         var method = options.method || 'get';
-         var async  = options.async || false ;
-         var params = options.data || null;
+    xhr:function(location,url,options) {
 
+        // this is to keep support for the old syntax (easy as that)
+        if (!/^inner|outer|top|bottom|before|after$/.test(location)) {
+         options = url;
+         url = location;
+         location = 'inner';
+        }       
+        
+        var o = options;
+        
+        if (typeof options == "function") {
+            o = {};
+            o.callback = options;
+        }
+        
+        if (options === undefined) {
+            o = {};
+        }
+
+
+        if (this.first().tagName == "FORM") {
+            o.callback  = url;            
+            url         = this.first().action;
+            o.data      = this._toQueryString(this.first());
+            o.method    = this.first().method;
+        }
+
+        var that   = this;
+        var req    = new XMLHttpRequest();
+        var method = o.method || 'get';
+        var async  = o.async || false;            
+        var params = o.data || null;
+        req.queryString = params;
+/*
+>>>>>>> 35507fabacbef6ad1d20f927261cc64fbb7a9919:src/js/lib/xhr.js
+
+<<<<<<< HEAD:src/js/lib/xhr.js
          req.open(method,url,async);
          req.onload = (options.callback != null) ? options.callback : function() { that.html(this.responseText); }
                                              
@@ -70,7 +138,21 @@ var Xhr = {
 
          return this;
      },
-
+=======
+*/
+        if (o.headers) {
+            for (var i=0; i<o.headers.length; i++) {
+              req.setRequestHeader(o.headers[i].name, o.headers[i].value);
+            }
+        }
+    
+        req.open(method,url,async);
+        req.onload = (o.callback != null) ? o.callback : function() { that.html(location, this.responseText); };
+        req.send(params);
+  	
+    	return this;
+    },
+    
 	/**
 	 * 
 	 * Another twist on remoting: lightweight and unobtrusive DOM databinding. Since we are often talking to a server with 

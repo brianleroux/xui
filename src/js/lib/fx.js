@@ -76,7 +76,7 @@ var Fx = {
       			if ((i == len - 1) && callback && typeof(callback) == 'function') {
       				callback();
       			}
-      		},t*1000*duration,this,options);
+      		},t*1000*duration,this,options,i);
 	        t += duration;
 	    }
 
