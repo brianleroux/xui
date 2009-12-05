@@ -30,8 +30,8 @@ task :min => :build do
   puts 'minifying js'
   min_file = File.join(LIBPATH, 'lib', 'xui-min.js')
   doc_file = File.join(LIBPATH, 'lib', 'xui.js')
-  yui_jar  = File.join(LIBPATH, 'util', 'yuicompressor-2.3.6.jar')
-  sh "java -jar #{yui_jar} --charset UTF-8 -o #{min_file} #{doc_file}"
+  compress_jar  = File.join(LIBPATH, 'util', 'compiler.jar')
+  sh "java -jar #{compress_jar} --js=#{min_file} --js_output_file=#{doc_file}"
 end
 
 desc 'opens up the specs'

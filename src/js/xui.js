@@ -75,13 +75,15 @@
 var xui;
 
 (function() {
+  var undefined;
+	
 	var xui = function(q) {
 		q = q || document;
 		return this.find(q);
 	},
 	
 	idExpr = /^#([\w-]+)$/;
-	
+		
 	xui.extend = function(obj) {
 		var original = this.prototype;
 		var extended = obj;
