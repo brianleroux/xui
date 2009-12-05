@@ -78,7 +78,9 @@ var xui;
 	var xui = function(q) {
 		q = q || document;
 		return this.find(q);
-	};
+	},
+	
+	idExpr = /^#([\w-]+)$/;
 	
 	xui.extend = function(obj) {
 		var original = this.prototype;
@@ -96,7 +98,13 @@ var xui;
 			var qlen = q.length;
       		var list, size;
       		var i, j;
-
+      
+      // fast matching for pure ID selectors
+      if (typeof q == 'string' && idExpr.test(q)) {
+        this.elements.push(document.getelementsById(q));
+        return this; // return okay here?
+      } 
+      
 			for(i = 0; i < qlen; i++ ) {
 				if (typeof q[i] == 'string' ) { // one selector
 					list = document.querySelectorAll(q[i]);
@@ -207,7 +215,7 @@ var xui;
 		 * at the given index
 		 * */
 		eq: function(idx1,idx2) {
-			var idx2 = idx2 ? idx2 + 1 : idx1 + 1;
+			idx2 = idx2 ? idx2 + 1 : idx1 + 1;
 			this.elements = this.elements.slice(idx1,idx2);
 			return this;
 		},
