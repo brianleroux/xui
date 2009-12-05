@@ -244,7 +244,6 @@ var xui;
 	//= require <style>
 	//= require <fx>
 	//= require <xhr>
-	//= require <form>	
 	
 	for (var i = 0, size = libs.length; i < size; i++) {
 	  xui.extend( libs[i] );

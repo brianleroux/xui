@@ -166,18 +166,18 @@ var Dom = {
                     }
                     el.insertBefore(html,null);
                     break;
-		            case "remove": 
+				case "remove": 
             		  var parent = el.parentNode;
             			parent.removeChild(el);
             		  break;
-            		case "before":
+            	case "before":
             			var parent = el.parentNode;
             			if (typeof html == 'string') {
             			  html = wrap(html, getTag(parent));
           			  }
             			parent.insertBefore(html, el);
             		  break;
-            		case "after":
+            	case "after":
             			var parent = el.parentNode;
             			if (typeof html == 'string') {
             			  html = wrap(html, getTag(parent));

@@ -11,14 +11,7 @@
  * 
  */
 var Xhr = {	
-  
-  xhrInner:  function(url) { return this.xhr('inner',  url); },
-  xhrOuter:  function(url) { return this.xhr('outer',  url); },
-  xhrTop:    function(url) { return this.xhr('top',    url); },
-  xhrBottom: function(url) { return this.xhr('bottom', url); },
-  xhrBefore: function(url) { return this.xhr('before', url); },
-  xhrAfter:  function(url) { return this.xhr('after',  url); },
-
+ 
 	/**
 	 * 
 	 * The classic Xml Http Request sometimes also known as the Greek God: Ajax. Not to be confused with AJAX the cleaning agent. 
@@ -33,16 +26,7 @@ var Xhr = {
 	 * @example
 	 *	
 	 * ### xhr
-	 *
-	 * Adds elements or changes the content of an element on a page. This method has shortcut aliases:
-	 *
-	 * - xhrInner
-	 * - xhrOuter
-	 * - xhrTop
-     * - xhrBottom
-	 * - xhrBefore
-	 * - xhrAfter
-	 *	
+
 	 * syntax:
 	 *
 	 *    xhr(location, url, options)
@@ -80,21 +64,16 @@ var Xhr = {
 	 *	  x$('#left-panel').xhr('/panel', {callback:function(){ alert("All Done!") }});
 	 *
 	 *	  x$('#left-panel').xhr('/panel', function(){ alert(this.responseText) }); 
-     *
-	 *  or New Form Magic
-	 *
-	 *   // On a form element you can omit the URL and DATA... 
-	 *   x$('#form_id').xhr(function(){ alert(this.responseText) }); // NEW 
 	 * 
 	 */
 
-    xhr:function(location,url,options) {
+    xhr:function(location, url, options) {
 
         // this is to keep support for the old syntax (easy as that)
         if (!/^inner|outer|top|bottom|before|after$/.test(location)) {
-         options = url;
-         url = location;
-         location = 'inner';
+         	options = url;
+         	url = location;
+         	location = 'inner';
         }       
         
         var o = options;
@@ -104,9 +83,8 @@ var Xhr = {
             o.callback = options;
         }
         
-        if (options === undefined) {
+        if (!options)
             o = {};
-        }
 
 
         if (this.first().tagName == "FORM") {
@@ -122,24 +100,7 @@ var Xhr = {
         var async  = o.async || false;            
         var params = o.data || null;
         req.queryString = params;
-/*
->>>>>>> 35507fabacbef6ad1d20f927261cc64fbb7a9919:src/js/lib/xhr.js
 
-<<<<<<< HEAD:src/js/lib/xhr.js
-         req.open(method,url,async);
-         req.onload = (options.callback != null) ? options.callback : function() { that.html(this.responseText); }
-                                             
-         if (method === 'post') {
-            req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            req.send(params);
-         } else {
-            req.send(params);
-         }
-
-         return this;
-     },
-=======
-*/
         if (o.headers) {
             for (var i=0; i<o.headers.length; i++) {
               req.setRequestHeader(o.headers[i].name, o.headers[i].value);
@@ -151,52 +112,6 @@ var Xhr = {
         req.send(params);
   	
     	return this;
-    },
-    
-	/**
-	 * 
-	 * Another twist on remoting: lightweight and unobtrusive DOM databinding. Since we are often talking to a server with 
-	 * handy JSON objects we added the convienance the map property which allows you to map JSON nodes to DOM elements. 
-	 * 
-	 * @method
-	 * @param {String} The URL to request.
-	 * @param {Object} The method options including a callback function to invoke when the request returns. 
-	 * @return {Element Collection}
-	 * @example
-	 * 
-	 * ### xhrjson 
-	 *	
-	 * syntax:
-	 *
-	 * 		xhrjson(url, options);
-	 * 
-	 * example:
-	 *  
-	 * The available options are the same as the xhr method with the addition of map. 
-	 * 
-	 * 		x$('#user').xhrjson( '/users/1.json', {map:{'username':'#name', 'image_url':'img#avatar[@src]'} });
-	 * 
-	 */
-    xhrjson:function(url,options) {
-      if (options === undefined) {
-        return this;
-      }
-      var that = this;
-
-      var cb = options.callback;
-      if (typeof cb != 'function') {
-		    cb = function(x){ return x; };
-	    }
-
-      var callback = function() {
-        var o = eval('(' + this.responseText + ')');
-        for (var prop in o) { 
-  				x$(options.map[prop]).html(cb(o[prop])); 
-  			}
-      };
-      options.callback = callback;
-      this.xhr(url, options);
-      return this;
     }
 //---
 };

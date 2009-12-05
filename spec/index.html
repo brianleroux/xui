@@ -304,19 +304,6 @@ describe("XHR.function", {
 	
 });
 
-describe("XHR.json", {
-  
-  'before':function(){
-    x = x$('#xhr-test-json');
-	},
-	
-	'should get json':function(){
-	  x.xhrjson('example.js', {map:{'id':'#json-id', 'name':'#json-name'}});
-    value_of(document.getElementById('json-id').innerHTML).should_be(1);
-		value_of(document.getElementById('json-name').innerHTML).should_be('foo');
-	}
-	
-});
 
 
 /////////////////////////////
