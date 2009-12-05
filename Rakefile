@@ -17,8 +17,7 @@ desc 'writes out an uncompiled version of xui'
 task :build do
   require File.join(LIBPATH, 'util', 'sprockets', 'lib', 'sprockets')
 
-  secretary = Sprockets::Secretary.new(:load_path    => ['src/js/**'], 
-                                       :source_files => ["src/js/xui.js"])
+  secretary = Sprockets::Secretary.new(:load_path=>['vendor/emile/**','src/js/**'], :source_files=>["src/js/xui.js"])
   concatenation = secretary.concatenation
 
   FileUtils.mkdir_p(File.join(LIBPATH, 'lib'))
@@ -31,7 +30,7 @@ task :min => :build do
   min_file = File.join(LIBPATH, 'lib', 'xui-min.js')
   doc_file = File.join(LIBPATH, 'lib', 'xui.js')
   compress_jar  = File.join(LIBPATH, 'util', 'compiler.jar')
-  sh "java -jar #{compress_jar} --js=#{min_file} --js_output_file=#{doc_file}"
+  sh "java -jar #{compress_jar} --js=#{doc_file} --js_output_file=#{min_file}"
 end
 
 desc 'opens up the specs'

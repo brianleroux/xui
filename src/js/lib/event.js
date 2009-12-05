@@ -23,7 +23,7 @@ var Event = {
   	gestureend:    		function(fn) { return this.on('gestureend',			fn); },
 	orientationchange: 	function(fn) { return this.on('orientationchange',	fn); },
 	
-	/**
+	/**	
 	 *
 	 * Register callbacks to DOM events.
 	 * 
