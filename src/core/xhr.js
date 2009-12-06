@@ -10,7 +10,7 @@
  * Remoting methods and utils. 
  * 
  */
-var Xhr = {	
+xui.prototype = {	
  
 	/**
 	 * 
@@ -113,7 +113,5 @@ var Xhr = {
   	
     	return this;
     }
-//---
+// --
 };
-
-libs.push(Xhr);

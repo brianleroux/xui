@@ -9,7 +9,7 @@
  * Manipulating the Document Object Model aka the DOM.
  * 
  */
-var Dom = {
+xui.prototype = {
 
     inner: function(html) {
         return this.html('inner', html);
@@ -208,7 +208,6 @@ var Dom = {
     },
 
 
-
     /**
 	 * Removes all erronious nodes from the DOM.
 	 * 
@@ -272,7 +271,5 @@ var Dom = {
             return attrs;
         }
     }
-    //---
+// --
 };
-
-libs.push(Dom);

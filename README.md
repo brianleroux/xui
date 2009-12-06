@@ -1,12 +1,3 @@
-
-@projectDescription 	XUI JavaScript library for mobile web applications.
-
-@author	Rob Ellis rob.ellis@nitobi.com
-@author	Brian LeRoux brian.leroux@westcoastlogic.com
-@author	Brock Whitten brock@sintaxi.com
-
-@version	0.1
-
 XUI
 ===
 
@@ -31,7 +22,7 @@ support under consideration for IE Mobile and BlackBerry.
 
 ### Download
 
-Minified code is less than 6k!
+Minified code is _tiny_.
 
 ### Contribute
 
@@ -42,7 +33,78 @@ Clone the source from GitHub:
 To build xui: run _rake_ in the shell of your choice from the root of the project directory. (This requires Ruby.)
 There are other tasks for code minification, running the specs and generating docs. Run `rake -T` to see them all.
 
-Check out the _example_ directory for a comprehensive example application. Specs are in the _spec_ directory.
+
+
+
+
+- complete effects to emile system
+- create docs ala smart
+- git submodule in emile
+- basic require syntax ala commonjs
+- build syntax based on require 
+- move tests to shoulda
+- compile time build tool for different configurations (defaults: core, more, )
+
+
+
+	xui
+	 |-src
+	 | |-base.js
+	 | |
+	 | |-core
+	 | | |-dom.js
+	 | | |-event.js
+	 | | |-fx.js
+	 | | |-style.js
+	 | | '-xhr.js
+	 | |
+	 | '-more
+	 |   |-dom.js  
+	 |   |-form.js
+	 |   |-xhr.js  // xhrInner, xhrJson
+	 |   '-json.js // templating
+	 |  
+	 |-spec
+	 | |-core.html
+	 | '-more.html
+	 | 
+	 |-packages
+	 | |-qunit
+	 | |-shoulda-js
+	 | '-emile
+	 |
+	 |-lib
+	 | |-xui-core-1.8.0.js
+	 | |-xui-more-1.8.0.js
+	 | |-xui-core-min-1.8.0.js
+	 | '-xui-more-min-1.8.0.js
+	 | 
+	 '-util
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TODO:
+- example
+- api docs
+
+
+
+
+
+
+
+
 
 API Documentation
 ===
@@ -565,105 +627,7 @@ The available options are the same as the xhr method with the addition of map.
 
 	 
 
-TODO
----
 
-- xui-app merge
-- look into extend method buggyness
-- get jslint passing
-- look into activejs doc build system and enhance to generate side by side code like ubiquity
-- generators
-- canvas progressive enhancement
-- prop should be js property insted of a css property
-
-Changelog
----
-_oct 16, 2009_
-
-- Modified xhr method to have same behaviour as html method.
-
-_july 31, 2009_
-
-- Changed xhr params, the second param can now be a callback function OR an options object.
-- Added hasClass Method - New method to Style object.
-
-_july 22, 2009_
-
-- Exposed xui to the global namespace in order to make xui extandable
-
-_april 13, 2009_
-
-- Make changes to the core selector element to take an element, coma list or array or elements/selectors
-- Added add Method - Adds more elements to the origional selector set.
-- Added reduce Method - Removes duplicate array elements
-- Removed Private Method and Fixed has and not, they both pass the spec now.
-- Added Array Remove - By John Resig (MIT Licensed)
-
-_march 13, 2009_
-
-- Added has Method - Modifed the origional Element list
-- Added not Method - Modifed the origional Element list
-
-_feb 07, 2009_
-
-- Fixed bug in DOM Regex related to attributes (wrap)
-
-_feb 04, 2009_
-
-- started scriptdoc
-- added Dom.html method alias shortcuts for: inner, outer, top, bottom and remove
-
-_jan 30, 2009_
-
-- Fixed bug in html.wrap private - createAttributes was broken
-
-_jan 22, 2009_
-
-- Full support for HTMLElement in DOM.html()
-
-_jan 21, 2009_
-
-- fixed DOM
-- added remove
-
-_Jan 18, 2009_
-
-- more documentation for core, etc
-- after cat getting out of the bag on ajaxian we're working furiously to get this production ready
-
-_Jan 13, 2009_
-
-- merged robs fixes and cleanup
-
-_Jan 11, 2009_
-
-- added mobile safari events (these will need testing in android, etc)
-- cleaned up Dom.html and documented
-- documented event a little
-
-_Jan 10, 2009_
-
-- removed Dom.clean for now
-- made Dom.getTag and Dom.wrap private
-- documented Dom
-- more Dom tests
-
-_Jan 9, 2009_
-
-- more docs for xui core, xhr, style and fx
-
-_Jan 7, 2009_
-
-- style spec passing
-- xui app phase one
-- testing approch resolved
-- hasClass now private
-
-_Jan 6, 2009_
-
-- rock out with renewed authority
-- better docs we promise
-- create doc/index.html from markdown
 
 LICENSE
 ---

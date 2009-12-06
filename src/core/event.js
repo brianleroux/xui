@@ -9,7 +9,7 @@
  * A good old fashioned event handling system.
  * 
  */
-var Event = {
+xui.prototype = {
 	
 	click: 		   		function(fn) { return this.on('click', 				fn); },
 	load: 		   		function(fn) { return this.on('load',				fn); },
@@ -85,7 +85,5 @@ var Event = {
 	    });
 	    return this;
 	}
-//---
+// --
 };
-
-libs.push(Event);

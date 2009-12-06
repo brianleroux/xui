@@ -1,10 +1,6 @@
 require 'rake/clean'
-require 'erb'
-require 'BlueCloth'
 
 CLEAN.include('lib')
-CLOBBER.include('doc/*.html')
-
 LIBPATH = File.expand_path(File.dirname(__FILE__))
 
 #
@@ -15,6 +11,26 @@ task :default => :spec
 
 desc 'writes out an uncompiled version of xui'
 task :build do
+  # returns filename to create as key / concated files as value
+  def import(params)
+    s = ""
+    params[:js].each do |js_lib|
+      FileList.new(js_lib).each do |js_file| 
+        open(js_file) {|f| s << f.read }
+      end
+    end
+    {params[:as]=>s}
+  end
+  
+  # opens the file, attaches the import method to it
+  open('src/base.js') do |f|
+    working = f.read
+  end 
+  # finds the ///
+  # grabs the text to eval after it
+  # inserts result and uses the filename given to write the file out
+   
+=begin  
   require File.join(LIBPATH, 'util', 'sprockets', 'lib', 'sprockets')
 
   secretary = Sprockets::Secretary.new(:load_path=>['vendor/emile/**','src/js/**'], :source_files=>["src/js/xui.js"])
@@ -22,6 +38,7 @@ task :build do
 
   FileUtils.mkdir_p(File.join(LIBPATH, 'lib'))
   concatenation.save_to("lib/xui.js")
+=end  
 end
 
 desc 'creates lib/xui-min.js (tho not obfuscates)'
@@ -48,36 +65,4 @@ task :check => :build do
   rhino_jar   = File.join(LIBPATH, 'util', 'js.jar')
   jslint_file = File.join(LIBPATH, 'util', 'jslint.js')
   sh "java -classpath #{rhino_jar} org.mozilla.javascript.tools.shell.Main #{jslint_file} #{doc_file}"  
-end
-
-#
-# TODO open in MobileSafari, Fennec and MobileOpera
-#
-desc 'launches the semi official but seriously example app example'
-task :example => :build do
-  example_file = File.join(LIBPATH, 'example', 'index.html')
-  sh "open -a WebKit #{example_file}"
-end 
-
-#
-# docs are inline to the code (as markdown)
-#
-desc 'bulds documentation from inline comments into README.md'
-task :doc => :build do
-  sauce = File.open(File.join(LIBPATH, 'lib', 'xui.js')).read
-  # fetches all multiline comments
-  comments = sauce.gsub( /\s+\/\/.*/,'' ).scan(/\/(?:\*(?:.)*?\*\/|\/[^\n]*)/m)
-  # removes comment debris
-  comments = comments.map{|r| r.gsub('*/','').gsub(/^\s+\* |\* |\/\*+|^\*|^\s+\*|^\s+\/\*+/, '')}
-  # build a readme
-  readme = comments.join("\n")
-  # write out the README.md
-  
-  open(File.join(LIBPATH, 'README.md'), 'w'){|f| f.puts(readme) }
-  # write out the doc/index.html
-  FileUtils.mkdir_p(File.join(LIBPATH, 'doc'))
-  index_file = File.join(LIBPATH, 'doc', 'index.html')
-  open(index_file, 'w') { |f| f.puts(BlueCloth.new(readme).to_html) }
-  # launch docs in safari
-  sh "open -a WebKit #{index_file}"
 end

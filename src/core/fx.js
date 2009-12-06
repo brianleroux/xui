@@ -9,7 +9,7 @@
  * Animations, transforms and transitions for getting the most out of hardware accelerated CSS.
  * 
  */
-var Fx = {
+xui.prototype = {
 
 	/**
 	 *
@@ -51,5 +51,3 @@ var Fx = {
 	}
 //---	
 };
-
-libs.push(Fx);

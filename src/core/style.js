@@ -9,7 +9,7 @@
  * Anything related to how things look. Usually, this is CSS.
  * 
  */
-var Style = {
+xui.prototype = {
 
 	/**
 	 * 
@@ -256,7 +256,5 @@ var Style = {
 	    }
 	    return re;
 	}
-//---
+// --
 };
-
-libs.push(Style);
