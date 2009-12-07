@@ -25,6 +25,7 @@ task :build do
   # opens the file, attaches the import method to it
   open('src/base.js') do |f|
     working = f.read
+    # \/\/\/.*
   end 
   # finds the ///
   # grabs the text to eval after it
