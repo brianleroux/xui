@@ -115,12 +115,9 @@
         }
     };
 
-
+    // --- 
+    /// imports(); 
     // ---
-    /// import :js=>['core/*', 'packages/emile'], :as=>'xui-core'
-    /// import :js=>['core/*', 'packages/emile', 'more/*'], :as=>'xui-more'
-    // ---
-
 
     scope[name] = function() {
         return new xui(arguments);

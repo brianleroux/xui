@@ -1,45 +1,62 @@
 require 'rake/clean'
+require 'erb'
 
 CLEAN.include('lib')
 LIBPATH = File.expand_path(File.dirname(__FILE__))
 
-#
-# builds and tests
-#
-desc 'writes lib/xui.js and lib/xui-min.js from src then launches specs'
-task :default => :spec
+desc 'writes compiled and minified src to lib and then launches specs'
+task :default => :build
 
-desc 'writes out an uncompiled version of xui'
+desc 'writes out an uncompiled version of xui-core and xui-more'
 task :build do
-  # returns filename to create as key / concated files as value
-  def import(params)
-    s = ""
-    params[:js].each do |js_lib|
-      FileList.new(js_lib).each do |js_file| 
-        open(js_file) {|f| s << f.read }
+  # forget sprockets: xui launches rockets!
+  class << Rockets = IO.read('src/base.js')
+    def launch!
+      
+      # TODO move to a txt file
+      version = '1.0.0'
+      
+      # create your custom xui builds here
+      build_profiles = [
+        {"xui-core-#{ version }.js" => "['src/core/*', 'packages/emile/emile.js']"},
+        {"xui-more-#{ version }.js" => "['src/core/*', 'src/more/*', 'packages/emile/emile.js']"}
+      ]
+      
+      build_profiles.each do |xui| 
+        open("#{ LIBPATH }/lib/#{ xui.keys.first }", 'w') do |f| 
+          f.puts interpolate(xui.values.first)
+        end
       end
     end
-    {params[:as]=>s}
-  end
-  
-  # opens the file, attaches the import method to it
-  open('src/base.js') do |f|
-    working = f.read
-    # \/\/\/.*
+    
+    def interpolate(libs)
+      ERB.new(compile(libs)).result(binding)
+    end
+    
+    def compile(libs)
+      c = split("\n").map do |line|
+        if line.include?('///')
+          "<%= #{ line.gsub('///','').strip.gsub('()',"(#{ libs })") } %>"
+        else
+          line
+        end 
+      end
+      c.join("\n") 
+    end
+    
+    def imports(libs)
+      s = ''
+      libs.each do |js_lib|
+        FileList.new(js_lib).each do |js_file| 
+          path = File.join(LIBPATH, js_file)
+          open(path) {|f| s << f.read }
+        end
+      end
+      s
+    end
   end 
-  # finds the ///
-  # grabs the text to eval after it
-  # inserts result and uses the filename given to write the file out
-   
-=begin  
-  require File.join(LIBPATH, 'util', 'sprockets', 'lib', 'sprockets')
-
-  secretary = Sprockets::Secretary.new(:load_path=>['vendor/emile/**','src/js/**'], :source_files=>["src/js/xui.js"])
-  concatenation = secretary.concatenation
-
-  FileUtils.mkdir_p(File.join(LIBPATH, 'lib'))
-  concatenation.save_to("lib/xui.js")
-=end  
+  
+  Rockets.launch!
 end
 
 desc 'creates lib/xui-min.js (tho not obfuscates)'
