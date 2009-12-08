@@ -1,8 +1,7 @@
-require 'rake/clean'
 require 'erb'
 
-CLEAN.include('lib')
 LIBPATH = File.expand_path(File.dirname(__FILE__))
+
 
 desc 'writes compiled and minified src to lib and then launches specs'
 task :default => :build
@@ -47,9 +46,15 @@ task :build do
     def imports(libs)
       s = ''
       libs.each do |js_lib|
-        FileList.new(js_lib).each do |js_file| 
+        js_files = FileList.new(js_lib)
+        js_files.each do |js_file| 
           path = File.join(LIBPATH, js_file)
-          open(path) {|f| s << f.read }
+          open(path) do |f| 
+            if js_files.first == js_file
+              s << '    '
+            end 
+            s << "#{ f.read.gsub("\n","\n    ") }" 
+          end
         end
       end
       s
@@ -59,7 +64,7 @@ task :build do
   Rockets.launch!
 end
 
-desc 'creates lib/xui-min.js (tho not obfuscates)'
+desc 'minifies all the files in the lib directory'
 task :min => :build do
   puts 'minifying js'
   min_file = File.join(LIBPATH, 'lib', 'xui-min.js')

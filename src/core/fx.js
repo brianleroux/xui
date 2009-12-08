@@ -49,5 +49,5 @@ xui.prototype = {
 		});
 	    return this;
 	}
-//---	
+//---
 };
