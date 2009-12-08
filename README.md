@@ -36,14 +36,10 @@ There are other tasks for code minification, running the specs and generating do
 
 
 
-
+- checkout remy/rob/brock code
 - complete effects to emile system
 - create docs ala smart
-- git submodule in emile
-- basic require syntax ala commonjs
-- build syntax based on require 
 - move tests to shoulda
-- compile time build tool for different configurations (defaults: core, more, )
 
 
 
