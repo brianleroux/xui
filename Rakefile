@@ -101,7 +101,7 @@ end
 desc 'opens up the specs'
 task :spec => :min do
   puts 'running automated test suite...'
-  spec_file = File.join(LIBPATH, 'spec', 'index.html')
+  spec_file = File.join(LIBPATH, 'spec', 'core.html')
   sh "open -a WebKit file://#{spec_file}"
   sh "open -a '/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone Simulator.app' file://#{spec_file}"
 end
