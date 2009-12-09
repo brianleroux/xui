@@ -48,10 +48,10 @@ There are other tasks for code minification, running the specs and generating do
 	 | '-emile .................. - amazing tiny effects lib by Thomas Fuchs
 	 |
 	 |-lib ...................... build directory (not in version control)
-	 | |-xui-core-1.8.0.js
-	 | |-xui-more-1.8.0.js
-	 | |-xui-core-min-1.8.0.js
-	 | '-xui-more-min-1.8.0.js
+	 | |-xui-core-1.0.0.js
+	 | |-xui-more-1.0.0.js
+	 | |-xui-core-min-1.0.0.js
+	 | '-xui-more-min-1.0.0.js
 	 | 
 	 '-util .................... utilities for minification, obfuscation, jslint, etc
 
