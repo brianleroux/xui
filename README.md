@@ -60,11 +60,12 @@ There are other tasks for code minification, running the specs and generating do
 TODO
 ---
 
-- figure out how to supress google barfing error messages (possibly starting the docs proj)
 - add jquery style version/date in file header
-- get rake check passing
+- fix broken xui-core specs
+- author xui-more specs
 - complete effects port to emile system
-- move tests to shoulda-js
+- get rake check passing
+- figure out how to supress google barfing error messages (possibly starting the docs proj)
 
 
 LICENSE
