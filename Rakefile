@@ -22,13 +22,14 @@ desc 'writes out an uncompiled version of xui-core and xui-more'
 task :build do
   # forget sprockets: xui launches rockets!
   class << Rockets = IO.read('src/base.js')
+    def version
+      '1.0.0'
+    end 
+    
     def launch!
       puts 'building xui...'
       
       clobber!
-      
-      # TODO move to a txt file
-      version = '1.0.0'
       
       # create your custom xui builds here
       build_profiles = [
@@ -51,12 +52,31 @@ task :build do
       ERB.new(compile(libs)).result(binding)
     end
     
+    def versionize
+      s = ''
+      s += "/*\n"
+      s += "* XUI JavaScript Library v#{ version }\n"
+      s += "* http://xuijs.com\n"
+      s += "*\n"
+      s += "* Copyright (c) 2009 Brian LeRoux, Rob Ellis, Brock Whitten\n"
+      s += "* Licensed under the MIT license.\n"
+      s += "*\n"
+      s += "* Date: #{ DateTime.now }\n"
+      s += "*/\n\n"
+      s
+    end
+    
     def compile(libs)
-      c = split("\n").map do |line|
+      b = split("\n")
+      c = b.map do |line|
         if line.include?('///')
           "<%= #{ line.gsub('///','').strip.gsub('()',"(#{ libs })") } %>"
         else
-          line
+          if line == b.first
+            versionize << line
+          else
+            line
+          end
         end 
       end
       c.join("\n") 
@@ -96,6 +116,7 @@ task :min => :build do
     # sh "java -jar #{yui_jar} --charset UTF-8 -o #{min_file} #{doc_file}"
   end 
 end
+
 
 
 desc 'opens up the specs'

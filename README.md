@@ -1,12 +1,12 @@
 XUI
 ===
 
-A lightweight, dead simple, microtiny, super pluggable javascript framework for building mobile web applications.
----
+A lightweight, dead simple, microtiny, super modular JavaScript framework for building mobile web applications.
+
 
 ### XUI Application Authors and Hackers
 
-Its true: the minified code is _super tiny_. You can find more information, downloads and documenation at http://xuijs.com ---if you want to build your own custom XUI or help contribute: please read on!
+Its true: the minified code is _super tiny_. You can find more information, downloads and documentation at http://xuijs.com ---if you want to build your own custom XUI or help contribute: please read on!
 
 ### XUI Contributors and Hackers
 
@@ -38,11 +38,11 @@ There are other tasks for code minification, running the specs and generating do
 	 |   |-xhr.js  
 	 |   '-json.js .............. json utilities
 	 |  
-	 |-spec ..................... qUnit/shoulda-js specs
+	 |-spec ..................... the spec
 	 | |-core.html
 	 | '-more.html
 	 | 
-	 |-packages ................. 3rd party libs gitsubmoduled in utilized by xui
+	 |-packages ................. 3rd party libs utilized by XUI (gitsubmodules)
 	 | |-qunit .................. - awesome async friendly test lib by John Resig
 	 | |-shoulda-js ............. - bdd sugar for qunit with mobile friendly output
 	 | '-emile .................. - amazing tiny effects lib by Thomas Fuchs
@@ -53,19 +53,18 @@ There are other tasks for code minification, running the specs and generating do
 	 | |-xui-core-min-1.0.0.js
 	 | '-xui-more-min-1.0.0.js
 	 | 
-	 '-util .................... utilities for minification, obfuscation, jslint, etc
+	 '-util .................... utils for minification, obfuscation, verification
 
 
 
 TODO
 ---
 
-- add jquery style version/date in file header
 - fix broken xui-core specs
 - author xui-more specs
 - complete effects port to emile system
-- get rake check passing
-- figure out how to supress google barfing error messages (possibly starting the docs proj)
+- get jslint/rake check passing
+- figure out how to supress google barfing error messages 
 
 
 LICENSE
