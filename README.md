@@ -35,8 +35,9 @@ There are other tasks for code minification, running the specs and generating do
 
 
 
-
-- checkout remy/rob/brock code
+- figure out how to supress google barfing error messages (possibly starting the docs proj)
+- add jquery style version/date in file header
+- get rake check passing
 - complete effects to emile system
 - create docs ala smart
 - move tests to shoulda
@@ -44,57 +45,44 @@ There are other tasks for code minification, running the specs and generating do
 
 
 	xui
+	 |-Rakefile ........... tasks for building, testing, etc. see them all by running rake -T
+	 |-README.md .......... you are reading it!
+	 | 
 	 |-src
-	 | |-base.js
+	 | |-base.js .......... essentials for dom node retrieval
 	 | |
-	 | |-core
-	 | | |-dom.js
-	 | | |-event.js
-	 | | |-fx.js
-	 | | |-style.js
-	 | | '-xhr.js
+	 | |-core ............. essentials:
+	 | | |-dom.js ......... - dom node manipulation
+	 | | |-event.js ....... - event subscribe/publish
+	 | | |-fx.js .......... - animation
+	 | | |-style.js ....... - css hackery
+	 | | '-xhr.js ......... - remoting
 	 | |
-	 | '-more
-	 |   |-dom.js  
-	 |   |-form.js
-	 |   |-xhr.js  // xhrInner, xhrJson
-	 |   '-json.js // templating
+	 | '-more ............. extras (yagni unless ygni)
+	 |   |-base.js  
+	 |   |-dom.js  	
+	 |   |-event.js	
+	 |   |-form.js ........ form handlers, serialization
+	 |   |-fx.js	
+	 |   |-xhr.js  
+	 |   '-json.js ........ json utilities
 	 |  
-	 |-spec
+	 |-spec ............... qUnit/shoulda-js specs
 	 | |-core.html
 	 | '-more.html
 	 | 
-	 |-packages
+	 |-packages ........... 3rd party libs gitsubmoduled in
 	 | |-qunit
 	 | |-shoulda-js
 	 | '-emile
 	 |
-	 |-lib
+	 |-lib ................ build directory (not in version control)
 	 | |-xui-core-1.8.0.js
 	 | |-xui-more-1.8.0.js
 	 | |-xui-core-min-1.8.0.js
 	 | '-xui-more-min-1.8.0.js
 	 | 
-	 '-util
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-TODO:
-- example
-- api docs
-
-
+	 '-util .............. utilities for minification, obfuscation, jslint, etc
 
 
 
@@ -105,7 +93,7 @@ TODO:
 API Documentation
 ===
 
-Welcome the XUI documentation. This is generated from inline documentation in the XUI javascript source.
+Welcome the XUI documentation. 
 
 
 

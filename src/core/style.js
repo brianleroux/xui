@@ -9,9 +9,9 @@
  * Anything related to how things look. Usually, this is CSS.
  * 
  */
-xui.prototype = {
+xui.extend({
 
-	/**
+    /**
 	 * 
 	 * Sets a single CSS property to a new value.
 	 * 
@@ -37,14 +37,14 @@ xui.prototype = {
 	 * 	x$('.txt').setStyle('color', '#000');
 	 * 
 	 */
-	setStyle: function(prop, val) {
-      this.each(function(el) {
-        el.style[prop] = val;
-      });
-	  return this;
-	},
+    setStyle: function(prop, val) {
+        this.each(function(el) {
+            el.style[prop] = val;
+        });
+        return this;
+    },
 
-	/**
+    /**
 	 * 
 	 * Retuns a single CSS property. Can also invoke a callback to perform more specific processing tasks related to the property value.
 	 * 
@@ -72,23 +72,23 @@ xui.prototype = {
 	 * 	x$('a.globalnav').getStyle( 'background', function(prop){ prop == 'blue' ? 'green' : 'blue' });
 	 *
 	 */
-	getStyle: function(prop, callback) {
+    getStyle: function(prop, callback) {
 
-		var gs = function (el,p) {
-			return document.defaultView.getComputedStyle(el , "").getPropertyValue(p);
-		};
+        var gs = function(el, p) {
+            return document.defaultView.getComputedStyle(el, "").getPropertyValue(p);
+        };
 
-		if(callback === undefined) {  
-			return gs(this.first(),prop);
-		}
-		
- 		this.each( function(el) {
-		  callback(gs(el,prop));
- 		});
-  	return this;
-	},
+        if (callback === undefined) {
+            return gs(this.first(), prop);
+        }
 
-	/**
+        this.each(function(el) {
+            callback(gs(el, prop));
+        });
+        return this;
+    },
+
+    /**
 	 *
 	 * Adds the classname to all the elements in the collection. 
 	 * 
@@ -112,21 +112,21 @@ xui.prototype = {
 	 * 	$('.foo').addClass('awesome');
 	 *
 	 */
-	addClass: function(className) {
-		var that = this;
-		var hasClass = function(el,className) { 
-		  var re = that.getClassRegEx(className); 
-		  return re.test(el.className); 
-		};
-		
-		this.each(function(el) {
-			if (hasClass(el,className) === false) {
-				el.className += ' ' + className;
-			}
-		});
-		return this;
-	},
-	/**
+    addClass: function(className) {
+        var that = this;
+        var hasClass = function(el, className) {
+            var re = that.getClassRegEx(className);
+            return re.test(el.className);
+        };
+
+        this.each(function(el) {
+            if (hasClass(el, className) === false) {
+                el.className += ' ' + className;
+            }
+        });
+        return this;
+    },
+    /**
 	 *
 	 * Checks to see if classname is one the element
 	 * 
@@ -152,26 +152,26 @@ xui.prototype = {
 	 * 	$('#foo').hasClass('awesome'); // returns true or false
 	 * 	$('.foo').hasClass('awesome',function(e){}); // returns XUI object
 	 *
-	 */	
-	hasClass: function(className, callback) { 
+	 */
+    hasClass: function(className, callback) {
         var that = this;
 
-		if(callback === undefined && this.elements.length == 1) {  
-            var re = this.getClassRegEx(className); 
+        if (callback === undefined && this.elements.length == 1) {
+            var re = this.getClassRegEx(className);
             return re.test(that.first().className);
-		}
+        }
 
- 		this.each( function(el) {
-            var re = that.getClassRegEx(className); 
+        this.each(function(el) {
+            var re = that.getClassRegEx(className);
             if (re.test(el.className) == true) {
                 callback(el);
             }
- 		});
- 		
-		return this;        
-	},
-	
-	/**
+        });
+
+        return this;
+    },
+
+    /**
 	 *
 	 * Removes the classname from all the elements in the collection. 
 	 * 
@@ -195,22 +195,22 @@ xui.prototype = {
 	 * 	x$('.bar').removeClass('awesome');
 	 * 
 	 */
-	removeClass:function(className) {
-		if (className === undefined) {
-		   this.each(function(el) {
-		      el.className = '';
-		   });
-		} else {
-		   var re = this.getClassRegEx(className);
-		   this.each(function(el) {
-		      el.className = el.className.replace(re, ' ');
-		   });
-		}
-	  return this;
-	},
-	
-	
-	/**
+    removeClass: function(className) {
+        if (className === undefined) {
+            this.each(function(el) {
+                el.className = '';
+            });
+        } else {
+            var re = this.getClassRegEx(className);
+            this.each(function(el) {
+                el.className = el.className.replace(re, ' ');
+            });
+        }
+        return this;
+    },
+
+
+    /**
 	 *
 	 * Set a number of CSS properties at once.
 	 * 
@@ -234,27 +234,26 @@ xui.prototype = {
 	 * 	x$('h2.fugly').css({ backgroundColor:'blue', color:'white', border:'2px solid red' });
 	 *  
 	 */
-	css: function(o) {
-		var that = this;
-		this.each(function(el) {
-			for (var prop in o) {
-				that.setStyle(prop, o[prop]);
-			}
-		});
-		return this || that;
-	},
-	
-	// -- private methods -- //
-	
-	reClassNameCache: {},
+    css: function(o) {
+        var that = this;
+        this.each(function(el) {
+            for (var prop in o) {
+                that.setStyle(prop, o[prop]);
+            }
+        });
+        return this || that;
+    },
 
-	getClassRegEx: function(className) {
-	    var re = this.reClassNameCache[className];
-	    if (!re) {
-	        re = new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)');
-	        this.reClassNameCache[className] = re;
-	    }
-	    return re;
-	}
+    // -- private methods -- //
+    reClassNameCache: {},
+
+    getClassRegEx: function(className) {
+        var re = this.reClassNameCache[className];
+        if (!re) {
+            re = new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)');
+            this.reClassNameCache[className] = re;
+        }
+        return re;
+    }
 // --
-};
+});

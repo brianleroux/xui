@@ -1,5 +1,5 @@
-xui.prototype = {
-	
+xui.extend({
+    
 	/**
 	 * Adds more DOM nodes to the existing element list.
 	 */
@@ -46,4 +46,5 @@ xui.prototype = {
 	size: function() {
 		return this.elements.length;
 	}
-};	
+// --	
+});	

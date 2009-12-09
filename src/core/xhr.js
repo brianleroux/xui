@@ -10,7 +10,7 @@
  * Remoting methods and utils. 
  * 
  */
-xui.prototype = {	
+xui.extend({	
  
 	/**
 	 * 
@@ -114,4 +114,4 @@ xui.prototype = {
     	return this;
     }
 // --
-};
+});

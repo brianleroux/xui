@@ -1,15 +1,19 @@
-(function(name, scope) {
+	var xui = function(q) {
+		this.find(q || document);
+    };
 
-    var xui = function(q) {
-        return this.find(q || document);
-    }
+	xui.extend = function(o) {
+		for (var i in o) {
+			xui.prototype[i] = o[i];
+		}
+	};
 
-    xui.prototype = {
+    xui.extend({
 
         elements: [],
 
         find: function(q) {
-            var ele = [], list;
+            var ele = [], list, idExpr = /^#([\w-]+)$/;
 
             // fast matching for pure ID selectors
             if (typeof q == 'string' && idExpr.test(q)) {
@@ -49,7 +53,7 @@
 		 * Array Unique
 		 */
         reduce: function(el, b) {
-            var a = [],
+            var a = [];
             for (var i = 0, l = el.length; i < l; i++) {
                 if (a.indexOf(el[i], 0, b) < 0)
                     a.push(el[i]);
@@ -113,14 +117,12 @@
             }
             return this;
         }
-    };
+    });
 
     // --- 
     /// imports(); 
     // ---
 
-    scope[name] = function() {
-        return new xui(arguments);
-    };
-// ---
-})('x$', this);
+window.x$ = function() {
+	return new xui(arguments);
+}
