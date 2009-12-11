@@ -113,7 +113,7 @@ xui.extend({
         this.each(function(el) {
             switch (location) {
             case "inner":
-                if (typeof html == 'string') {
+                if (typeof html == string) {
                     el.innerHTML = html;
                     var list = el.getElementsByTagName('SCRIPT');
                     var len = list.length;
@@ -126,19 +126,19 @@ xui.extend({
                 }
                 break;
             case "outer":
-                if (typeof html == 'string') {
+                if (typeof html == string) {
                     html = wrap(html, getTag(el));
                 }
                 el.parentNode.replaceChild(html, el);
                 break;
             case "top":
-                if (typeof html == 'string') {
+                if (typeof html == string) {
                     html = wrap(html, getTag(el));
                 }
                 el.insertBefore(html, el.firstChild);
                 break;
             case "bottom":
-                if (typeof html == 'string') {
+                if (typeof html == string) {
                     html = wrap(html, getTag(el));
                 }
                 el.insertBefore(html, null);
@@ -149,14 +149,14 @@ xui.extend({
                 break;
             case "before":
                 var parent = el.parentNode;
-                if (typeof html == 'string') {
+                if (typeof html == string) {
                     html = wrap(html, getTag(parent));
                 }
                 parent.insertBefore(html, el);
                 break;
             case "after":
                 var parent = el.parentNode;
-                if (typeof html == 'string') {
+                if (typeof html == string) {
                     html = wrap(html, getTag(parent));
                 }
                 parent.insertBefore(html, el.nextSibling);

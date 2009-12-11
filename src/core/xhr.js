@@ -69,16 +69,13 @@ xui.extend({
 
     xhr:function(location, url, options) {
 
-        var o = options;
+        var o = options ? options : o;
         
         if (typeof options == "function") {
             o = {};
             o.callback = options;
         }
         
-        if (!options)
-            o = {};
-
         var that   = this;
         var req    = new XMLHttpRequest();
         var method = o.method || 'get';
@@ -86,9 +83,6 @@ xui.extend({
         var params = o.data || null;
 
         req.queryString = params;
-
-        
-    
         req.open(method, url, async);
 
 		if (o.headers) {
@@ -96,7 +90,6 @@ xui.extend({
               req.setRequestHeader(o.headers[i].name, o.headers[i].value);
             }
         }
-
 
         req.onload = (o.callback != null) ? o.callback : function() { that.html(location, this.responseText); };
         req.send(params);

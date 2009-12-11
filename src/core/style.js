@@ -9,6 +9,7 @@
  * Anything related to how things look. Usually, this is CSS.
  * 
  */
+(function () {
 xui.extend({
 
     /**
@@ -79,7 +80,7 @@ xui.extend({
         };
 
         if (callback === undefined) {
-            return gs(this.first(), prop);
+            return gs(this.elements[0], prop);
         }
 
         this.each(function(el) {
@@ -115,7 +116,7 @@ xui.extend({
     addClass: function(className) {
         var that = this;
         var hasClass = function(el, className) {
-            var re = that.getClassRegEx(className);
+            var re = getClassRegEx(className);
             return re.test(el.className);
         };
 
@@ -157,12 +158,12 @@ xui.extend({
         var that = this;
 
         if (callback === undefined && this.elements.length == 1) {
-            var re = this.getClassRegEx(className);
-            return re.test(that.first().className);
+            var re = getClassRegEx(className);
+            return re.test(that.elements[0].className);
         }
 
         this.each(function(el) {
-            var re = that.getClassRegEx(className);
+            var re = getClassRegEx(className);
             if (re.test(el.className) == true) {
                 callback(el);
             }
@@ -201,7 +202,7 @@ xui.extend({
                 el.className = '';
             });
         } else {
-            var re = this.getClassRegEx(className);
+            var re = getClassRegEx(className);
             this.each(function(el) {
                 el.className = el.className.replace(re, ' ');
             });
@@ -242,18 +243,24 @@ xui.extend({
             }
         });
         return this || that;
-    },
-
-    // -- private methods -- //
-    reClassNameCache: {},
-
-    getClassRegEx: function(className) {
-        var re = this.reClassNameCache[className];
-        if (!re) {
-            re = new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)');
-            this.reClassNameCache[className] = re;
-        }
-        return re;
     }
 // --
 });
+
+// RS: now that I've moved these out, they'll compress better, however, do these variables
+// need to be instance based - if it's regarding the DOM, I'm guessing it's better they're
+// global within the scope of xui
+
+// -- private methods -- //
+var reClassNameCache = {},
+    getClassRegEx = function(className) {
+    var re = reClassNameCache[className];
+    if (!re) {
+        re = new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)');
+        reClassNameCache[className] = re;
+    }
+    return re;
+};
+
+  
+})();
