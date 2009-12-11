@@ -87,10 +87,10 @@ xui.extend({
             o = {};
 
 
-        if (this.first().tagName == "FORM") {
+        if (this.elements[0].tagName == "FORM") {
             o.callback  = url;            
             url         = this.first().action;
-            o.data      = this._toQueryString(this.first());
+            o.data      = this._toQueryString(this.first()); // only available in /more/
             o.method    = this.first().method;
         }
 
