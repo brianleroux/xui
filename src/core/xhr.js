@@ -69,13 +69,6 @@ xui.extend({
 
     xhr:function(location, url, options) {
 
-        // this is to keep support for the old syntax (easy as that)
-        if (!/^inner|outer|top|bottom|before|after$/.test(location)) {
-         	options = url;
-         	url = location;
-         	location = 'inner';
-        }       
-        
         var o = options;
         
         if (typeof options == "function") {
@@ -86,28 +79,25 @@ xui.extend({
         if (!options)
             o = {};
 
-
-        if (this.first().tagName == "FORM") {
-            o.callback  = url;            
-            url         = this.first().action;
-            o.data      = this._toQueryString(this.first());
-            o.method    = this.first().method;
-        }
-
         var that   = this;
         var req    = new XMLHttpRequest();
         var method = o.method || 'get';
         var async  = o.async || false;            
         var params = o.data || null;
+
         req.queryString = params;
 
-        if (o.headers) {
+        
+    
+        req.open(method, url, async);
+
+		if (o.headers) {
             for (var i=0; i<o.headers.length; i++) {
               req.setRequestHeader(o.headers[i].name, o.headers[i].value);
             }
         }
-    
-        req.open(method,url,async);
+
+
         req.onload = (o.callback != null) ? o.callback : function() { that.html(location, this.responseText); };
         req.send(params);
   	
