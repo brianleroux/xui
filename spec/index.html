@@ -12,7 +12,25 @@
 	}
 	</style>
 </head>
-
+<script>
+// puts first back on to help tests
+xui.extend({
+  first: function () {
+    return this.get(0);
+  },
+  get: function (n) {
+    return this.elements[n];
+  },
+  size: function () {
+    return this.elements.length;
+  },
+  eq: function (n, m) {
+		m = m ? m + 1 : n + 1;
+		this.elements = this.elements.slice(n,m);
+    return this;
+  }
+});
+</script>
 <script type="text/javascript" language="javascript">
 // <![CDATA[
 
