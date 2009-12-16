@@ -67,6 +67,13 @@ TODO
 - figure out how to supress google barfing error messages 
 
 
+THANK YOU
+---
+
+- @rmurphey 
+- @rem
+
+
 LICENSE
 ---
 

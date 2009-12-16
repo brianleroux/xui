@@ -66,22 +66,28 @@ xui.extend({
 	 *	  x$('#left-panel').xhr('/panel', function(){ alert(this.responseText) }); 
 	 * 
 	 */
-
     xhr:function(location, url, options) {
+
+		 // this is to keep support for the old syntax (easy as that)
+        if (!/^inner|outer|top|bottom|before|after$/.test(location)) {
+         	options = url;
+         	url = location;
+         	location = 'inner';
+        }
 
         var o = options ? options : o;
         
         if (typeof options == "function") {
             o = {};
             o.callback = options;
-        }
+        };
         
-        var that   = this;
-        var req    = new XMLHttpRequest();
-        var method = o.method || 'get';
-        var async  = o.async || false;            
-        var params = o.data || null;
-
+        var that   = this,
+        	req    = new XMLHttpRequest(),
+        	method = o.method || 'get',
+        	async  = o.async || false,           
+        	params = o.data || null;
+		
         req.queryString = params;
         req.open(method, url, async);
 
@@ -91,7 +97,7 @@ xui.extend({
             }
         }
 
-        req.onload = (o.callback != null) ? o.callback : function() { that.html(location, this.responseText); };
+        req.onload = (o.callback != null) ? o.callback : function() { that.html(insertion, location, this.responseText); };
         req.send(params);
   	
     	return this;
