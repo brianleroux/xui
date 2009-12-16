@@ -108,6 +108,7 @@ var Xhr = {
         }
     
         req.open(method,url,async);
+        req.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         req.onload = (o.callback != null) ? o.callback : function() { that.html(location, this.responseText); };
         req.send(params);
   	
