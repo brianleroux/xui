@@ -112,7 +112,7 @@ task :min => :build do
     min_file = "#{ xui.gsub('.js','.min.js') }"
     doc_file = xui
     puts "creating #{ min_file }..."
-    sh "java -jar #{ compress_jar } --js=#{ doc_file } --js_output_file=#{ min_file } --warning_level=QUIET"
+    sh "java -jar \"#{ compress_jar }\" --js=\"#{ doc_file }\" --js_output_file=\"#{ min_file }\" --warning_level=QUIET"
     # sh "java -jar #{yui_jar} --charset UTF-8 -o #{min_file} #{doc_file}"
   end 
 end
