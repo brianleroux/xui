@@ -97,7 +97,7 @@ xui.extend({
             }
         }
 
-        req.onload = (o.callback != null) ? o.callback : function() { that.html(insertion, location, this.responseText); };
+        req.onload = (o.callback != null) ? o.callback : function() { that.html(location, this.responseText); };
         req.send(params);
   	
     	return this;
