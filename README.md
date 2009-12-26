@@ -67,12 +67,25 @@ TODO
 - figure out how to supress google barfing error messages 
 
 
-THANK YOU
+CREATORS
 ---
 
-- @rmurphey 
-- @rem
+- http://github.com/brianleroux
+- http://github.com/silentrob
+- http://github.com/sintaxi
 
+
+CONTRIBUTORS 
+---
+
+- http://github.com/rmurphey 
+- http://github.com/rem
+- http://github.com/filmaj
+- http://github.com/alunny
+- http://github.com/gdagley
+- http://github.com/slexaxton
+
+(If I missed you pls let us know!)
 
 LICENSE
 ---
