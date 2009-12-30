@@ -51,13 +51,10 @@ xui.extend({
 	 * 	
 	 */
 	on: function(type, fn) {
-	    var listen = function(el) {
-	        if (window.addEventListener) {
-	            el.addEventListener(type, fn, false);
-	        }
-	    };
 	    this.each(function(el) {
-	        listen(el);
+        if (window.addEventListener) {
+            el.addEventListener(type, fn, false);
+        }
 	    });
 	    return this;
 	}
