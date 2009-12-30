@@ -79,7 +79,7 @@ CONTRIBUTORS
 ---
 
 - http://github.com/rmurphey 
-- http://github.com/rem
+- http://github.com/remy
 - http://github.com/filmaj
 - http://github.com/alunny
 - http://github.com/gdagley
