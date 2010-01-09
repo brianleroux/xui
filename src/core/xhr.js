@@ -75,7 +75,7 @@ xui.extend({
          	location = 'inner';
         }
 
-        var o = options ? options : o;
+        var o = options ? options : {};
         
         if (typeof options == "function") {
             o = {};
