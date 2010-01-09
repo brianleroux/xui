@@ -127,7 +127,7 @@ xui.fn = xui.prototype = {
 	 */
       each: function(fn) {
           for (var i = 0, len = this.elements.length; i < len; ++i) {
-              if (fn.call(this, this.elements[i]) === false)
+              if (fn.call(this.elements[i], this.elements[i], i, this) === false)
                   break;
           }
           return this;
