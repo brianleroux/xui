@@ -42,8 +42,8 @@ xui.fn = xui.prototype = {
           if (typeof q == string && idExpr.test(q)) {
               ele = [document.getElementById(q.substr(1))];
           } else if (typeof q == string) {
-              // one selector
-              ele = Array.prototype.slice.call(document.querySelectorAll(q), 0);
+			// one selector	
+			ele = Array.prototype.slice.call(document.querySelectorAll(q), 0);
           } else {
 			        // an element
               ele = [q];
