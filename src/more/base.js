@@ -4,10 +4,15 @@ xui.extend({
 	 * Adds more DOM nodes to the existing element list.
 	 */
 	add: function(q) {
-		this.find([q]);
-		this.elements = this.reduce(this.elements);
-		return this;
+    this.elements = this.elements.concat(this.reduce(xui(q).elements)); 
+    return this;
 	},
+
+  // required? supports easier conversion of jQuery plugins to XUI - better off in more
+  end: function () {
+    this.elements = this.cache || document;
+    return this;
+  },
 
 	/**
 	 * Returns the first element in the collection.
