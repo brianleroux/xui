@@ -103,7 +103,7 @@ xui.extend({
         this.clean();
 
         if (arguments.length == 0) {
-            return this.elements[0].innerHTML;
+            return this[0].innerHTML;
         }
         if (arguments.length == 1 && arguments[0] != 'remove') {
             html = location;

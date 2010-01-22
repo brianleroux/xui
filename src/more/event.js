@@ -131,8 +131,7 @@ function _createResponder(element, eventName, handler) {
 }
 
 "click load submit touchstart touchmove touchend touchcancel gesturestart gesturechange gestureend orientationchange".split(' ').forEach(function (event) {
-  eval("var temp = {" + event + ": function (fn) { return fn ? this.on('" + event + "', fn) : this.fire('" + event + "'); }}");
-  xui.extend(temp);
+  xui.fn[event] = function (fn) { return fn ? this.on(event, fn) : this.fire(event); };
 });
 
 })();

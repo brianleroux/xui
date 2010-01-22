@@ -49,7 +49,7 @@ xui.extend({
         var callback = function() {
             var o = eval('(' + this.responseText + ')');
             for (var prop in o) {
-                x$(options.map[prop]).html(cb(o[prop]));
+                xui(options.map[prop]).html(cb(o[prop]));
             }
         };
         options.callback = callback;

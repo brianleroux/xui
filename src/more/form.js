@@ -24,8 +24,8 @@ xui.extend({
     _toQueryString: function(docForm) {   
        var submitString = formElement = lastElementName =  ''; 
 
-       for(i = 0 ; i < docForm.elements.length ; i++) { 
-         formElement = docForm.elements[i]; 
+       for(i = 0 ; i < docForm.length ; i++) { 
+         formElement = docForm[i]; 
          switch(formElement.type) { 
             case 'text' : 
             case 'select-one' : 
