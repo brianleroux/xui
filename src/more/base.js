@@ -4,14 +4,13 @@ xui.extend({
 	 * Adds more DOM nodes to the existing element list.
 	 */
 	add: function(q) {
-    this.elements = this.elements.concat(this.reduce(xui(q).elements)); 
-    return this;
+	  [].push.apply(this, [].slice.call(xui(q)));
+	  return this.set(this.reduce());
 	},
 
   // required? supports easier conversion of jQuery plugins to XUI - better off in more
   end: function () {
-    this.elements = this.cache || document;
-    return this;
+    return this.set(this.cache || []);
   },
 
 	/**
@@ -30,7 +29,7 @@ xui.extend({
 	 * @return {Element} Returns a single DOM element
 	 * */
 	get: function(index) {
-		return this.elements[index];
+		return this[index];
 	},
 	
 	/**
@@ -39,8 +38,7 @@ xui.extend({
 	 * */
 	eq: function(idx1,idx2) {
 		idx2 = idx2 ? idx2 + 1 : idx1 + 1;
-		this.elements = this.elements.slice(idx1,idx2);
-		return this;
+		return this.set([].slice.call(this, idx1, idx2));
 	},
 
 	/**
@@ -49,7 +47,7 @@ xui.extend({
 	 * @return {Number} Returns an integer size of collection
 	 * */
 	size: function() {
-		return this.elements.length;
+		return this.length;
 	}
 // --	
 });	

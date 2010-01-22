@@ -90,10 +90,10 @@
 			var x = x$('#item_1');
 
 		  	should( 'return array with one element', function(){
-				equals(x.elements.length, 1);
+				equals(x.length, 1);
 			});
 			should( 'first element should have text: this is item one', function(){
-			  equals(x.elements[0].innerHTML, 'this is item one');
+			  equals(x[0].innerHTML, 'this is item one');
 			});
 		});
 
@@ -102,13 +102,13 @@
 			var x = x$(".item");
 
 			should( 'return array with three items', function(){
-				equals(x.elements.length, 3);
+				equals(x.length, 3);
 			});
 		  	should( 'should have text "this is item one" in first element.', function(){
-				equals(x.elements[0].innerHTML, 'this is item one');
+				equals(x[0].innerHTML, 'this is item one');
 			});
 			should( 'have text "this is item three" in last element', function(){
-			  	equals(x.elements[x.elements.length -1].innerHTML, 'this is item three');
+			  	equals(x[x.length -1].innerHTML, 'this is item three');
 			});
 
 		});
@@ -118,7 +118,7 @@
 			var x = x$("item_1");
 
 		  	should( 'return empty array', function(){
-				equals(x.elements.length, 0);
+				equals(x.length, 0);
 			});
 		});
 
@@ -128,11 +128,11 @@
 		    var x = x$(el);
 
 		  	should( 'return array with one element', function(){
-				equals(x.elements.length, 1);
+				equals(x.length, 1);
 			});
 
 			should( 'have text "this is item one" in first element.', function(){
-				equals(x.elements[0].innerHTML, 'this is item one');
+				equals(x[0].innerHTML, 'this is item one');
 			});
 		});
 		
@@ -141,11 +141,11 @@
 			var x = x$('ul#has_tests li');
 
 			should( 'return two elements.', function(){
-				equals(x.has(".foo").elements.length, 2);
+				equals(x.has(".foo").length, 2);
 			});
 
 			should( 'return three elements after omitting class foo.', function(){
-				equals(x.not(".foo").elements.length, 3);
+				equals(x.not(".foo").length, 3);
 			});
 		});
 		
@@ -160,13 +160,13 @@
 			
 			should( 'set change the box backgroundColor', function(){
 				e.setStyle('backgroundColor', 'green');
-				equals(e.elements[0].style.backgroundColor, 'green');
+				equals(e[0].style.backgroundColor, 'green');
 			});
 		});
 
 		context( "Style.getStyle", function(){
 			var	e = x$('#get-style-element');
-			e.elements[0].style.backgroundColor = "blue";
+			e[0].style.backgroundColor = "blue";
 
 		  	should( 'return background color of blue if set in passed function', function(){
 				stop();
@@ -187,7 +187,7 @@
 			x.addClass("foo");
 
 			should( 'add class of foo', function(){
-			  equals(x.elements[0].className, "foo");
+			  equals(x[0].className, "foo");
 			});
 		});
 
@@ -196,8 +196,7 @@
 
 			should( 'remove the class of testing' ,function(){
 				x.removeClass('bar');
-				// value_of(x.first().className).should_be(' '); 
-				ok(false);
+        equals(x[0].className, '');
 			});
 		});
 
@@ -205,8 +204,7 @@
 			var x = x$('#has-class-element');
 
 			should( 'have the class bar', function(){
-			//	ok(x.hasClass('bar'); 
-				ok(false);
+        equals(x.hasClass('bar'), true);
 			});
 		});
 		
@@ -226,43 +224,43 @@
 
 			should( 'insert html after #html-test-html.', function() {
 				h.html('after', '<div>after</div>');
-				equals(h.elements[0].nextSibling.innerHTML, 'after');
+				equals(h[0].nextSibling.innerHTML, 'after');
 			});
 
 			should( 'have "p" as tag name in html inserted after.', function() {
 				h.html('after', '<p>after</p>');
-				equals(h.elements[0].nextSibling.tagName.toLowerCase(), 'p');
+				equals(h[0].nextSibling.tagName.toLowerCase(), 'p');
 			});
 
 			should( 'insert html before #html-test-html', function() {
 				h.html('before', '<div>before</div>');
-				equals(h.elements[0].previousSibling.innerHTML, 'before');
+				equals(h[0].previousSibling.innerHTML, 'before');
 			});
 
 			should( 'have "p" as tag name in html inserted before.', function() {
 				h.html('before','<p>before</p>');
-				equals(h.elements[0].previousSibling.tagName.toLowerCase(), 'p');
+				equals(h[0].previousSibling.tagName.toLowerCase(), 'p');
 			});
 
 			should( 'insert html into the #html-test-inner node', function(){
 				inner.html('inner', '<p>hello world</p>');
-				equals(inner.elements[0].children[0].tagName, 'P'); 
+				equals(inner[0].children[0].tagName, 'P'); 
 			});
 
 			should( 'insert html into the #html-test-outer node', function(){
 				outer.html('outer', '<div id="html-test-outer">sneaky</div>'); 
-				equals(x$('#html-test-outer').elements[0].innerHTML, 'sneaky'); 
+				equals(x$('#html-test-outer')[0].innerHTML, 'sneaky'); 
 			});
 
 			should( 'insert html into the #html-test-top node', function(){
 				top.html('top', '<div>come out on top</div>');
-				equals(top.elements[0].children[0].innerHTML, 'come out on top'); 
+				equals(top[0].children[0].innerHTML, 'come out on top'); 
 			});
 
 			should( 'insert html into the #html-test-bottom node', function(){
 				bottom.html('bottom', '<div>undertow</div>');
-				var last = bottom.elements[0].children.length - 1;
-				equals(bottom.elements[0].children[last].innerHTML, 'undertow'); 
+				var last = bottom[0].children.length - 1;
+				equals(bottom[0].children[last].innerHTML, 'undertow'); 
 			});
 
 			should( 'return html of #html-test-html node', function(){

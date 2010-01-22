@@ -10,6 +10,19 @@
  * 
  */
 (function () {
+
+function hasClass(el, className) {
+    return getClassRegEx(className).test(el.className);
+}
+
+// Via jQuery - used to avoid el.className = ' foo';
+// Used for trimming whitespace
+var rtrim = /^(\s|\u00A0)+|(\s|\u00A0)+$/g;
+
+function trim(text) {
+  return (text || "").replace( rtrim, "" );
+}
+
 xui.extend({
 
     /**
@@ -39,10 +52,9 @@ xui.extend({
 	 * 
 	 */
     setStyle: function(prop, val) {
-        this.each(function(el) {
+        return this.each(function(el) {
             el.style[prop] = val;
         });
-        return this;
     },
 
     /**
@@ -80,13 +92,12 @@ xui.extend({
         };
 
         if (callback === undefined) {
-            return gs(this.elements[0], prop);
+            return gs(this[0], prop);
         }
 
-        this.each(function(el) {
+        return this.each(function(el) {
             callback(gs(el, prop));
         });
-        return this;
     },
 
     /**
@@ -114,18 +125,11 @@ xui.extend({
 	 *
 	 */
     addClass: function(className) {
-        var that = this;
-        var hasClass = function(el, className) {
-            var re = getClassRegEx(className);
-            return re.test(el.className);
-        };
-
-        this.each(function(el) {
+        return this.each(function(el) {
             if (hasClass(el, className) === false) {
-                el.className += ' ' + className;
+              el.className = trim(el.className + ' ' + className);
             }
         });
-        return this;
     },
     /**
 	 *
@@ -155,21 +159,15 @@ xui.extend({
 	 *
 	 */
     hasClass: function(className, callback) {
-        var that = this;
-
-        if (callback === undefined && this.elements.length == 1) {
-            var re = getClassRegEx(className);
-            return re.test(that.elements[0].className);
+        if (callback === undefined && this.length == 1) {
+            return hasClass(this[0], this[0].className)
         }
 
-        this.each(function(el) {
-            var re = getClassRegEx(className);
-            if (re.test(el.className) == true) {
+        return this.each(function(el) {
+            if (hasClass(el, el.className)) {
                 callback(el);
             }
         });
-
-        return this;
     },
 
     /**
@@ -204,7 +202,7 @@ xui.extend({
         } else {
             var re = getClassRegEx(className);
             this.each(function(el) {
-                el.className = el.className.replace(re, ' ');
+                el.className = el.className.replace(re, '');
             });
         }
         return this;
@@ -237,12 +235,11 @@ xui.extend({
 	 */
     css: function(o) {
         var that = this;
-        this.each(function(el) {
+        return that.each(function(el) {
             for (var prop in o) {
                 that.setStyle(prop, o[prop]);
             }
         });
-        return this || that;
     }
 // --
 });
