@@ -16,9 +16,8 @@ xui.extend({
 	 * 
 	 * This method is private, it takes a form element and returns a string
 	 * 
-	 * @method
-	 * @param {Element} 
-	 * @return {String}
+	 * @param {Element} form
+	 * @return encoded querystring
 	 * 
 	 */
     _toQueryString: function(docForm) {   

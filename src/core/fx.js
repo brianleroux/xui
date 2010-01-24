@@ -15,10 +15,9 @@ xui.extend({
 	 *
 	 * Tween is a method for transforming a css property to a new value.
 	 * 
-	 * @method
-	 * @param {Object} [Array|Object]
-	 * @param {Function} 
-	 * @return {Element Collection}
+	 * @param {Object} options [Array|Object]
+	 * @param {Function} callback
+	 * @return self
 	 * @example
 	 * 
 	 * ### tween
@@ -40,14 +39,12 @@ xui.extend({
 	 * 	x$('#box').tween({ left:100px}).tween({ left:'100px' });
 	 * 
 	 */
-	tween: function( options, opts ) {
+	tween: function( options, callback ) {
 		// TODO make xui into emile options
 		// TODO make queue
-		// TODO make chainable
-		this.each(function(e){		
-			emile(e, options, opts);
+		return this.each(function(e){		
+			emile(e, options, callback);
 		});
-	    return this;
 	}
 //---
 });

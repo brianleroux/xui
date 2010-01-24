@@ -16,10 +16,9 @@ xui.extend({
 	 *
 	 * Register callbacks to DOM events.
 	 * 
-	 * @method
-	 * @param {Event} The event identifier as a string.
-	 * @param {Function} The callback function to invoke when the event is raised.
-	 * @return {Element Collection}
+	 * @param {Event} type The event identifier as a string.
+	 * @param {Function} fn The callback function to invoke when the event is raised.
+	 * @return self
 	 * @example
 	 * 
 	 * ### on

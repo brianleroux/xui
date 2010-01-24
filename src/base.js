@@ -6,7 +6,8 @@ var undefined,
     // prevents Google compiler from removing primative and subsidising out allowing us to compress further
     string = new String('string'), 
     document = window.document,
-    idExpr = /^#([\w-]+)$/;
+    idExpr = /^#([\w-]+)$/,
+    slice = [].slice;
     
 window.x$ = window.xui = xui = function(q, context) {
   return new xui.fn.find(q, context);
@@ -47,7 +48,7 @@ xui.fn = xui.prototype = {
             return this;
           } else if (context == undefined && this.length) {
             this.each(function (el, i) {
-              ele = ele.concat([].slice.call(xui(q, this)));
+              ele = ele.concat(slice.call(xui(q, this)));
             });
             ele = this.reduce(ele);
           } else {
@@ -58,7 +59,7 @@ xui.fn = xui.prototype = {
                 ele = [context.getElementById(q.substr(1))];
             } else if (typeof q == string) {
                 // one selector
-                ele = [].slice.call(context.querySelectorAll(q));
+                ele = slice.call(context.querySelectorAll(q));
             } else if (q.toString() === '[object Array]') {
                 ele = q;
             } else {
@@ -79,7 +80,7 @@ xui.fn = xui.prototype = {
        */
       set: function (elements) {
         var ret = xui(); // this *really* doesn't feel right...
-        ret.cache = [].slice.call(this);
+        ret.cache = slice.call(this);
         ret.length = 0;
         [].push.apply(ret, elements);
         return ret;
@@ -89,7 +90,7 @@ xui.fn = xui.prototype = {
         * Array Unique
         */
       reduce: function(elements, b) {
-          var a = [], elements = elements || [].slice.call(this);
+          var a = [], elements = elements || slice.call(this);
           elements.forEach(function (el) {
             // question the support of [].indexOf in older mobiles (RS will bring up 5800 to test)
             if (a.indexOf(el, 0, b) < 0)
@@ -103,14 +104,24 @@ xui.fn = xui.prototype = {
        * Has modifies the elements array and reurns all the elements that match (has) a CSS Query
        */
       has: function(q) {
-          var list = [];
-          return this.each(function(el) {
-              xui(q).each(function(hel) {
-                  if (hel == el) {
-                      list.push(el);
-                  }
-              });
-          }).set(list);
+        return this.filter(function () {
+          return !!xui(q, this).length;
+        });
+      },
+      
+      /**
+       * Both an internal utility function, but also allows developers to extend xui using custom filters
+       */
+      filter: function (fn) {
+        var elements = [];
+        return this.each(function (el, i) {
+          if (fn.call(el, i)) elements.push(el);
+        }).set(elements);
+      },
+
+      // supports easier conversion of jQuery plugins to XUI
+      end: function () {
+        return this.set(this.cache || []);
       },
 
 
@@ -118,15 +129,15 @@ xui.fn = xui.prototype = {
 	 * Not modifies the elements array and reurns all the elements that DO NOT match a CSS Query
 	 */
       not: function(q) {
-          var list = [].slice.call(this), els, i;
-          for (i = 0; i < this.length; i++) {
-              xui(q).each(function(hel) {
-                  if (list[i] == hel) {
-                      removex(list, list.indexOf(list[i]));
-                  }
-              });
-          }
-          return this.set(list);
+          var list = slice.call(this);
+
+          return this.filter(function (i) {
+            var found;
+            xui(q).each(function(el) {
+              return found = list[i] != el;
+            });
+            return found;
+          });
       },
 
 
