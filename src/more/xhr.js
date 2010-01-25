@@ -23,10 +23,9 @@ xui.extend({
 	 * Another twist on remoting: lightweight and unobtrusive DOM databinding. Since we are often talking to a server with 
 	 * handy JSON objects we added the convienance the map property which allows you to map JSON nodes to DOM elements. 
 	 * 
-	 * @method
-	 * @param {String} The URL to request.
-	 * @param {Object} The method options including a callback function to invoke when the request returns. 
-	 * @return {Element Collection}
+	 * @param {String} url The URL to request.
+	 * @param {Object} options The method options including a callback function to invoke when the request returns. 
+	 * @return self
 	 * @example
 	 * 
 	 * ### xhrjson 

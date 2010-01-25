@@ -8,15 +8,10 @@ xui.extend({
 	  return this.set(this.reduce());
 	},
 
-  // required? supports easier conversion of jQuery plugins to XUI - better off in more
-  end: function () {
-    return this.set(this.cache || []);
-  },
-
 	/**
 	 * Returns the first element in the collection.
 	 * 
-	 * @return {Element} Returns a single DOM element.
+	 * @return Returns a single DOM element.
 	 */
 	first: function() {
 		return this.get(0);
@@ -26,7 +21,7 @@ xui.extend({
 	 * Returns the element in the collection at the 
 	 * given index
 	 *
-	 * @return {Element} Returns a single DOM element
+	 * @return Returns a single DOM element
 	 * */
 	get: function(index) {
 		return this[index];
@@ -44,7 +39,7 @@ xui.extend({
 	/**
 	 * Returns the size of the collection
 	 *
-	 * @return {Number} Returns an integer size of collection
+	 * @return Returns an integer size of collection (use xui.length instead)
 	 * */
 	size: function() {
 		return this.length;

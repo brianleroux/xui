@@ -29,10 +29,9 @@ xui.extend({
 	 * 
 	 * Sets a single CSS property to a new value.
 	 * 
-	 * @method
-	 * @param {String} The property to set.
-	 * @param {String} The value to set the property.
-	 * @return {Element Collection}
+	 * @param {String} prop The property to set.
+	 * @param {String} val The value to set the property.
+	 * @return self
 	 * @example
 	 *
 	 * ### setStyle
@@ -61,10 +60,9 @@ xui.extend({
 	 * 
 	 * Retuns a single CSS property. Can also invoke a callback to perform more specific processing tasks related to the property value.
 	 * 
-	 * @method
-	 * @param {String} The property to retrieve.
-	 * @param {Function} A callback function to invoke with the property value.
-	 * @return {Element Collection}
+	 * @param {String} prop The property to retrieve.
+	 * @param {Function} callback A callback function to invoke with the property value.
+	 * @return self if a callback is passed, otherwise the individual property requested
 	 * @example
 	 *
 	 * ### getStyle
@@ -104,9 +102,8 @@ xui.extend({
 	 *
 	 * Adds the classname to all the elements in the collection. 
 	 * 
-	 * @method
-	 * @param {String} The class name.
-	 * @return {Element Collection}
+	 * @param {String} className The class name.
+	 * @return self
 	 * @example
 	 *
 	 * ### addClass
@@ -133,12 +130,11 @@ xui.extend({
     },
     /**
 	 *
-	 * Checks to see if classname is one the element
+	 * Checks to see if classname is one the element. If a callback isn't passed, hasClass expects only one element in collection
 	 * 
-	 * @method
-	 * @param {String} The class name.
-	 * @param {Function} A callback function (optional)
-	 * @return {XUI Object - self} Chainable
+	 * @param {String} className The class name.
+	 * @param {Function} callback A callback function (optional)
+	 * @return self if a callback is passed, otherwise true or false as to whether the element has the class
 	 * @example
 	 *
 	 * ### hasClass
@@ -174,9 +170,8 @@ xui.extend({
 	 *
 	 * Removes the classname from all the elements in the collection. 
 	 * 
-	 * @method
-	 * @param {String} The class name.
-	 * @return {Element Collection}
+	 * @param {String} className The class name.
+	 * @return self
 	 * @example
 	 *
 	 * ### removeClass
@@ -213,9 +208,8 @@ xui.extend({
 	 *
 	 * Set a number of CSS properties at once.
 	 * 
-	 * @method
-	 * @param {Object} An object literal of CSS properties and corosponding values.
-	 * @return {Element Collection}
+	 * @param {Object} props An object literal of CSS properties and corosponding values.
+	 * @return self
 	 * @example	
 	 *
 	 * ### css
@@ -235,11 +229,10 @@ xui.extend({
 	 */
     css: function(o) {
         var that = this;
-        return that.each(function(el) {
-            for (var prop in o) {
-                that.setStyle(prop, o[prop]);
-            }
-        });
+        for (var prop in o) {
+            that.setStyle(prop, o[prop]);
+        }
+        return that;
     }
 // --
 });

@@ -18,11 +18,10 @@ xui.extend({
 	 * This method has a few new tricks. It is always invoked on an element collection and follows the identical behaviour as the
 	 * `html` method. If there no callback is defined the response text will be inserted into the elements in the collection. 
 	 * 
-	 * @method
-	 * @param {location} [inner|outer|top|bottom|before|after]
-	 * @param {String} The URL to request.
-	 * @param {Object} The method options including a callback function to invoke when the request returns. 
-	 * @return {Element Collection}
+	 * @param {location} location [inner|outer|top|bottom|before|after]
+	 * @param {String} url The URL to request.
+	 * @param {Object} options The method options including a callback function to invoke when the request returns. 
+	 * @return self
 	 * @example
 	 *	
 	 * ### xhr
@@ -68,7 +67,7 @@ xui.extend({
 	 */
     xhr:function(location, url, options) {
 
-		 // this is to keep support for the old syntax (easy as that)
+      // this is to keep support for the old syntax (easy as that)
         if (!/^inner|outer|top|bottom|before|after$/.test(location)) {
          	options = url;
          	url = location;
@@ -87,11 +86,11 @@ xui.extend({
         	method = o.method || 'get',
         	async  = o.async || false,           
         	params = o.data || null;
-		
+
         req.queryString = params;
         req.open(method, url, async);
 
-		if (o.headers) {
+        if (o.headers) {
             for (var i=0; i<o.headers.length; i++) {
               req.setRequestHeader(o.headers[i].name, o.headers[i].value);
             }
