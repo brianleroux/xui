@@ -51,9 +51,20 @@ xui.extend({
 	 */
 	on: function(type, fn) {
 	    this.each(function(el) {
-        if (window.addEventListener) {
+		if (window.addEventListener) { //doesn't work with IE Mobile
             el.addEventListener(type, fn, false);
         }
+		else { //very sad way to do this... still looking for better alternative...
+			switch (type) {
+				case "keyup" :
+					el.onkeyup=fn;
+				case "click" :
+					el.onclick=fn;
+				case "touchmove" :
+					el.touchmove=fn;
+			}
+			//need complement...
+		}
 	    });
 	    return this;
 	}

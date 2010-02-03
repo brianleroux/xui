@@ -65,41 +65,61 @@ xui.extend({
 	 *	  x$('#left-panel').xhr('/panel', function(){ alert(this.responseText) }); 
 	 * 
 	 */
-    xhr:function(location, url, options) {
+    xhr : function(url, options) {
+			var o = options;
+			if (typeof options == "function") {
+				o = {};
+				o.callback = options;
+			}
 
-      // this is to keep support for the old syntax (easy as that)
-        if (!/^inner|outer|top|bottom|before|after$/.test(location)) {
-         	options = url;
-         	url = location;
-         	location = 'inner';
-        }
+			if (options === undefined) {
+				o = {};
+			}
 
-        var o = options ? options : {};
-        
-        if (typeof options == "function") {
-            o = {};
-            o.callback = options;
-        };
-        
-        var that   = this,
-        	req    = new XMLHttpRequest(),
-        	method = o.method || 'get',
-        	async  = o.async || false,           
-        	params = o.data || null;
+			var that = this;
+			var req;
+			
+			if(window.XMLHttpRequest) {
+				req = new XMLHttpRequest();
+			}
+			else if(window.ActiveXObject) {// Internet Explorer
+	   			req = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+		
+			var method = o.method || 'get';
+			var async = o.async || false;
+			var params = o.data || null;
+			req.open(method, url, async);
 
-        req.queryString = params;
-        req.open(method, url, async);
-
-        if (o.headers) {
-            for (var i=0; i<o.headers.length; i++) {
-              req.setRequestHeader(o.headers[i].name, o.headers[i].value);
-            }
-        }
-
-        req.onload = (o.callback != null) ? o.callback : function() { that.html(location, this.responseText); };
-        req.send(params);
-  	
-    	return this;
-    }
+			//callback has to be called differently...
+			//to be compatible with IE
+			//callback:function(resp){alert(resp.responseText);}
+			//didn't find the way to use the same call :-/
+			function handleResponse(){
+			if (o.callback != null) {
+				if (req.status ==200 ) {
+						o.callback(req);
+					}
+				} else if (req.status ==200 ) {
+						that.html(req.responseText);
+					}
+			}
+			
+			req.onreadystatechange = testAjax;
+			function testAjax(){
+				if (req.readyState==4) {
+					handleResponse();
+				}
+			}
+			
+			if (o.headers) {
+				for ( var i = 0; i < o.headers.length; i++) {
+					req.setRequestHeader(o.headers[i].name, o.headers[i].value);
+				}
+			}
+			req.send(params);
+			if(!async) handleResponse();	
+			return this;
+		}
 // --
 });

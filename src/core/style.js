@@ -83,21 +83,34 @@ xui.extend({
 	 * 	x$('a.globalnav').getStyle( 'background', function(prop){ prop == 'blue' ? 'green' : 'blue' });
 	 *
 	 */
-    getStyle: function(prop, callback) {
+    
 
-        var gs = function(el, p) {
-            return document.defaultView.getComputedStyle(el, "").getPropertyValue(p);
-        };
-
-        if (callback === undefined) {
-            return gs(this[0], prop);
-        }
-
-        return this.each(function(el) {
-            callback(gs(el, prop));
-        });
-    },
-
+	
+	getStyle : function(prop, callback) {
+			var gs = function (oElm, strCssRule){
+		  	var strValue = "";
+		  	if(document.defaultView && document.defaultView.getComputedStyle){ //doesn't work with IE
+		    	strValue = document.defaultView.getComputedStyle(oElm, "").getPropertyValue(strCssRule);
+		  	}
+		  	else if(oElm.currentStyle){
+		    	strCssRule = strCssRule.replace(/\-(\w)/g, function (strMatch, p1){
+		      	return p1.toUpperCase();
+		    });
+		    strValue = oElm.currentStyle[strCssRule];
+		  	}
+		  	return strValue;
+			}
+		
+			if (callback === undefined) {
+				return gs(this.first(), prop);
+			}
+	
+			this.each( function(el) {
+				callback(gs(el, prop));
+			});
+			return this;
+		},
+		
     /**
 	 *
 	 * Adds the classname to all the elements in the collection. 

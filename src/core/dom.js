@@ -181,10 +181,11 @@ xui.extend({
                 var nx = n.nextSibling;
                 if (n.nodeType == 3 && !ns.test(n.nodeValue)) {
                     d.removeChild(n);
-                } else {
-                    n.nodeIndex = ++ni;
-                }
-                n = nx;
+                } else { 
+					if(nx!=null) //added for IE Mobile compatibility
+					n.nodeIndex = ++ni;
+               }
+				n = nx;
             }
         });
         return this;

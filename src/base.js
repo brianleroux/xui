@@ -1,3 +1,5 @@
+//= require <sizzle>
+
 (function () {
 
 var undefined,
@@ -59,7 +61,9 @@ xui.fn = xui.prototype = {
                 ele = [context.getElementById(q.substr(1))];
             } else if (typeof q == string) {
                 // one selector
-                ele = slice.call(context.querySelectorAll(q));
+				//Sizzle comes first...
+				if (Sizzle) ele = slice.call(Sizzle(q));
+				else ele = slice.call(context.querySelectorAll(q));
             } else if (q.toString() === '[object Array]') {
                 ele = q;
             } else {
@@ -93,7 +97,8 @@ xui.fn = xui.prototype = {
           var a = [], elements = elements || slice.call(this);
           elements.forEach(function (el) {
             // question the support of [].indexOf in older mobiles (RS will bring up 5800 to test)
-            if (a.indexOf(el, 0, b) < 0)
+            //if (a.indexOf(el, 0, b) < 0) //don't think it works on blackberry & IE => replace it by if (a.indexOf(el, 0) < 0) ???
+			if (a.indexOf(el, 0) < 0)
                 a.push(el);            
           });
 
