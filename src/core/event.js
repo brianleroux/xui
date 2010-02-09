@@ -62,6 +62,8 @@ xui.extend({
 					el.onclick=fn;
 				case "touchmove" :
 					el.touchmove=fn;
+				case "load" :
+					el.onload=fn;
 			}
 			//need complement...
 		}

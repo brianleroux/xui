@@ -65,61 +65,62 @@ xui.extend({
 	 *	  x$('#left-panel').xhr('/panel', function(){ alert(this.responseText) }); 
 	 * 
 	 */
-    xhr : function(url, options) {
-			var o = options;
-			if (typeof options == "function") {
-				o = {};
-				o.callback = options;
-			}
-
-			if (options === undefined) {
-				o = {};
-			}
-
-			var that = this;
-			var req;
-			
-			if(window.XMLHttpRequest) {
-				req = new XMLHttpRequest();
-			}
-			else if(window.ActiveXObject) {// Internet Explorer
-	   			req = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-		
-			var method = o.method || 'get';
-			var async = o.async || false;
-			var params = o.data || null;
-			req.open(method, url, async);
-
-			//callback has to be called differently...
-			//to be compatible with IE
-			//callback:function(resp){alert(resp.responseText);}
-			//didn't find the way to use the same call :-/
-			function handleResponse(){
-			if (o.callback != null) {
-				if (req.status ==200 ) {
-						o.callback(req);
+            xhr : function(url, options) {
+    			var o = options;
+    			if (typeof options == "function") {
+    				o = {};
+    				o.callback = options;
+    			}
+    
+    			if (options === undefined) {
+    				o = {};
+    			}
+    
+    			var that = this;
+    			var req;
+    			
+    			if(window.XMLHttpRequest) {
+    				req = new XMLHttpRequest();
+    			}
+    			else if(window.ActiveXObject) {// Internet Explorer
+    	   			req = new ActiveXObject("Microsoft.XMLHTTP");
+    			}
+    		
+    			var method = o.method || 'get';
+    			var async = o.async || false;
+    			var params = o.data || null;
+    			req.open(method, url, async);
+    
+    			//callback has to be called differently...
+    			//to be compatible with IE
+    			//callback:function(resp){alert(resp.responseText);}
+    			//didn't find the way to use the same call :-/
+    			function handleResponse(){
+					if (req.status == 200 ) {
+						if (o.callback != null) {
+							o.callback(req);
+						}
+						else {
+								that.html(req.responseText);
+							}
 					}
-				} else if (req.status ==200 ) {
-						that.html(req.responseText);
+    			}
+				
+				function testAjax(){
+					if (req.readyState==4) {
+						handleResponse();
 					}
-			}
-			
-			req.onreadystatechange = testAjax;
-			function testAjax(){
-				if (req.readyState==4) {
-					handleResponse();
 				}
-			}
-			
-			if (o.headers) {
-				for ( var i = 0; i < o.headers.length; i++) {
-					req.setRequestHeader(o.headers[i].name, o.headers[i].value);
-				}
-			}
-			req.send(params);
-			if(!async) handleResponse();	
-			return this;
-		}
+    			if(async) req.onreadystatechange = testAjax;
+    			
+    			if (o.headers) {
+    				for ( var i = 0; i < o.headers.length; i++) {
+    					req.setRequestHeader(o.headers[i].name, o.headers[i].value);
+    				}
+    			}
+    			req.send(params);
+    			if(!async) handleResponse();	
+    			return this;
+    		}
 // --
 });
