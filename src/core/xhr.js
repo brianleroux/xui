@@ -65,7 +65,16 @@ xui.extend({
 	 *	  x$('#left-panel').xhr('/panel', function(){ alert(this.responseText) }); 
 	 * 
 	 */
-            xhr : function(url, options) {
+            xhr : function(location, url, options) {
+		
+		
+				// this is to keep support for the old syntax (easy as that)
+				if (!/^inner|outer|top|bottom|before|after$/.test(location)) {
+				  options = url;
+				  url = location;
+				  location = 'inner';
+				}
+		
     			var o = options;
     			if (typeof options == "function") {
     				o = {};
@@ -101,7 +110,7 @@ xui.extend({
 							o.callback(req);
 						}
 						else {
-								that.html(req.responseText);
+								that.html(location, req.responseText);
 							}
 					}
     			}

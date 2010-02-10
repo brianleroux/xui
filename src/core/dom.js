@@ -182,7 +182,7 @@ xui.extend({
                 if (n.nodeType == 3 && !ns.test(n.nodeValue)) {
                     d.removeChild(n);
                 } else { 
-					if(nx!=null) //added for IE Mobile compatibility
+					if(nx!=null && nx.data!=null) //added for IE Mobile compatibility
 					n.nodeIndex = ++ni;
                }
 				n = nx;
