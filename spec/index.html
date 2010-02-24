@@ -333,16 +333,14 @@ describe( 'xui Events', {
 /////////////////////////////
 // 			   Plugin      //
 /////////////////////////////
-/*
 describe( 'xui extend', {
 	
-	'before':function(){
-	  Foo = {
-      bar: function(){
-        return this.get(0).innerHTML;
-      }
-    }
-    xui.extend(Foo);
+	'before':function() {
+        xui.extend({
+            bar: function() {
+                return this.get(0).innerHTML;
+            }
+        });
 	},
 	
 	'should be extendable':function(){
@@ -350,7 +348,6 @@ describe( 'xui extend', {
 	}
 	
 });
-*/
 
 
 // ]]>
