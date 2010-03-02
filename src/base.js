@@ -56,9 +56,9 @@
                 context = context || document;
 
                 // fast matching for pure ID selectors
-                if (typeof q === string && idExpr.test(q)) {
+                if (typeof q == string && idExpr.test(q)) {
                     ele = [context.getElementById(q.substr(1))];
-                } else if (typeof q === string) {
+                } else if (typeof q == string) {
                     // one selector
                     ele = slice.call(context.querySelectorAll(q));
                 } else if (q.toString() === '[object Array]') {
