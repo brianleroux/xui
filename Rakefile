@@ -1,3 +1,4 @@
+require 'date'
 require 'erb'
 LIBPATH = File.expand_path(File.dirname(__FILE__))
 
@@ -37,8 +38,10 @@ task :build do
         {"xui-more-#{ version }.js" => "['src/core/*', 'src/more/*', 'packages/emile/emile.js']"}
       ]
       
+      FileUtils.mkdir_p("#{ LIBPATH }/lib/")
+      
       build_profiles.each do |xui| 
-        open("#{ LIBPATH }/lib/#{ xui.keys.first }", 'w') do |f| 
+        File.open("#{ LIBPATH }/lib/#{ xui.keys.first }", 'w') do |f| 
           f.puts interpolate(xui.values.first)
         end
       end
