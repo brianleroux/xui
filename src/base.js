@@ -3,7 +3,7 @@
         xui,
         window = this,
         // prevents Google compiler from removing primative and subsidising out allowing us to compress further
-        string = 'string', 
+        string = new String('string'),
         document = window.document,
         idExpr = /^#([\w-]+)$/,
         slice = [].slice;
