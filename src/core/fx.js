@@ -38,10 +38,10 @@ xui.extend({
      *    x$('#box').tween("left: 100px;").tween(" left: 100px;");
      * 
      */
-    tween: function(style, options) {
+    tween: function (style, options) {
         // TODO make xui into emile options
         // TODO make queue
-        return this.each(function(e){
+        return this.each(function (e) {
             emile(e, style, options);
         });
     }

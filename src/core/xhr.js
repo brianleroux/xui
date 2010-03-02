@@ -64,38 +64,38 @@ xui.extend({
      *    x$('#left-panel').xhr('/panel', function(){ alert(this.responseText) }); 
      * 
      */
-    xhr:function(location, url, options) {
+    xhr: function (location, url, options) {
 
         // this is to keep support for the old syntax (easy as that)
         if (!/^inner|outer|top|bottom|before|after$/.test(location)) {
-             options = url;
-             url = location;
-             location = 'inner';
+            options = url;
+            url = location;
+            location = 'inner';
         }
-
-        var o = options ? options : {};
         
-        if (typeof options == "function") {
-            o = {};
-            o.callback = options;
-        };
-        
-        var that   = this,
+        var o = options ? options : {},
+            that   = this,
             req    = new XMLHttpRequest(),
             method = o.method || 'get',
             async  = o.async || false,
-            params = o.data || null;
-
+            params = o.data || null,
+            i;
+        
+        if (typeof options === "function") {
+            o = {};
+            o.callback = options;
+        }
+        
         req.queryString = params;
         req.open(method, url, async);
 
         if (o.headers) {
-            for (var i=0; i<o.headers.length; i++) {
-              req.setRequestHeader(o.headers[i].name, o.headers[i].value);
+            for (i = 0; i < o.headers.length; i++) {
+                req.setRequestHeader(o.headers[i].name, o.headers[i].value);
             }
         }
         
-        req.onload = (o.callback != null) ? o.callback : function() { that.html(location, this.responseText); };
+        req.onload = (o.callback) ? o.callback : function () { that.html(location, this.responseText); };
         req.send(params);
         
         return this;

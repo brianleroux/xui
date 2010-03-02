@@ -51,6 +51,7 @@ task :build do
       FileUtils.mkdir_p("#{ LIBPATH }/lib/")
       
       build_profiles.each do |xui| 
+        puts "creating #{ LIBPATH }/lib/#{ xui.keys.first }..."
         File.open("#{ LIBPATH }/lib/#{ xui.keys.first }", 'w') do |f| 
           f.puts interpolate(xui.values.first)
         end
