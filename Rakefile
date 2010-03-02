@@ -48,6 +48,41 @@ task :build do
         {"xui-more-#{ version }.js" => "['src/core/*', 'src/more/*', 'packages/emile/emile.js']"}
       ]
       
+=begin      
+
+two pass system
+- files to concat
+- then files to interpolate
+
+
+      # compiled_filename = [lib_to_concat, lib_to_concat:token => lib_to_interpolate]
+      profiles = [
+        # works on a grade mobile browsers
+        {"xui-core-#{ version }.js" => [
+          'src/core/*', 
+          :selector => 'snapple',
+          :fx => 'packages/emile/emile.js' 
+        ]},
+        
+        # works on a grade mobile browsers
+        {"xui-more-#{ version }.js" => [
+          'src/core/*',
+          'src/more/*', 
+          :selector => 'snapple',
+          :fx => 'packages/emile/emile.js' 
+        ]},
+        
+        # works on all mobile browsers
+        {"xui-core-#{ version }.js" => [
+          'src/core/*', 
+          :selector => 'sizzle',
+          :fx => 'packages/emile/emile.js' 
+        ]},
+                
+        # end of profiles
+      ]
+=end      
+      
       FileUtils.mkdir_p("#{ LIBPATH }/lib/")
       
       build_profiles.each do |xui| 
@@ -67,17 +102,15 @@ task :build do
     end
     
     def versionize
-      s = ''
-      s += "/*\n"
-      s += "* XUI JavaScript Library v#{ version }\n"
-      s += "* http://xuijs.com\n"
-      s += "*\n"
-      s += "* Copyright (c) 2009 Brian LeRoux, Rob Ellis, Brock Whitten\n"
-      s += "* Licensed under the MIT license.\n"
-      s += "*\n"
-      s += "* Date: #{ DateTime.now }\n"
-      s += "*/\n\n"
-      s
+      "/*
+        * XUI JavaScript Library v#{ version }
+        * http://xuijs.com
+        * 
+        * Copyright (c) 2009 Brian LeRoux, Rob Ellis, Brock Whitten
+        * Licensed under the MIT license.
+        * 
+        * Date: #{ DateTime.now }
+        */"
     end
     
     def compile(libs)
@@ -86,11 +119,7 @@ task :build do
         if line.include?('///')
           "<%= #{ line.gsub('///','').strip.gsub('()',"(#{ libs })") } %>"
         else
-          if line == b.first
-            versionize << line
-          else
-            line
-          end
+          line == b.first ? versionize << line : line
         end 
       end
       c.join("\n") 
