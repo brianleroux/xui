@@ -61,9 +61,7 @@ xui.fn = xui.prototype = {
                 ele = [context.getElementById(q.substr(1))];
             } else if (typeof q == string) {
                 // one selector
-				//Sizzle comes first...
-				if (Sizzle) ele = slice.call(Sizzle(q));
-				else ele = slice.call(context.querySelectorAll(q));
+				ele = slice.call(context.querySelectorAll(q));
             } else if (q.toString() === '[object Array]') {
                 ele = q;
             } else {
