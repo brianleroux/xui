@@ -103,14 +103,14 @@ two pass system
     
     def versionize
       "/*
-        * XUI JavaScript Library v#{ version }
-        * http://xuijs.com
-        * 
-        * Copyright (c) 2009 Brian LeRoux, Rob Ellis, Brock Whitten
-        * Licensed under the MIT license.
-        * 
-        * Date: #{ DateTime.now }
-        */"
+ * XUI JavaScript Library v#{ version }
+ * http://xuijs.com
+ * 
+ * Copyright (c) 2009 Brian LeRoux, Rob Ellis, Brock Whitten
+ * Licensed under the MIT license.
+ * 
+ * Date: #{ DateTime.now }
+ */\n"
     end
     
     def compile(libs)
