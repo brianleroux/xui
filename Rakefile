@@ -35,7 +35,8 @@ task :build do
       # create your custom xui builds here
       build_profiles = [
         {"xui-core-#{ version }.js" => "['src/core/*', 'packages/emile/emile.js']"},
-        {"xui-more-#{ version }.js" => "['src/core/*', 'src/more/*', 'packages/emile/emile.js']"}
+        {"xui-more-#{ version }.js" => "['src/core/*', 'src/more/*', 'packages/emile/emile.js']"},
+		{"xui-bb-#{ version }.js" => "['src/core/*', 'src/more/*', 'packages/emile/emile.js', 'packages/sizzle/sizzle.js']"}
       ]
       
 =begin      

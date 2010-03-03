@@ -62,8 +62,12 @@
                 if (typeof q == string && idExpr.test(q)) {
                     ele = [context.getElementById(q.substr(1))];
                 } else if (typeof q == string) {
-                    // one selector
-                    ele = slice.call(context.querySelectorAll(q));
+                    // one selector, check if Sizzle is available and use it instead of querySelectorAll.
+					if (Sizzle) {
+						ele = slice.call(Sizzle(q));
+					} else {
+						ele = slice.call(context.querySelectorAll(q));
+					}
                 } else if (q.toString() === '[object Array]') {
                     ele = q;
                 } else {

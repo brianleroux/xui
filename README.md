@@ -45,7 +45,8 @@ There are other tasks for code minification, running the specs and generating do
 	 |-packages ................. 3rd party libs utilized by XUI (gitsubmodules)
 	 | |-qunit .................. - awesome async friendly test lib by John Resig
 	 | |-shoulda-js ............. - bdd sugar for qunit with mobile friendly output
-	 | '-emile .................. - amazing tiny effects lib by Thomas Fuchs
+	 | |-emile .................. - amazing tiny effects lib by Thomas Fuchs
+	 | '-sizzle ................. - kickass selector engine that powers jQuery. Used optionally for builds geared for BlackBerries.
 	 |
 	 |-lib ...................... build directory (not in version control)
 	 | |-xui-core-1.0.0.js
