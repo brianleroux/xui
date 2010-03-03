@@ -79,7 +79,7 @@ xui.extend({
             method = o.method || 'get',
             async  = o.async || false,
             params = o.data || null,
-            i;
+            i, len;
         
         if (typeof options === "function") {
             o = {};
@@ -90,10 +90,16 @@ xui.extend({
         req.open(method, url, async);
 
         if (o.headers) {
-            for (i = 0; i < o.headers.length; i++) {
+            for (i = 0, len = o.headers.length; i < len; i++) {
                 req.setRequestHeader(o.headers[i].name, o.headers[i].value);
             }
         }
+        
+        if(method.toLowerCase() === 'post') { 
+            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        }
+        
+        req.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         
         req.onload = (o.callback) ? o.callback : function () { that.html(location, this.responseText); };
         req.send(params);
