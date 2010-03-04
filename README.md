@@ -46,13 +46,16 @@ There are other tasks for code minification, running the specs and generating do
 	 | |-qunit .................. - awesome async friendly test lib by John Resig
 	 | |-shoulda-js ............. - bdd sugar for qunit with mobile friendly output
 	 | |-emile .................. - amazing tiny effects lib by Thomas Fuchs
-	 | '-sizzle ................. - kickass selector engine that powers jQuery. Used optionally for builds geared for BlackBerries.
+	 | |-requirejs............... - great JavaScript dependency/script management framework by James Burke
+	 | '-sizzle ................. - kickass selector engine that powers jQuery, also by John Resig. Used optionally for builds geared for BlackBerries.
 	 |
 	 |-lib ...................... build directory (not in version control)
 	 | |-xui-core-1.0.0.js
 	 | |-xui-more-1.0.0.js
+	 | |-xui-bb-1.0.0.js
 	 | |-xui-core-min-1.0.0.js
-	 | '-xui-more-min-1.0.0.js
+	 | |-xui-more-min-1.0.0.js
+	 | '-xui-bb-min-1.0.0.js
 	 | 
 	 '-util .................... utils for minification, obfuscation, verification
 
