@@ -46,7 +46,6 @@ There are other tasks for code minification, running the specs and generating do
 	 | |-qunit .................. - awesome async friendly test lib by John Resig
 	 | |-shoulda-js ............. - bdd sugar for qunit with mobile friendly output
 	 | |-emile .................. - amazing tiny effects lib by Thomas Fuchs
-	 | |-requirejs............... - great JavaScript dependency/script management framework by James Burke
 	 | '-sizzle ................. - kickass selector engine that powers jQuery, also by John Resig. Used optionally for builds geared for BlackBerries.
 	 |
 	 |-lib ...................... build directory (not in version control)
