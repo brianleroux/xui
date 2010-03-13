@@ -129,7 +129,18 @@
                 equals(x.length, 0);
             });
         });
-
+		context( "Selector string markup", function(){
+			var tagname = "li";
+            var x = x$("<" + tagname + "></" + tagname + ">");
+			
+            should( 'return array with one element', function(){
+                equals(x.length, 1);
+            });
+			
+			should( 'have tagname as specified in markup in first element', function(){
+                equals(x[0].tagName, tagname);
+            });
+        });
 
         context( "Selector element", function(){
             var el = document.getElementById("item_1")
