@@ -3,9 +3,10 @@
     var undefined,
         xui,
         window   = this,
-        string   = new String('string'), // prevents Goog compiler from removing primative and subsidising out allowing us to compress further
-        document = window.document,      // obvious really
-        idExpr   = /^#([\w-]+)$/,        // for situations of dire need. Symbian and the such
+        string   = new String('string'), 				// prevents Goog compiler from removing primative and subsidising out allowing us to compress further
+        document = window.document,      				// obvious really
+        idExpr   = /^#([\w-]+)$/,        				// for situations of dire need. Symbian and the such
+		tagExpr  = /<(\S+).*\/>|<(\S+).*>.*<\/\S+>/,	// so you can create elements on the fly a la x$('<img/>')
         slice    = [].slice;
 
     window.x$ = window.xui = xui = function(q, context) {
@@ -45,7 +46,7 @@
         find: function(q, context) {
             var ele = [],
                 list,
-                i, j, x; // poetry mate
+                h, i, j, x; // poetry mate
                 
             if (!q) {
                 return this;
@@ -60,9 +61,15 @@
                 // fast matching for pure ID selectors
                 if (typeof q == string && idExpr.test(q)) {
                     ele = [context.getElementById(q.substr(1))];
+				// match for full html tags to create elements on the go
+				} else if (typeof q == string && tagExpr.test(q)) {
+					tagExpr.exec(q).forEach(function(match, index) {
+						if (index===0) return;
+						else if (match !== undefined) h = match;
+					});;
+					ele = [document.createElement(h)];
                 } else if (typeof q == string) {
                     // one selector, check if Sizzle is available and use it instead of querySelectorAll.
-					var h = null;
 					if (typeof Sizzle !== "undefined") {
 						h = Sizzle(q);
 					} else {
