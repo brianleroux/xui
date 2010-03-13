@@ -16,9 +16,10 @@
     if (! [].forEach) {
         Array.prototype.forEach = function(fn) {
             var len = this.length || 0,
-                that = arguments[1]; // wait, what's that!? awwww rem. here I thought I knew ya!
+                that = arguments[1], // wait, what's that!? awwww rem. here I thought I knew ya!
+                i;
             if (typeof fn == 'function') {
-                for (var i = 0; i < len; i++) {
+                for (i = 0; i < len; i++) {
                     fn.call(that, this[i], i, this);
                 }
             }
@@ -44,30 +45,30 @@
         find: function(q, context) {
             var ele = [],
                 list,
-                i,
-                j,
-                x; // poetry mate
+                i, j, x; // poetry mate
                 
             if (!q) {
                 return this;
-            } else if (context == undefined && this.length) {
+            } else if (context === undefined && this.length) {
                 this.each(function(el, i) {
                     ele = ele.concat(slice.call(xui(q, this)));
                 });
                 ele = this.reduce(ele);
             } else {
                 context = context || document;
-
+                
                 // fast matching for pure ID selectors
                 if (typeof q == string && idExpr.test(q)) {
                     ele = [context.getElementById(q.substr(1))];
                 } else if (typeof q == string) {
                     // one selector, check if Sizzle is available and use it instead of querySelectorAll.
+					var h = null;
 					if (Sizzle) {
-						ele = slice.call(Sizzle(q));
+						h = Sizzle(q);
 					} else {
-						ele = slice.call(context.querySelectorAll(q));
+						h = context.querySelectorAll(q);
 					}
+					ele = slice.call(h);
                 } else if (q.toString() === '[object Array]') {
                     ele = q;
                 } else {
@@ -75,6 +76,7 @@
                     ele = [q];
                 }
             }
+            
             // disabling the append style, could be a plugin:
             // xui.fn.add = function (q) { this.elements = this.elements.concat(this.reduce(xui(q).elements)); return this; }
             return this.set(ele);
@@ -88,6 +90,7 @@
          */
         set: function(elements) {
             var ret = xui();
+            
             // this *really* doesn't feel right...
             ret.cache = slice.call(this);
             ret.length = 0;
@@ -130,7 +133,7 @@
         },
 
         // supports easier conversion of jQuery plugins to XUI
-        end: function() {
+        end: function () {
             return this.set(this.cache || []);
         },
 
@@ -140,7 +143,7 @@
          */
         not: function(q) {
             var list = slice.call(this);
-
+            
             return this.filter(function(i) {
                 var found;
                 xui(q).each(function(el) {
@@ -168,10 +171,9 @@
     };
 
     xui.fn.find.prototype = xui.fn;
-
     xui.extend = xui.fn.extend;
 
-    // ---
-    /// imports();
-    // ---
-})();
+      // --- 
+      /// imports(); 
+      // ---
+}());
