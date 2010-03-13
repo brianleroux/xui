@@ -63,7 +63,7 @@
                 } else if (typeof q == string) {
                     // one selector, check if Sizzle is available and use it instead of querySelectorAll.
 					var h = null;
-					if (Sizzle) {
+					if (typeof Sizzle !== "undefined") {
 						h = Sizzle(q);
 					} else {
 						h = context.querySelectorAll(q);
