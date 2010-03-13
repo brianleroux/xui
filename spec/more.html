@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>xui-core more</title>
+		<link rel="stylesheet" href="../packages/shoulda-js/shoulda/shoulda.css" type="text/css" media="screen" title="no title" charset="utf-8">
+		
+		<script src="../packages/qunit/qunit/qunit.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../packages/qunit/qunit/qunit.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../packages/shoulda-js/shoulda/shoulda.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="../lib/xui-core-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<h2 id="qunit-banner">xui-core specs</h2>
+		<h2 id="qunit-userAgent"></h2>
+		<ol id="qunit-tests"></ol>
+		<ol id="qunit-testrunner-toolbar"></ol>
+
+
+		<script type="text/javascript" charset="utf-8">
+		
+		// --
+		/// base.js specs
+		// --
+		context( "Get elements by index", function(){
+			var li = x$('#get_tests li');
+
+			should( 'have text "second" in element with index 1.', function() {
+				equals(li.get(1).innerHTML, 'second');
+			});
+		});
+
+		context( "Get collection by index", function(){
+			var li = x$('#get_tests li');
+
+			should( 'eq(1) should return a collection with one element', function() {
+				equals(li.eq(1).size(), 1);
+			});
+
+			should( 'eq(1) should return an element with class "bar"', function() {
+				equals(li.eq(1).get(0).className, 'bar');
+			});
+
+			should('eq(1,2) should return a collection with two elements', function() {
+				equals(li.eq(1,2).size(), 2);
+			});
+		});
+
+		context('Elements count', function(){
+			var els = x$('#items li');
+			
+			should( 'be 5 elements in collection',function() {
+				equals(els.size()), 3);
+			});
+		});
+
+
+
+</script>
+</body>
+</html>

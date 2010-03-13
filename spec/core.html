@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>xui-core specs</title>
+		<link rel="stylesheet" href="../packages/shoulda-js/shoulda/shoulda.css" type="text/css" media="screen" title="no title" charset="utf-8">
+		
+		<script src="../packages/qunit/qunit/qunit.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../packages/qunit/qunit/qunit.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../packages/shoulda-js/shoulda/shoulda.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="../lib/xui-core-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<h2 id="qunit-banner">xui-core specs</h2>
+		<h2 id="qunit-userAgent"></h2>
+		<ol id="qunit-tests"></ol>
+		<ol id="qunit-testrunner-toolbar"></ol>
+		
+		
+		<div id="selector_tests">
+		  <ul id="items">
+		    <li class="item" id="item_1">this is item one</li>
+		    <li class="item" id="item_2">this is item two</li>
+		    <li class="item" id="item_3">this is item three</li>
+		  </ul>
+		</div>
+
+		<div id="style_tests">
+		  <p id="set-style-element">element for testing setStyle</p>
+		  <p id="get-style-element">element for testing getStyle</p>
+		  <p id="add-class-element">element for testing addClass</p>	
+			<p id="has-class-element" class="foo bar">element for testing hasClass</p>
+		  <p id="remove-class-element" class="bar">element for testing removeClass</p>  
+		</div>
+
+		<div id="dom_tests">
+			<div id="html-test-inner"></div>
+			<div id="html-test-outer"></div>
+			<div id="html-test-top"></div>
+			<div id="html-test-bottom"></div>
+			<div id="html-test-html"><p>foo</p></div>
+		</div>
+
+		<div id="xhr_tests">
+		  <div id="xhr-test-function"></div>
+		  <div id="xhr-test-json">
+		  	<div id="json-id">no id here</div>
+				<div id="json-name">no name here</div>
+		  </div>
+		  <div id="xhr-test-form"></div>
+		</div>
+
+		<div id="event_tests">
+		  <div id="event-test-click"></div>
+		</div>
+
+		<div id="extention_tests">
+		  <div id="extention-test">xui has been extended!</div>
+		</div>
+
+		<ul id="get_tests">
+			<li class="foo">first</li>
+			<li class="bar">second</li>
+			<li>third</li>
+		</ul>
+
+		<ul id="has_tests">
+		  <li class="foo">one</li>
+		  <li>two</li>
+		  <li class="foo">three</li>
+		  <li>four</li>
+		  <li>five</li>
+		</ul>
+
+		<ul id="not_tests">
+		  <li class="foo">one</li>
+		  <li>two</li>
+		  <li class="foo">three</li>
+		  <li>four</li>
+		  <li>five</li>
+		</ul>
+		<script type="text/javascript" charset="utf-8">
+		
+		// --
+		/// base.js specs
+		// --
+		
+		context( "Selector string id", function(){
+			var x = x$('#item_1');
+
+		  	should( 'return array with one element', function(){
+				equals(x.length, 1);
+			});
+			should( 'first element should have text: this is item one', function(){
+			  equals(x[0].innerHTML, 'this is item one');
+			});
+		});
+
+
+		context( "Selector string class", function(){
+			var x = x$(".item");
+
+			should( 'return array with three items', function(){
+				equals(x.length, 3);
+			});
+		  	should( 'should have text "this is item one" in first element.', function(){
+				equals(x[0].innerHTML, 'this is item one');
+			});
+			should( 'have text "this is item three" in last element', function(){
+			  	equals(x[x.length -1].innerHTML, 'this is item three');
+			});
+
+		});
+		
+
+		context( "Selector string none", function(){
+			var x = x$("item_1");
+
+		  	should( 'return empty array', function(){
+				equals(x.length, 0);
+			});
+		});
+
+
+		context( "Selector element", function(){
+		    var el = document.getElementById("item_1")
+		    var x = x$(el);
+
+		  	should( 'return array with one element', function(){
+				equals(x.length, 1);
+			});
+
+			should( 'have text "this is item one" in first element.', function(){
+				equals(x[0].innerHTML, 'this is item one');
+			});
+		});
+		
+		
+		context( "Selector has and not", function(){
+			var x = x$('ul#has_tests li');
+
+			should( 'return two elements.', function(){
+				equals(x.has(".foo").length, 2);
+			});
+
+			should( 'return three elements after omitting class foo.', function(){
+				equals(x.not(".foo").length, 3);
+			});
+		});
+		
+
+		
+		// ---
+		/// style.js specs
+		// ---
+
+		context("Style.setStyle", function(){
+			var	e = x$('#set-style-element');
+			
+			should( 'set change the box backgroundColor', function(){
+				e.setStyle('backgroundColor', 'green');
+				equals(e[0].style.backgroundColor, 'green');
+			});
+		});
+
+		context( "Style.getStyle", function(){
+			var	e = x$('#get-style-element');
+			e[0].style.backgroundColor = "blue";
+
+		  	should( 'return background color of blue if set in passed function', function(){
+				stop();
+		   		e.getStyle('background-color', function(v){
+		     		equals(v, 'rgb(0, 0, 255)')
+					start();
+		   		});
+		  	});
+
+			should( 'return background color even if no function passed', function(){
+				var style = e.getStyle('background-color');
+			  	equals(style, 'rgb(0, 0, 255)');
+			});
+		});
+
+		context( "Style.addClass", function(){
+			var x = x$('#add-class-element');
+			x.addClass("foo");
+
+			should( 'add class of foo', function(){
+			  equals(x[0].className, "foo");
+			});
+		});
+
+		context( "Style.removeClass", function(){
+			var	x = x$('#remove-class-element');
+
+			should( 'remove the class of testing' ,function(){
+				x.removeClass('bar');
+        equals(x[0].className, '');
+			});
+		});
+
+		context( "Style.hasClass", function(){
+			var x = x$('#has-class-element');
+
+			should( 'have the class bar', function(){
+        equals(x.hasClass('bar'), true);
+			});
+		});
+		
+		
+		// --
+		/// dom specs
+		// --
+		
+		
+		context( "Dom.html", function(){
+			var	inner  = x$('#html-test-inner');
+			var	outer  = x$('#html-test-outer');
+			var	top    = x$('#html-test-top');
+			var	bottom = x$('#html-test-bottom');
+			var	h = x$('#html-test-html');
+		
+
+			should( 'insert html after #html-test-html.', function() {
+				h.html('after', '<div>after</div>');
+				equals(h[0].nextSibling.innerHTML, 'after');
+			});
+
+			should( 'have "p" as tag name in html inserted after.', function() {
+				h.html('after', '<p>after</p>');
+				equals(h[0].nextSibling.tagName.toLowerCase(), 'p');
+			});
+
+			should( 'insert html before #html-test-html', function() {
+				h.html('before', '<div>before</div>');
+				equals(h[0].previousSibling.innerHTML, 'before');
+			});
+
+			should( 'have "p" as tag name in html inserted before.', function() {
+				h.html('before','<p>before</p>');
+				equals(h[0].previousSibling.tagName.toLowerCase(), 'p');
+			});
+
+			should( 'insert html into the #html-test-inner node', function(){
+				inner.html('inner', '<p>hello world</p>');
+				equals(inner[0].children[0].tagName, 'P'); 
+			});
+
+			should( 'insert html into the #html-test-outer node', function(){
+				outer.html('outer', '<div id="html-test-outer">sneaky</div>'); 
+				equals(x$('#html-test-outer')[0].innerHTML, 'sneaky'); 
+			});
+
+			should( 'insert html into the #html-test-top node', function(){
+				top.html('top', '<div>come out on top</div>');
+				equals(top[0].children[0].innerHTML, 'come out on top'); 
+			});
+
+			should( 'insert html into the #html-test-bottom node', function(){
+				bottom.html('bottom', '<div>undertow</div>');
+				var last = bottom[0].children.length - 1;
+				equals(bottom[0].children[last].innerHTML, 'undertow'); 
+			});
+
+			should( 'return html of #html-test-html node', function(){
+				equals(h.html(), 
+				'<p>foo</p>');
+			});
+		});
+		
+		
+		// --
+		/// xhr specs
+		// --
+		
+		context( "XHR.function", function(){
+			var x = x$('#xhr-test-function');
+
+			should( 'insert partial into element', function(){
+			  	x.xhr("helpers/example.html");
+		    	equals(document.getElementById('xhr-test-function').innerHTML, '<h1>this is a html partial</h1>');
+			});
+			
+			should( 'have more tests', function(){
+				// test headers
+				// test interpolate
+				// test callback
+				ok(false);
+			});
+		});
+		
+		// --
+		/// fx specs
+		// --
+		
+		context( "Fx.tween", function(){
+			should( 'tween something a little bit', function(){
+				ok(false);
+			})
+		});
+		
+		// --
+		/// event specs
+		// --
+		
+		context( "Event", function(){
+			should( 'fire. subscribe. whatever.', function(){
+				ok(false);
+			})
+		});
+		
+</script>
+</body>
+</html>
