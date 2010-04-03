@@ -9,6 +9,13 @@ xui.extend({
 	},
 
 	/**
+	 * Pops the last selector from XUI
+	 */
+	end: function () {	
+		return this.set(this.cache || []);	 	
+	},
+
+	/**
 	 * Returns the first element in the collection.
 	 * 
 	 * @return Returns a single DOM element.
