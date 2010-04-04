@@ -6,7 +6,7 @@
         string   = new String('string'), // prevents Goog compiler from removing primative and subsidising out allowing us to compress further
         document = window.document,      // obvious really
         idExpr   = /^#([\w-]+)$/,        // for situations of dire need. Symbian and the such
-        slice    = [].slice;
+        slice    = function (e) { return [].slice.call(e, 0); };
 
     window.x$ = window.xui = xui = function(q, context) {
         return new xui.fn.find(q, context);
@@ -17,7 +17,7 @@
         Array.prototype.forEach = function(fn) {
             var len = this.length || 0,
                 that = arguments[1]; // wait, what's that!? awwww rem. here I thought I knew ya!
-																		 // @rem - that that is a hat tip to your thats :)
+                                     // @rem - that that is a hat tip to your thats :)
             if (typeof fn == 'function') {
                 for (var i = 0; i < len; i++) {
                     fn.call(that, this[i], i, this);
@@ -54,7 +54,7 @@
                 return this;
             } else if (context == undefined && this.length) {
                 this.each(function(el, i) {
-                    ele = ele.concat(slice.call(xui(q, this)));
+                    ele = ele.concat(slice(xui(q, this)));
                 });
                 ele = this.reduce(ele);
             } else {
@@ -65,7 +65,7 @@
                     ele = [context.getElementById(q.substr(1))];
                 } else if (typeof q == string) {
                     // one selector
-                    ele = slice.call(context.querySelectorAll(q));
+                    ele = slice(context.querySelectorAll(q));
                 } else if (q instanceof Array) {
                     ele = q;
                 } else {
@@ -87,7 +87,7 @@
         set: function(elements) {
             var ret = xui();
             // this *really* doesn't feel right...
-            ret.cache = slice.call(this);
+            ret.cache = slice(this);
             ret.length = 0;
             [].push.apply(ret, elements);
             return ret;
@@ -98,7 +98,7 @@
         */
         reduce: function(elements, b) {
             var a = [],
-            elements = elements || slice.call(this);
+            elements = elements || slice(this);
             elements.forEach(function(el) {
                 // question the support of [].indexOf in older mobiles (RS will bring up 5800 to test)
                 if (a.indexOf(el, 0, b) < 0)
@@ -137,7 +137,7 @@
          * Not modifies the elements array and reurns all the elements that DO NOT match a CSS Query
          */
         not: function(q) {
-            var list = slice.call(this);
+            var list = slice(this);
 
             return this.filter(function(i) {
                 var found;

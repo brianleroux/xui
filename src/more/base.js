@@ -4,7 +4,7 @@ xui.extend({
 	 * Adds more DOM nodes to the existing element list.
 	 */
 	add: function(q) {
-	  [].push.apply(this, [].slice.call(xui(q)));
+	  [].push.apply(this, slice(xui(q)));
 	  return this.set(this.reduce());
 	},
 
