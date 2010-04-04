@@ -65,7 +65,7 @@
                 } else if (typeof q == string) {
                     // one selector
                     ele = slice.call(context.querySelectorAll(q));
-                } else if (q.toString() === '[object Array]') {
+                } else if (q instanceof Array) {
                     ele = q;
                 } else {
                     // an element was passed in
