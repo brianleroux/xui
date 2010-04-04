@@ -68,6 +68,8 @@
                     ele = slice(context.querySelectorAll(q));
                 } else if (q instanceof Array) {
                     ele = q;
+                } else if (q.toString() == '[object NodeList]') {
+                    ele = slice(q);
                 } else {
                     // an element was passed in
                     ele = [q];
@@ -87,7 +89,7 @@
         set: function(elements) {
             var ret = xui();
             // this *really* doesn't feel right...
-            ret.cache = slice(this);
+            ret.cache = slice(this.length ? this : []);
             ret.length = 0;
             [].push.apply(ret, elements);
             return ret;
