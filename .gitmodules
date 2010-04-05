@@ -8,5 +8,5 @@
 	path = packages/emile
 	url = git://github.com/brianleroux/emile.git
 [submodule "packages/sizzle"]	
-    path = packages/sizzle
-	url = git://github.com/jeresig/sizzle.git
+	path = packages/sizzle
+	url = git@github.com:brianleroux/sizzle.git
