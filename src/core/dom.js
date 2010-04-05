@@ -119,19 +119,7 @@ xui.extend({
 
 // private method for finding a dom element
 function getTag(el) {
-    if (el.firstChild === null) {
-        switch (el.tagName) {
-        case 'UL':
-            return 'LI';
-        case 'DL':
-            return 'DT';
-        case 'TR':
-            return 'TD';
-        default:
-            return el.tagName;
-        }
-    }
-    return el.firstChild.tagName;
+    return (el.firstChild === null) ? {'UL':'LI','DL':'DT','TR':'TD'}[el.tagName] || el.tagName : el.firstChild.tagName;
 }
 
 function wrapHelper(html, el) {
