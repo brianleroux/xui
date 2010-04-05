@@ -77,6 +77,8 @@ xui.extend({
         var o = options ? options : {};
         
         if (typeof options == "function") {
+            console.log('we been passed a func ' + options)
+            console.log(this)
             o = {};
             o.callback = options;
         };

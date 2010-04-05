@@ -1,8 +1,4 @@
-xui.extend({
-    "xhrInner xhrOuter xhrTop xhrBottom xhrBefore xhrAfter".split(' ').forEach( function(s) {
-        xui.fn[s] = function(url) { this.xhr(s.replace('xhr',''), url); };
-    });
-    
+xui.extend({    
     /**
 	 * 
 	 * Another twist on remoting: lightweight and unobtrusive DOM databinding. Since we are often talking to a server with 
