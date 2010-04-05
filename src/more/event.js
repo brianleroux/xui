@@ -63,9 +63,16 @@ xui.extend({
 	 * 	
 	 */
 	 
-	un: function(type) {
-	  var that = this;
-	  return this.each(function (el) {
+	 
+  on: function(type, fn) {
+    return this.each(function (el) {
+      el.addEventListener(type, _createResponder(el, type, fn), false);
+    });
+  },
+
+  un: function(type) {
+    var that = this;
+    return this.each(function (el) {
       var id = _getEventID(el), responders = _getRespondersForEvent(id, type), i = responders.length;
 
       while (i--) {
