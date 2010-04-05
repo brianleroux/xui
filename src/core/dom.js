@@ -43,64 +43,7 @@ xui.extend({
 	 * 
 	 */
     html: function(location, html) {
-
-        // private method for finding a dom element
-        var getTag = function(el) {
-
-            if (el.firstChild === null) {
-                switch (el.tagName) {
-                case 'UL':
-                    return 'LI';
-                case 'DL':
-                    return 'DT';
-                case 'TR':
-                    return 'TD';
-                default:
-                    return el.tagName;
-                }
-            }
-            return el.firstChild.tagName;
-        };
-
-        // private method
-        // Wraps the HTML in a TAG, Tag is optional
-        // If the html starts with a Tag, it will wrap the context in that tag.
-        var wrap = function(xhtml, tag) {
-
-            var attributes = {};
-            var re = /^<([A-Z][A-Z0-9]*)([^>]*)>(.*)<\/\1>/i;
-            if (re.test(xhtml)) {
-                result = re.exec(xhtml);
-                tag = result[1];
-
-                // if the node has any attributes, convert to object
-                if (result[2] !== "") {
-                    var attrList = result[2].split(/([A-Z]*\s*=\s*['|"][A-Z0-9:;#\s]*['|"])/i);
-
-                    for (var i = 0; i < attrList.length; i++) {
-                        var attr = attrList[i].replace(/^\s*|\s*$/g, "");
-                        if (attr !== "" && attr !== " ") {
-                            var node = attr.split('=');
-                            attributes[node[0]] = node[1].replace(/(["']?)/g, '');
-                        }
-                    }
-                }
-                xhtml = result[3];
-            }
-
-            var element = document.createElement(tag);
-
-            for (var x in attributes) {
-                var a = document.createAttribute(x);
-                a.nodeValue = attributes[x];
-                element.setAttributeNode(a);
-            }
-
-            element.innerHTML = xhtml;
-            return element;
-        };
-
-        this.clean();
+        clean(this);
 
         if (arguments.length == 0) {
             return this[0].innerHTML;
@@ -111,83 +54,45 @@ xui.extend({
         }
 
         this.each(function(el) {
-            switch (location) {
-            case "inner":
+            var parent, 
+                list, 
+                len, 
+                i = 0;
+            if (location == "inner") {
                 if (typeof html == string) {
                     el.innerHTML = html;
-                    var list = el.getElementsByTagName('SCRIPT');
-                    var len = list.length;
-                    for (var i = 0; i < len; i++) {
+                    list = el.getElementsByTagName('SCRIPT');
+                    len = list.length;
+                    for (; i < len; i++) {
                         eval(list[i].text);
                     }
                 } else {
                     el.innerHTML = '';
                     el.appendChild(html);
                 }
-                break;
-            case "outer":
-                if (typeof html == string) {
-                    html = wrap(html, getTag(el));
-                }
-                el.parentNode.replaceChild(html, el);
-                break;
-            case "top":
-                if (typeof html == string) {
-                    html = wrap(html, getTag(el));
-                }
-                el.insertBefore(html, el.firstChild);
-                break;
-            case "bottom":
-                if (typeof html == string) {
-                    html = wrap(html, getTag(el));
-                }
-                el.insertBefore(html, null);
-                break;
-            case "remove":
-                var parent = el.parentNode;
-                parent.removeChild(el);
-                break;
-            case "before":
-                var parent = el.parentNode;
-                if (typeof html == string) {
-                    html = wrap(html, getTag(parent));
-                }
-                parent.insertBefore(html, el);
-                break;
-            case "after":
-                var parent = el.parentNode;
-                if (typeof html == string) {
-                    html = wrap(html, getTag(parent));
-                }
-                parent.insertBefore(html, el.nextSibling);
-                break;
+            } else if (location == "outer") {
+                el.parentNode.replaceChild(wrapHelper(html, el), el);
+            } else if (location == "top") {
+                el.insertBefore(wrapHelper(html, el), el.firstChild);
+            } else if (location == "bottom") {
+                el.insertBefore(wrapHelper(html, el), null);
+            } else if (location == "remove") {
+                el.parentNode.removeChild(el);
+            } else if (location == "before") {
+                el.parentNode.insertBefore(wrapHelper(html, el.parentNode), el);
+            } else if (location == "after") {
+                el.parentNode.insertBefore(wrapHelper(html, el.parentNode), el.nextSibling);
             }
         });
         return this;
     },
-
-
-    /**
-	 * Removes all erronious nodes from the DOM.
-	 * 
-	 */
-    clean: function() {
-        var ns = /\S/;
-        this.each(function(el) {
-            var d = el,
-            n = d.firstChild,
-            ni = -1;
-            while (n) {
-                var nx = n.nextSibling;
-                if (n.nodeType == 3 && !ns.test(n.nodeValue)) {
-                    d.removeChild(n);
-                } else {
-                    n.nodeIndex = ++ni;
-                }
-                n = nx;
-            }
-        });
-        return this;
+    
+    append: function (html) {
+        return this.html(html, 'bottom');
+    },
+    
+    prepend: function (html) {
+      return this.html(html, 'top');
     },
 
     /**
@@ -196,20 +101,109 @@ xui.extend({
 	 */
     attr: function(attribute, val) {
         if (arguments.length == 2) {
-            this.each(function(el) {
+            return this.each(function(el) {
                 el.setAttribute(attribute, val);
             });
-
-            return this;
         } else {
             var attrs = [];
             this.each(function(el) {
-                if (el.getAttribute(attribute) != null)
-                attrs.push(el.getAttribute(attribute));
-
+                var val = el.getAttribute(attribute);
+                if (val != null)
+                attrs.push(val);
             });
             return attrs;
         }
     }
 // --
 });
+
+// private method for finding a dom element
+function getTag(el) {
+    if (el.firstChild === null) {
+        switch (el.tagName) {
+        case 'UL':
+            return 'LI';
+        case 'DL':
+            return 'DT';
+        case 'TR':
+            return 'TD';
+        default:
+            return el.tagName;
+        }
+    }
+    return el.firstChild.tagName;
+}
+
+function wrapHelper(html, el) {
+  return (typeof html == string) ? wrap(html, getTag(el)) : html;
+}
+
+// private method
+// Wraps the HTML in a TAG, Tag is optional
+// If the html starts with a Tag, it will wrap the context in that tag.
+function wrap(xhtml, tag) {
+
+    var attributes = {},
+        re = /^<([A-Z][A-Z0-9]*)([^>]*)>(.*)<\/\1>/i,
+        element,
+        x,
+        a,
+        i = 0,
+        attr,
+        node,
+        attrList;
+        
+    if (re.test(xhtml)) {
+        result = re.exec(xhtml);
+        tag = result[1];
+
+        // if the node has any attributes, convert to object
+        if (result[2] !== "") {
+            attrList = result[2].split(/([A-Z]*\s*=\s*['|"][A-Z0-9:;#\s]*['|"])/i);
+
+            for (; i < attrList.length; i++) {
+                attr = attrList[i].replace(/^\s*|\s*$/g, "");
+                if (attr !== "" && attr !== " ") {
+                    node = attr.split('=');
+                    attributes[node[0]] = node[1].replace(/(["']?)/g, '');
+                }
+            }
+        }
+        xhtml = result[3];
+    }
+
+    element = document.createElement(tag);
+
+    for (x in attributes) {
+        a = document.createAttribute(x);
+        a.nodeValue = attributes[x];
+        element.setAttributeNode(a);
+    }
+
+    element.innerHTML = xhtml;
+    return element;
+}
+
+
+/**
+* Removes all erronious nodes from the DOM.
+* 
+*/
+function clean(collection) {
+    var ns = /\S/;
+    collection.each(function(el) {
+        var d = el,
+            n = d.firstChild,
+            ni = -1,
+            nx;
+        while (n) {
+            nx = n.nextSibling;
+            if (n.nodeType == 3 && !ns.test(n.nodeValue)) {
+                d.removeChild(n);
+            } else {
+                n.nodeIndex = ++ni; // FIXME not sure what this is for, and causes IE to bomb (the setter) - @rem
+            }
+            n = nx;
+        }
+    });
+}

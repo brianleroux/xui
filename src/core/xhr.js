@@ -69,31 +69,33 @@ xui.extend({
 
       // this is to keep support for the old syntax (easy as that)
         if (!/^inner|outer|top|bottom|before|after$/.test(location)) {
-         	options = url;
-         	url = location;
-         	location = 'inner';
+            options = url;
+            url = location;
+            location = 'inner';
         }
 
         var o = options ? options : {};
         
         if (typeof options == "function") {
-            console.log('we been passed a func ' + options)
-            console.log(this)
+            // FIXME kill the console logging
+            // console.log('we been passed a func ' + options);
+            // console.log(this);
             o = {};
             o.callback = options;
         };
         
         var that   = this,
-        	req    = new XMLHttpRequest(),
-        	method = o.method || 'get',
-        	async  = o.async || false,           
-        	params = o.data || null;
+            req    = new XMLHttpRequest(),
+            method = o.method || 'get',
+            async  = o.async || false,           
+            params = o.data || null,
+            i = 0;
 
         req.queryString = params;
         req.open(method, url, async);
 
         if (o.headers) {
-            for (var i=0; i<o.headers.length; i++) {
+            for (; i<o.headers.length; i++) {
               req.setRequestHeader(o.headers[i].name, o.headers[i].value);
             }
         }

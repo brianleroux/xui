@@ -56,9 +56,9 @@ xui.extend({
 		}
 		
 		// serialise the props
-		var serialisedProps = [];
+		var serialisedProps = [], key;
 		if (typeof props != string) {
-  		for (var key in props) {
+  		for (key in props) {
   		  if (key == 'duration') {
   		    options.duration = props[key];
   		  } else {

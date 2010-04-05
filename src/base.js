@@ -16,10 +16,11 @@
     if (! [].forEach) {
         Array.prototype.forEach = function(fn) {
             var len = this.length || 0,
+                i = 0;
                 that = arguments[1]; // wait, what's that!? awwww rem. here I thought I knew ya!
                                      // @rem - that that is a hat tip to your thats :)
             if (typeof fn == 'function') {
-                for (var i = 0; i < len; i++) {
+                for (; i < len; i++) {
                     fn.call(that, this[i], i, this);
                 }
             }
