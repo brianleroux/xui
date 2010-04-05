@@ -1,23 +1,8 @@
 xui.extend({
-    xhrInner: function(url) {
-        return this.xhr('inner', url);
-    },
-    xhrOuter: function(url) {
-        return this.xhr('outer', url);
-    },
-    xhrTop: function(url) {
-        return this.xhr('top', url);
-    },
-    xhrBottom: function(url) {
-        return this.xhr('bottom', url);
-    },
-    xhrBefore: function(url) {
-        return this.xhr('before', url);
-    },
-    xhrAfter: function(url) {
-        return this.xhr('after', url);
-    },
-
+    "xhrInner xhrOuter xhrTop xhrBottom xhrBefore xhrAfter".split(' ').forEach( function(s) {
+        xui.fn[s] = function(url) { this.xhr(s.replace('xhr',''), url); };
+    });
+    
     /**
 	 * 
 	 * Another twist on remoting: lightweight and unobtrusive DOM databinding. Since we are often talking to a server with 
