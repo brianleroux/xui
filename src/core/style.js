@@ -9,8 +9,6 @@
  * Anything related to how things look. Usually, this is CSS.
  * 
  */
-(function () {
-
 function hasClass(el, className) {
     return getClassRegEx(className).test(el.className);
 }
@@ -264,6 +262,3 @@ var reClassNameCache = {},
     }
     return re;
 };
-
-  
-})();

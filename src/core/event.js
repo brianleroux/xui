@@ -69,6 +69,14 @@ xui.extend({
 		}
 	    });
 	    return this;
-	}
+	},
+	
+	touch: eventSupported('ontouchstart')
+  
 // --
 });
+
+function eventSupported(event) {
+  var element = document.createElement('i');
+  return event in element || element.setAttribute && element.setAttribute(event, "return;") || false;
+}

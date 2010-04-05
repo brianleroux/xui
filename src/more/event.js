@@ -1,6 +1,3 @@
-// private event functions
-(function () {
-
 var cache = {};
 
 /**
@@ -65,28 +62,6 @@ xui.extend({
 	 *  	});
 	 * 	
 	 */
-	 
-	on: function(type, fn) {
-	if (window.addEventListener) { 
-	  return this.each(function (el) {
-      el.addEventListener(type, _createResponder(el, type, fn), false);
-	  });
-	  } else { //very sad way to do this... still looking for better alternative...
-			return this.each(function(el) {
-				switch (type) {
-					case "keyup" :
-						el.onkeyup=fn;
-					case "click" :
-						el.onclick=fn;
-					case "touchmove" :
-						el.touchmove=fn;
-					case "load" :
-						el.onload=fn;
-				}//need complement...
-			});
-	    }
-	},
-	
 	un: function(type) {
 	  var that = this;
 	  return this.each(function (el) {
@@ -148,4 +123,20 @@ function _createResponder(element, eventName, handler) {
   xui.fn[event] = function (fn) { return fn ? this.on(event, fn) : this.fire(event); };
 });
 
-})();
+// patched orientation support - Andriod 1 doesn't have native onorientationchange events
+if (!eventSupported('onorientationchange')) {
+  (function () {
+    var w = window.innerWidth, h = window.innerHeight;
+    
+    xui(window).on('resize', function () {
+      var portraitSwitch = (window.innerWidth < w && window.innerHeight > h) && (window.innerWidth < window.innerHeight),
+          landscapeSwitch = (window.innerWidth > w && window.innerHeight < h) && (window.innerWidth > window.innerHeight);
+      if (portraitSwitch || landscapeSwitch) {
+        window.orientation = portraitSwitch ? 0 : 90; // what about -90? Some support is better than none
+        $('body').fire('orientationchange'); // will this bubble up?
+        w = window.innerWidth;
+        h = window.innerHeight;
+      }
+    });
+  })();
+}
