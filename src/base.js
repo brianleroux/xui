@@ -129,11 +129,6 @@
             }).set(elements);
         },
 
-        // supports easier conversion of jQuery plugins to XUI
-        end: function() {
-            return this.set(this.cache || []);
-        },
-
 
         /**
          * Not modifies the elements array and reurns all the elements that DO NOT match a CSS Query
