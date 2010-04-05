@@ -43,7 +43,7 @@ xui.extend({
 	 */
     xhrjson: function(url, options) {
         var that = this;
-		var cb = typeof cb != 'function' ? function(x){return x} : options.callback;
+		    var cb = typeof cb != 'function' ? function(x){return x} : options.callback;
 
         var callback = function() {
             var o = eval('(' + this.responseText + ')');

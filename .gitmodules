@@ -1,6 +1,3 @@
-[submodule "vendor/emile"]
-	path = vendor/emile
-	url = git://github.com/brianleroux/emile.git
 [submodule "packages/qunit"]
 	path = packages/qunit
 	url = git://github.com/brianleroux/qunit.git

@@ -56,17 +56,6 @@ There are other tasks for code minification, running the specs and generating do
 	 '-util .................... utils for minification, obfuscation, verification
 
 
-
-TODO
----
-
-- fix broken xui-core specs
-- author xui-more specs
-- complete effects port to emile system
-- get jslint/rake check passing
-- figure out how to supress google barfing error messages 
-
-
 CREATORS
 ---
 
