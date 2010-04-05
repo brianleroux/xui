@@ -62,6 +62,7 @@ xui.extend({
 	 *  	});
 	 * 	
 	 */
+	 
 	un: function(type) {
 	  var that = this;
 	  return this.each(function (el) {

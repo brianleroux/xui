@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html>
+<<<<<<< HEAD
 	<head>
 		<title>xui-core specs</title>
 		<link rel="stylesheet" href="../packages/shoulda-js/shoulda/shoulda.css" type="text/css" media="screen" title="no title" charset="utf-8">
@@ -157,159 +158,301 @@
 
 		context("Style.setStyle", function(){
 			var	e = x$('#set-style-element');
+
 			
-			should( 'set change the box backgroundColor', function(){
-				e.setStyle('backgroundColor', 'green');
-				equals(e[0].style.backgroundColor, 'green');
-			});
-		});
-
-		context( "Style.getStyle", function(){
-			var	e = x$('#get-style-element');
-			e[0].style.backgroundColor = "blue";
-
-		  	should( 'return background color of blue if set in passed function', function(){
-				stop();
-		   		e.getStyle('background-color', function(v){
-		     		equals(v, 'rgb(0, 0, 255)')
-					start();
-		   		});
-		  	});
-
-			should( 'return background color even if no function passed', function(){
-				var style = e.getStyle('background-color');
-			  	equals(style, 'rgb(0, 0, 255)');
-			});
-		});
-
-		context( "Style.addClass", function(){
-			var x = x$('#add-class-element');
-			x.addClass("foo");
-
-			should( 'add class of foo', function(){
-			  equals(x[0].className, "foo");
-			});
-		});
-
-		context( "Style.removeClass", function(){
-			var	x = x$('#remove-class-element');
-
-			should( 'remove the class of testing' ,function(){
-				x.removeClass('bar');
-        equals(x[0].className, '');
-			});
-		});
-
-		context( "Style.hasClass", function(){
-			var x = x$('#has-class-element');
-
-			should( 'have the class bar', function(){
-        equals(x.hasClass('bar'), true);
-			});
-		});
-		
-		
-		// --
-		/// dom specs
-		// --
-		
-		
-		context( "Dom.html", function(){
-			var	inner  = x$('#html-test-inner');
-			var	outer  = x$('#html-test-outer');
-			var	top    = x$('#html-test-top');
-			var	bottom = x$('#html-test-bottom');
-			var	h = x$('#html-test-html');
-		
-
-			should( 'insert html after #html-test-html.', function() {
-				h.html('after', '<div>after</div>');
-				equals(h[0].nextSibling.innerHTML, 'after');
-			});
-
-			should( 'have "p" as tag name in html inserted after.', function() {
-				h.html('after', '<p>after</p>');
-				equals(h[0].nextSibling.tagName.toLowerCase(), 'p');
-			});
-
-			should( 'insert html before #html-test-html', function() {
-				h.html('before', '<div>before</div>');
-				equals(h[0].previousSibling.innerHTML, 'before');
-			});
-
-			should( 'have "p" as tag name in html inserted before.', function() {
-				h.html('before','<p>before</p>');
-				equals(h[0].previousSibling.tagName.toLowerCase(), 'p');
-			});
-
-			should( 'insert html into the #html-test-inner node', function(){
-				inner.html('inner', '<p>hello world</p>');
-				equals(inner[0].children[0].tagName, 'P'); 
-			});
-
-			should( 'insert html into the #html-test-outer node', function(){
-				outer.html('outer', '<div id="html-test-outer">sneaky</div>'); 
-				equals(x$('#html-test-outer')[0].innerHTML, 'sneaky'); 
-			});
-
-			should( 'insert html into the #html-test-top node', function(){
-				top.html('top', '<div>come out on top</div>');
-				equals(top[0].children[0].innerHTML, 'come out on top'); 
-			});
-
-			should( 'insert html into the #html-test-bottom node', function(){
-				bottom.html('bottom', '<div>undertow</div>');
-				var last = bottom[0].children.length - 1;
-				equals(bottom[0].children[last].innerHTML, 'undertow'); 
-			});
-
-			should( 'return html of #html-test-html node', function(){
-				equals(h.html(), 
-				'<p>foo</p>');
-			});
-		});
-		
-		
-		// --
-		/// xhr specs
-		// --
-		
-		context( "XHR.function", function(){
-			var x = x$('#xhr-test-function');
-
-			should( 'insert partial into element', function(){
-			  	x.xhr("helpers/example.html");
-		    	equals(document.getElementById('xhr-test-function').innerHTML, '<h1>this is a html partial</h1>');
-			});
+            should( 'return array with one element', function(){
+                equals(x.length, 1);
+            });
 			
-			should( 'have more tests', function(){
-				// test headers
-				// test interpolate
-				// test callback
-				ok(false);
-			});
-		});
-		
-		// --
-		/// fx specs
-		// --
-		
-		context( "Fx.tween", function(){
-			should( 'tween something a little bit', function(){
-				ok(false);
-			})
-		});
-		
-		// --
-		/// event specs
-		// --
-		
-		context( "Event", function(){
-			should( 'fire. subscribe. whatever.', function(){
-				ok(false);
-			})
-		});
-		
+			should( 'have tagname as specified in markup in first element', function(){
+                equals(x[0].tagName, tagname);
+            });
+        });
+
+        context( "Selector element", function(){
+            var el = document.getElementById("item_1")
+            var x = x$(el);
+
+            should( 'return array with one element', function(){
+                equals(x.length, 1);
+            });
+
+            should( 'have text "this is item one" in first element.', function(){
+                equals(x[0].innerHTML, 'this is item one');
+            });
+        });
+        
+        
+        context( "Selector 'has' and 'not'", function(){
+            var x = x$('ul#has_tests li');
+
+            should( 'return two elements.', function(){
+                equals(x.has(".foo").length, 2);
+            });
+
+            should( 'return three elements after omitting class foo.', function(){
+                equals(x.not(".foo").length, 3);
+            });
+        });
+        
+
+        
+        // ---
+        /// style.js specs
+        // ---
+
+        context("Style.setStyle", function(){
+            var    e = x$('#set-style-element');
+            
+            should( 'set change the box backgroundColor', function(){
+                e.setStyle('backgroundColor', 'green');
+                equals(e[0].style.backgroundColor, 'green');
+            });
+        });
+
+        context( "Style.getStyle", function(){
+            var    e = x$('#get-style-element');
+            e[0].style.backgroundColor = "blue";
+
+            should( 'return background color of blue if set in passed function', function(){
+                stop();
+                 e.getStyle('background-color', function(v){
+                   equals(v, 'rgb(0, 0, 255)')
+                    start();
+                 });
+            });
+
+            should( 'return background color even if no function passed', function(){
+                var style = e.getStyle('background-color');
+                equals(style, 'rgb(0, 0, 255)');
+            });
+        });
+
+        context( "Style.addClass", function(){
+            var x = x$('#add-class-element');
+            x.addClass("foo");
+
+            should( 'add class of foo', function(){
+                equals(x[0].className, "foo");
+            });
+        });
+
+        context( "Style.removeClass", function(){
+            var    x = x$('#remove-class-element');
+
+            should( 'remove the class of testing' ,function(){
+                x.removeClass('bar');
+                equals(x[0].className, '');
+            });
+        });
+
+        context( "Style.hasClass", function(){
+            var x = x$('#has-class-element');
+
+            should( 'have the class bar', function(){
+                equals(x.hasClass('bar'), true);
+            });
+        });
+        
+        
+        // --
+        /// dom specs
+        // --
+        
+        
+        context( "Dom.html", function(){
+            var inner  = x$('#html-test-inner');
+            var outer  = x$('#html-test-outer');
+            var top    = x$('#html-test-top');
+            var bottom = x$('#html-test-bottom');
+            var h = x$('#html-test-html');
+        
+
+            should( 'insert html after #html-test-html.', function() {
+                h.html('after', '<div>after</div>');
+                equals(h[0].nextSibling.innerHTML, 'after');
+            });
+
+            should( 'have "p" as tag name in html inserted after.', function() {
+                h.html('after', '<p>after</p>');
+                equals(h[0].nextSibling.tagName.toLowerCase(), 'p');
+            });
+
+            should( 'insert html before #html-test-html', function() {
+                h.html('before', '<div>before</div>');
+                equals(h[0].previousSibling.innerHTML, 'before');
+            });
+
+            should( 'have "p" as tag name in html inserted before.', function() {
+                h.html('before','<p>before</p>');
+                equals(h[0].previousSibling.tagName.toLowerCase(), 'p');
+            });
+
+            should( 'insert html into the #html-test-inner node', function(){
+                inner.html('inner', '<p>hello world</p>');
+                equals(inner[0].children[0].tagName, 'P'); 
+            });
+
+            should( 'insert html into the #html-test-outer node', function(){
+                outer.html('outer', '<div id="html-test-outer">sneaky</div>'); 
+                equals(x$('#html-test-outer')[0].innerHTML, 'sneaky'); 
+            });
+
+            should( 'insert html into the #html-test-top node', function(){
+                top.html('top', '<div>come out on top</div>');
+                equals(top[0].children[0].innerHTML, 'come out on top'); 
+            });
+
+            should( 'insert html into the #html-test-bottom node', function(){
+                bottom.html('bottom', '<div>undertow</div>');
+                var last = bottom[0].children.length - 1;
+                equals(bottom[0].children[last].innerHTML, 'undertow'); 
+            });
+
+            should( 'return html of #html-test-html node', function(){
+                equals(h.html(), 
+                '<p>foo</p>');
+            });
+        });
+        
+        
+        // --
+        /// xhr specs
+        // --
+        
+        context( "XHR.function", function(){
+            var x = x$('#xhr-test-function');
+            
+            should( 'fire the callback', function(){
+                x.xhr("helpers/example.html", { 
+                    callback : function() {
+                        equals(this.responseText, '<h1>this is a html partial</h1>');
+                    }
+                });
+            });
+            
+            should( 'insert partial into element', function(){
+                x.xhr("helpers/example.html");
+                equals(document.getElementById('xhr-test-function').innerHTML, '<h1>this is a html partial</h1>');
+            });
+            
+            //clear out html before next test
+            document.getElementById('xhr-test-function').innerHTML == "";
+            
+            should( 'set header without exploding', function(){
+                x.xhr("helpers/example.html", { headers : [ { name : "Content-Type", value : "application/x-www-form-urlencoded" } ] });
+                equals(document.getElementById('xhr-test-function').innerHTML, '<h1>this is a html partial</h1>');
+            });
+            
+            should( 'support async XHR', function(){
+                stop();
+                
+                x.xhr("helpers/example.html", {
+                    callback : function() {
+                        equals(this.responseText, '<h1>this is a html partial</h1>');
+                        start();
+                    }
+                });
+            });
+            
+            should( 'pass query string params', function(){
+                var data = "fooga=booga&tooga=wooga";
+                
+                x.xhr("helpers/example.html", {
+                    data : data,
+                    callback : function() {
+                        equals(this.queryString, data);
+                        equals(this.responseText, '<h1>this is a html partial</h1>');
+                    }
+                });
+            });
+            
+            should( 'make a POST without exploding', function(){
+                x.xhr("helpers/example.html", {
+                    method : "POST",
+                    callback : function() {
+                        equals(this.responseText, '<h1>this is a html partial</h1>');
+                    }
+                });
+            });
+        });
+        
+        // --
+        /// fx specs
+        // --
+        
+        context( "Fx.tween", function(){
+            var x = x$("#tween-test1"),
+                x2 = x$("#tween-test2"),
+                xs = x$("#tween-test3, #tween-test4"),
+                target = 5;
+            
+            should( 'tween single item', function(){
+                var win = false,
+                    width = parseInt(document.getElementById("tween-test1").style.width, 10);
+                
+                stop();
+                
+                x.tween("width: " + target + "px", { duration: 1000 });
+                
+                //test mid-tween
+                window.setTimeout(function() {
+                    win = parseInt(document.getElementById("tween-test1").style.width, 10) < width;
+                }, 100);
+                
+                //check value after tween
+                window.setTimeout(function() {
+                    ok(win && (parseInt(document.getElementById("tween-test1").style.width, 10) == target));
+                    start();
+                }, 1050);
+            });
+            
+            should( 'tween multiple items', function(){
+                var win = false,
+                    width3 = parseInt(document.getElementById("tween-test3").style.width, 10),
+                    width4 = parseInt(document.getElementById("tween-test4").style.width, 10);
+                
+                stop();
+                
+                xs.tween("width: " + target + "px", { duration: 1000 });
+                
+                //test values mid-tween
+                window.setTimeout(function() {
+                    win = parseInt(document.getElementById("tween-test3").style.width, 10) < width3;
+                    win = parseInt(document.getElementById("tween-test4").style.width, 10) < width4 && win;
+                }, 100);
+                
+                //test values after tween
+                window.setTimeout(function() {
+                    win = parseInt(document.getElementById("tween-test3").style.width, 10) == target && win;
+                    ok(win && (parseInt(document.getElementById("tween-test4").style.width, 10) == target));
+                    
+                    start();
+                }, 1050);
+            });
+            
+            should( 'execute tween callback', function(){
+                stop();
+                
+                x2.tween("width: 0px", { 
+                    after : function() {
+                        ok(true);
+                        start();
+                    }
+                });
+            });
+        });
+        
+        // --
+        /// event specs
+        // --
+        
+        context( "Event", function(){
+            should( 'fire. subscribe. whatever.', function(){
+                ok(false);
+            })
+        });
+         
 </script>
 </body>
 </html>

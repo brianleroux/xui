@@ -6,6 +6,7 @@
         string   = new String('string'), // prevents Goog compiler from removing primative and subsidising out allowing us to compress further
         document = window.document,      // obvious really
         idExpr   = /^#([\w-]+)$/,        // for situations of dire need. Symbian and the such
+		tagExpr  = /<(\S+).*\/>|<(\S+).*>.*<\/\S+>/,	// so you can create elements on the fly a la x$('<img/>')
         slice    = function (e) { return [].slice.call(e, 0); };
 
     window.x$ = window.xui = xui = function(q, context) {
@@ -18,8 +19,10 @@
             var len = this.length || 0,
                 that = arguments[1]; // wait, what's that!? awwww rem. here I thought I knew ya!
                                      // @rem - that that is a hat tip to your thats :)
+                i;
+
             if (typeof fn == 'function') {
-                for (var i = 0; i < len; i++) {
+                for (i = 0; i < len; i++) {
                     fn.call(that, this[i], i, this);
                 }
             }
@@ -45,30 +48,36 @@
         find: function(q, context) {
             var ele = [],
                 list,
-                i,
-                j,
-                x; // poetry mate
+                h, i, j, x; // poetry mate
                 
             if (!q) {
                 return this;
-            } else if (context == undefined && this.length) {
+            } else if (context === undefined && this.length) {
                 this.each(function(el, i) {
                     ele = ele.concat(slice(xui(q, this)));
                 });
                 ele = this.reduce(ele);
             } else {
                 context = context || document;
-
+                
                 // fast matching for pure ID selectors
                 if (typeof q == string && idExpr.test(q)) {
                     ele = [context.getElementById(q.substr(1))];
+				// match for full html tags to create elements on the go
+				} else if (typeof q == string && tagExpr.test(q)) {
+					tagExpr.exec(q).forEach(function(match, index) {
+						if (index===0) return;
+						else if (match !== undefined) h = match;
+					});;
+					ele = [document.createElement(h)];
                 } else if (typeof q == string) {
                     // one selector, check if Sizzle is available and use it instead of querySelectorAll.
-					if (Sizzle) {
-						ele = slice.call(Sizzle(q));
+					if (typeof Sizzle !== "undefined") {
+						h = Sizzle(q);
 					} else {
-						ele = slice.call(context.querySelectorAll(q));
+						h = context.querySelectorAll(q);
 					}
+					ele = slice.call(h);
                 } else if (q.toString() === '[object Array]') {
                     ele = q;
                 } else if (q.toString() == '[object NodeList]') {
@@ -78,6 +87,7 @@
                     ele = [q];
                 }
             }
+            
             // disabling the append style, could be a plugin:
             // xui.fn.add = function (q) { this.elements = this.elements.concat(this.reduce(xui(q).elements)); return this; }
             return this.set(ele);
@@ -91,6 +101,7 @@
          */
         set: function(elements) {
             var ret = xui();
+            
             // this *really* doesn't feel right...
             ret.cache = slice(this.length ? this : []);
             ret.length = 0;
@@ -133,7 +144,7 @@
         },
 
         // supports easier conversion of jQuery plugins to XUI
-        end: function() {
+        end: function () {
             return this.set(this.cache || []);
         },
 
@@ -142,8 +153,7 @@
          * Not modifies the elements array and reurns all the elements that DO NOT match a CSS Query
          */
         not: function(q) {
-            var list = slice(this);
-
+            var list = slice.call(this);
             return this.filter(function(i) {
                 var found;
                 xui(q).each(function(el) {
@@ -171,10 +181,9 @@
     };
 
     xui.fn.find.prototype = xui.fn;
-
     xui.extend = xui.fn.extend;
 
-    // ---
-    /// imports();
-    // ---
-})();
+      // --- 
+      /// imports(); 
+      // ---
+}());
