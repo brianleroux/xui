@@ -48,12 +48,14 @@ load('util/requirejs/build/jslib/fileUtil.js');
             buildDoc: 'Builds a version of XUI. Example commands:\n' +
                       '\t\tThis build uses the build profile util/profiles/enchilada.js\n' +
                       '\t\t> build.sh build profile=enchilda\n\n' +
+                      '\t\tThis build uses a profile with Closure minification off\n' +
+                      '\t\t> build.sh build profile=enchilda optimize=none\n\n' +
                       '\t\tThis build defines a name for the build file and what files to include\n' +
                       '\t\t> build.sh build out=lib/xui-basedom.js include=base,core/dom',
             build: function (args) {
                 //See if there is a profile arg, and if so get it and remove
                 //the option from the other build options.
-                var profile, hasBaseUrl = false, i, arg;
+                var profile, hasBaseUrl = false, hasSkipModuleInsertion = false, i, arg;
                 //Go backwards because when the slice happens do not want to
                 //mess up traversing the options.
                 for (i = args.length - 1; i > -1 && (arg = args[i]); i--) {
@@ -62,6 +64,8 @@ load('util/requirejs/build/jslib/fileUtil.js');
                         args.splice(i, 1);
                     } else if (arg.indexOf("baseUrl=") === 0) {
                         hasBaseUrl = true;
+                    } else if (arg.indexOf("skipModuleInsertion=") === 0) {
+                        hasSkipModuleInsertion = true;
                     }
                 }
 
@@ -73,7 +77,15 @@ load('util/requirejs/build/jslib/fileUtil.js');
                 args.unshift('util/requirejs/build');
 
                 //If no baseUrl, add it on now.
-                args.push('baseUrl=src/');
+                if (!hasBaseUrl) {
+                    args.push('baseUrl=src/');
+                }
+
+                //Do not want requirejs to insert placeholder modules for ones
+                //that do not use require syntax
+                if (!hasSkipModuleInsertion) {
+                    args.push('skipModuleInsertion=true');
+                }
 
                 //Call RequireJS build
                 build(args);
