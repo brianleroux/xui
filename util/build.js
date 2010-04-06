@@ -47,9 +47,9 @@ load('util/requirejs/build/jslib/fileUtil.js');
              */
             buildDoc: 'Builds a version of XUI. Example commands:\n' +
                       '\t\tThis build uses the build profile util/profiles/enchilada.js\n' +
-                      '\t\t> build.sh build profile=enchilda\n\n' +
+                      '\t\t> build.sh build profile=enchilada\n\n' +
                       '\t\tThis build uses a profile with Closure minification off\n' +
-                      '\t\t> build.sh build profile=enchilda optimize=none\n\n' +
+                      '\t\t> build.sh build profile=enchilada optimize=none\n\n' +
                       '\t\tThis build defines a name for the build file and what files to include\n' +
                       '\t\t> build.sh build out=lib/xui-basedom.js include=base,core/dom',
             build: function (args) {
