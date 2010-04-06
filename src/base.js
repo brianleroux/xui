@@ -2,11 +2,12 @@
 
     var undefined,
         xui,
-        window   = this,
-        string   = new String('string'), // prevents Goog compiler from removing primative and subsidising out allowing us to compress further
-        document = window.document,      // obvious really
-        idExpr   = /^#([\w-]+)$/,        // for situations of dire need. Symbian and the such
-        slice    = function (e) { return [].slice.call(e, 0); };
+        window     = this,
+        string     = new String('string'), // prevents Goog compiler from removing primative and subsidising out allowing us to compress further
+        document   = window.document,      // obvious really
+        simpleExpr = /^#?([\w-]+)$/,   // for situations of dire need. Symbian and the such        
+        idExpr     = /^#/,
+        slice      = function (e) { return [].slice.call(e, 0); };
 
     window.x$ = window.xui = xui = function(q, context) {
         return new xui.fn.find(q, context);
@@ -61,9 +62,9 @@
             } else {
                 context = context || document;
 
-                // fast matching for pure ID selectors
-                if (typeof q == string && idExpr.test(q)) {
-                    ele = [context.getElementById(q.substr(1))];
+                // fast matching for pure ID selectors and simple element based selectors
+                if (typeof q == string && simpleExpr.test(q)) {
+                    ele = idExpr.test(q) ? [context.getElementById(q.substr(1))] : slice(context.getElementsByTagName(q));
                 } else if (typeof q == string) {
                     // one selector
                     ele = slice(context.querySelectorAll(q));
