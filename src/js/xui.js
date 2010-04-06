@@ -75,9 +75,7 @@
 var xui;
 
 (function() {
-  var undefined;
-	
-	var xui = function(q) {
+    xui = function(q) {
 		q = q || document;
 		return this.find(q);
 	},
