@@ -82,18 +82,13 @@ xui.extend({
 	 *
 	 */
     getStyle: function(prop, callback) {
-
-        var gs = function(el, p) {
-            return document.defaultView.getComputedStyle(el, "").getPropertyValue(p);
-        };
-
-        if (callback === undefined) {
-            return gs(this[0], prop);
-        }
-
-        return this.each(function(el) {
-            callback(gs(el, prop));
-        });
+        return (callback === undefined) ?
+            
+            getStyle(this[0], prop) :
+            
+            this.each(function(el) {
+                callback(getStyle(el, prop));
+            });
     },
 
     /**
@@ -153,15 +148,13 @@ xui.extend({
 	 *
 	 */
     hasClass: function(className, callback) {
-        if (callback === undefined && this.length == 1) {
-            return hasClass(this[0], this[0].className)
-        }
-
-        return this.each(function(el) {
-            if (hasClass(el, el.className)) {
-                callback(el);
-            }
-        });
+        return (callback === undefined && this.length == 1) ?
+            hasClass(this[0], this[0].className) :
+            this.each(function(el) {
+                if (hasClass(el, el.className)) {
+                    callback(el);
+                }
+            });
     },
 
     /**
@@ -226,14 +219,20 @@ xui.extend({
 	 *  
 	 */
     css: function(o) {
-        var that = this;
         for (var prop in o) {
-            that.setStyle(prop, o[prop]);
+            this.setStyle(prop, o[prop]);
         }
-        return that;
+        return this;
     }
 // --
 });
+
+function getStyle(el, p) {
+    // this *can* be written to be smaller - see below, but in fact it doesn't compress in gzip as well, the commented
+    // out version actually *adds* 2 bytes.
+    // return document.defaultView.getComputedStyle(el, "").getPropertyValue(p.replace(/([A-Z])/g, "-$1").toLowerCase());
+    return document.defaultView.getComputedStyle(el, "").getPropertyValue(p.replace(/[A-Z]/g, function(m){ return '-'+m.toLowerCase();}));
+}
 
 // RS: now that I've moved these out, they'll compress better, however, do these variables
 // need to be instance based - if it's regarding the DOM, I'm guessing it's better they're
@@ -242,10 +241,10 @@ xui.extend({
 // -- private methods -- //
 var reClassNameCache = {},
     getClassRegEx = function(className) {
-    var re = reClassNameCache[className];
-    if (!re) {
-        re = new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)');
-        reClassNameCache[className] = re;
-    }
-    return re;
-};
+        var re = reClassNameCache[className];
+        if (!re) {
+            re = new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)');
+            reClassNameCache[className] = re;
+        }
+        return re;
+    };

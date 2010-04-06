@@ -50,12 +50,11 @@ xui.extend({
 	 * 	
 	 */
 	on: function(type, fn) {
-	    this.each(function(el) {
+	    return this.each(function(el) {
         if (window.addEventListener) {
             el.addEventListener(type, fn, false);
         }
 	    });
-	    return this;
 	},
 	
 	touch: eventSupported('ontouchstart')
