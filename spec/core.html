@@ -3,13 +3,13 @@
 <html>
 	<head>
 		<title>xui-core specs</title>
-		<link rel="stylesheet" href="../packages/shoulda-js/shoulda/shoulda.css" type="text/css" media="screen" title="no title" charset="utf-8">
+		<link rel="stylesheet" href="../packages/shoulda-js/shoulda.css" type="text/css" media="screen" title="no title" charset="utf-8">
 		
 		<script src="../packages/qunit/qunit/qunit.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../packages/qunit/qunit/qunit.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../packages/shoulda-js/shoulda/shoulda.js" type="text/javascript" charset="utf-8"></script>
-		
-		<script src="../lib/xui-core-1.0.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../packages/shoulda-js/shoulda.js" type="text/javascript" charset="utf-8"></script>
+		<!-- make sure you include the proper build of XUI -->
+		<script src="../lib/xui-bb-1.0.0.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
 		<h2 id="qunit-banner">xui-core specs</h2>
@@ -100,7 +100,6 @@
 
 		context( "Selector string class", function(){
 			var x = x$(".item");
-
 			should( 'return array with three items', function(){
 				equals(x.length, 3);
 			});
@@ -111,15 +110,6 @@
 			  	equals(x[x.length -1].innerHTML, 'this is item three');
 			});
 
-		});
-		
-
-		context( "Selector string none", function(){
-			var x = x$("item_1");
-
-		  	should( 'return empty array', function(){
-				equals(x.length, 0);
-			});
 		});
 
 
@@ -136,10 +126,15 @@
 			});
 		});
 		
-		
+		context( "Selector string none", function(){
+			var x = x$("item_1");
+
+		  	should( 'return empty array', function(){
+				equals(x.length, 0);
+			});
+		});
 		context( "Selector has and not", function(){
 			var x = x$('ul#has_tests li');
-
 			should( 'return two elements.', function(){
 				equals(x.has(".foo").length, 2);
 			});
@@ -159,26 +154,26 @@
 			var	e = x$('#set-style-element');
 			
 			should( 'set change the box backgroundColor', function(){
-				e.setStyle('backgroundColor', 'green');
-				equals(e[0].style.backgroundColor, 'green');
+				e.setStyle('backgroundColor', '#008000');
+				equals(e[0].style.backgroundColor, '#008000');
 			});
 		});
 
 		context( "Style.getStyle", function(){
 			var	e = x$('#get-style-element');
-			e[0].style.backgroundColor = "blue";
+			e[0].style.backgroundColor = "#0000FF";
 
 		  	should( 'return background color of blue if set in passed function', function(){
 				stop();
 		   		e.getStyle('background-color', function(v){
-		     		equals(v, 'rgb(0, 0, 255)')
+		     		equals(v, '#0000FF')
 					start();
 		   		});
 		  	});
 
 			should( 'return background color even if no function passed', function(){
 				var style = e.getStyle('background-color');
-			  	equals(style, 'rgb(0, 0, 255)');
+			  	equals(style, '#0000FF');
 			});
 		});
 
@@ -244,7 +239,7 @@
 
 			should( 'insert html into the #html-test-inner node', function(){
 				inner.html('inner', '<p>hello world</p>');
-				equals(inner[0].children[0].tagName, 'P'); 
+				equals(inner[0].childNodes[0].tagName.toLowerCase(), 'p'); 
 			});
 
 			should( 'insert html into the #html-test-outer node', function(){
@@ -254,18 +249,17 @@
 
 			should( 'insert html into the #html-test-top node', function(){
 				top.html('top', '<div>come out on top</div>');
-				equals(top[0].children[0].innerHTML, 'come out on top'); 
+				equals(top[0].childNodes[0].innerHTML, 'come out on top'); 
 			});
 
 			should( 'insert html into the #html-test-bottom node', function(){
 				bottom.html('bottom', '<div>undertow</div>');
-				var last = bottom[0].children.length - 1;
-				equals(bottom[0].children[last].innerHTML, 'undertow'); 
+				var last = bottom[0].childNodes.length - 1;
+				equals(bottom[0].childNodes[last].innerHTML, 'undertow'); 
 			});
 
 			should( 'return html of #html-test-html node', function(){
-				equals(h.html(), 
-				'<p>foo</p>');
+				equals(h.html().toLowerCase(), '<p>foo</p>');
 			});
 		});
 		

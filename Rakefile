@@ -9,13 +9,23 @@ task :default => :spec
 
 desc 'use JSLint to validate source code...'
 task :check do
-  puts 'checking js for lint...'
-  rhino_jar   = File.join(LIBPATH, 'util', 'js.jar')
-  jslint_file = File.join(LIBPATH, 'util', 'jslint.js')
+  failed_files = []
   
-  FileList.new(File.join(LIBPATH,'lib','*')).each do |xui|
-    sh "java -classpath #{rhino_jar} org.mozilla.javascript.tools.shell.Main #{jslint_file} #{xui}"
-  end  
+  rhino_jar = File.join(LIBPATH, "util", "js.jar")
+  jslint_file = File.join(LIBPATH, "util", "jslint.js")
+  
+  Dir[File.join(LIBPATH, 'src', '**/*.js')].each do |xui|
+    cmd = "java -cp #{rhino_jar} org.mozilla.javascript.tools.shell.Main #{jslint_file} #{xui}"
+    results = %x{#{cmd}}
+    unless results =~ /^jslint: No problems found in/
+      puts "#{xui}:"
+      puts results
+      failed_files << xui
+    end
+  end
+  if failed_files.size > 0
+    exit 1
+  end
 end
 
 
@@ -35,7 +45,8 @@ task :build do
       # create your custom xui builds here
       build_profiles = [
         {"xui-core-#{ version }.js" => "['src/core/*', 'packages/emile/emile.js']"},
-        {"xui-more-#{ version }.js" => "['src/core/*', 'src/more/*', 'packages/emile/emile.js']"}
+        {"xui-more-#{ version }.js" => "['src/core/*', 'src/more/*', 'packages/emile/emile.js']"},
+		{"xui-bb-#{ version }.js" => "['src/core/*', 'src/more/*', 'packages/emile/emile.js', 'packages/sizzle/sizzle.js']"}
       ]
       
 =begin      
@@ -76,6 +87,7 @@ two pass system
       FileUtils.mkdir_p("#{ LIBPATH }/lib/")
       
       build_profiles.each do |xui| 
+        puts "creating #{ LIBPATH }/lib/#{ xui.keys.first }..."
         File.open("#{ LIBPATH }/lib/#{ xui.keys.first }", 'w') do |f| 
           f.puts interpolate(xui.values.first)
         end
@@ -92,14 +104,14 @@ two pass system
     
     def versionize
       "/*
-        * XUI JavaScript Library v#{ version }
-        * http://xuijs.com
-        * 
-        * Copyright (c) 2009 Brian LeRoux, Rob Ellis, Brock Whitten
-        * Licensed under the MIT license.
-        * 
-        * Date: #{ DateTime.now }
-        */"
+ * XUI JavaScript Library v#{ version }
+ * http://xuijs.com
+ * 
+ * Copyright (c) 2009 Brian LeRoux, Rob Ellis, Brock Whitten
+ * Licensed under the MIT license.
+ * 
+ * Date: #{ DateTime.now }
+ */\n"
     end
     
     def compile(libs)
