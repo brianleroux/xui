@@ -9,20 +9,29 @@
 		<script src="../packages/qunit/qunit/qunit.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../packages/shoulda-js/shoulda/shoulda.js" type="text/javascript" charset="utf-8"></script>
 		
-		<script src="../lib/xui-core-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../lib/xui-more-1.0.0.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
-		<h2 id="qunit-banner">xui-core specs</h2>
+		<h2 id="qunit-banner">xui-more specs</h2>
 		<h2 id="qunit-userAgent"></h2>
 		<ol id="qunit-tests"></ol>
 		<ol id="qunit-testrunner-toolbar"></ol>
 
+        <div id="xhr-tests">
+            <div id="inner"></div>
+            <div id="outer">Something shows up after this element.</div>
+            
+            <div id="top">Something shows up at the top this element.</div>
+            <div id="bottom">Something shows up at the bottom of this this element.</div>
+            <div id="before">Something shows up before this element.</div>
+            <div id="after">Something shows up after this element.</div>
+            
+            <!-- xhrInner xhrOuter xhrTop xhrBottom xhrBefore xhrAfter -->
+        </div>
 
 		<script type="text/javascript" charset="utf-8">
 		
-		// --
-		/// base.js specs
-		// --
+        /*
 		context( "Get elements by index", function(){
 			var li = x$('#get_tests li');
 
@@ -54,8 +63,10 @@
 				equals(els.size()), 3);
 			});
 		});
-
-
+        */		
+	
+	
+		
 
 </script>
 </body>

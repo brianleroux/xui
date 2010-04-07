@@ -2,12 +2,13 @@
 
     var undefined,
         xui,
-        window   = this,
-        string   = new String('string'), // prevents Goog compiler from removing primative and subsidising out allowing us to compress further
-        document = window.document,      // obvious really
-        idExpr   = /^#([\w-]+)$/,        // for situations of dire need. Symbian and the such
+        window     = this,
+        string     = new String('string'), // prevents Goog compiler from removing primative and subsidising out allowing us to compress further
+        document   = window.document,      // obvious really
+        simpleExpr = /^#?([\w-]+)$/,   // for situations of dire need. Symbian and the such        
+        idExpr     = /^#/,
 		tagExpr  = /<(\S+).*\/>|<(\S+).*>.*<\/\S+>/,	// so you can create elements on the fly a la x$('<img/>')
-        slice    = function (e) { return [].slice.call(e, 0); };
+        slice      = function (e) { return [].slice.call(e, 0); };
 
     window.x$ = window.xui = xui = function(q, context) {
         return new xui.fn.find(q, context);
@@ -17,12 +18,13 @@
     if (! [].forEach) {
         Array.prototype.forEach = function(fn) {
             var len = this.length || 0,
+                i = 0;
                 that = arguments[1]; // wait, what's that!? awwww rem. here I thought I knew ya!
                                      // @rem - that that is a hat tip to your thats :)
                 i;
 
             if (typeof fn == 'function') {
-                for (i = 0; i < len; i++) {
+                for (; i < len; i++) {
                     fn.call(that, this[i], i, this);
                 }
             }
@@ -59,11 +61,10 @@
                 ele = this.reduce(ele);
             } else {
                 context = context || document;
-                
-                // fast matching for pure ID selectors
-                if (typeof q == string && idExpr.test(q)) {
-                    ele = [context.getElementById(q.substr(1))];
-				// match for full html tags to create elements on the go
+                // fast matching for pure ID selectors and simple element based selectors
+                if (typeof q == string && simpleExpr.test(q)) {
+                    ele = idExpr.test(q) ? [context.getElementById(q.substr(1))] : slice(context.getElementsByTagName(q));
+					// match for full html tags to create elements on the go
 				} else if (typeof q == string && tagExpr.test(q)) {
 					tagExpr.exec(q).forEach(function(match, index) {
 						if (index===0) return;
@@ -142,12 +143,6 @@
                 if (fn.call(el, i)) elements.push(el);
             }).set(elements);
         },
-
-        // supports easier conversion of jQuery plugins to XUI
-        end: function () {
-            return this.set(this.cache || []);
-        },
-
 
         /**
          * Not modifies the elements array and reurns all the elements that DO NOT match a CSS Query
