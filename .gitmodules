@@ -9,4 +9,4 @@
 	url = git://github.com/madrobby/emile.git
 [submodule "packages/sizzle"]	
 	path = packages/sizzle
-	url = git://github.com/jresig/sizzle.git
+	url = git://github.com/jeresig/sizzle.git
