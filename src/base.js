@@ -48,23 +48,20 @@
         },
 
         find: function(q, context) {
-            var ele = [],
-                list,
-                h, i, j, x; // poetry mate
+            var ele = [];
                 
             if (!q) {
                 return this;
-            } else if (context === undefined && this.length) {
-                this.each(function(el, i) {
-                    ele = ele.concat(slice(xui(q, this)));
-                });
-                ele = this.reduce(ele);
+            } else if (context == undefined && this.length) {
+                ele = this.each(function(el) {
+                    ele = ele.concat(slice(xui(q, el)));
+                }).reduce(ele);
             } else {
                 context = context || document;
                 // fast matching for pure ID selectors and simple element based selectors
                 if (typeof q == string && simpleExpr.test(q)) {
                     ele = idExpr.test(q) ? [context.getElementById(q.substr(1))] : slice(context.getElementsByTagName(q));
-					// match for full html tags to create elements on the go
+				// match for full html tags to create elements on the go
 				} else if (typeof q == string && tagExpr.test(q)) {
 					tagExpr.exec(q).forEach(function(match, index) {
 						if (index===0) return;
@@ -79,7 +76,7 @@
 						h = context.querySelectorAll(q);
 					}
 					ele = slice(h);
-                } else if (q.toString() === '[object Array]') {
+                } else if (q instanceof Array) {
                     ele = q;
                 } else if (q.toString() == '[object NodeList]') {
                     ele = slice(q);
@@ -88,8 +85,7 @@
                     ele = [q];
                 }
             }
-            
-            // disabling the append style, could be a plugin:
+            // disabling the append style, could be a plugin (found in more/base):
             // xui.fn.add = function (q) { this.elements = this.elements.concat(this.reduce(xui(q).elements)); return this; }
             return this.set(ele);
         },
@@ -102,8 +98,6 @@
          */
         set: function(elements) {
             var ret = xui();
-            
-            // this *really* doesn't feel right...
             ret.cache = slice(this.length ? this : []);
             ret.length = 0;
             [].push.apply(ret, elements);
