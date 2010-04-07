@@ -78,7 +78,7 @@
 					} else {
 						h = context.querySelectorAll(q);
 					}
-					ele = slice.call(h);
+					ele = slice(h);
                 } else if (q.toString() === '[object Array]') {
                     ele = q;
                 } else if (q.toString() == '[object NodeList]') {
