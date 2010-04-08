@@ -7,7 +7,7 @@
         document   = window.document,      // obvious really
         simpleExpr = /^#?([\w-]+)$/,   // for situations of dire need. Symbian and the such        
         idExpr     = /^#/,
-		tagExpr  = /<(\S+).*\/>|<(\S+).*>.*<\/\S+>/,	// so you can create elements on the fly a la x$('<img/>')
+        tagExpr    = /<([\w:]+)/, // so you can create elements on the fly a la x$('<img href="/foo" /><strong>yay</strong>')
         slice      = function (e) { return [].slice.call(e, 0); };
 
     window.x$ = window.xui = xui = function(q, context) {
@@ -21,7 +21,6 @@
                 i = 0;
                 that = arguments[1]; // wait, what's that!? awwww rem. here I thought I knew ya!
                                      // @rem - that that is a hat tip to your thats :)
-                i;
 
             if (typeof fn == 'function') {
                 for (; i < len; i++) {
@@ -48,7 +47,7 @@
         },
 
         find: function(q, context) {
-            var ele = [];
+            var ele = [], tempNode;
                 
             if (!q) {
                 return this;
@@ -59,23 +58,26 @@
             } else {
                 context = context || document;
                 // fast matching for pure ID selectors and simple element based selectors
-                if (typeof q == string && simpleExpr.test(q)) {
-                    ele = idExpr.test(q) ? [context.getElementById(q.substr(1))] : slice(context.getElementsByTagName(q));
-				// match for full html tags to create elements on the go
-				} else if (typeof q == string && tagExpr.test(q)) {
-					tagExpr.exec(q).forEach(function(match, index) {
-						if (index===0) return;
-						else if (match !== undefined) h = match;
-					});;
-					ele = [document.createElement(h)];
-                } else if (typeof q == string) {
-                    // one selector, check if Sizzle is available and use it instead of querySelectorAll.
-					if (typeof Sizzle !== "undefined") {
-						h = Sizzle(q);
-					} else {
-						h = context.querySelectorAll(q);
-					}
-					ele = slice(h);
+                if (typeof q == string) {
+                  if (simpleExpr.test(q)) {
+                      ele = idExpr.test(q) ? [context.getElementById(q.substr(1))] : context.getElementsByTagName(q);
+                  // match for full html tags to create elements on the go
+                  } else if (tagExpr.test(q)) {
+                      tempNode = document.createElement('i');
+                      tempNode.innerHTML = q;
+                      slice(tempNode.childNodes).forEach(function (el) {
+                        ele.push(el);
+                      });
+                  } else {
+                      // one selector, check if Sizzle is available and use it instead of querySelectorAll.
+                      if (Sizzle !== undefined) {
+                        ele = Sizzle(q);
+                      } else {
+                        ele = context.querySelectorAll(q);
+                      }
+                  }
+                  // blanket slice
+                  ele = slice(ele);
                 } else if (q instanceof Array) {
                     ele = q;
                 } else if (q.toString() == '[object NodeList]') {
@@ -142,7 +144,7 @@
          * Not modifies the elements array and reurns all the elements that DO NOT match a CSS Query
          */
         not: function(q) {
-            var list = slice.call(this);
+            var list = slice(this);
             return this.filter(function(i) {
                 var found;
                 xui(q).each(function(el) {
