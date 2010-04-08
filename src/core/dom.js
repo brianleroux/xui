@@ -53,7 +53,7 @@ xui.extend({
             location = 'inner';
         }
 
-        this.each(function(el) {
+        return this.each(function(el) {
             var parent, 
                 list, 
                 len, 
@@ -84,7 +84,6 @@ xui.extend({
                 el.parentNode.insertBefore(wrapHelper(html, el.parentNode), el.nextSibling);
             }
         });
-        return this;
     },
     
     append: function (html) {
