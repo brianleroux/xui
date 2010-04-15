@@ -35,27 +35,24 @@ xui.extend({
 	 *
 	 * 	x$('#box').tween({ left:100px, backgroundColor:'blue' });
 	 * 	x$('#box').tween({ left:100px, backgroundColor:'blue' }, function() { alert('done!'); });
-	 
-	 * 	x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:'100px' }]); // WTF? is this a sequence?
-	 * 	x$('#box').tween({ left:100px}).tween({ left:'100px' });
+	 * 	x$('#box').tween([{ left:100px, backgroundColor:'green', duration:.2 }, { right:'100px' }]); 
 	 * 
 	 */
 	// options: duration, after, easing
 	tween: function( props, callback ) {
 		// TODO make queue
 	
+	    // creates an options obj for emile
 		var options = {};
 		"duration after easing".split(' ').forEach( function(p) {
-    		if (props[property]) {
-    		    options[property] = props[property];
-    		    delete props[property];
+    		if (props[p]) {
+    		    options[p] = props[p];
+    		    delete props[p];
     		}
 		});
-		
-		// Here be XUI to emile options
 		if (typeof callback == 'function') options.after = callback;
 		
-		// serialise the props
+		// serialize the properties into a string for emile
 		var serialisedProps = [], key;
 		if (typeof props != string) {
   		    for (key in props) {
