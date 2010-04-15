@@ -3,13 +3,14 @@
 <html>
 	<head>
 		<title>xui-core specs</title>
-		<link rel="stylesheet" href="../packages/shoulda-js/shoulda.css" type="text/css" media="screen" title="no title" charset="utf-8">
+		<link rel="stylesheet" href="../packages/shoulda-js/shoulda/shoulda.css" type="text/css" media="screen" title="no title" charset="utf-8">
 		
 		<script src="../packages/qunit/qunit/qunit.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../packages/qunit/qunit/qunit.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../packages/shoulda-js/shoulda.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../packages/shoulda-js/shoulda/shoulda.js" type="text/javascript" charset="utf-8"></script>
 		<!-- make sure you include the proper build of XUI -->
-		<script src="../lib/xui-bb-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../lib/xui-core-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+
 	</head>
 	<body>
 		<h2 id="qunit-banner">xui-core specs</h2>
@@ -133,6 +134,16 @@
 				equals(x.length, 0);
 			});
 		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		context( "Selector has and not", function(){
 			var x = x$('ul#has_tests li');
 			should( 'return two elements.', function(){
@@ -143,6 +154,13 @@
 				equals(x.not(".foo").length, 3);
 			});
 		});
+		
+		
+		
+		
+		
+		
+		
 		
 
 		
@@ -155,7 +173,7 @@
 			
 			should( 'set change the box backgroundColor', function(){
 				e.setStyle('backgroundColor', '#008000');
-				equals(e[0].style.backgroundColor, '#008000');
+				equals(e[0].style.backgroundColor, 'rgb(0, 128, 0)');
 			});
 		});
 
@@ -166,14 +184,14 @@
 		  	should( 'return background color of blue if set in passed function', function(){
 				stop();
 		   		e.getStyle('background-color', function(v){
-		     		equals(v, '#0000FF')
+		     		equals(v, 'rgb(0, 0, 255)')
 					start();
 		   		});
 		  	});
 
 			should( 'return background color even if no function passed', function(){
 				var style = e.getStyle('background-color');
-			  	equals(style, '#0000FF');
+			  	equals(style, 'rgb(0, 0, 255)');
 			});
 		});
 
@@ -199,14 +217,12 @@
 			var x = x$('#has-class-element');
 
 			should( 'have the class bar', function(){
-        equals(x.hasClass('bar'), true);
+                equals(x.hasClass('bar'), true);
 			});
 
 			should( 'not have the class zug', function(){
-        equals(x.hasClass('zug'), false);
+                equals(x.hasClass('zug'), false);
 			});
-
-
 		});
 		
 		
