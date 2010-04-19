@@ -68,7 +68,7 @@ xui.extend({
     xhr:function(location, url, options) {
 
       // this is to keep support for the old syntax (easy as that)
-        if (!/^inner|outer|top|bottom|before|after$/.test(location)) {
+		if (!/^(inner|outer|top|bottom|before|after)$/.test(location)) {
             options = url;
             url = location;
             location = 'inner';
