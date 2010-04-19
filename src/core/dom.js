@@ -59,7 +59,7 @@ xui.extend({
                 len, 
                 i = 0;
             if (location == "inner") {
-                if (typeof html == string) {
+                if (typeof html == 'string') {
                     el.innerHTML = html;
                     list = el.getElementsByTagName('SCRIPT');
                     len = list.length;
@@ -122,7 +122,7 @@ function getTag(el) {
 }
 
 function wrapHelper(html, el) {
-  return (typeof html == string) ? wrap(html, getTag(el)) : html;
+  return (typeof html == 'string') ? wrap(html, getTag(el)) : html;
 }
 
 // private method
