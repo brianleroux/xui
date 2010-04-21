@@ -8,8 +8,10 @@
         simpleExpr = /^#?([\w-]+)$/,   // for situations of dire need. Symbian and the such        
         idExpr     = /^#/,
         tagExpr    = /<([\w:]+)/, // so you can create elements on the fly a la x$('<img href="/foo" /><strong>yay</strong>')
-        slice      = function (e) { ret=[];	for (i=0; e[i]; i++) ret.push(e[i]); return ret; };
-
+        slice      = function (e) { return [].slice.call(e, 0); };
+        try { slice(document.documentElement.childNodes)[0].nodeType; }
+        catch(e){ slice = function (e) { ret=[]; for (i=0; e[i]; i++) ret.push(e[i]); return ret; }; }
+		
     window.x$ = window.xui = xui = function(q, context) {
         return new xui.fn.find(q, context);
     };
