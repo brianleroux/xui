@@ -46,7 +46,20 @@ task :build do
       build_profiles = [
         {"xui-core-#{ version }.js" => "['src/core/*', 'packages/emile/emile.js']"},
         {"xui-more-#{ version }.js" => "['src/core/*', 'src/more/*', 'packages/emile/emile.js']"},
-		{"xui-bb-#{ version }.js" => "['src/core/*', 'src/more/*', 'packages/emile/emile.js', 'packages/sizzle/sizzle.js']"}
+		{"xui-bb-#{ version }.js" => "['src/core/*', 'src/more/*', 'packages/emile/emile.js', 'packages/sizzle/sizzle.js']"},
+		{"xui-ie-#{ version }.js" => "[ 'src/core/fx.js', 
+										'src/core/style.js', 
+										'src/core/xhr.js', 
+										'src/more/base.js', 
+										'src/more/dom.js', 
+										'src/more/form.js', 
+										'src/more/fx.js', 
+										'src/more/xhr.js', 
+										'src/IE/core/*', 
+										'src/IE/more/*', 
+										'packages/emile/emile.js', 
+										'packages/sizzle/sizzle.js'
+										]"}
       ]
       
 =begin      
