@@ -231,7 +231,14 @@ function getStyle(el, p) {
     // this *can* be written to be smaller - see below, but in fact it doesn't compress in gzip as well, the commented
     // out version actually *adds* 2 bytes.
     // return document.defaultView.getComputedStyle(el, "").getPropertyValue(p.replace(/([A-Z])/g, "-$1").toLowerCase());
-    return document.defaultView.getComputedStyle(el, "").getPropertyValue(p.replace(/[A-Z]/g, function(m){ return '-'+m.toLowerCase();}));
+	if(document.defaultView && document.defaultView.getComputedStyle) //doesn't work with IE Mobile
+		return document.defaultView.getComputedStyle(el, "").getPropertyValue(p.replace(/[A-Z]/g, function(m){ return '-'+m.toLowerCase();}));
+	else if(el.currentStyle){ //alternative for IE Mob
+			p = p.replace(/\-(\w)/g, function (s, p1){
+			return p1.toUpperCase();
+		});
+		return el.currentStyle[p];
+	}
 }
 
 // RS: now that I've moved these out, they'll compress better, however, do these variables
