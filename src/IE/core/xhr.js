@@ -85,12 +85,15 @@ xui.extend({
         };
         
         var that   = this,
-            req    = new XMLHttpRequest(),
+            req = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"),
             method = o.method || 'get',
             async  = o.async || false,           
             params = o.data || null,
             i = 0;
 
+			
+			
+				
         req.queryString = params;
         req.open(method, url, async);
 
