@@ -54,6 +54,9 @@ xui.extend({
         if (window.addEventListener) {
             el.addEventListener(type, fn, false);
         }
+		else {
+			el.attachEvent('on' + type, fn);
+		}
 	    });
 	},
 	

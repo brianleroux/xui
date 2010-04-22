@@ -66,7 +66,12 @@ xui.extend({
 	 
   on: function(type, fn) {
     return this.each(function (el) {
-      el.addEventListener(type, _createResponder(el, type, fn), false);
+	if (window.addEventListener) {
+		el.addEventListener(type, _createResponder(el, type, fn), false);
+	}
+	else {
+		el.attachEvent('on' + type, fn); //doesn't support _createResponder for the moment...
+	}
     });
   },
 

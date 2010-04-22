@@ -188,7 +188,11 @@ function clean(collection) {
             if (n.nodeType == 3 && !ns.test(n.nodeValue)) {
                 d.removeChild(n);
             } else {
-                n.nodeIndex = ++ni; // FIXME not sure what this is for, and causes IE to bomb (the setter) - @rem
+				if(nx!=null && nx.data!=null)
+					n.nodeIndex = ++ni; // FIXME not sure what this is for, and causes IE to bomb (the setter) - @rem
+										// cluster : the 'if' condition I added, allows to solve the problem with IE 
+										// 			 but I don't know how useful this n.nodeIndex is...
+										//			 removing it doesn't seem to bring any problem
             }
             n = nx;
         }
