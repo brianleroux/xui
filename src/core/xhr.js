@@ -100,10 +100,12 @@ xui.extend({
             }
         }
 
-        req.onload = (o.callback != null) ? o.callback : function() { that.html(location, this.responseText); };
+        req.handleResp = (o.callback != null) ? o.callback : function() { that.html(location, this.responseText); };
+        function hdl(){ if(req.status==200 && req.readyState==4) req.handleResp(); }
+        if(async) req.onreadystatechange = hdl;
         req.send(params);
-  	
-    	return this;
+        if(!async) hdl();
+        return this;
     }
 // --
 });
