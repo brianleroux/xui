@@ -40,35 +40,54 @@ xui.extend({
 	 */
 	// options: duration, after, easing
 	tween: function( props, callback ) {
-		// TODO make queue
-	
+	    
 	    // creates an options obj for emile
-		var options = {};
-		"duration after easing".split(' ').forEach( function(p) {
-    		if (props[p]) {
-    		    options[p] = props[p];
-    		    delete props[p];
+	    var emileOpts = function(o) {
+	        var options = {};
+    		"duration after easing".split(' ').forEach( function(p) {
+        		if (props[p]) {
+        		    options[p] = props[p];
+        		    delete props[p];
+        		}
+    		});
+    		return options;
+	    }
+	    
+	    // serialize the properties into a string for emile
+	    var serialize = function(props) {
+		    var serialisedProps = [], key;
+    		if (typeof props != string) {
+      		    for (key in props) {
+                    serialisedProps.push(key + ':' + props[key]);
+    		    }
+      		    serialisedProps = serialisedProps.join(';');
+    		} else {
+    		    serialisedProps = props;
     		}
-		});
+    		return serialisedProps;
+		};
+	    
+	    
+		// queued animations
+		if (props instanceof Array) {
+		    // animate each passing the next to the last callback to enqueue
+		    props.forEach(function(a){
+		        
+		    });
+		}
+	
+	    
+	    
+	
+	
+	    // this branch means we're dealing with a single tween
+	    var opts = emileOpts(props);
+	    var prop = serialize(props);
+	    
 		if (typeof callback == 'function') options.after = callback;
 		
-		// serialize the properties into a string for emile
-		var serialisedProps = [], key;
-		if (typeof props != string) {
-  		    for (key in props) {
-  		        if (key == 'duration') {
-  		            options.duration = props[key];
-  		        } else {
-                    serialisedProps.push(key + ':' + props[key]);  		    
-  		        }
-		    }
-  		    serialisedProps = serialisedProps.join(';');
-		} else {
-		    serialisedProps = props;
-		}
-		
 		return this.each(function(e){
-			emile(e, serialisedProps, options, callback);
+			emile(e, prop, opts, callback);
 		});
 	}
 //---
