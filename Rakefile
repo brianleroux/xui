@@ -56,7 +56,8 @@ task :build do
 										'src/IE/core/*', 
 										'src/IE/more/*', 
 										'packages/emile/emile.js', 
-										'packages/sizzle/sizzle.js'
+										'packages/sizzle/sizzle.js',
+										'packages/split/split.js'
 										]"}
       ]
       
