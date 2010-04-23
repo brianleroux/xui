@@ -48,6 +48,7 @@ task :build do
         {"xui-more-#{ version }.js" => "['src/core/*', 'src/more/*', 'packages/emile/emile.js']"},
 		{"xui-bb-#{ version }.js" => "['src/core/*', 'src/more/*', 'packages/emile/emile.js', 'packages/sizzle/sizzle.js']"},
 		{"xui-ie-#{ version }.js" => "[ 'src/core/fx.js', 
+										'src/core/xhr.js', 
 										'src/more/base.js', 
 										'src/more/dom.js', 
 										'src/more/form.js', 
