@@ -29,15 +29,24 @@ There are other tasks for code minification, running the specs and generating do
 	 | | |-style.js ............. - css hackery
 	 | | '-xhr.js ............... - remoting
 	 | |
-	 | '-more ................... extras (yagni unless ygni)
-	 |   |-base.js  
-	 |   |-dom.js  	
-	 |   |-event.js	
-	 |   |-form.js .............. form handlers, serialization
-	 |   |-fx.js	
-	 |   |-xhr.js  
-	 |   '-json.js .............. json utilities
-	 |  
+	 | |-more ................... extras (yagni unless ygni)
+	 | | |-base.js  
+	 | | |-dom.js  	
+	 | | |-event.js	
+	 | | |-form.js .............. form handlers, serialization
+	 | | |-fx.js	
+	 | | |-xhr.js  
+	 | | '-json.js .............. json utilities
+	 | |
+	 | '-IE
+	 |   |-core
+	 |   | |-dom.js
+	 |   | |-event.js
+	 |   | '-style.js
+	 |   | 
+	 |   '-more
+	 |     '-event.js
+	 |
 	 |-spec ..................... the spec
 	 | |-core.html
 	 | '-more.html
@@ -46,15 +55,18 @@ There are other tasks for code minification, running the specs and generating do
 	 | |-qunit .................. - awesome async friendly test lib by John Resig
 	 | |-shoulda-js ............. - bdd sugar for qunit with mobile friendly output
 	 | |-emile .................. - amazing tiny effects lib by Thomas Fuchs
-	 | '-sizzle ................. - kickass selector engine that powers jQuery, also by John Resig. Used optionally for builds geared for BlackBerries.
+	 | |-sizzle ................. - kickass selector engine that powers jQuery, also by John Resig. Used optionally for builds geared for BlackBerries.
+	 | '-split.js ............... - override IE bad implementation of String.split
 	 |
 	 |-lib ...................... build directory (not in version control)
 	 | |-xui-core-1.0.0.js
 	 | |-xui-more-1.0.0.js
 	 | |-xui-bb-1.0.0.js
+	 | |-xui-ie-1.0.0.js
 	 | |-xui-core-min-1.0.0.js
 	 | |-xui-more-min-1.0.0.js
-	 | '-xui-bb-min-1.0.0.js
+	 | |-xui-bb-min-1.0.0.js
+	 | '-xui-ie-min-1.0.0.js
 	 | 
 	 '-util .................... utils for minification, obfuscation, verification
 
@@ -76,6 +88,7 @@ CONTRIBUTORS
 - http://github.com/alunny
 - http://github.com/gdagley
 - http://github.com/slexaxton
+- http://github.com/cluster
 
 (If I missed you pls let us know!)
 
