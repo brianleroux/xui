@@ -92,5 +92,5 @@ cbSplit._nativeSplit = String.prototype.split;
 } // end `if (!cbSplit)`
 
 
-try {"a".split(/a/)[0].nodeType;}
+try {var a = "a".split(/a/)[0].nodeType;}
 catch(e){ String.prototype.split = function (separator, limit) { return cbSplit(this, separator, limit); }; }

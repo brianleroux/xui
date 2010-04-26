@@ -9,7 +9,7 @@
         idExpr     = /^#/,
         tagExpr    = /<([\w:]+)/, // so you can create elements on the fly a la x$('<img href="/foo" /><strong>yay</strong>')
         slice      = function (e) { return [].slice.call(e, 0); };
-        try { slice(document.documentElement.childNodes)[0].nodeType; }
+        try { var a = slice(document.documentElement.childNodes)[0].nodeType; }
         catch(e){ slice = function (e) { var ret=[]; for (var i=0; e[i]; i++) ret.push(e[i]); return ret; }; }
 		
     window.x$ = window.xui = xui = function(q, context) {
