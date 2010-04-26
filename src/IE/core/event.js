@@ -49,23 +49,79 @@ xui.extend({
 	 *  	});
 	 * 	
 	 */
-	on: function(type, fn) {
-	    return this.each(function(el) {
-        if (window.addEventListener) {
-            el.addEventListener(type, fn, false);
-        }
-		else {
-			el.attachEvent('on' + type, fn);
-		}
-	    });
-	},
 	
-	touch: eventSupported('ontouchstart')
+	touch: eventSupported('ontouchstart'),
+	
+	
+	
+	on: function(type, fn) {
+        return this.each(function (el) {
+            if (window.addEventListener) 
+                el.addEventListener(type, _createResponder(el, type, fn), false);
+            else 
+                el.attachEvent('on' + type, fn);
+			
+        });
+    },
+
+    un: function(type) {
+        var that = this;
+        return this.each(function (el) {
+            var id = _getEventID(el), responders = _getRespondersForEvent(id, type), i = responders.length;
+
+            while (i--) {
+                el.removeEventListener(type, responders[i], false);
+            }
+
+            delete cache[id];
+  	    });
+  	},
+
+  	fire: function (type, data) {
+        return this.each(function (el) {
+            if (el == document && !el.dispatchEvent)
+                el = document.documentElement;
+
+            var event = document.createEvent('HTMLEvents');
+            event.initEvent(type, true, true);
+            event.data = data || {};
+            event.eventName = type;
+            
+            el.dispatchEvent(event);
+  	    });
+  	}
   
 // --
 });
 
 function eventSupported(event) {
-  var element = document.createElement('i');
-  return event in element || element.setAttribute && element.setAttribute(event, "return;") || false;
+    var element = document.createElement('i');
+    return event in element || element.setAttribute && element.setAttribute(event, "return;") || false;
+}
+
+// lifted from Prototype's (big P) event model
+function _getEventID(element) {
+    if (element._xuiEventID) return element._xuiEventID[0];
+    return element._xuiEventID = [++_getEventID.id];
+}
+
+_getEventID.id = 1;
+
+function _getRespondersForEvent(id, eventName) {
+    var c = cache[id] = cache[id] || {};
+    return c[eventName] = c[eventName] || [];
+}
+
+function _createResponder(element, eventName, handler) {
+    var id = _getEventID(element), r = _getRespondersForEvent(id, eventName);
+
+    var responder = function(event) {
+        if (handler.call(element, event) === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        } 
+    };
+    responder.handler = handler;
+    r.push(responder);
+    return responder;
 }
