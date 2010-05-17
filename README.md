@@ -88,6 +88,7 @@ CONTRIBUTORS
 - http://github.com/gdagley
 - http://github.com/slexaxton
 - http://github.com/cluster
+- http://github.com/joemccann
 
 (If I missed you pls let us know!)
 
