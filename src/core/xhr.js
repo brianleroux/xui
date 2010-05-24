@@ -101,7 +101,9 @@ xui.extend({
         }
 
         req.handleResp = (o.callback != null) ? o.callback : function() { that.html(location, this.responseText); };
-        function hdl(){ if(req.status==200 && req.readyState==4) req.handleResp(); }
+        function hdl(){ 
+            if(req.status===0 || req.status==200 && req.readyState==4) req.handleResp(); 
+        }
         if(async) req.onreadystatechange = hdl;
         req.send(params);
         if(!async) hdl();

@@ -126,11 +126,17 @@
         /**
          * Has modifies the elements array and reurns all the elements that match (has) a CSS Query
          */
-        has: function(q) {
-            return this.filter(function() {
-                return !! xui(q, this).length;
-            });
-        },
+         has: function(q) {
+             var list = xui(q);
+             return this.filter(function () {
+                 var that = this;
+                 var found = null;
+                 list.each(function (el) {
+                     found = (found || el == that);
+                 });
+                 return found;
+             });
+         },
 
         /**
          * Both an internal utility function, but also allows developers to extend xui using custom filters
