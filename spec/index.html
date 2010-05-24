@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko">
 <head>
@@ -12,6 +13,70 @@
 	}
 	</style>
 </head>
+<body>
+
+<div id="selector_tests">
+  <ul id="items">
+    <li class="item" id="item_1">this is item one</li>
+    <li class="item" id="item_2">this is item two</li>
+    <li class="item" id="item_3">this is item three</li>
+  </ul>
+</div>
+
+<div id="style_tests">
+  <p id="set-style-element">element for testing setStyle</p>
+  <p id="get-style-element">element for testing getStyle</p>
+  <p id="add-class-element">element for testing addClass</p>	
+	<p id="has-class-element" class="foo bar">element for testing hasClass</p>
+  <p id="remove-class-element" class="bar">element for testing removeClass</p>  
+</div>
+
+<div id="dom_tests">
+	<div id="html-test-inner"></div>
+	<div id="html-test-outer"></div>
+	<div id="html-test-top"></div>
+	<div id="html-test-bottom"></div>
+	<div id="html-test-html"><p>foo</p></div>
+</div>
+
+<div id="xhr_tests">
+  <div id="xhr-test-function"></div>
+  <div id="xhr-test-json">
+  	<div id="json-id">no id here</div>
+		<div id="json-name">no name here</div>
+  </div>
+  <div id="xhr-test-form"></div>
+</div>
+
+<div id="event_tests">
+  <div id="event-test-click"></div>
+</div>
+
+<div id="extention_tests">
+  <div id="extention-test">xui has been extended!</div>
+</div>
+
+<ul id="get_tests">
+	<li class="foo">first</li>
+	<li class="bar">second</li>
+	<li>third</li>
+</ul>
+
+<ul id="has_tests">
+  <li class="foo">one</li>
+  <li>two</li>
+  <li class="foo">three</li>
+  <li>four</li>
+  <li>five</li>
+</ul>
+
+<ul id="not_tests">
+  <li class="foo">one</li>
+  <li>two</li>
+  <li class="foo">three</li>
+  <li>four</li>
+  <li>five</li>
+</ul>
 
 <script type="text/javascript" language="javascript">
 // <![CDATA[
@@ -224,9 +289,19 @@ describe("Dom.html", {
 		value_of(h.first().nextSibling.innerHTML).should_be('after');
 	},
 
+	'html inserted after should have "p" as tag name' : function() {
+		h.after('<p>after</p>');
+		value_of(h.first().nextSibling.tagName.toLowerCase()).should_match('p');
+	},
+
 	'should insert html before #html-test-html' : function() {
 		h.before('<div>before</div>');
 		value_of(h.first().previousSibling.innerHTML).should_be('before');
+	},
+
+	'html inserted before should have "p" as tag name' : function() {
+		h.before('<p>before</p>');
+		value_of(h.first().previousSibling.tagName.toLowerCase()).should_match('p');
 	},
 
 	'should insert html into the #html-test-inner node':function(){
@@ -281,32 +356,28 @@ describe("has and not", {
 // 			  XHR SPECS        //
 /////////////////////////////
 
-describe("XHR.function", {
+describe("XHR Base", {
   
-  'before':function(){
+    'before':function(){
 		x = x$('#xhr-test-function');
 	},
 	
 	'should insert partial into element':function(){
-	  x.xhr("example.html");
-    value_of(document.getElementById('xhr-test-function').innerHTML).should_be('<h1>this is a html partial</h1>')
+        x.xhr("example.html");
+        value_of(document.getElementById('xhr-test-function').innerHTML).should_be('<h1>this is a html partial</h1>')
 	}
-	
 });
 
-describe("XHR.json", {
-  
-  'before':function(){
-    x = x$('#xhr-test-json');
-	},
-	
-	'should get json':function(){
-	  x.xhrjson('example.js', {map:{'id':'#json-id', 'name':'#json-name'}});
-    value_of(document.getElementById('json-id').innerHTML).should_be(1);
-		value_of(document.getElementById('json-name').innerHTML).should_be('foo');
-	}
-	
+describe("XHR Headers", {
+    'before' : function() {
+        x = x$('#xhr-test-function');
+    },
+    
+    'should set content-type header to application/json' : function() {
+        x.xhr("example.html", { headers : [{ name : "Content-Type", value : "application/json" }] });
+    }
 });
+
 
 
 /////////////////////////////
@@ -334,17 +405,16 @@ describe( 'xui Events', {
 });
 
 /////////////////////////////
-// 			   Plugin          //
+// 			   Plugin      //
 /////////////////////////////
 describe( 'xui extend', {
 	
-	'before':function(){
-	  Foo = {
-      bar: function(){
-        return this.get(0).innerHTML;
-      }
-    }
-    xui.extend(Foo);
+	'before':function() {
+        xui.extend({
+            bar: function() {
+                return this.get(0).innerHTML;
+            }
+        });
 	},
 	
 	'should be extendable':function(){
@@ -354,73 +424,9 @@ describe( 'xui extend', {
 });
 
 
-
 // ]]>
 </script>
-<body>
-
-<div id="selector_tests">
-  <ul id="items">
-    <li class="item" id="item_1">this is item one</li>
-    <li class="item" id="item_2">this is item two</li>
-    <li class="item" id="item_3">this is item three</li>
-  </ul>
-</div>
-
-<div id="style_tests">
-  <p id="set-style-element">element for testing setStyle</p>
-  <p id="get-style-element">element for testing getStyle</p>
-  <p id="add-class-element">element for testing addClass</p>	
-	<p id="has-class-element" class="foo bar">element for testing hasClass</p>
-  <p id="remove-class-element" class="bar">element for testing removeClass</p>  
-</div>
-
-<div id="dom_tests">
-	<div id="html-test-inner"></div>
-	<div id="html-test-outer"></div>
-	<div id="html-test-top"></div>
-	<div id="html-test-bottom"></div>
-	<div id="html-test-html"><p>foo</p></div>
-</div>
-
-<div id="xhr_tests">
-  <div id="xhr-test-function"></div>
-  <div id="xhr-test-json">
-  	<div id="json-id">no id here</div>
-		<div id="json-name">no name here</div>
-  </div>
-  <div id="xhr-test-form"></div>
-</div>
-
-<div id="event_tests">
-  <div id="event-test-click"></div>
-</div>
-
-<div id="extention_tests">
-  <div id="extention-test">xui has been extended!</div>
-</div>
-
-<ul id="get_tests">
-	<li class="foo">first</li>
-	<li class="bar">second</li>
-	<li>third</li>
-</ul>
-
-<ul id="has_tests">
-  <li class="foo">one</li>
-  <li>two</li>
-  <li class="foo">three</li>
-  <li>four</li>
-  <li>five</li>
-</ul>
-
-<ul id="not_tests">
-  <li class="foo">one</li>
-  <li>two</li>
-  <li class="foo">three</li>
-  <li>four</li>
-  <li>five</li>
-</ul>
-
 </body>
 </html>
+=======
+>>>>>>> brian

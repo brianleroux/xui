@@ -1,84 +1,181 @@
-require 'rake/clean'
+require 'date'
 require 'erb'
-require 'BlueCloth'
-
-CLEAN.include('lib')
-CLOBBER.include('doc/*.html')
-
 LIBPATH = File.expand_path(File.dirname(__FILE__))
 
-#
-# builds and tests
-#
-desc 'writes lib/xui.js and lib/xui-min.js from src then launches specs'
+
+desc 'writes compiled and minified src to lib and then launches specs'
 task :default => :spec
 
-desc 'writes out an uncompiled version of xui'
+
+desc 'use JSLint to validate source code...'
+task :check do
+  failed_files = []
+  
+  rhino_jar = File.join(LIBPATH, "util", "js.jar")
+  jslint_file = File.join(LIBPATH, "util", "jslint.js")
+  
+  Dir[File.join(LIBPATH, 'src', '**/*.js')].each do |xui|
+    cmd = "java -cp #{rhino_jar} org.mozilla.javascript.tools.shell.Main #{jslint_file} #{xui}"
+    results = %x{#{cmd}}
+    unless results =~ /^jslint: No problems found in/
+      puts "#{xui}:"
+      puts results
+      failed_files << xui
+    end
+  end
+  if failed_files.size > 0
+    exit 1
+  end
+end
+
+
+desc 'writes out an uncompiled version of xui-core and xui-more'
 task :build do
-  require File.join(LIBPATH, 'util', 'sprockets', 'lib', 'sprockets')
+  # forget sprockets: xui launches rockets!
+  class << Rockets = IO.read('src/base.js')
+    def version
+      '1.0.0'
+    end 
+    
+    def launch!
+      puts 'building xui...'
+      
+      clobber!
+      
+      # create your custom xui builds here
+      build_profiles = [
+        {"xui-core-#{ version }.js" => "['src/core/*', 'packages/emile/emile.js']"},
+        {"xui-more-#{ version }.js" => "['src/core/*', 'src/more/*', 'packages/emile/emile.js']"},
+		{"xui-bb-#{ version }.js" => "['src/core/*', 'src/more/*', 'packages/emile/emile.js', 'packages/sizzle/sizzle.js']"},
+		{"xui-ie-#{ version }.js" => "[ 'src/core/fx.js', 
+										'src/core/xhr.js', 
+										'src/IE/core/*', 
+										'src/more/*', 
+										'packages/emile/emile.js', 
+										'packages/sizzle/sizzle.js',
+										'packages/split/split.js'
+										]"}
+      ]
+      
+=begin      
 
-  secretary = Sprockets::Secretary.new(:load_path    => ['src/js/**'], 
-                                       :source_files => ["src/js/xui.js"])
-  concatenation = secretary.concatenation
+two pass system
+- files to concat
+- then files to interpolate
 
-  FileUtils.mkdir_p(File.join(LIBPATH, 'lib'))
-  concatenation.save_to("lib/xui.js")
+
+      # compiled_filename = [lib_to_concat, lib_to_concat:token => lib_to_interpolate]
+      profiles = [
+        # works on a grade mobile browsers
+        {"xui-core-#{ version }.js" => [
+          'src/core/*', 
+          :selector => 'snapple',
+          :fx => 'packages/emile/emile.js' 
+        ]},
+        
+        # works on a grade mobile browsers
+        {"xui-more-#{ version }.js" => [
+          'src/core/*',
+          'src/more/*', 
+          :selector => 'snapple',
+          :fx => 'packages/emile/emile.js' 
+        ]},
+        
+        # works on all mobile browsers
+        {"xui-core-#{ version }.js" => [
+          'src/core/*', 
+          :selector => 'sizzle',
+          :fx => 'packages/emile/emile.js' 
+        ]},
+                
+        # end of profiles
+      ]
+=end      
+      
+      FileUtils.mkdir_p("#{ LIBPATH }/lib/")
+      
+      build_profiles.each do |xui| 
+        puts "creating #{ LIBPATH }/lib/#{ xui.keys.first }..."
+        File.open("#{ LIBPATH }/lib/#{ xui.keys.first }", 'w') do |f| 
+          f.puts interpolate(xui.values.first)
+        end
+      end
+    end
+    
+    def clobber!
+      `rm -rf #{LIBPATH}/lib/*`
+    end
+    
+    def interpolate(libs)
+      ERB.new(compile(libs)).result(binding)
+    end
+    
+    def versionize
+      "/*
+ * XUI JavaScript Library v#{ version }
+ * http://xuijs.com
+ * 
+ * Copyright (c) 2009 Brian LeRoux, Rob Ellis, Brock Whitten
+ * Licensed under the MIT license.
+ * 
+ * Date: #{ DateTime.now }
+ */\n"
+    end
+    
+    def compile(libs)
+      b = split("\n")
+      c = b.map do |line|
+        if line.include?('///')
+          "<%= #{ line.gsub('///','').strip.gsub('()',"(#{ libs })") } %>"
+        else
+          line == b.first ? versionize << line : line
+        end 
+      end
+      c.join("\n") 
+    end
+    
+    def imports(libs)
+      s = ''
+      libs.each do |js_lib|
+        js_files = FileList.new(js_lib)
+        js_files.each do |js_file| 
+          path = File.join(LIBPATH, js_file)
+          open(path) do |f| 
+            if js_files.first == js_file
+              s << '    '
+            end 
+            s << "#{ f.read.gsub("\n","\n    ") }" 
+          end
+        end
+      end
+      s
+    end
+  end 
+  
+  Rockets.launch!
 end
 
-desc 'creates lib/xui-min.js (tho not obfuscates)'
+
+desc 'minifies all the files in the lib directory'
 task :min => :build do
-  puts 'minifying js'
-  min_file = File.join(LIBPATH, 'lib', 'xui-min.js')
-  doc_file = File.join(LIBPATH, 'lib', 'xui.js')
+  compress_jar  = File.join(LIBPATH, 'util', 'compiler.jar')  
   yui_jar  = File.join(LIBPATH, 'util', 'yuicompressor-2.3.6.jar')
-  sh "java -jar #{yui_jar} --charset UTF-8 -o #{min_file} #{doc_file}"
+  FileList.new(File.join(LIBPATH,'lib','*')).each do |xui|
+    min_file = "#{ xui.gsub('.js','.min.js') }"
+    doc_file = xui
+    puts "creating #{ min_file }..."
+    sh "java -jar \"#{ compress_jar }\" --compilation_level SIMPLE_OPTIMIZATIONS --js=\"#{ doc_file }\" --js_output_file=\"#{ min_file }\" --warning_level=QUIET"
+    puts ">>> gzipped compressed size: " + `gzip -c #{ min_file } | wc -c`.strip, ""
+    # sh "java -jar #{yui_jar} --charset UTF-8 -o #{min_file} #{doc_file}"
+  end 
 end
+
+
 
 desc 'opens up the specs'
 task :spec => :min do
-  puts 'running automated test suite'
-  spec_file = File.join(LIBPATH, 'spec', 'index.html')
+  puts 'running automated test suite...'
+  spec_file = File.join(LIBPATH, 'spec', 'core.html')
   sh "open -a WebKit file://#{spec_file}"
   sh "open -a '/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone Simulator.app' file://#{spec_file}"
-end
-
-desc 'use JSLint to validate source code'
-task :check => :build do
-  puts 'checking js for lint'
-  doc_file    = File.join(LIBPATH, 'lib', 'xui.js')
-  rhino_jar   = File.join(LIBPATH, 'util', 'js.jar')
-  jslint_file = File.join(LIBPATH, 'util', 'jslint.js')
-  sh "java -classpath #{rhino_jar} org.mozilla.javascript.tools.shell.Main #{jslint_file} #{doc_file}"  
-end
-
-#
-# TODO open in MobileSafari, Fennec and MobileOpera
-#
-desc 'launches the semi official but seriously example app example'
-task :example => :build do
-  example_file = File.join(LIBPATH, 'example', 'index.html')
-  sh "open -a WebKit #{example_file}"
-end 
-
-#
-# docs are inline to the code (as markdown)
-#
-desc 'bulds documentation from inline comments into README.md'
-task :doc => :build do
-  sauce = File.open(File.join(LIBPATH, 'lib', 'xui.js')).read
-  # fetches all multiline comments
-  comments = sauce.gsub( /\s+\/\/.*/,'' ).scan(/\/(?:\*(?:.)*?\*\/|\/[^\n]*)/m)
-  # removes comment debris
-  comments = comments.map{|r| r.gsub('*/','').gsub(/^\s+\* |\* |\/\*+|^\*|^\s+\*|^\s+\/\*+/, '')}
-  # build a readme
-  readme = comments.join("\n")
-  # write out the README.md
-  
-  open(File.join(LIBPATH, 'README.md'), 'w'){|f| f.puts(readme) }
-  # write out the doc/index.html
-  FileUtils.mkdir_p(File.join(LIBPATH, 'doc'))
-  index_file = File.join(LIBPATH, 'doc', 'index.html')
-  open(index_file, 'w') { |f| f.puts(BlueCloth.new(readme).to_html) }
-  # launch docs in safari
-  sh "open -a WebKit #{index_file}"
 end
