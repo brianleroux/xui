@@ -7,3 +7,6 @@
 [submodule "packages/sizzle"]	
 	path = packages/sizzle
 	url = git://github.com/jeresig/sizzle.git
+[submodule "packages/emile"]
+	path = packages/emile
+	url = http://github.com/madrobby/emile.git
