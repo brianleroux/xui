@@ -4,9 +4,6 @@
 [submodule "packages/shoulda-js"]
 	path = packages/shoulda-js
 	url = git://github.com/brianleroux/shoulda-js.git
-[submodule "packages/emile"]
-	path = packages/emile
-	url = git://github.com/madrobby/emile.git
 [submodule "packages/sizzle"]	
 	path = packages/sizzle
 	url = git://github.com/jeresig/sizzle.git
