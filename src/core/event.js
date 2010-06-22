@@ -54,14 +54,14 @@ xui.extend({
             if (window.addEventListener) {
                 el.addEventListener(type, fn, false);
             }
-	    });
-	},*/
-	
-	touch: eventSupported('ontouchstart'),
-	
-	
-	
-	on: function(type, fn) {
+      });
+  },*/
+  
+    touch: eventSupported('ontouchstart'),
+  
+  
+  
+    on: function(type, fn) {
         return this.each(function (el) {
             el.addEventListener(type, _createResponder(el, type, fn), false);
         });
@@ -77,10 +77,10 @@ xui.extend({
             }
 
             delete cache[id];
-  	    });
-  	},
+        });
+    },
 
-  	fire: function (type, data) {
+    fire: function (type, data) {
         return this.each(function (el) {
             if (el == document && !el.dispatchEvent)
                 el = document.documentElement;
@@ -89,13 +89,15 @@ xui.extend({
             event.initEvent(type, true, true);
             event.data = data || {};
             event.eventName = type;
-            
+          
             el.dispatchEvent(event);
   	    });
   	}
   
 // --
 });
+
+var cache = {};
 
 function eventSupported(event) {
     var element = document.createElement('i');
