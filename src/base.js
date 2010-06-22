@@ -63,6 +63,10 @@
                 if (typeof q == string) {
                   if (simpleExpr.test(q)) {
                       ele = idExpr.test(q) ? [context.getElementById(q.substr(1))] : context.getElementsByTagName(q);
+                      // nuke failed selectors
+                      if (ele[0] == null) { 
+                        ele = [];
+                      }
                   // match for full html tags to create elements on the go
                   } else if (tagExpr.test(q)) {
                       tempNode = document.createElement('i');
@@ -84,7 +88,7 @@
                     ele = q;
                 } else if (q.toString() == '[object NodeList]') {
                     ele = slice(q);
-                } else {
+                } else if (q.nodeName || q === window) { // only allows nodes in
                     // an element was passed in
                     ele = [q];
                 }
