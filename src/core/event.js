@@ -68,7 +68,6 @@ xui.extend({
     },
 
     un: function(type) {
-        var that = this;
         return this.each(function (el) {
             var id = _getEventID(el), responders = _getRespondersForEvent(id, type), i = responders.length;
 
