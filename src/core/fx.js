@@ -84,7 +84,7 @@ xui.extend({
 	    var opts = emileOpts(props);
 	    var prop = serialize(props);
 	    
-		if (typeof callback == 'function') options.after = callback;
+		if (typeof callback == 'function') opts.after = callback;
 		
 		return this.each(function(e){
 			emile(e, prop, opts, callback);
