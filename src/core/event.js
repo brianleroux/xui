@@ -57,7 +57,13 @@ xui.extend({
       });
   },*/
   
-    touch: eventSupported('ontouchstart'),
+    touch: (function () {
+      try{
+        return !!(document.createEvent("TouchEvent").initTouchEvent)
+      } catch(e) {
+        return false;
+      };
+    })(),
   
   
   
@@ -97,11 +103,6 @@ xui.extend({
 });
 
 var cache = {};
-
-function eventSupported(event) {
-    var element = document.createElement('i');
-    return event in element || element.setAttribute && element.setAttribute(event, "return;") || false;
-}
 
 // lifted from Prototype's (big P) event model
 function _getEventID(element) {
