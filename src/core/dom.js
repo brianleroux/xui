@@ -131,7 +131,7 @@ function wrapHelper(html, el) {
 function wrap(xhtml, tag) {
 
     var attributes = {},
-        re = /^<([A-Z][A-Z0-9]*)([^>]*)>(.*)<\/\1>/i,
+        re = /^<([A-Z][A-Z0-9]*)([^>]*)>([\s\S]*)<\/\1>/i,
         element,
         x,
         a,
