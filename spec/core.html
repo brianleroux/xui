@@ -41,6 +41,7 @@
 			<div id="html-test-top"></div>
 			<div id="html-test-bottom"></div>
 			<div id="html-test-html"><p>foo</p></div>
+			<ul id="html-list-test"></ul>
 		</div>
 
 		<div id="xhr_tests">
@@ -283,6 +284,12 @@
 			should( 'return html of #html-test-html node', function(){
 				equals(h.html().toLowerCase(), '<p>foo</p>');
 			});
+			
+			should( 'insert list items with newlines', function(){
+			  var newListItem = "<li>\nHello\n</li>";
+			  x$("#html-list-test").html('bottom', newListItem);
+			  equals(x$("#html-list-test")[0].innerHTML, newListItem);
+			})
 		});
 		
 		
