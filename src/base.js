@@ -3,7 +3,7 @@
     var undefined,
         xui,
         window     = this,
-        string     = ('string'), // prevents Goog compiler from removing primative and subsidising out allowing us to compress further
+        string     = new String('string'), // prevents Goog compiler from removing primative and subsidising out allowing us to compress further
         document   = window.document,      // obvious really
         simpleExpr = /^#?([\w-]+)$/,   // for situations of dire need. Symbian and the such        
         idExpr     = /^#/,
