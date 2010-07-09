@@ -348,6 +348,16 @@
 	      equals(document.getElementById('event-test-click').innerHTML, 'and-a-donkey-lover');
 		  });
 		  
+		  should('unbinding doesn\'t screw other events', function () {
+		    x.on('custom', function () {
+		      this.innerHTML = 'custom';
+		    });
+		    x.on('click', function () {}).un('click');
+		    x.fire('custom');
+	      equals(document.getElementById('event-test-click'), 'custom');
+		  });
+		  
+		  
 		  should('handle multiple events', function () {
 		    var fired = 0;
 		    function incfired() {
