@@ -32,7 +32,7 @@
 		  <p id="get-style-element">element for testing getStyle</p>
 		  <p id="add-class-element">element for testing addClass</p>	
 			<p id="has-class-element" class="foo bar">element for testing hasClass</p>
-		  <p id="remove-class-element" class="bar">element for testing removeClass</p>  
+		  <p id="remove-class-element" class="foo bar baz">element for testing removeClass</p>  
 		</div>
 
 		<div id="dom_tests">
@@ -207,9 +207,9 @@
 		context( "Style.removeClass", function(){
 			var	x = x$('#remove-class-element');
 
-			should( 'remove the class of testing' ,function(){
+			should( 'remove the class of bar and keep surrounding classes intact' ,function(){
 				x.removeClass('bar');
-        equals(x[0].className, '');
+        		equals(x[0].className, 'foo baz');
 			});
 		});
 
