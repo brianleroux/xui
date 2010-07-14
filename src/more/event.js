@@ -36,7 +36,7 @@ function eventSupported(event) {
 });
 
 // patched orientation support - Andriod 1 doesn't have native onorientationchange events
-if (!eventSupported('onorientationchange')) {
+if (!('onorientationchange' in document.body)) {
   (function () {
     var w = window.innerWidth, h = window.innerHeight;
     
