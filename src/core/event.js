@@ -73,14 +73,21 @@ xui.extend({
         });
     },
 
-    un: function(type) {
+    un: function(type, fn) {
         return this.each(function (el) {
             var id = _getEventID(el), responders = _getRespondersForEvent(id, type), i = responders.length;
 
             while (i--) {
-                el.removeEventListener(type, responders[i], false);
+                if (fn === undefined || fn.guid === responders[i].guid) {
+                    el.removeEventListener(type, responders[i], false);
+                    removex(cache[id][type], i, 1);
+                }
             }
 
+            if (cache[id][type].length === 0) delete cache[id][type];
+            for (var t in cache[id]) {
+                return;
+            }
             delete cache[id];
         });
     },
@@ -106,8 +113,8 @@ var cache = {};
 
 // lifted from Prototype's (big P) event model
 function _getEventID(element) {
-    if (element._xuiEventID) return element._xuiEventID[0];
-    return element._xuiEventID = [++_getEventID.id];
+    if (element._xuiEventID) return element._xuiEventID;
+    return element._xuiEventID = ++_getEventID.id;
 }
 
 _getEventID.id = 1;
@@ -126,6 +133,8 @@ function _createResponder(element, eventName, handler) {
             event.stopPropagation();
         } 
     };
+    
+    responder.guid = handler.guid = handler.guid || ++_getEventID.id;
     responder.handler = handler;
     r.push(responder);
     return responder;
