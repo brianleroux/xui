@@ -2,6 +2,7 @@
     baseUrl: "src/",
     out: "lib/xui.js",
     include: [
+        "header",
         "base",
         "core/dom",
         "core/event",
@@ -13,6 +14,7 @@
         "more/fx",
         "more/form",
         "more/base",
-        "more/xhr"
+        "more/xhr",
+        "footer"
     ]
 }
