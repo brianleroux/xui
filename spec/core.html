@@ -367,6 +367,19 @@
         equals(fired, 3);
       });
 		  
+      should('unbind specific events', function () {
+        var fired = 0;
+        function one() {
+          fired++;
+        }
+        function two() {
+          fired++;
+        }
+        
+        x.on('click', one).on('click', two).un('click', one).fire('click');
+        equals(fired, 1);
+      });
+		  
       should('not bubble custom events if stopping propagation', function () {
         var parent = x[0].parentNode,
             fired = 0;
