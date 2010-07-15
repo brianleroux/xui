@@ -119,7 +119,12 @@ two pass system
  * Licensed under the MIT license.
  * 
  * Date: #{ DateTime.now }
- */\n"
+ */
+(function () {\n"
+    end
+    
+    def tail
+      "})();"
     end
     
     def compile(libs)
@@ -127,8 +132,8 @@ two pass system
       c = b.map do |line|
         if line.include?('///')
           "<%= #{ line.gsub('///','').strip.gsub('()',"(#{ libs })") } %>"
-        else
-          line == b.first ? versionize << line : line
+        else 
+          line == b.first ? versionize << line : line == b.last ? tail << line : line
         end 
       end
       c.join("\n") 
@@ -136,6 +141,7 @@ two pass system
     
     def imports(libs)
       s = ''
+
       libs.each do |js_lib|
         js_files = FileList.new(js_lib)
         js_files.each do |js_file| 
