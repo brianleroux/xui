@@ -9,8 +9,8 @@
 		<script src="../packages/qunit/qunit/qunit.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../packages/shoulda-js/shoulda/shoulda.js" type="text/javascript" charset="utf-8"></script>
 		<!-- make sure you include the proper build of XUI -->
-        <script src="../lib/xui-core-1.0.0.js" type="text/javascript" charset="utf-8"></script>
-
+    <!-- <script src="../lib/xui-core-1.0.0.js" type="text/javascript" charset="utf-8"></script> -->
+    <script src="../lib/xui-enchilada.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
 		<h2 id="qunit-banner">xui-core specs</h2>
@@ -326,7 +326,7 @@
 		  should('bind & fire click', function () {
 		    x.on('click', function () {
 		      this.innerHTML = 'firedclick';
-		    }).fire('click');
+		    }).fire('click').un('click');
 		    
 		    // needs to async to let the event fire
 	      equals(document.getElementById('event-test-click').innerHTML, 'firedclick');
@@ -343,7 +343,7 @@
 		  should('bind custom event', function () {
 		    x.on('brianisadonkey', function () {
 		      this.innerHTML = 'and-a-donkey-lover';
-		    }).fire('brianisadonkey');
+		    }).fire('brianisadonkey').un('brianisadonkey');
 		    
 	      equals(document.getElementById('event-test-click').innerHTML, 'and-a-donkey-lover');
 		  });
@@ -354,30 +354,29 @@
 		    });
 		    x.on('click', function () {}).un('click');
 		    x.fire('custom');
-	      equals(document.getElementById('event-test-click'), 'custom');
+	      equals(document.getElementById('event-test-click').innerHTML, 'custom');
 		  });
+		  		  
+      should('handle multiple events', function () {
+        var fired = 0;
+        function incfired() {
+          fired++;
+        }
+        
+        x.on('click', incfired).on('custom1', incfired).on('touchstart', incfired).fire('click').fire('custom1').fire('touchstart');
+        equals(fired, 3);
+      });
 		  
-		  
-		  should('handle multiple events', function () {
-		    var fired = 0;
-		    function incfired() {
-		      fired++;
-		    }
-		    
-		    x.on('click', incfired).on('custom', incfired).on('touchstart', incfired).fire('click').fire('custom').on('touchstart');
-	      equals(fired, 3);
-		  });
-		  
-		  should('not bubble custom events if stopping propagation', function () {
-		    var parent = x[0].parentNode,
-		        fired = 0;
-		    function incfired() {
-		      fired++;
-		    }
-		    x$(parent).on('custom', incfired);
-		    x.on('custom', incfired).fire('custom');
-	      equals(fired, 2);
-		  });
+      should('not bubble custom events if stopping propagation', function () {
+        var parent = x[0].parentNode,
+            fired = 0;
+        function incfired() {
+          fired++;
+        }
+        x$(parent).on('custom', incfired);
+        x.on('custom', incfired).fire('custom');
+             equals(fired, 2);
+      });
 		});
 		
 </script>
