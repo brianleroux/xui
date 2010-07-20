@@ -23,13 +23,6 @@ var cache = {};
  *
  * 
  */
-// xui.extend({});
-
-function eventSupported(event) {
-    var element = document.createElement('i');
-    return event in element || element.setAttribute && element.setAttribute(event, "return;") || false;
-}
-
 
 "click load submit touchstart touchmove touchend touchcancel gesturestart gesturechange gestureend orientationchange".split(' ').forEach(function (event) {
   xui.fn[event] = function (fn) { return fn ? this.on(event, fn) : this.fire(event); };

@@ -10,12 +10,11 @@ Its true: the minified code is _super tiny_. You can find more information, down
 
 ### XUI Contributors and Hackers
 
-To get the full source you need to use Git. _git clone_ the repo (as per usual) and then pull in the dependencies via _git submodule init_ and _git submodule update_. To build xui: run _rake_ in the shell of your choice from the root of the project directory. (This requires Ruby.) There are other tasks for code minification, running the specs and generating docs. Run `rake -T` to see them all.
+To get the full source you need to use Git. _git clone_ the repo (as per usual) and then pull in the dependencies via _git submodule init_ and _git submodule update_. To build xui run use _build.sh_ or _build.bat_. There are other tasks for code minification, running the specs and generating docs. 
 
 ### Source Tree
 
 	xui
-	 |-Rakefile ................. tasks for building, testing, etc. see them all by running rake -T
 	 |-README.md ................ you are reading it!
 	 | 
 	 |-src
