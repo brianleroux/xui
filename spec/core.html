@@ -42,6 +42,7 @@
 			<div id="html-test-bottom"></div>
 			<div id="html-test-html"><p>foo</p></div>
 			<ul id="html-list-test"></ul>
+			<div id="html-complex-test"></div>
 		</div>
 
 		<div id="xhr_tests">
@@ -289,6 +290,14 @@
 			  var newListItem = "<li>\nHello\n</li>";
 			  x$("#html-list-test").html('bottom', newListItem);
 			  equals(x$("#html-list-test")[0].innerHTML, newListItem);
+			});
+			
+			should(' insert complex DOM elements', function () {
+			  // putting attributes with empty strings since safari does it anyway
+			  // i.e. 'controls' becomes 'controls=""'
+			  var myVideo = '<video src="myAwesomeVideo.mp4" id="my_video" autobuffer="" controls=""></video>';
+			  x$("#html-complex-test").html('inner', myVideo);
+			  equals(x$("#html-complex-test")[0].innerHTML, myVideo);
 			})
 		});
 		
