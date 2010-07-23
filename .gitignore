@@ -1,2 +1,11 @@
 lib/*
 .DS_Store
+*~
+*.bak
+*.old
+*.orig
+*.rpmorig
+*.rpmsave
+*.rej
+Thumbs.db
+	
