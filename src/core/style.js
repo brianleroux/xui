@@ -188,7 +188,7 @@ xui.extend({
         } else {
             var re = getClassRegEx(className);
             this.each(function(el) {
-                el.className = el.className.replace(re, '');
+                el.className = el.className.replace(re, '$1');
             });
         }
         return this;
@@ -243,7 +243,8 @@ var reClassNameCache = {},
     getClassRegEx = function(className) {
         var re = reClassNameCache[className];
         if (!re) {
-            re = new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)');
+            // Preserve any leading whitespace in the match, to be used when removing a class
+            re = new RegExp('(^|\\s+)' + className + '(?:\\s+|$)');
             reClassNameCache[className] = re;
         }
         return re;
