@@ -57,18 +57,10 @@ xui.extend({
       });
   },*/
   
-    touch: (function () {
-      try{
-        return !!(document.createEvent("TouchEvent").initTouchEvent)
-      } catch(e) {
-        return false;
-      };
-    })(),
-  
-  
-  
     on: function(type, fn) {
         return this.each(function (el) {
+            var _fn = _createResponder(el, type, fn);
+            xui.events[type] && xui.events[type].call(el, _fn);
             el.addEventListener(type, _createResponder(el, type, fn), false);
         });
     },
@@ -108,6 +100,15 @@ xui.extend({
   
 // --
 });
+
+// this doesn't belong on the prototype, it belongs as a property on the xui object
+xui.touch = (function () {
+  try{
+    return !!(document.createEvent("TouchEvent").initTouchEvent)
+  } catch(e) {
+    return false;
+  };
+})();
 
 var cache = {};
 
