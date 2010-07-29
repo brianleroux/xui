@@ -59,7 +59,7 @@ xui.extend({
                 len, 
                 i = 0;
             if (location == "inner") {
-                if (typeof html == string) {
+                if (typeof html == string || typeof html == "number") {
                     el.innerHTML = html;
                     list = el.getElementsByTagName('SCRIPT');
                     len = list.length;
