@@ -10,6 +10,8 @@ fi
 
 echo Building version $VERSION
 
+mkdir -p lib
+
 cat <<EOF > lib/version.js
 /*
  * XUI JavaScript Library $VERSION
