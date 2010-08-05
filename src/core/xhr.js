@@ -111,6 +111,7 @@ xui.extend({
         if(async) req.onreadystatechange = hdl;
         req.send(params);
         if(!async) hdl();
+        this.xmlHttpRequest = req;
         return this;
     }
 // --

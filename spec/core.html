@@ -297,6 +297,11 @@
 			  	x.xhr("helpers/example.html");
 		    	equals(document.getElementById('xhr-test-function').innerHTML, '<h1>this is a html partial</h1>');
 			});
+
+			should( 'make the request object available as a property on xui object', function(){
+				var request = x.xhr("helpers/example.html").xmlHttpRequest;
+				ok(request instanceof XMLHttpRequest);
+			});
 			
 			should( 'have more tests', function(){
 				// test headers
