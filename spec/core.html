@@ -295,14 +295,43 @@
 
 			should( 'insert partial into element', function(){
 			  	x.xhr("helpers/example.html");
-		    	equals(document.getElementById('xhr-test-function').innerHTML, '<h1>this is a html partial</h1>');
+				equals(document.getElementById('xhr-test-function').innerHTML, '<h1>this is a html partial</h1>');
 			});
 
-			should( 'make the request object available as a property on xui object', function(){
+			should( 'not make the request object available for synchronous requests', function(){
 				var request = x.xhr("helpers/example.html").xmlHttpRequest;
-				ok(request instanceof XMLHttpRequest);
+				ok(typeof request == 'undefined');
 			});
 			
+			should( 'fire callback on an async request', function(){
+				expect(1);
+				stop();
+			  	x.xhr("helpers/example.html", {
+					async: true,
+					callback: function () {
+						ok(true, "XHR callback should fire");
+						start();
+					}
+				});
+			});
+
+			should( 'make the request object available as a property on xui object, if async', function(){
+				var request = x.xhr("helpers/example.html", {"async": true}).xmlHttpRequest;
+				ok(request instanceof XMLHttpRequest);
+			});
+
+			should( 'not have a reference request object after reponse', function(){
+				expect(1);
+				stop();
+				x.xhr("helpers/example.html", {
+					"async": true,
+					"callback": function () {
+						ok(typeof x.xmlHttpRequest == 'undefined');
+						start();
+					}
+				});
+			});
+
 			should( 'have more tests', function(){
 				// test headers
 				// test interpolate
