@@ -6,7 +6,6 @@
 		<link rel="stylesheet" href="../packages/shoulda-js/shoulda/shoulda.css" type="text/css" media="screen" title="no title" charset="utf-8">
 		
 		<script src="../packages/qunit/qunit/qunit.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../packages/qunit/qunit/qunit.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../packages/shoulda-js/shoulda/shoulda.js" type="text/javascript" charset="utf-8"></script>
 		<!-- make sure you include the proper build of XUI -->
     <!-- // <script src="../lib/xui-core-1.0.0.js" type="text/javascript" charset="utf-8"></script> -->
@@ -41,6 +40,8 @@
 			<div id="html-test-top"></div>
 			<div id="html-test-bottom"></div>
 			<div id="html-test-html"><p>foo</p></div>
+			<ul id="html-list-test"></ul>
+			<div id="html-complex-test"></div>
 		</div>
 
 		<div id="xhr_tests">
@@ -135,15 +136,6 @@
 			});
 		});
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		context( "Selector has and not", function(){
 			var x = x$('ul#has_tests li');
 			should( 'return two elements.', function(){
@@ -154,15 +146,6 @@
 				equals(x.not(".foo").length, 3);
 			});
 		});
-		
-		
-		
-		
-		
-		
-		
-		
-
 		
 		// ---
 		/// style.js specs
@@ -225,11 +208,9 @@
 			});
 		});
 		
-		
 		// --
 		/// dom specs
 		// --
-		
 		
 		context( "Dom.html", function(){
 			var	inner  = x$('#html-test-inner');
@@ -282,6 +263,25 @@
 
 			should( 'return html of #html-test-html node', function(){
 				equals(h.html().toLowerCase(), '<p>foo</p>');
+			});
+			
+			should( 'insert list items with newlines', function(){
+			  var newListItem = "<li>\nHello\n</li>";
+			  x$("#html-list-test").html('bottom', newListItem);
+			  equals(x$("#html-list-test")[0].innerHTML, newListItem);
+			});
+			
+			should(' insert complex DOM elements', function () {
+			  // putting attributes with empty strings since safari does it anyway
+			  // i.e. 'controls' becomes 'controls=""'
+			  var myVideo = '<video src="myAwesomeVideo.mp4" id="my_video" autobuffer="" controls=""></video>';
+			  x$("#html-complex-test").html('inner', myVideo);
+			  equals(x$("#html-complex-test")[0].innerHTML, myVideo);
+			})
+			
+			should('properly insert Number-type elements using .html()', function() {
+				h.html(1);
+				equals(h[0].innerHTML, "1");
 			});
 		});
 		

@@ -59,7 +59,7 @@ xui.extend({
                 len, 
                 i = 0;
             if (location == "inner") {
-                if (typeof html == string) {
+                if (typeof html == string || typeof html == "number") {
                     el.innerHTML = html;
                     list = el.getElementsByTagName('SCRIPT');
                     len = list.length;
@@ -131,7 +131,7 @@ function wrapHelper(html, el) {
 function wrap(xhtml, tag) {
 
     var attributes = {},
-        re = /^<([A-Z][A-Z0-9]*)([^>]*)>(.*)<\/\1>/i,
+        re = /^<([A-Z][A-Z0-9]*)([^>]*)>([\s\S]*)<\/\1>/i,
         element,
         x,
         a,
