@@ -57,10 +57,16 @@ xui.extend({
       });
   },*/
   
-    on: function(type, fn) {
+    on: function(type, fn, details) {
         return this.each(function (el) {
-            var _fn = _createResponder(el, type, fn);
-            xui.events[type] && xui.events[type].call(el, _fn);
+            if (xui.events[type]) {
+                details = details || {};
+                details.handler = function (event, data) {
+                    // console.log('>' + this, type);
+                    xui.fn.fire.call(xui(this), type, data);
+                };
+                xui.events[type].call(el, details);  
+            } 
             el.addEventListener(type, _createResponder(el, type, fn), false);
         });
     },
@@ -100,6 +106,18 @@ xui.extend({
   
 // --
 });
+
+xui.events = {};
+
+// xui.events = function (type, add) {
+//     xui.events[type] = {
+//         add: add,
+//         handler: function (event) {
+//             event.type = type;
+//             xui.fire.apply(this)
+//         }
+//     }
+// };
 
 // this doesn't belong on the prototype, it belongs as a property on the xui object
 xui.touch = (function () {
