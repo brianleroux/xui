@@ -60,7 +60,7 @@ xui.extend({
     on: function(type, fn) {
         return this.each(function (el) {
             var _fn = _createResponder(el, type, fn);
-            xui.events[type] && xui.events[type].call(el, _fn);
+            //xui.events[type] && xui.events[type].call(el, _fn);
             el.addEventListener(type, _createResponder(el, type, fn), false);
         });
     },
