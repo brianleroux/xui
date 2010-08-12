@@ -83,8 +83,6 @@ xui.extend({
 	    // this branch means we're dealing with a single tween
 	    var opts = emileOpts(props);
 	    var prop = serialize(props);
-	    
-		if (typeof callback == 'function') opts.after = callback;
 		
 		return this.each(function(e){
 			emile(e, prop, opts, callback);

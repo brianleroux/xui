@@ -241,28 +241,60 @@ CoreTests.prototype.run = function () {
             x = x$('#xhr-test-function');
         },
         teardown:function() {
+            x.html('');
             x = null;
         }
     });
-        test( 'should insert partial into element', function(){
+        test( 'Should insert partial into element', function(){
             x.xhr("helpers/example.html");
             equals(x[0].innerHTML, '<h1>this is a html partial</h1>');
         });
-        
-        test( 'have more tests', function(){
-            // test headers
-            // test interpolate
-            // test callback
-            ok(false);
+        test( 'Should call callback function defined in options properly', function() {
+            expect(2);
+            stop();
+            x.xhr("helpers/example.html", {
+                callback:function() {
+                    ok(true, 'Specified callback function should be triggered properly');
+                    equals(x[0].innerHTML,'','Defined callback should override default behaviour of injecting response into innerHTML');
+                    start();
+                }
+            });
         });
 
     // --
     /// fx specs
     // --
 
-    module( "Fx.tween");
-        test( 'should have tween tests!', function(){
-            ok(false);
+    module( "Fx.tween", {
+        setup:function() {
+            x = x$('#square');
+        },
+        teardown:function() {
+            var s = x[0].style;
+            s.position = 'relative',
+                s.width = '50px',
+                s.height = '50px',
+                s.backgroundColor = 'red',
+                s.top = '0px',
+                s.left = '0px',
+                x = null;
+        }
+    });
+        test( 'Should call callback function following tween', function() {
+            expect(1);
+            stop();
+            x.tween({left:'100px'}, function() {
+                ok(true, 'Callback should be called following tween');
+                start();
+            });
+        });
+        test( 'Should be able to tween position properties', function(){
+            expect(1);
+            stop();
+            x.tween({left:'100px'}, function() {
+                equals(x[0].style.left,'100px', 'Tweened property should be set to final value as specified in tween call');
+                start();
+            });
         })
 
     // --
