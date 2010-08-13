@@ -233,6 +233,15 @@ CoreTests.prototype.run = function () {
             h.html(1);
             equals(h[0].innerHTML, "1");
         });
+
+        test(' insert a bunch of list items at bottom', function () {
+            var numerousListItems = '' +
+              '<li class="list_o"><a href="#1" class="link_o">one link</a></li>' +
+              '<li class="list_o"><a href="#2" class="link_o">two link</a></li>' +
+              '<li class="list_o"><a href="#3" class="link_o">three link</a></li>';
+            x$('#html-multiple-list').html('bottom', numerousListItems);
+            equals(document.getElementById('html-multiple-list').innerHTML, numerousListItems);
+        });
     // --
     /// xhr specs
     // --
