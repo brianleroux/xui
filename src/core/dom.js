@@ -52,14 +52,20 @@ xui.extend({
             html = location;
             location = 'inner';
         }
-
+        if (html.each !== undefined) {
+            var that = this;
+            html.each(function(el){
+                that.html(location, el);
+            });
+            return this;
+        }
         return this.each(function(el) {
             var parent, 
                 list, 
                 len, 
                 i = 0;
-            if (location == "inner") {
-                if (typeof html == string || typeof html == "number") {
+            if (location == "inner") { // .html
+                if (typeof html == string) {
                     el.innerHTML = html;
                     list = el.getElementsByTagName('SCRIPT');
                     len = list.length;
@@ -70,17 +76,17 @@ xui.extend({
                     el.innerHTML = '';
                     el.appendChild(html);
                 }
-            } else if (location == "outer") {
+            } else if (location == "outer") { // .replaceWith
                 el.parentNode.replaceChild(wrapHelper(html, el), el);
-            } else if (location == "top") {
+            } else if (location == "top") { // .prependTo
                 el.insertBefore(wrapHelper(html, el), el.firstChild);
-            } else if (location == "bottom") {
+            } else if (location == "bottom") { // .appendTo
                 el.insertBefore(wrapHelper(html, el), null);
             } else if (location == "remove") {
                 el.parentNode.removeChild(el);
-            } else if (location == "before") {
+            } else if (location == "before") { // .insertBefore
                 el.parentNode.insertBefore(wrapHelper(html, el.parentNode), el);
-            } else if (location == "after") {
+            } else if (location == "after") { // .insertAfter
                 el.parentNode.insertBefore(wrapHelper(html, el.parentNode), el.nextSibling);
             }
         });
