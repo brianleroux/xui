@@ -1,3 +1,23 @@
+if (!Array.prototype.indexOf) {
+    Array.prototype.indexOf = function(elt /*, from*/) {
+    var len = this.length;
+    var from = Number(arguments[1]) || 0;
+    from = (from < 0)
+         ? Math.ceil(from)
+         : Math.floor(from);
+    if (from < 0)
+      from += len;
+
+    for (; from < len; from++)
+    {
+      if (from in this &&
+          this[from] === elt)
+        return from;
+    }
+    return -1;
+    };
+}
+
 function CoreTests() { return this; };
 CoreTests.prototype.run = function () {
     // ---
@@ -96,7 +116,6 @@ CoreTests.prototype.run = function () {
     module( "Style.getStyle", {
         setup:function() {
             e = x$('#get-style-element');
-            e[0].style.backgroundColor = "#0000FF";
         },
         teardown:function() {
             e = null;
@@ -106,7 +125,7 @@ CoreTests.prototype.run = function () {
             expect(1);
             stop();
             e.getStyle('background-color', function(v){
-                ok(v == 'rgb(0, 0, 255)' || v == 'rgba(0,0,255,0.000)', 'background-color style property should return blue in callback');
+                ok(v == 'rgb(0, 0, 255)' || v == '#0000FF', 'background-color style property should return blue in callback');
                 start();
             });
         });
@@ -125,7 +144,8 @@ CoreTests.prototype.run = function () {
 
     module( "Style.removeClass", {
         setup:function() {
-            x = x$('#remove-class-element').removeClass('bar');
+            x = x$('#remove-class-element');
+            x.removeClass('bar');
             classes = x[0].className.split(' ');
         },
         teardown:function() {
@@ -228,7 +248,7 @@ CoreTests.prototype.run = function () {
         test( 'should insert list items with newlines', function(){
           var newListItem = "<li>\nHello\n</li>";
           x$("#html-list-test").html('bottom', newListItem);
-          equals(x$("#html-list-test")[0].innerHTML, newListItem);
+          equals(x$("#html-list-test")[0].innerHTML.toLowerCase(), newListItem.toLowerCase());
         });
         
         test('should insert complex DOM elements', function () {
@@ -259,7 +279,7 @@ CoreTests.prototype.run = function () {
     });
         test( 'Should insert partial into element', function(){
             x.xhr("helpers/example.html");
-            equals(x[0].innerHTML, '<h1>this is a html partial</h1>');
+            equals(x[0].innerHTML.toLowerCase(), '<h1>this is a html partial</h1>');
         });
         test( 'Should call callback function defined in options properly', function() {
             expect(2);
@@ -300,14 +320,14 @@ CoreTests.prototype.run = function () {
                 start();
             });
         });
-        test( 'Should be able to tween position properties', function(){
+        test( 'Should be able to tween position properties', function() {
             expect(1);
             stop();
             x.tween({left:'100px'}, function() {
                 equals(x[0].style.left,'100px', 'Tweened property should be set to final value as specified in tween call');
                 start();
             });
-        })
+        });
 
     // --
     /// event specs
@@ -385,7 +405,7 @@ CoreTests.prototype.run = function () {
             }
             x.on('click', one).on('click', two).un('click', one).fire('click');
         });
-      
+
         test('Should not bubble custom events if stopping propagation', function () {
             var parent = x[0].parentNode,
                 fired = 0;
