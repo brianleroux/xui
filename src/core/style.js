@@ -88,7 +88,7 @@ xui.extend({
             // this *can* be written to be smaller - see below, but in fact it doesn't compress in gzip as well, the commented
             // out version actually *adds* 2 bytes.
             // return document.defaultView.getComputedStyle(el, "").getPropertyValue(p.replace(/([A-Z])/g, "-$1").toLowerCase());
-            return document.defaultView.getComputedStyle(el, "").getPropertyValue(p.replace(/[A-Z]/g, function(m) { return '-'+m.toLowerCase(); });
+            return document.defaultView.getComputedStyle(el, "").getPropertyValue(p.replace(/[A-Z]/g, function(m) { return '-'+m.toLowerCase(); }));
         }
         return (callback === undefined) ?
         

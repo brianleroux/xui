@@ -13,7 +13,6 @@ $*.each do |arg|
   minify = true if arg == "--minify"
   profile = arg.match(profile_matcher)[1] if arg.match(profile_matcher)
 end
-
 hash = YAML.load_file "#{ profile_path }#{ profile }.js"
 
 # clear previous file
@@ -21,7 +20,8 @@ hash = YAML.load_file "#{ profile_path }#{ profile }.js"
 
 hash["include"].each do |include|
   # a bit of overhead since not all files end in a newline
-  `(cat #{ hash["baseUrl"] }#{ include }.js ; echo) >> #{ hash["out"] }`
+  `cat #{ include }.js >> #{ hash["out"] }`
+  `echo >> #{ hash["out"] }`
 end
 
 if minify
