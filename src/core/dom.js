@@ -85,14 +85,6 @@ xui.extend({
             }
         });
     },
-    
-    append: function (html) {
-        return this.html(html, 'bottom');
-    },
-    
-    prepend: function (html) {
-      return this.html(html, 'top');
-    },
 
     /**
 	 * Attribute getter/setter
