@@ -90,7 +90,7 @@ CoreTests.prototype.run = function () {
     });
         test( 'should be able to change styles like backgroundColor', function(){
             e.setStyle('backgroundColor', '#008000');
-            equals(e[0].style.backgroundColor, 'rgb(0, 128, 0)');
+            ok(e[0].style.backgroundColor == 'rgb(0, 128, 0)' || e[0].style.backgroundColor == '#008000', 'backgroundColor style property should be set to specified value');
         });
 
     module( "Style.getStyle", {
@@ -102,17 +102,18 @@ CoreTests.prototype.run = function () {
             e = null;
         }
     });
-        test( 'should return background color of blue if when callback function is used.', function(){
+        test( 'should return proper style value when callback function is used', function(){
+            expect(1);
             stop();
             e.getStyle('background-color', function(v){
-                equals(v, 'rgb(0, 0, 255)')
+                ok(v == 'rgb(0, 0, 255)' || v == 'rgba(0,0,255,0.000)', 'background-color style property should return blue in callback');
                 start();
             });
         });
 
-        test( 'should return background color even if no function passed', function(){
+        test( 'should return proper style even if no function passed', function(){
             var style = e.getStyle('background-color');
-            equals(style, 'rgb(0, 0, 255)');
+            ok(style == 'rgb(0, 0, 255)' || style == '#0000FF', 'background-color style property should return blue');
         });
 
     module( "Style.addClass");
@@ -124,19 +125,19 @@ CoreTests.prototype.run = function () {
 
     module( "Style.removeClass", {
         setup:function() {
-            x = x$('#remove-class-element');
-            x.removeClass('bar');
+            x = x$('#remove-class-element').removeClass('bar');
             classes = x[0].className.split(' ');
         },
         teardown:function() {
-            x.addClass('bar');
-            x = null;
+            x = null, classes = null;
         }
     });
         test( 'should remove a class from an element' ,function(){
+            expect(1);
             ok(classes.indexOf('bar') == -1, 'Class "bar" should not be present in element\'s className');
         });
         test( 'should keep surrounding classes intact', function() {
+            expect(2);
             ok(classes.indexOf('foo') > -1, 'Class "foo" should still be present in element\'s className');
             ok(classes.indexOf('baz') > -1, 'Class "baz" should still be present in element\'s className');
         });
