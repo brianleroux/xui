@@ -312,9 +312,13 @@ CoreTests.prototype.run = function () {
     // --
     module( "Event", {
         setup:function() {
-            x = x$('#event-test-click');
+            // updated to create new element to reset events associated
+            var div = document.createElement('div');
+            document.body.appendChild(div);
+            x = x$(div);
         },
         teardown:function() {
+            document.body.removeChild(x[0]);
             x = null;
         }
     });
@@ -393,5 +397,44 @@ CoreTests.prototype.run = function () {
             x$(parent).on('custom', incfired);
             x.on('custom', incfired).fire('custom');
             equals(fired, 2);
+        });
+        
+        test('Should be able to create bespoke events', function () {
+            // note that teardown methods are needed - this is an early system
+            expect(1);
+            
+            // triple click bespoke event
+            x$.events.tripleclick = function (details) {
+                var clicked = 0, 
+                    $el = x$(this).on('click', function () {
+                        clicked++;
+                        if (clicked === 3) {
+                            clicked = 0;
+                            details.handler.call(this);
+                        }
+                    });
+            };
+            
+            var fired = false;
+            x.on('tripleclick', function () {
+                ok(true, 'tripleclick bespoke event fired on element');
+            }).fire('click').fire('click').fire('click');
+        });
+        
+        test('Bespoke events should not leak to other elements', function () {
+            expect(0);
+            if (x$.events.tripleclick) {
+                var div = document.createElement('div'),
+                    y = x$(div);
+                document.body.appendChild(div);
+
+                y.on('tripleclick', function () {
+                    ok(false, 'tripleclick leaked to a completely separate element');
+                });
+                x.on('tripleclick', function () {});
+                x.fire('click').fire('click').fire('click');                
+            } else {
+                ok(false, 'tripleclick bespoke event missing');
+            }
         });
 }
