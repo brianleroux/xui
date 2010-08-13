@@ -64,13 +64,8 @@ xui.extend({
                 list, 
                 len, 
                 i = 0;
-<<<<<<< HEAD
-            if (location == "inner") {
-                if (typeof html == string || typeof html == "number") {
-=======
             if (location == "inner") { // .html
                 if (typeof html == string) {
->>>>>>> 4455f0e... Allow HTML with xui instance
                     el.innerHTML = html;
                     list = el.getElementsByTagName('SCRIPT');
                     len = list.length;
