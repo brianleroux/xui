@@ -18,7 +18,7 @@ window.x$ = window.xui = xui = function(q, context) {
 if (! [].forEach) {
     Array.prototype.forEach = function(fn) {
         var len = this.length || 0,
-            i = 0;
+            i = 0,
             that = arguments[1]; // wait, what's that!? awwww rem. here I thought I knew ya!
                                  // @rem - that that is a hat tip to your thats :)
 

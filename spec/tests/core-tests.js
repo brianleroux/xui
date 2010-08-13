@@ -89,7 +89,7 @@ CoreTests.prototype.run = function () {
         }
     });
         test( 'should be able to change styles like backgroundColor', function(){
-            e.setStyle('backgroundColor', '#008000');
+            e.setStyle('background-color', '#008000');
             ok(e[0].style.backgroundColor == 'rgb(0, 128, 0)' || e[0].style.backgroundColor == '#008000', 'backgroundColor style property should be set to specified value');
         });
 

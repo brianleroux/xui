@@ -49,6 +49,7 @@ xui.extend({
 	 * 
 	 */
     setStyle: function(prop, val) {
+        prop = prop.replace(/\-[a-z]/,function(m) { return m[1].toUpperCase(); });
         return this.each(function(el) {
             el.style[prop] = val;
         });
@@ -82,12 +83,19 @@ xui.extend({
 	 *
 	 */
     getStyle: function(prop, callback) {
+        // shortcut getComputedStyle function
+        var s = function(el, p) {
+            // this *can* be written to be smaller - see below, but in fact it doesn't compress in gzip as well, the commented
+            // out version actually *adds* 2 bytes.
+            // return document.defaultView.getComputedStyle(el, "").getPropertyValue(p.replace(/([A-Z])/g, "-$1").toLowerCase());
+            return document.defaultView.getComputedStyle(el, "").getPropertyValue(p);
+        }
         return (callback === undefined) ?
-            
-            getStyle(this[0], prop) :
+        
+            s(this[0], prop) :
             
             this.each(function(el) {
-                callback(getStyle(el, prop));
+                callback(s(el, prop));
             });
     },
 
@@ -226,13 +234,6 @@ xui.extend({
     }
 // --
 });
-
-function getStyle(el, p) {
-    // this *can* be written to be smaller - see below, but in fact it doesn't compress in gzip as well, the commented
-    // out version actually *adds* 2 bytes.
-    // return document.defaultView.getComputedStyle(el, "").getPropertyValue(p.replace(/([A-Z])/g, "-$1").toLowerCase());
-    return document.defaultView.getComputedStyle(el, "").getPropertyValue(p.replace(/[A-Z]/g, function(m){ return '-'+m.toLowerCase();}));
-}
 
 // RS: now that I've moved these out, they'll compress better, however, do these variables
 // need to be instance based - if it's regarding the DOM, I'm guessing it's better they're
