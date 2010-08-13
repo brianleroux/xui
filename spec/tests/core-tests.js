@@ -213,12 +213,11 @@ CoreTests.prototype.run = function () {
         
         test('Inserting multiple HTML items into the "bottom" of an element should append the elements to childNode', function () {
             var childNodesAtStart = bottom[0].childNodes.length;
-            var numerousListItems = '' +
-              '<li class="list_o"><a href="#1" class="link_o">one link</a></li>' +
-              '<li class="list_o"><a href="#2" class="link_o">two link</a></li>' +
-              '<li class="list_o"><a href="#3" class="link_o">three link</a></li>';
-            bottom.html('bottom', numerousListItems);
-            console.log(bottom[0].childNodes.length);
+            var numerousItems = '' +
+              '<a href="#1" class="link_o">one link</a>' +
+              '<a href="#2" class="link_o">two link</a>' +
+              '<a href="#3" class="link_o">three link</a>';
+            bottom.html('bottom', numerousItems);
             ok(bottom[0].childNodes.length == (childNodesAtStart + 3), 'Three extra child nodes should have been appended to the element.');
         });
 
