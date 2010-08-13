@@ -210,6 +210,17 @@ CoreTests.prototype.run = function () {
             equals(bottom[0].childNodes[last].innerHTML, 'undertow', '"bottom"-inserted element should contain text "undertow"'); 
             ok(bottom[0].childNodes.length == 2, 'Existing element inside selected element should remain after a "bottom" insertion.');
         });
+        
+        test('Inserting multiple HTML items into the "bottom" of an element should append the elements to childNode', function () {
+            var childNodesAtStart = bottom[0].childNodes.length;
+            var numerousListItems = '' +
+              '<li class="list_o"><a href="#1" class="link_o">one link</a></li>' +
+              '<li class="list_o"><a href="#2" class="link_o">two link</a></li>' +
+              '<li class="list_o"><a href="#3" class="link_o">three link</a></li>';
+            bottom.html('bottom', numerousListItems);
+            console.log(bottom[0].childNodes.length);
+            ok(bottom[0].childNodes.length == (childNodesAtStart + 3), 'Three extra child nodes should have been appended to the element.');
+        });
 
         test( 'should return innerHTML of element when called with no arguments', function(){
             equals(h.html(), h[0].innerHTML);
@@ -229,19 +240,11 @@ CoreTests.prototype.run = function () {
           equals(x$("#html-complex-test")[0].innerHTML, myVideo);
         })
         
-        test('properly insert Number-type elements using .html()', function() {
+        test('should properly insert Number-type elements using .html()', function() {
             h.html(1);
             equals(h[0].innerHTML, "1");
         });
 
-        test(' insert a bunch of list items at bottom', function () {
-            var numerousListItems = '' +
-              '<li class="list_o"><a href="#1" class="link_o">one link</a></li>' +
-              '<li class="list_o"><a href="#2" class="link_o">two link</a></li>' +
-              '<li class="list_o"><a href="#3" class="link_o">three link</a></li>';
-            x$('#html-multiple-list').html('bottom', numerousListItems);
-            equals(document.getElementById('html-multiple-list').innerHTML, numerousListItems);
-        });
     // --
     /// xhr specs
     // --
