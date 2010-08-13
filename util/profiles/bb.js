@@ -1,7 +1,6 @@
 {
     out: "lib/xui-bb.js",
     include: [
-	"lib/version",
         "src/header",
         "src/base",
         "src/core/dom",

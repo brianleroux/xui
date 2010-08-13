@@ -1,9 +1,6 @@
 [submodule "packages/qunit"]
 	path = packages/qunit
 	url = git://github.com/jquery/qunit.git
-[submodule "packages/shoulda-js"]
-	path = packages/shoulda-js
-	url = git://github.com/brianleroux/shoulda-js.git
 [submodule "packages/sizzle"]	
 	path = packages/sizzle
 	url = git://github.com/jeresig/sizzle.git
