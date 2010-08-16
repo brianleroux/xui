@@ -12,7 +12,7 @@ CoreTests.prototype.run = function () {
             x = null;
         }
     });
-        test( 'should return array of length zero', function(){
+        test( 'should return non-zero length array', function(){
             equals(x.length, 1);
         });
         test( 'first element should have text "this is item one"', function(){
