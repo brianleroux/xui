@@ -190,7 +190,7 @@ CoreTests.prototype.run = function () {
             equals(inner[0].childNodes[0].tagName.toLowerCase(), 'p', 'Element should have childNode whose tagName is "p"'); 
             equals(inner[0].childNodes[0].innerHTML, 'hello world', 'Element should have childNode whose contents is "hello world"'); 
         });
-/*
+
         test( 'Inserting html via "outer"', function(){
             alert('start of outer test');
             outer.html('outer', '<div id="html-test-outer">sneaky</div>'); 
@@ -198,7 +198,7 @@ CoreTests.prototype.run = function () {
             equals(outer[0].innerHTML, 'sneaky'); 
             alert('end of outer test');
         });
-*/
+
         test( 'Inserting html into the "top" of an element should insert element at the head of childNode', function(){
             topTest.html('top', '<div>come out on top</div>');
             equals(topTest[0].childNodes[0].tagName.toLowerCase(), 'div', '"top"-inserted element should have tagName "div"'); 
@@ -213,7 +213,7 @@ CoreTests.prototype.run = function () {
             equals(bottom[0].childNodes[last].innerHTML, 'undertow', '"bottom"-inserted element should contain text "undertow"'); 
             ok(bottom[0].childNodes.length == 2, 'Existing element inside selected element should remain after a "bottom" insertion.');
         });
-        /*
+        
         test('Inserting multiple HTML items into the "bottom" of an element should append the elements to childNode', function () {
             var childNodesAtStart = bottom[0].childNodes.length;
             var numerousItems = '' +
@@ -223,7 +223,7 @@ CoreTests.prototype.run = function () {
             bottom.html('bottom', numerousItems);
             ok(bottom[0].childNodes.length == (childNodesAtStart + 3), 'Three extra child nodes should have been appended to the element.');
         });
-        */
+        
         test( 'should return innerHTML of element when called with no arguments', function(){
             equals(h.html(), h[0].innerHTML);
         });
@@ -314,9 +314,13 @@ CoreTests.prototype.run = function () {
     // --
     module( "Event", {
         setup:function() {
-            x = x$('#event-test-click');
+            // updated to create new element to reset events associated
+            var div = document.createElement('div');
+            document.getElementById('test-elements').appendChild(div);
+            x = x$(div);
         },
         teardown:function() {
+            document.getElementById('test-elements').removeChild(x[0]);
             x = null;
         }
     });
@@ -390,5 +394,44 @@ CoreTests.prototype.run = function () {
             x$(parent).on('custom', incfired);
             x.on('custom', incfired).fire('custom');
             equals(fired, 2);
+        });
+        
+        test('Should be able to create bespoke events', function () {
+            // note that teardown methods are needed - this is an early system
+            expect(1);
+            
+            // triple click bespoke event
+            x$.events.tripleclick = function (details) {
+                var clicked = 0, 
+                    $el = x$(this).on('click', function () {
+                        clicked++;
+                        if (clicked === 3) {
+                            clicked = 0;
+                            details.handler.call(this);
+                        }
+                    });
+            };
+            
+            var fired = false;
+            x.on('tripleclick', function () {
+                ok(true, 'tripleclick bespoke event fired on element');
+            }).fire('click').fire('click').fire('click');
+        });
+        
+        test('Bespoke events should not leak to other elements', function () {
+            expect(0);
+            if (x$.events.tripleclick) {
+                var div = document.createElement('div'),
+                    y = x$(div);
+                document.body.appendChild(div);
+
+                y.on('tripleclick', function () {
+                    ok(false, 'tripleclick leaked to a completely separate element');
+                });
+                x.on('tripleclick', function () {});
+                x.fire('click').fire('click').fire('click');                
+            } else {
+                ok(false, 'tripleclick bespoke event missing');
+            }
         });
 }
