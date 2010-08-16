@@ -113,7 +113,9 @@ xui.extend({
     }
 // --
 });
-
+"inner outer top bottom remove before after".split(' ').forEach(function (method) {
+  xui.fn[method] = function (html) { return this.html(method, html); };
+});
 // private method for finding a dom element
 function getTag(el) {
     return (el.firstChild === null) ? {'UL':'LI','DL':'DT','TR':'TD'}[el.tagName] || el.tagName : el.firstChild.tagName;
