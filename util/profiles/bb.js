@@ -3,19 +3,13 @@
     include: [
         "src/header",
         "src/base",
-        "src/core/dom",
-        "src/core/event",
-        "src/core/fx",
-        "src/core/style",
-        "src/core/xhr",
-	"src/more/base",
-	"src/more/dom",
-	"src/more/event",
-	"src/more/form",
-	"src/more/fx",
-	"src/more/xhr",
-	"packages/emile/emile",
-	"packages/sizzle/sizzle",
+        "src/js/dom",
+        "src/js/event",
+        "src/js/fx",
+        "src/js/style",
+        "src/js/xhr",
+        "packages/emile/emile",
+        "packages/sizzle/sizzle",
         "src/footer"
     ]
 }

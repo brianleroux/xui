@@ -1,15 +1,14 @@
 {
-    out: "lib/xui-core.js",
+    out: "lib/xui.js",
     include: [
-	"lib/version",
         "src/header",
         "src/base",
-        "src/core/dom",
-        "src/core/event",
-        "src/core/fx",
-        "src/core/style",
-        "src/core/xhr",
-	"packages/emile/emile",
+        "src/js/dom",
+        "src/js/event",
+        "src/js/fx",
+        "src/js/style",
+        "src/js/xhr",
+        "packages/emile/emile",
         "src/footer"
     ]
 }

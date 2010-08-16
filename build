@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
 require 'YAML'
 # TODO: print out build command line if no args provided.
-# usage: ./ghetto-build profile=whatever --minify 
+# usage: ./build profile=whatever --minify 
 
 profile_matcher = /^profile=(.*)$/
 profile_path = "util/profiles/"
 # defaults
-profile = "enchilada"
+profile = "core"
 minify = false
 
 $*.each do |arg|
