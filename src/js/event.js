@@ -9,6 +9,7 @@
  * A good old fashioned event handling system.
  * 
  */
+xui.events = {}, cache = {};
 xui.extend({
 	
 	
@@ -159,7 +160,6 @@ xui(window).on('load', function() {
       })();
     }
 });
-xui.events = {};
 
 // this doesn't belong on the prototype, it belongs as a property on the xui object
 xui.touch = (function () {
@@ -169,8 +169,6 @@ xui.touch = (function () {
     return false;
   };
 })();
-
-var cache = {};
 
 // lifted from Prototype's (big P) event model
 function _getEventID(element) {
