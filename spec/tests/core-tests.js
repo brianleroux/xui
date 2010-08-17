@@ -309,7 +309,7 @@ CoreTests.prototype.run = function () {
     // --
     /// event specs
     // --
-    module( "Event", {
+    module("Events", {
         setup:function() {
             // updated to create new element to reset events associated
             var div = document.createElement('div');
@@ -393,7 +393,7 @@ CoreTests.prototype.run = function () {
             equals(fired, 2);
         });
         
-        test('Should be able to create bespoke events', function () {
+        asyncTest('Should be able to create bespoke events', function () {
             // note that teardown methods are needed - this is an early system
             expect(1);
             
@@ -412,10 +412,13 @@ CoreTests.prototype.run = function () {
             var fired = false;
             x.on('tripleclick', function () {
                 ok(true, 'tripleclick bespoke event fired on element');
+                start();
             }).fire('click').fire('click').fire('click');
         });
         
         test('Bespoke events should not leak to other elements', function () {
+            // Don't know if this test will work. Since it's not an async test, QUnit won't wait for the callbacks to be called
+            // as soon as it passes the first if conditional below it'll keep going to the next tests (and pass, since we are expecting 0 assertions).
             expect(0);
             if (x$.events.tripleclick) {
                 var div = document.createElement('div'),
