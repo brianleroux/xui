@@ -192,11 +192,8 @@ CoreTests.prototype.run = function () {
         });
 
         test( 'Inserting html via "outer"', function(){
-            alert('start of outer test');
             outer.html('outer', '<div id="html-test-outer">sneaky</div>'); 
-            alert('after outer call');
             equals(outer[0].innerHTML, 'sneaky'); 
-            alert('end of outer test');
         });
 
         test( 'Inserting html into the "top" of an element should insert element at the head of childNode', function(){
