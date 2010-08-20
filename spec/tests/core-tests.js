@@ -1,6 +1,22 @@
 function CoreTests() { return this; };
 CoreTests.prototype.run = function () {
     // ---
+    /// base.js specs
+    // ---
+    
+    module("Traversal with find method", {
+        setup:function() {
+			x = x$('#find_tests_inner').find('.foo');
+        },
+        teardown:function() {
+            x = null;
+        }
+    });
+        test( 'should properly set the context', function(){
+            equals(x[0].innerHTML, 'second');
+        });
+
+    // ---
     /// dom.js specs
     // ---
     
