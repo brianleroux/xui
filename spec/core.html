@@ -1,431 +1,91 @@
 <!DOCTYPE html>
-
 <html>
 	<head>
 		<title>xui-core specs</title>
-		<link rel="stylesheet" href="../packages/shoulda-js/shoulda/shoulda.css" type="text/css" media="screen" title="no title" charset="utf-8">
-		
+        <meta name="viewport" content="width=device-width" />
+		<link rel="stylesheet" href="../packages/qunit/qunit/qunit.css" type="text/css" media="screen" title="no title" charset="utf-8">
 		<script src="../packages/qunit/qunit/qunit.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../packages/shoulda-js/shoulda/shoulda.js" type="text/javascript" charset="utf-8"></script>
 		<!-- make sure you include the proper build of XUI -->
-    <!-- // <script src="../lib/xui-core-1.0.0.js" type="text/javascript" charset="utf-8"></script> -->
-    <script src="../lib/xui-enchilada.js" type="text/javascript" charset="utf-8"></script>
+		<!-- <script src="../lib/xui-core-1.0.0.js" type="text/javascript" charset="utf-8"></script> -->
+		<script src="../lib/xui-enchilada.js" type="text/javascript" charset="utf-8"></script>
+		<script src="tests/core-tests.js" type="text/javascript"></script>
+		<style>
+			h2#qunit-banner {
+				text-align:center;
+				height: auto;
+			}
+			#test-elements {
+				display:none;
+			}
+		</style>
 	</head>
-	<body>
+	<body onload="new CoreTests().run();">
 		<h2 id="qunit-banner">xui-core specs</h2>
 		<h2 id="qunit-userAgent"></h2>
 		<ol id="qunit-tests"></ol>
 		<ol id="qunit-testrunner-toolbar"></ol>
 		
-		
-		<div id="selector_tests">
-		  <ul id="items">
-		    <li class="item" id="item_1">this is item one</li>
-		    <li class="item" id="item_2">this is item two</li>
-		    <li class="item" id="item_3">this is item three</li>
-		  </ul>
+		<div id="test-elements">
+			<div id="selector_tests">
+			  <ul id="items">
+				<li class="item" id="item_1">this is item one</li>
+				<li class="item" id="item_2">this is item two</li>
+				<li class="item" id="item_3">this is item three</li>
+			  </ul>
+			</div>
+
+			<div id="style_tests">
+			  <p id="set-style-element">element for testing setStyle</p>
+			  <p id="get-style-element">element for testing getStyle</p>
+			  <p id="add-class-element">element for testing addClass</p>	
+				<p id="has-class-element" class="foo bar">element for testing hasClass</p>
+			  <p id="remove-class-element" class="foo bar baz">element for testing removeClass</p>  
+			</div>
+
+			<div id="dom_tests">
+				<div id="html-test-inner"></div>
+				<div id="html-test-outer"></div>
+				<div id="html-test-top"><p>existing text should stay here</p></div>
+				<div id="html-test-bottom"><p>existing text should stay here</p></div>
+				<div id="html-test-html"><p>foo</p></div>
+				<ul id="html-list-test"></ul>
+				<div id="html-complex-test"></div>
+			</div>
+
+			<div id="xhr_tests">
+			  <div id="xhr-test-function"></div>
+			  <div id="xhr-test-json">
+				<div id="json-id">no id here</div>
+					<div id="json-name">no name here</div>
+			  </div>
+			  <div id="xhr-test-form"></div>
+			</div>
+
+			<div id="event_tests">
+			  <div id="event-test-click"></div>
+			</div>
+
+			<div id="extention_tests">
+			  <div id="extention-test">xui has been extended!</div>
+			</div>
+
+			<ul id="get_tests">
+				<li class="foo">first</li>
+				<li class="bar">second</li>
+				<li>third</li>
+			</ul>
+
+			<ul id="has_tests">
+			  <li class="foo">one</li>
+			  <li>two</li>
+			  <li class="foo">three</li>
+			  <li>four</li>
+			  <li>five</li>
+			</ul>
+            
+            <div id="tween-tests">
+                <div id="square" style="position:relative;left:0px;top:0px;width:50px;height:50px;background-color:red;"
+            </div>
 		</div>
-
-		<div id="style_tests">
-		  <p id="set-style-element">element for testing setStyle</p>
-		  <p id="get-style-element">element for testing getStyle</p>
-		  <p id="add-class-element">element for testing addClass</p>	
-			<p id="has-class-element" class="foo bar">element for testing hasClass</p>
-		  <p id="remove-class-element" class="foo bar baz">element for testing removeClass</p>  
-		</div>
-
-		<div id="dom_tests">
-			<div id="html-test-inner"></div>
-			<div id="html-test-outer"></div>
-			<div id="html-test-top"></div>
-			<div id="html-test-bottom"></div>
-			<div id="html-test-html"><p>foo</p></div>
-			<ul id="html-list-test"></ul>
-			<div id="html-complex-test"></div>
-		</div>
-
-		<div id="xhr_tests">
-		  <div id="xhr-test-function"></div>
-		  <div id="xhr-test-json">
-		  	<div id="json-id">no id here</div>
-				<div id="json-name">no name here</div>
-		  </div>
-		  <div id="xhr-test-form"></div>
-		</div>
-
-		<div id="event_tests">
-		  <div id="event-test-click"></div>
-		</div>
-
-		<div id="extention_tests">
-		  <div id="extention-test">xui has been extended!</div>
-		</div>
-
-		<ul id="get_tests">
-			<li class="foo">first</li>
-			<li class="bar">second</li>
-			<li>third</li>
-		</ul>
-
-		<ul id="has_tests">
-		  <li class="foo">one</li>
-		  <li>two</li>
-		  <li class="foo">three</li>
-		  <li>four</li>
-		  <li>five</li>
-		</ul>
-
-		<ul id="not_tests">
-		  <li class="foo">one</li>
-		  <li>two</li>
-		  <li class="foo">three</li>
-		  <li>four</li>
-		  <li>five</li>
-		</ul>
-		<script type="text/javascript" charset="utf-8">
-		
-		// --
-		/// base.js specs
-		// --
-		
-		context( "Selector string id", function(){
-			var x = x$('#item_1');
-
-		  	should( 'return array with one element', function(){
-				equals(x.length, 1);
-			});
-			should( 'first element should have text: this is item one', function(){
-			  equals(x[0].innerHTML, 'this is item one');
-			});
-		});
-
-
-		context( "Selector string class", function(){
-			var x = x$(".item");
-			should( 'return array with three items', function(){
-				equals(x.length, 3);
-			});
-		  	should( 'should have text "this is item one" in first element.', function(){
-				equals(x[0].innerHTML, 'this is item one');
-			});
-			should( 'have text "this is item three" in last element', function(){
-			  	equals(x[x.length -1].innerHTML, 'this is item three');
-			});
-
-		});
-
-
-		context( "Selector element", function(){
-		    var el = document.getElementById("item_1")
-		    var x = x$(el);
-
-		  	should( 'return array with one element', function(){
-				equals(x.length, 1);
-			});
-
-			should( 'have text "this is item one" in first element.', function(){
-				equals(x[0].innerHTML, 'this is item one');
-			});
-		});
-		
-		context( "Selector string none", function(){
-			var x = x$("item_1");
-
-		  	should( 'return empty array', function(){
-				equals(x.length, 0);
-			});
-		});
-		
-		context( "Selector has and not", function(){
-			var x = x$('ul#has_tests li');
-			should( 'return two elements.', function(){
-				equals(x.has(".foo").length, 2);
-			});
-
-			should( 'return three elements after omitting class foo.', function(){
-				equals(x.not(".foo").length, 3);
-			});
-		});
-		
-		// ---
-		/// style.js specs
-		// ---
-
-		context("Style.setStyle", function(){
-			var	e = x$('#set-style-element');
-			
-			should( 'set change the box backgroundColor', function(){
-				e.setStyle('backgroundColor', '#008000');
-				equals(e[0].style.backgroundColor, 'rgb(0, 128, 0)');
-			});
-		});
-
-		context( "Style.getStyle", function(){
-			var	e = x$('#get-style-element');
-			e[0].style.backgroundColor = "#0000FF";
-
-		  	should( 'return background color of blue if set in passed function', function(){
-				stop();
-		   		e.getStyle('background-color', function(v){
-		     		equals(v, 'rgb(0, 0, 255)')
-					start();
-		   		});
-		  	});
-
-			should( 'return background color even if no function passed', function(){
-				var style = e.getStyle('background-color');
-			  	equals(style, 'rgb(0, 0, 255)');
-			});
-		});
-
-		context( "Style.addClass", function(){
-			var x = x$('#add-class-element');
-			x.addClass("foo");
-
-			should( 'add class of foo', function(){
-			  equals(x[0].className, "foo");
-			});
-		});
-
-		context( "Style.removeClass", function(){
-			var	x = x$('#remove-class-element');
-
-			should( 'remove the class of bar and keep surrounding classes intact' ,function(){
-				x.removeClass('bar');
-        		equals(x[0].className, 'foo baz');
-			});
-		});
-
-		context( "Style.hasClass", function(){
-			var x = x$('#has-class-element');
-
-			should( 'have the class bar', function(){
-                equals(x.hasClass('bar'), true);
-			});
-
-			should( 'not have the class zug', function(){
-                equals(x.hasClass('zug'), false);
-			});
-		});
-		
-		// --
-		/// dom specs
-		// --
-		
-		context( "Dom.html", function(){
-			var	inner  = x$('#html-test-inner');
-			var	outer  = x$('#html-test-outer');
-			var	top    = x$('#html-test-top');
-			var	bottom = x$('#html-test-bottom');
-			var	h = x$('#html-test-html');
-		
-
-			should( 'insert html after #html-test-html.', function() {
-				h.html('after', '<div>after</div>');
-				equals(h[0].nextSibling.innerHTML, 'after');
-			});
-
-			should( 'have "p" as tag name in html inserted after.', function() {
-				h.html('after', '<p>after</p>');
-				equals(h[0].nextSibling.tagName.toLowerCase(), 'p');
-			});
-
-			should( 'insert html before #html-test-html', function() {
-				h.html('before', '<div>before</div>');
-				equals(h[0].previousSibling.innerHTML, 'before');
-			});
-
-			should( 'have "p" as tag name in html inserted before.', function() {
-				h.html('before','<p>before</p>');
-				equals(h[0].previousSibling.tagName.toLowerCase(), 'p');
-			});
-
-			should( 'insert html into the #html-test-inner node', function(){
-				inner.html('inner', '<p>hello world</p>');
-				equals(inner[0].childNodes[0].tagName.toLowerCase(), 'p'); 
-			});
-
-			should( 'insert html into the #html-test-outer node', function(){
-				outer.html('outer', '<div id="html-test-outer">sneaky</div>'); 
-				equals(x$('#html-test-outer')[0].innerHTML, 'sneaky'); 
-			});
-
-			should( 'insert html into the #html-test-top node', function(){
-				top.html('top', '<div>come out on top</div>');
-				equals(top[0].childNodes[0].innerHTML, 'come out on top'); 
-			});
-
-			should( 'insert html into the #html-test-bottom node', function(){
-				bottom.html('bottom', '<div>undertow</div>');
-				var last = bottom[0].childNodes.length - 1;
-				equals(bottom[0].childNodes[last].innerHTML, 'undertow'); 
-			});
-
-			should( 'return html of #html-test-html node', function(){
-				equals(h.html().toLowerCase(), '<p>foo</p>');
-			});
-			
-			should( 'insert list items with newlines', function(){
-			  var newListItem = "<li>\nHello\n</li>";
-			  x$("#html-list-test").html('bottom', newListItem);
-			  equals(x$("#html-list-test")[0].innerHTML, newListItem);
-			});
-			
-			should(' insert complex DOM elements', function () {
-			  // putting attributes with empty strings since safari does it anyway
-			  // i.e. 'controls' becomes 'controls=""'
-			  var myVideo = '<video src="myAwesomeVideo.mp4" id="my_video" autobuffer="" controls=""></video>';
-			  x$("#html-complex-test").html('inner', myVideo);
-			  equals(x$("#html-complex-test")[0].innerHTML, myVideo);
-			})
-			
-			should('properly insert Number-type elements using .html()', function() {
-				h.html(1);
-				equals(h[0].innerHTML, "1");
-			});
-		});
-		
-		
-		// --
-		/// xhr specs
-		// --
-		
-		context( "XHR.function", function(){
-			var x = x$('#xhr-test-function');
-
-			should( 'insert partial into element', function(){
-			  	x.xhr("helpers/example.html");
-				equals(document.getElementById('xhr-test-function').innerHTML, '<h1>this is a html partial</h1>');
-			});
-
-			should( 'not make the request object available for synchronous requests', function(){
-				var request = x.xhr("helpers/example.html").xmlHttpRequest;
-				ok(typeof request == 'undefined');
-			});
-			
-			should( 'fire callback on an async request', function(){
-				expect(1);
-				stop();
-			  	x.xhr("helpers/example.html", {
-					async: true,
-					callback: function () {
-						ok(true, "XHR callback should fire");
-						start();
-					}
-				});
-			});
-
-			should( 'make the request object available as a property on xui object, if async', function(){
-				var request = x.xhr("helpers/example.html", {"async": true}).xmlHttpRequest;
-				ok(request instanceof XMLHttpRequest);
-			});
-
-			should( 'not have a reference request object after reponse', function(){
-				expect(1);
-				stop();
-				x.xhr("helpers/example.html", {
-					"async": true,
-					"callback": function () {
-						ok(typeof x.xmlHttpRequest == 'undefined');
-						start();
-					}
-				});
-			});
-
-			should( 'have more tests', function(){
-				// test headers
-				// test interpolate
-				// test callback
-				ok(false);
-			});
-		});
-		
-		// --
-		/// fx specs
-		// --
-		
-		context( "Fx.tween", function(){
-			should( 'tween something a little bit', function(){
-				ok(false);
-			})
-		});
-		
-		// --
-		/// event specs
-		// --
-		
-		context( "Event", function(){
-		  var x = x$('#event-test-click');
-		  
-		  should('bind & fire click', function () {
-		    x.on('click', function () {
-		      this.innerHTML = 'firedclick';
-		    }).fire('click').un('click');
-		    
-		    // needs to async to let the event fire
-	      equals(document.getElementById('event-test-click').innerHTML, 'firedclick');
-		  });
-
-		  should('bind & unbind click (test by firing event)', function () {
-		    x.on('click', function () {
-		      this.innerHTML = 'unbind';
-		    }).un('click').fire('click');
-		    
-	      ok(document.getElementById('event-test-click').innerHTML !== 'unbind');
-		  });
-		  
-		  should('bind custom event', function () {
-		    x.on('brianisadonkey', function () {
-		      this.innerHTML = 'and-a-donkey-lover';
-		    }).fire('brianisadonkey').un('brianisadonkey');
-		    
-	      equals(document.getElementById('event-test-click').innerHTML, 'and-a-donkey-lover');
-		  });
-		  
-		  should('unbinding doesn\'t screw other events', function () {
-		    x.on('custom', function () {
-		      this.innerHTML = 'custom';
-		    });
-		    x.on('click', function () {}).un('click');
-		    x.fire('custom');
-	      equals(document.getElementById('event-test-click').innerHTML, 'custom');
-		  });
-		  		  
-      should('handle multiple events', function () {
-        var fired = 0;
-        function incfired() {
-          fired++;
-        }
-        
-        x.on('click', incfired).on('custom1', incfired).on('touchstart', incfired).fire('click').fire('custom1').fire('touchstart');
-        equals(fired, 3);
-      });
-		  
-      should('unbind specific events', function () {
-        var fired = 0;
-        function one() {
-          fired++;
-        }
-        function two() {
-          fired++;
-        }
-        
-        x.on('click', one).on('click', two).un('click', one).fire('click');
-        equals(fired, 1);
-      });
-		  
-      should('not bubble custom events if stopping propagation', function () {
-        var parent = x[0].parentNode,
-            fired = 0;
-        function incfired() {
-          fired++;
-        }
-        x$(parent).on('custom', incfired);
-        x.on('custom', incfired).fire('custom');
-             equals(fired, 2);
-      });
-		});
-		
-</script>
 </body>
 </html>
