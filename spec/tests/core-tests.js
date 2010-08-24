@@ -1,6 +1,22 @@
 function CoreTests() { return this; };
 CoreTests.prototype.run = function () {
     // ---
+    /// base.js specs
+    // ---
+    
+    module("Traversal with find method", {
+        setup:function() {
+			x = x$('#find_tests_inner').find('.foo');
+        },
+        teardown:function() {
+            x = null;
+        }
+    });
+        test( 'should properly set the context', function(){
+            equals(x[0].innerHTML, 'second');
+        });
+
+    // ---
     /// dom.js specs
     // ---
     
@@ -157,6 +173,13 @@ CoreTests.prototype.run = function () {
         test( 'should return false when element does not have the specified class', function(){
             equals(x.hasClass('zug'), false, 'Element with id "has-class-element" should not have the class "zug"');
         });
+		
+		test('should return false when the selector matches zero elements', function () {
+			var y = x$('#this-should-never-exist-in-the-dom');
+			equals(y.length, 0);
+			equals(y.hasClass('bar'), false);
+		});
+
     // --
     /// dom specs
     // --

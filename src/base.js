@@ -75,7 +75,7 @@ xui.fn = xui.prototype = {
               } else {
                   // one selector, check if Sizzle is available and use it instead of querySelectorAll.
                   if (window.Sizzle !== undefined) {
-                    ele = Sizzle(q);
+                    ele = Sizzle(q, context);
                   } else {
                     ele = context.querySelectorAll(q);
                   }

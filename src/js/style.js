@@ -158,7 +158,7 @@ xui.extend({
     hasClass: function(className, callback) {
         return (callback === undefined && this.length == 1) ?
             hasClass(this[0], className) :
-            this.each(function(el) {
+            this.length && this.each(function(el) {
                 if (hasClass(el, className)) {
                     callback(el);
                 }
