@@ -173,6 +173,13 @@ CoreTests.prototype.run = function () {
         test( 'should return false when element does not have the specified class', function(){
             equals(x.hasClass('zug'), false, 'Element with id "has-class-element" should not have the class "zug"');
         });
+		
+		test('should return false when the selector matches zero elements', function () {
+			var y = x$('#this-should-never-exist-in-the-dom');
+			equals(y.length, 0);
+			equals(y.hasClass('bar'), false);
+		});
+
     // --
     /// dom specs
     // --
