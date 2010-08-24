@@ -161,7 +161,7 @@ CoreTests.prototype.run = function () {
     /// dom specs
     // --
 
-    module( "Dom.html", {
+    module( "DOM", {
         setup:function() {
             inner  = x$('#html-test-inner');
             outer  = x$('#html-test-outer');
@@ -242,6 +242,14 @@ CoreTests.prototype.run = function () {
         test('should properly insert Number-type elements using .html()', function() {
             h.html(1);
             equals(h[0].innerHTML, "1");
+        });
+        
+        test('.attr()', function() {
+            var checkbox = x$('#first-check');
+            checkbox.attr('checked',true);
+            equals(checkbox[0].checked, true, 'Should be able to check a checkbox-type input element');
+            checkbox.attr('checked',false);
+            equals(checkbox[0].checked, false, 'Should be able to un-check a checkbox-type input element');
         });
 
     // --

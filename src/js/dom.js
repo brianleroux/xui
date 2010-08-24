@@ -99,7 +99,7 @@ xui.extend({
     attr: function(attribute, val) {
         if (arguments.length == 2) {
             return this.each(function(el) {
-                el.setAttribute(attribute, val);
+                (attribute=='checked'&&(val==''||val==false||typeof val=="undefined"))?el.removeAttribute(attribute):el.setAttribute(attribute, val);
             });
         } else {
             var attrs = [];
