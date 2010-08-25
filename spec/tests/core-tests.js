@@ -4,8 +4,10 @@ CoreTests.prototype.run = function () {
     /// base.js specs
     // ---
     
-    module("xui base.js", {
-        setup:function() {},
+    module("xui base", {
+        setup:function() {
+            x = x$('ul#has_tests li');
+        },
         teardown:function() {
             x = null;
         }
@@ -13,6 +15,12 @@ CoreTests.prototype.run = function () {
         test( '.find()', function(){
             x = x$('#find_tests_inner').find('.foo');
             equals(x[0].innerHTML, 'second', 'Should set context properly and limit tree searches to base xui object');
+        });
+        test( '.has()', function(){
+            equals(x.has(".foo").length, 2, 'Should return number of elements after including a specific class as defined in markup');
+        });
+        test( '.not()', function(){
+            equals(x.not(".foo").length, 3, 'Should return number of elements after omitting a specific class as defined in markup');
         });
 
     // ---
@@ -25,57 +33,31 @@ CoreTests.prototype.run = function () {
             x = null;
         }
     });
-        test( 'ID string selector', function(){
+        test( 'ID selector', function(){
             x = x$('#item_1');
             equals(x.length, 1, 'Should return non-zero length array for existing elements with specified ID');
             equals(x[0].innerHTML, 'this is item one', 'Should contain innerHTML as exists in markup');
             x = x$('#idontthinkthisitemexists');
             equals(x.length, 0, 'Should return a zero length array for non-existing elements');
         });
-        test('Class string selector', function() {
+        test('Class selector', function() {
             x = x$(".item");
             equals(x.length, 3, 'Should return number of elements with class the proper specified class');
             equals(x[0].innerHTML, 'this is item one', 'Should have text as specified in markup');
             equals(x[x.length -1].innerHTML, 'this is item three', 'Should have text as specified in markup');
         });
-
-    module( "Selector by element reference", {
-        setup:function() {
+        test('Element reference selector', function() {
             el = document.getElementById("item_1"),
             x = x$(el);
-        },
-        teardown:function() {
-            el = null, x = null;
-        }
-    });
-        test( 'should return array with one element', function(){
-            equals(x.length, 1);
+            equals(x.length, 1, 'Should return array with one element');
+            equals(x[0].innerHTML, 'this is item one', 'Should have proper text as defined in page markup');
+            el = null;
         });
-
-        test( 'should have text "this is item one" in first element.', function(){
-            equals(x[0].innerHTML, 'this is item one');
-        });
-    
-    module( "Selector by non-existent tag name string");
-        test( 'should return an empty array', function(){
-            var x = x$("item_1");
-            equals(x.length, 0);
-        });
-
-    module( ".has() and .not()", {
-        setup:function() {
-            x = x$('ul#has_tests li');
-        },
-        teardown:function() {
-            x = null;
-        }
-    });
-        test( 'should return two elements after including class foo.', function(){
-            equals(x.has(".foo").length, 2);
-        });
-
-        test( 'should return three elements after omitting class foo.', function(){
-            equals(x.not(".foo").length, 3);
+        test('Tag name selector', function() {
+            x = x$("item_1");
+            equals(x.length, 0, 'Non-existent tag name should return xui object with length 0');
+            x = x$('li');
+            ok(x.length > 0, 'Should return plenty of elements by tag name if elements are present in markup');
         });
 
     // ---
