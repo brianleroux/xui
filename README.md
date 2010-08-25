@@ -6,11 +6,13 @@ A lightweight, dead simple, microtiny, super modular JavaScript framework for bu
 
 ### XUI Application Authors and Hackers
 
-Its true: the minified code is _super tiny_. You can find more information, downloads and documentation at http://xuijs.com ---if you want to build your own custom XUI or help contribute: please read on!
+Its true: the minified code is _super tiny_. You can find more information, downloads and documentation at http://xuijs.com (be warned: out of date!) ---if you want to build your own custom XUI or help contribute: please read on! The best documentation is in the source and the tests.
 
 ### XUI Contributors and Hackers
 
-To get the full source you need to use Git. _git clone_ the repo (as per usual) and then pull in the dependencies via _git submodule init_ and _git submodule update_. To build xui run use _build.sh_ or _build.bat_. There are other tasks for code minification, running the specs and generating docs. 
+To get the full source you need to use Git. _git clone_ the repo (as per usual) and then pull in the dependencies via _git submodule init_ and _git submodule update_. To build xui, run _build_. There are other tasks for code minification or building particular versions of XUI, for specific platforms:
+    _build profile=bb_ - Builds a version of XUI for BlackBerries (uses Sizzle as the selector engine).
+    _build profile=ie_ - Builds a version of XUI for Internet Explorer
 
 ### Source Tree
 
@@ -20,51 +22,31 @@ To get the full source you need to use Git. _git clone_ the repo (as per usual) 
 	 |-src
 	 | |-base.js ................ bare essentials for dom node retrieval
 	 | |
-	 | |-core ................... essentials:
+	 | |-js ................... essentials:
 	 | | |-dom.js ............... - dom node manipulation
 	 | | |-event.js ............. - event subscribe/publish
 	 | | |-fx.js ................ - animation
 	 | | |-style.js ............. - css hackery
 	 | | '-xhr.js ............... - remoting
 	 | |
-	 | |-more ................... extras (yagni unless ygni)
-	 | | |-base.js  
-	 | | |-dom.js  	
-	 | | |-event.js	
-	 | | |-form.js .............. form handlers, serialization
-	 | | |-fx.js	
-	 | | |-xhr.js  
-	 | | '-json.js .............. json utilities
-	 | |
 	 | '-IE
-	 |   |-core
-	 |   | |-dom.js
-	 |   | |-event.js
-	 |   | '-style.js
-	 |   | 
-	 |   '-more
-	 |     '-event.js
+	 |   |-dom.js
+	 |   |-event.js
+	 |   |-style.js
 	 |
 	 |-spec ..................... the spec
-	 | |-core.html
-	 | '-more.html
+	 | |-index.html
 	 | 
 	 |-packages ................. 3rd party libs utilized by XUI (gitsubmodules)
 	 | |-qunit .................. - awesome async friendly test lib by John Resig
-	 | |-shoulda-js ............. - bdd sugar for qunit with mobile friendly output
 	 | |-emile .................. - amazing tiny effects lib by Thomas Fuchs
 	 | |-sizzle ................. - kickass selector engine that powers jQuery, also by John Resig. Used optionally for builds geared for BlackBerries.
 	 | '-split.js ............... - override IE bad implementation of String.split
 	 |
-	 |-lib ...................... build directory (not in version control)
-	 | |-xui-core-1.0.0.js
-	 | |-xui-more-1.0.0.js
-	 | |-xui-bb-1.0.0.js
-	 | |-xui-ie-1.0.0.js
-	 | |-xui-core-min-1.0.0.js
-	 | |-xui-more-min-1.0.0.js
-	 | |-xui-bb-min-1.0.0.js
-	 | '-xui-ie-min-1.0.0.js
+	 |-lib ...................... build directory (not in version control, use the build script in repository root to build these versions of xui)
+	 | |-xui.js ................ "stock" XUI - optimized for standards-friendly browsers, i.e. webkit
+	 | |-xui-bb.js ............. BlackBerry-compatible version of XUI
+	 | '-xui-ie.js ............... Internet Explorer-compatible version of XUI
 	 | 
 	 '-util .................... utils for minification, obfuscation, verification
 
