@@ -131,7 +131,7 @@ xui.extend({
     },
     /**
 	 *
-	 * Checks to see if classname is one the element. If a callback isn't passed, hasClass expects only one element in collection
+	 * Checks to see if classname is one the element. If a callback isn't passed, hasClass expects only one element in collection - but should it?
 	 * 
 	 * @param {String} className The class name.
 	 * @param {Function} callback A callback function (optional)
@@ -156,13 +156,17 @@ xui.extend({
 	 *
 	 */
     hasClass: function(className, callback) {
-        return (callback === undefined && this.length == 1) ?
-            hasClass(this[0], className) :
-            this.length && this.each(function(el) {
-                if (hasClass(el, className)) {
-                    callback(el);
-                }
-            });
+        var self = this;
+        return this.length && (function() {
+                var hasIt = false;
+                self.each(function(el) {
+                    if (hasClass(self[0], className)) {
+                        hasIt = true;
+                        if (callback) callback(el);
+                    }
+                });
+                return hasIt;
+            })();
     },
 
     /**

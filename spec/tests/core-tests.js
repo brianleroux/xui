@@ -4,53 +4,39 @@ CoreTests.prototype.run = function () {
     /// base.js specs
     // ---
     
-    module("Traversal with find method", {
-        setup:function() {
-			x = x$('#find_tests_inner').find('.foo');
-        },
+    module("xui base.js", {
+        setup:function() {},
         teardown:function() {
             x = null;
         }
     });
-        test( 'should properly set the context', function(){
-            equals(x[0].innerHTML, 'second');
+        test( '.find()', function(){
+            x = x$('#find_tests_inner').find('.foo');
+            equals(x[0].innerHTML, 'second', 'Should set context properly and limit tree searches to base xui object');
         });
 
     // ---
     /// dom.js specs
     // ---
     
-    module("Selectors by id string", {
-        setup:function() {
-            x = x$('#item_1');
-        },
+    module("Selectors", {
+        setup:function() {},
         teardown:function() {
             x = null;
         }
     });
-        test( 'should return non-zero length array', function(){
-            equals(x.length, 1);
+        test( 'ID string selector', function(){
+            x = x$('#item_1');
+            equals(x.length, 1, 'Should return non-zero length array for existing elements with specified ID');
+            equals(x[0].innerHTML, 'this is item one', 'Should contain innerHTML as exists in markup');
+            x = x$('#idontthinkthisitemexists');
+            equals(x.length, 0, 'Should return a zero length array for non-existing elements');
         });
-        test( 'first element should have text "this is item one"', function(){
-          equals(x[0].innerHTML, 'this is item one');
-        });
-        
-    module( "Selector by class string", {
-        setup:function() {
+        test('Class string selector', function() {
             x = x$(".item");
-        },
-        teardown:function() { 
-            x = null;
-        }
-    });
-        test( 'should return array of length equal to number of elements with the class', function(){
-            equals(x.length, 3, 'Should return 3 elements with class "item"');
-        });
-        test( 'should have text "this is item one" in first element.', function(){
-            equals(x[0].innerHTML, 'this is item one');
-        });
-        test( 'should have text "this is item three" in last element', function(){
-            equals(x[x.length -1].innerHTML, 'this is item three');
+            equals(x.length, 3, 'Should return number of elements with class the proper specified class');
+            equals(x[0].innerHTML, 'this is item one', 'Should have text as specified in markup');
+            equals(x[x.length -1].innerHTML, 'this is item three', 'Should have text as specified in markup');
         });
 
     module( "Selector by element reference", {
