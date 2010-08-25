@@ -4,7 +4,7 @@ CoreTests.prototype.run = function () {
     /// base.js specs
     // ---
     
-    module("xui base", {
+    module("xui base (base.js)", {
         setup:function() {
             x = x$('ul#has_tests li');
         },
@@ -27,7 +27,7 @@ CoreTests.prototype.run = function () {
     /// dom.js specs
     // ---
     
-    module("Selectors", {
+    module("Selectors (base.js)", {
         setup:function() {},
         teardown:function() {
             x = null;
@@ -54,6 +54,7 @@ CoreTests.prototype.run = function () {
             el = null;
         });
         test('Tag name selector', function() {
+            expect(2);
             x = x$("item_1");
             equals(x.length, 0, 'Non-existent tag name should return xui object with length 0');
             x = x$('li');
@@ -64,20 +65,7 @@ CoreTests.prototype.run = function () {
     /// style.js specs
     // ---
 
-    module("Style.setStyle", {
-        setup:function() {
-            e = x$('#set-style-element');
-        },
-        teardown:function() {
-            e = null;
-        }
-    });
-        test( 'should be able to change styles like backgroundColor', function(){
-            e.setStyle('background-color', '#008000');
-            ok(e[0].style.backgroundColor == 'rgb(0, 128, 0)' || e[0].style.backgroundColor == '#008000', 'backgroundColor style property should be set to specified value');
-        });
-
-    module( "Style.getStyle", {
+    module("Style (style.js)", {
         setup:function() {
             e = x$('#get-style-element');
         },
@@ -85,68 +73,61 @@ CoreTests.prototype.run = function () {
             e = null;
         }
     });
-        asyncTest( 'should return proper style value when callback function is used', function(){
-            expect(1);
+        test( '.getStyle()', function(){
+            expect(3);
+            var style = e.getStyle('background-color').toLowerCase();
+            ok(style == 'rgb(0, 0, 255)' || style == '#0000ff', 'Should return proper style');
+            var styletwo = e.getStyle('backgroundColor').toLowerCase();
+            ok(styletwo == 'rgb(0, 0, 255)' || styletwo == '#0000ff', 'Should return proper style');
+            stop();
             e.getStyle('background-color', function(v){
                 v = v.toLowerCase();
-                ok(v == 'rgb(0, 0, 255)' || v == '#0000ff', 'background-color style property should return blue in callback, returned "' + v + '"');
+                ok(v == 'rgb(0, 0, 255)' || v == '#0000ff', 'Should return proper style in callback function');
                 start();
             });
         });
-
-        test( 'should return proper style even if no function passed', function(){
-            var style = e.getStyle('background-color').toLowerCase();
-            ok(style == 'rgb(0, 0, 255)' || style == '#0000ff', 'background-color style property should return blue, returned "' + style + '"');
+        test( '.setStyle()', function(){
+            expect(2);
+            e.setStyle('background-color', '#008000');
+            ok(e[0].style.backgroundColor == 'rgb(0, 128, 0)' || e[0].style.backgroundColor == '#008000', 'Should be able to change styles via background-color');
+            e.setStyle('backgroundColor', '#800000');
+            ok(e[0].style.backgroundColor == 'rgb(128, 0, 0)' || e[0].style.backgroundColor == '#800000', 'Should be able to change styles via backgroundColor');
         });
-
-    module( "Style.addClass");
-        test( 'should add a class to an element.', function(){
+        test( '.addClass()', function(){
+            expect(2);
             var x = x$('#add-class-element');
             x.addClass('foo');
-            equals(x[0].className, "foo");
+            equals(x[0].className, "foo", 'Should properly add class to an element with no existing classes');
+            x.addClass('bar');
+            equals(x[0].className, "foo bar", 'Should properly add class to an element with an existing class');
         });
-
-    module( "Style.removeClass", {
-        setup:function() {
-            x = x$('#remove-class-element');
+        test('.removeClass()', function() {
+            expect(3);
+            var x = x$('#remove-class-element');
             x.removeClass('bar');
-            classes = x[0].className.split(' ');
-        },
-        teardown:function() {
-            x = null, classes = null;
-        }
-    });
-        test( 'should remove a class from an element' ,function(){
-            expect(1);
-            ok(classes.indexOf('bar') == -1, 'Class "bar" should not be present in element\'s className');
+            var classes = x[0].className.split(' ');
+            ok(classes.indexOf('bar') == -1, 'Should remove a class from an element');
+            ok(classes.indexOf('foo') > -1,  'Should keep surrounding classes intact');
+            ok(classes.indexOf('baz') > -1,  'Should keep surrounding classes intact');
         });
-        test( 'should keep surrounding classes intact', function() {
-            expect(2);
-            ok(classes.indexOf('foo') > -1, 'Class "foo" should still be present in element\'s className');
-            ok(classes.indexOf('baz') > -1, 'Class "baz" should still be present in element\'s className');
+        test('.hasClass()', function() {
+            var x = x$('#has-class-element');
+            ok(x.hasClass('bar'), 'Should return true when element has specified class');
+            equals(x.hasClass('zug'), false, 'Should return false when element does not have the specified class');
+            
+            var y = x$('#this-should-never-exist-in-the-dom');
+            equals(y.hasClass('bar'), false, 'Should return false when the selector matches zero elements');
+            
+            var z = x$('#style_tests').find('p');
+            var numFound = 0;
+            stop();
+            z.hasClass('foo', function(el) {
+                numFound++;
+                ok(el.className.indexOf('foo') > -1, 'Callback function element parameter should always contain specified class');
+                if (numFound > 2) start();
+            });
+            equals(numFound, x$('#style_tests').find('.foo').length, 'Should invoke callback function properly for every item with matching class');
         });
-
-    module( "Style.hasClass", {
-        setup:function() {
-            x = x$('#has-class-element');
-        },
-        teardown:function() {
-            x = null;
-        }
-    });
-        test( 'should return true when element has specified class', function(){
-            equals(x.hasClass('bar'), true, 'Element with id "has-class-element" should have class "bar"');
-        });
-
-        test( 'should return false when element does not have the specified class', function(){
-            equals(x.hasClass('zug'), false, 'Element with id "has-class-element" should not have the class "zug"');
-        });
-		
-		test('should return false when the selector matches zero elements', function () {
-			var y = x$('#this-should-never-exist-in-the-dom');
-			equals(y.length, 0);
-			equals(y.hasClass('bar'), false);
-		});
 
     // --
     /// dom specs

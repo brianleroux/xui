@@ -160,7 +160,7 @@ xui.extend({
         return this.length && (function() {
                 var hasIt = false;
                 self.each(function(el) {
-                    if (hasClass(self[0], className)) {
+                    if (hasClass(el, className)) {
                         hasIt = true;
                         if (callback) callback(el);
                     }
