@@ -76,9 +76,9 @@ CoreTests.prototype.run = function () {
         test( '.getStyle()', function(){
             expect(3);
             var style = e.getStyle('background-color').toLowerCase();
-            ok(style == 'rgb(0, 0, 255)' || style == '#0000ff', 'Should return proper style');
+            ok(style == 'rgb(0, 0, 255)' || style == '#0000ff', 'Should return proper style via CSS style name');
             var styletwo = e.getStyle('backgroundColor').toLowerCase();
-            ok(styletwo == 'rgb(0, 0, 255)' || styletwo == '#0000ff', 'Should return proper style');
+            ok(styletwo == 'rgb(0, 0, 255)' || styletwo == '#0000ff', 'Should return proper style via DOM style name');
             stop();
             e.getStyle('background-color', function(v){
                 v = v.toLowerCase();
@@ -133,7 +133,7 @@ CoreTests.prototype.run = function () {
     /// dom specs
     // --
 
-    module( "DOM", {
+    module( "DOM (dom.js)", {
         setup:function() {
             inner  = x$('#html-test-inner');
             outer  = x$('#html-test-outer');
@@ -145,78 +145,76 @@ CoreTests.prototype.run = function () {
             inner = null, outer = null, topTest = null, bottom = null, h = null;
         }
     });
-        test( 'Inserting html "after" should create a new sibling element following selected element', function() {
+        test( 'Inserting html "after"', function() {
+            expect(2);
             h.html('after', '<div>after</div>');
-            equals(h[0].nextSibling.innerHTML, 'after', 'Next sibling element should contain text "after"');
-            equals(h[0].nextSibling.tagName.toLowerCase(), 'div', 'Next sibling element should have tagName "div"');
+            equals(h[0].nextSibling.innerHTML, 'after', 'New next sibling element should be created');
+            h.after('<div>after again</div>');
+            equals(h[0].nextSibling.innerHTML, 'after again', 'Using shortcut .after(), new next sibling element should be created');
         });
 
-        test( 'Inserting html "before" should create a new sibling element preceding selected element', function() {
+        test( 'Inserting html "before"', function() {
+            expect(2);
             h.html('before', '<div>before</div>');
-            equals(h[0].previousSibling.innerHTML, 'before', 'Previous sibling element should contain text "before"');
-            equals(h[0].previousSibling.tagName.toLowerCase(), 'div', 'Previous sibling element should have tagName "div"');
+            equals(h[0].previousSibling.innerHTML, 'before', 'Previous sibling element should be created');
+            h.before('<div>before again</div>');
+            equals(h[0].previousSibling.innerHTML, 'before again', 'Using shortcut .before(), previous sibling element should be created');
         });
 
-        test( 'Inserting html into an element via "inner" should work :)', function(){
+        test( 'Inserting html via "inner"', function(){
+            expect(2);
             inner.html('inner', '<p>hello world</p>');
-            equals(inner[0].childNodes[0].tagName.toLowerCase(), 'p', 'Element should have childNode whose tagName is "p"'); 
-            equals(inner[0].childNodes[0].innerHTML, 'hello world', 'Element should have childNode whose contents is "hello world"'); 
+            equals(inner[0].childNodes[0].innerHTML, 'hello world', 'Element should have childNode with proper content'); 
+            inner.inner('<p>hello inner</p>');
+            equals(inner[0].childNodes[0].innerHTML, 'hello inner', 'Using shortcut .inner(), element should have childNode with proper content'); 
         });
 
         test( 'Inserting html via "outer"', function(){
-            outer.html('outer', '<div id="html-test-outer">sneaky</div>');
-            equals(document.getElementById('html-test-outer').innerHTML, 'sneaky'); 
+            expect(2);
+            outer.html('outer', '<div id="html-test-new-outer">sneaky</div>');
+            equals(document.getElementById('html-test-new-outer').innerHTML, 'sneaky', 'Outer should replace the element and have specified content');
+            equals(document.getElementById('html-test-outer'), null, 'Selected element should be gone if replaced with element with different ID');
         });
-
-        test( 'Inserting html into the "top" of an element should insert element at the head of childNode', function(){
+        test( 'Inserting html via "top"', function(){
+            expect(2);
+            var numOriginalElements = topTest[0].childNodes.length;
             topTest.html('top', '<div>come out on top</div>');
-            equals(topTest[0].childNodes[0].tagName.toLowerCase(), 'div', '"top"-inserted element should have tagName "div"'); 
-            equals(topTest[0].childNodes[0].innerHTML, 'come out on top', '"top"-inserted element should contain text "come out on top"'); 
-            ok(topTest[0].childNodes.length == 2, 'Existing element inside selected element should remain after a "top" insertion.');
+            equals(topTest[0].childNodes[0].innerHTML, 'come out on top', 'Should create a new element at head of element\'s childNodes'); 
+            equals(topTest[0].childNodes.length, numOriginalElements+1, 'Existing element inside selected element should remain after a "top" insertion');
         });
-
-        test( 'Inserting html into the "bottom" of an element should append the element to childNode', function(){
+        test( 'Inserting html via "bottom"', function(){
+            var numOriginalElements = bottom[0].childNodes.length;
             bottom.html('bottom', '<div>undertow</div>');
-            var last = bottom[0].childNodes.length - 1;
-            equals(bottom[0].childNodes[last].tagName.toLowerCase(), 'div', '"bottom"-inserted element should have tagName "div"'); 
-            equals(bottom[0].childNodes[last].innerHTML, 'undertow', '"bottom"-inserted element should contain text "undertow"'); 
-            ok(bottom[0].childNodes.length == 2, 'Existing element inside selected element should remain after a "bottom" insertion.');
-        });
-        
-        test('Inserting multiple HTML items into the "bottom" of an element should append the elements to childNode', function () {
-            var childNodesAtStart = bottom[0].childNodes.length;
+            equals(bottom[0].childNodes[numOriginalElements].innerHTML, 'undertow', 'Should create a new element at tail of element\'s childNodes'); 
+            equals(bottom[0].childNodes.length, numOriginalElements+1, 'Existing element inside selected element should remain after a "bottom" insertion');
+            numOriginalElements = bottom[0].childNodes.length;
             var numerousItems = '' +
               '<a href="#1" class="link_o">one link</a>' +
               '<a href="#2" class="link_o">two link</a>' +
               '<a href="#3" class="link_o">three link</a>';
             bottom.html('bottom', numerousItems);
-            ok(bottom[0].childNodes.length == (childNodesAtStart + 3), 'Three extra child nodes should have been appended to the element.');
+            equals(bottom[0].childNodes.length, numOriginalElements + 3, 'Should append numerous elements when passed as string');
         });
-        
-        test( 'should return innerHTML of element when called with no arguments', function(){
-            equals(h.html(), h[0].innerHTML);
-        });
-        
-        test( 'should insert list items with newlines', function(){
-          var newListItem = "<li>\nHello\n</li>";
-          x$("#html-list-test").html('bottom', newListItem);
-          equals(x$("#html-list-test")[0].innerHTML.toLowerCase(), newListItem.toLowerCase());
-        });
-        
-        test('should insert complex DOM elements', function () {
-          // putting attributes with empty strings since safari does it anyway
-          // i.e. 'controls' becomes 'controls=""'
-          var myVideo = '<video src="myAwesomeVideo.mp4" id="my_video" autobuffer="" controls=""></video>';
-          x$("#html-complex-test").html('inner', myVideo);
-          equals(x$("#html-complex-test")[0].innerHTML, myVideo);
-        })
-        
-        test('should properly insert Number-type elements using .html()', function() {
+        test( '.html()', function(){
+            expect(4);
+            equals(h.html(), h[0].innerHTML, 'Should return innerHTML when called with no arguments');
+            
+            var newListItem = "<li>\nHello\n</li>";
+            x$("#html-list-test").html('bottom', newListItem);
+            equals(x$("#html-list-test")[0].innerHTML.toLowerCase(), newListItem.toLowerCase(), 'Should keep newline characters after an insertion');
+            
             h.html(1);
-            equals(h[0].innerHTML, "1");
+            equals(h[0].innerHTML, "1", 'Should properly insert Number-type content');
+            
+            // putting attributes with empty strings since safari does it anyway
+            // i.e. 'controls' becomes 'controls=""'
+            var myVideo = '<video src="myAwesomeVideo.mp4" id="my_video" autobuffer="" controls=""></video>';
+            x$("#html-complex-test").html('inner', myVideo);
+            equals(x$("#html-complex-test")[0].innerHTML, myVideo, 'Should properly insert complex DOM elements (like a video tag)');
         });
         
         test('.attr()', function() {
+            expect(2);
             var checkbox = x$('#first-check');
             checkbox.attr('checked',true);
             equals(checkbox[0].checked, true, 'Should be able to check a checkbox-type input element');
@@ -228,7 +226,7 @@ CoreTests.prototype.run = function () {
     /// xhr specs
     // --
 
-    module( "XHR.function", {
+    module( "Remoting (xhr.js)", {
         setup:function() {
             x = x$('#xhr-test-function');
         },
@@ -237,11 +235,12 @@ CoreTests.prototype.run = function () {
             x = null;
         }
     });
-        test( 'Should insert partial into element', function(){
+        test( 'Synchronous XHRs', function(){
+            expect(1);
             x.xhr("helpers/example.html");
-            equals(x[0].innerHTML.toLowerCase(), '<h1>this is a html partial</h1>');
+            equals(x[0].innerHTML.toLowerCase(), '<h1>this is a html partial</h1>', 'Should insert partial into element');
         });
-        asyncTest( 'Should call callback function defined in options properly', function() {
+        asyncTest( 'Asynchronous XHRs', function() {
             expect(2);
             x.xhr("helpers/example.html", {
                 callback:function() {
@@ -256,7 +255,7 @@ CoreTests.prototype.run = function () {
     /// fx specs
     // --
 
-    module( "Fx.tween", {
+    module( "Effects (fx.js)", {
         setup:function() {
             x = x$('#square');
         },
@@ -271,16 +270,10 @@ CoreTests.prototype.run = function () {
                 x = null;
         }
     });
-        asyncTest( 'Should call callback function following tween', function() {
-            expect(1);
+        asyncTest( '.tween()', function() {
+            expect(2);
             x.tween({left:'100px'}, function() {
                 ok(true, 'Callback should be called following tween');
-                start();
-            });
-        });
-        asyncTest( 'Should be able to tween position properties', function() {
-            expect(1);
-            x.tween({left:'100px'}, function() {
                 equals(x[0].style.left,'100px', 'Tweened property should be set to final value as specified in tween call');
                 start();
             });
