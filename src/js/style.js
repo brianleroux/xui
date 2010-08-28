@@ -200,7 +200,7 @@ xui.extend({
         } else {
             var re = getClassRegEx(className);
             this.each(function(el) {
-                el.className = el.className.replace(re, '$1');
+                el.className = trim(el.className.replace(re, '$1'));
             });
         }
         return this;
