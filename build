@@ -7,7 +7,7 @@ profile_matcher = /^profile=(.*)$/
 profile_path = "util/profiles/"
 # defaults
 profile = "core"
-minify = true
+minify = false
 
 $*.each do |arg|
   minify = true if arg == "--minify"
