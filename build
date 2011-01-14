@@ -7,7 +7,7 @@ profile_matcher = /^profile=(.*)$/
 profile_path = "util/profiles/"
 # defaults
 profile = "core"
-minify = false
+minify = true
 
 $*.each do |arg|
   minify = true if arg == "--minify"
@@ -22,7 +22,7 @@ hash = YAML.load_file "#{ profile_path }#{ profile }.js"
 hash["include"].each do |include|
   # a bit of overhead since not all files end in a newline
   `cat #{ include }.js >> #{ hash["out"] }`
-  `echo. >> #{ hash["out"] }`
+  `echo >> #{ hash["out"] }`
 end
 
 if minify
